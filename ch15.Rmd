@@ -1,0 +1,1348 @@
+Getting Your Data into Shape {#CHAPTER_DATAPREP}
+============================
+
+When it comes to making graphs, half the battle occurs before you call
+any graphing commands. Before you pass your data to the graphing
+functions, it must first be read in and given the correct structure. The
+data sets provided with R are ready to use, but when dealing with
+real-world data, this usually isnRSQUOt the case: youRSQUOll have to
+clean up and restructure the data before you can visualize it.
+
+Data sets in R are most often stored in data frames. TheyRSQUOre
+typically used as two-dimensional data structures, with each row
+representing one case and each column representing one variable. Data
+frames are essentially lists of vectors and factors, all of the same
+length, where each vector or factor represents one column.
+
+HereRSQUOs the heightweight data set:
+
+library(gcookbook) \# For the data set heightweight
+sex ageYear ageMonth heightIn weightLb f 11.92 143 56.3 85.0 f 12.92 155
+62.3 105.0 ... m 13.92 167 62.0 107.5 m 12.58 151 59.3 87.0
+It consists of five columns, with each row representing one case: a set
+of information about a single person. We can get a clearer idea of how
+itRSQUOs structured by using the str() function:
+
+str(heightweight)
+'data.frame': 236 obs. of 5 variables: \$ sex : Factor w/ 2 levels
+"f","m": 1 1 1 1 1 1 1 1 1 1 ... \$ ageYear : num 11.9 12.9 12.8 13.4
+15.9 ... \$ ageMonth: int 143 155 153 161 191 171 185 142 160 140 ... \$
+heightIn: num 56.3 62.3 63.3 59 62.5 62.5 59 56.5 62 53.8 ... \$
+weightLb: num 85 105 108 92 112 ...
+The first column, sex, is a factor with two levels, "f" and "m", and the
+other four columns are vectors of numbers (one of them, ageMonth, is
+specifically a vector of integers, but for the purposes here, it behaves
+the same as any other numeric vector).
+
+Factors and character vectors behave similarly in ggplot2—the main
+difference is that with character vectors, items will be displayed in
+lexicographical order, but with factors, items will be displayed in the
+same order as the factor levels, which you can control.
+
+Creating a Data Frame {#RECIPE_DATAPREP_CREATE_DATAFRAME}
+---------------------
+
+### Problem {#_problem_137}
+
+You want to create a data frame from vectors.
+
+### Solution {#_solution_137}
+
+You can put vectors together in a data frame with data.frame():
+
+\# Two starting vectors g &lt;- c("A", "B", "C") x &lt;- 1:3 dat &lt;-
+data.frame(g, x) dat
+g x A 1 B 2 C 3
+### Discussion {#_discussion_129}
+
+A data frame is essentially a list of vectors and factors. Each vector
+or factor can be thought of as a column in the data frame.
+
+If your vectors are in a list, you can convert the list to a data frame
+with the as.data.frame() function:
+
+```{r}
+lst <- list(group = g, value = x)    # A list of vectors
+
+dat <- as.data.frame(lst)
+```
+
+Getting Information About a Data Structure {#RECIPE_DATAPREP_INFO_DATA}
+------------------------------------------
+
+### Problem {#_problem_138}
+
+You want to find out information about an object or data structure.
+
+### Solution {#_solution_138}
+
+Use the str() function:
+
+str(ToothGrowth)
+'data.frame': 60 obs. of 3 variables: \$ len : num 4.2 11.5 7.3 5.8 6.4
+10 11.2 11.2 5.2 7 ... \$ supp: Factor w/ 2 levels "OJ","VC": 2 2 2 2 2
+2 2 2 2 2 ... \$ dose: num 0.5 0.5 0.5 0.5 0.5 0.5 0.5 0.5 0.5 0.5 ...
+This tells us that ToothGrowth is a data frame with three columns, len,
+supp, and dose. len and dose contain numeric values, while supp is a
+factor with two levels.
+
+### Discussion {#_discussion_130}
+
+The str() functionis very useful for finding out more about data
+structures. One common source of problems is a data frame where one of
+the columns is a character vector instead of a factor, or vice versa.
+This can cause puzzling issues with analyses or graphs.
+
+When you print out a data frame the normal way, by just typing the name
+at the prompt and pressing Enter, factor and character columns appear
+exactly the same. The difference will be revealed only when you run
+str() on the data frame, or print out the column by itself:
+
+tg &lt;- ToothGrowth tg\$supp &lt;- as.character(tg\$supp) str(tg)
+'data.frame': 60 obs. of 3 variables: \$ len : num 4.2 11.5 7.3 5.8 6.4
+10 11.2 11.2 5.2 7 ... \$ supp: chr "VC" "VC" "VC" "VC" ... \$ dose: num
+0.5 0.5 0.5 0.5 0.5 0.5 0.5 0.5 0.5 0.5 ...
+\# Print out the columns by themselves \# From old data frame (factor)
+ToothGrowth\$supp
+\[1\] VC VC VC VC VC VC VC VC VC VC VC VC VC VC VC VC VC VC VC VC VC VC
+VC VC VC \[26\] VC VC VC VC VC OJ OJ OJ OJ OJ OJ OJ OJ OJ OJ OJ OJ OJ OJ
+OJ OJ OJ OJ OJ OJ \[51\] OJ OJ OJ OJ OJ OJ OJ OJ OJ OJ Levels: OJ VC
+\# From new data frame (character) tg\$supp
+\[1\] "VC" "VC" "VC" "VC" "VC" "VC" "VC" "VC" "VC" "VC" "VC" "VC" "VC"
+"VC" "VC" \[16\] "VC" "VC" "VC" "VC" "VC" "VC" "VC" "VC" "VC" "VC" "VC"
+"VC" "VC" "VC" "VC" \[31\] "OJ" "OJ" "OJ" "OJ" "OJ" "OJ" "OJ" "OJ" "OJ"
+"OJ" "OJ" "OJ" "OJ" "OJ" "OJ" \[46\] "OJ" "OJ" "OJ" "OJ" "OJ" "OJ" "OJ"
+"OJ" "OJ" "OJ" "OJ" "OJ" "OJ" "OJ" "OJ"
+Adding a Column to a Data Frame {#RECIPE_DATAPREP_ADD_COL}
+-------------------------------
+
+### Problem {#_problem_139}
+
+You want to add a column to a data frame.
+
+### Solution {#_solution_139}
+
+Just assign some value to the new column.
+
+If you assign a single value to the new column, the entire column will
+be filled with that value. This adds a column named newcol, filled with
+NA:
+
+```{r}
+data$newcol <- NA
+```
+
+You can also assign a vector to the new column:
+
+```{r}
+data$newcol <- vec
+```
+
+If the length of the vector is less than the number of rows in the data
+frame, then the vector is repeated to fill all the rows.
+
+### Discussion {#_discussion_131}
+
+Each LDQUOcolumnRDQUO of a data frame is a vector or factor. R handles
+them slightly differently from standalone vectors, because all the
+columns in a data frame have the same length.
+
+Deleting a Column from a Data Frame {#RECIPE_DATAPREP_DELETE_COL}
+-----------------------------------
+
+### Problem {#_problem_140}
+
+You want to delete a column from a data frame.
+
+### Solution {#_solution_140}
+
+Assign NULL to that column:
+
+```{r}
+data$badcol <- NULL
+```
+
+### Discussion {#_discussion_132}
+
+You can also use the subset() function and put a - (minus sign) in front
+of the column(s) to drop:
+
+```{r}
+# Return data without badcol
+data <- subset(data, select = -badcol)
+
+# Exclude badcol and othercol
+data <- subset(data, select = c(-badcol, -othercol))
+```
+
+### See Also {#_see_also_88}
+
+[section\_title](#RECIPE_DATAPREP_SUBSET) for more on getting a subset
+of a data frame.
+
+Renaming Columns in a Data Frame {#RECIPE_DATAPREP_RENAME_COL}
+--------------------------------
+
+### Problem {#_problem_141}
+
+You want to rename the columns in a data frame.
+
+### Solution {#_solution_141}
+
+Use the names(dat) &lt;- function:
+
+```{r}
+names(dat) <- c("name1", "name2", "name3")
+```
+
+### Discussion {#_discussion_133}
+
+If you want to rename the columns by name:
+
+library(gcookbook) \# For the data set names(anthoming) \# Print the
+names of the columns
+"angle" "expt" "ctrl"
+names(anthoming)\[names(anthoming) == "ctrl"\] &lt;- c("Control")
+names(anthoming)\[names(anthoming) == "expt"\] &lt;- c("Experimental")
+names(anthoming)
+"angle" "Experimental" "Control"
+They can also be renamed by numeric position:
+
+names(anthoming)\[1\] &lt;- "Angle" names(anthoming)
+"Angle" "Experimental" "Control"
+Reordering Columns in a Data Frame {#RECIPE_DATAPREP_REORDER_COL}
+----------------------------------
+
+### Problem {#_problem_142}
+
+You want to change the order of columns in a data frame.
+
+### Solution {#_solution_142}
+
+To reorder columns by their numeric position:
+
+```{r}
+dat <- dat[c(1,3,2)]
+```
+
+To reorder by column name:
+
+```{r}
+dat <- dat[c("col1", "col3", "col2")]
+```
+
+### Discussion {#_discussion_134}
+
+The previous examples use list-style indexing. A data frame is
+essentially a list of vectors, and indexing into it as a list will
+return another data frame. You can get the same effect with matrix-style
+indexing:
+
+library(gcookbook) \# For the data set anthoming
+angle expt ctrl -20 1 0 -10 7 3 0 2 3 10 0 3 20 0 1
+anthoming\[c(1,3,2)\] \# List-style indexing
+angle ctrl expt -20 0 1 -10 3 7 0 3 2 10 3 0 20 1 0
+\# Putting nothing before the comma means to select all rows
+anthoming\[, c(1,3,2)\] \# Matrix-style indexing
+angle ctrl expt -20 0 1 -10 3 7 0 3 2 10 3 0 20 1 0
+In this case, both methods return the same result, a data frame.
+However, when retrieving a single column, list-style indexing will
+return a data frame, while matrix-style indexing will return a vector,
+unless you use drop=FALSE:
+
+anthoming\[3\] \# List-style indexing
+ctrl 0 3 3 3 1
+anthoming\[, 3\] \# Matrix-style indexing
+0 3 3 3 1
+anthoming\[, 3, drop=FALSE\] \# Matrix-style indexing with drop=FALSE
+ctrl 0 3 3 3 1
+Getting a Subset of a Data Frame {#RECIPE_DATAPREP_SUBSET}
+--------------------------------
+
+### Problem {#_problem_143}
+
+You want to get a subset of a data frame.
+
+### Solution {#_solution_143}
+
+Use the subset() function. It can be used to pull out rows that satisfy
+a set of conditions and to select particular columns.
+
+WeRSQUOll use the climate data set for the examples here:
+
+library(gcookbook) \# For the data set climate
+Source Year Anomaly1y Anomaly5y Anomaly10y Unc10y Berkeley 1800 NA NA
+-0.435 0.505 Berkeley 1801 NA NA -0.453 0.493 Berkeley 1802 NA NA -0.460
+0.486 ... CRUTEM3 2009 0.7343 NA NA NA CRUTEM3 2010 0.8023 NA NA NA
+CRUTEM3 2011 0.6193 NA NA NA
+The following will pull out only rows where Source is "Berkeley" and
+only the columns named Year and Anomaly10y:
+
+subset(climate, Source == "Berkeley", select = c(Year, Anomaly10y))
+Year Anomaly10y 1800 -0.435 1801 -0.453 1802 -0.460 ... 2002 0.856 2003
+0.869 2004 0.884
+### Discussion {#_discussion_135}
+
+It is possible to use multiple selection criteria, by using the | (OR)
+and &amp; (AND) operators. For example, this will pull out only those
+rows where source is "Berkeley", between the years 1900 and 2000:
+
+subset(climate, Source == "Berkeley" & Year &gt;= 1900 & Year &lt;=
+2000, select = c(Year, Anomaly10y))
+Year Anomaly10y 1900 -0.171 1901 -0.162 1902 -0.177 ... 1998 0.680 1999
+0.734 2000 0.748
+You can also get a subset of data by indexing into the data frame with
+square brackets, although this approach is somewhat less elegant. The
+following code has the same effect as the code we just saw. The part
+before the comma picks out the rows, and the part after the comma picks
+out the columns:
+
+```{r}
+climate[climate$Source=="Berkeley" & climate$Year >= 1900 & climate$Year <= 2000,
+        c("Year", "Anomaly10y")]
+```
+
+If you grab just a single column this way, it will be returned as a
+vector instead of a data frame. To prevent this, use drop=FALSE, as in:
+
+```{r}
+climate[climate$Source=="Berkeley" & climate$Year >= 1900 & climate$Year <= 2000,
+        c("Year", "Anomaly10y"), drop=FALSE]
+```
+
+Finally, itRSQUOs also possible to pick out rows and columns by their
+numeric position. This gets the second and fifth columns of the first
+100 rows:
+
+```{r}
+climate[1:100, c(2, 5)]
+```
+
+I generally recommend indexing using names rather than numbers when
+possible. It makes the code easier to understand when youRSQUOre
+collaborating with others or when you come back to it months or years
+after writing it, and it makes the code less likely to break when there
+are changes to the data, such as when columns are added or removed.
+
+Changing the Order of Factor Levels {#RECIPE_DATAPREP_FACTOR_REORDER}
+-----------------------------------
+
+### Problem {#_problem_144}
+
+You want to change the order of levels in a factor.
+
+### Solution {#_solution_144}
+
+The level order can be specified explicitly by passing thefactor to
+factor() and specifying levels. In this example, weRSQUOll create a
+factor that initially has the wrong ordering:
+
+\# By default, levels are ordered alphabetically sizes &lt;-
+factor(c("small", "large", "large", "small", "medium")) sizes
+small large large small medium Levels: large medium small
+\# Change the order of levels sizes &lt;- factor(sizes, levels =
+c("small", "medium", "large")) sizes
+small large large small medium Levels: small medium large
+The order can also be specified with levels when the factor is first
+created.
+
+### Discussion {#_discussion_136}
+
+There are two kinds of factors in R: ordered factors and regular
+factors. In both types, the levels are arranged in *some* order; the
+difference is that the order is meaningful for an ordered factor, but it
+is arbitrary for a regular factor—it simply reflects how the data is
+stored. For graphing data, the distinction between ordered and regular
+factors is generally unimportant, and they can be treated the same.
+
+The order of factor levels affects graphical output. When a factor
+variable is mapped to an aesthetic property in ggplot2, the aesthetic
+adopts the ordering of the factor levels. If a factor is mapped to the
+x-axis, the ticks on the axis will be in the order of the factor levels,
+and if a factor is mapped to color, the items in the legend will be in
+the order of the factor levels.
+
+To reverse the level order, you can use rev(levels()):
+
+factor(sizes, levels = rev(levels(sizes)))
+small large large small medium Levels: small medium large
+### See Also {#_see_also_89}
+
+To reorder a factor based on the value of another variable, see
+[section\_title](#RECIPE_DATAPREP_FACTOR_REORDER_VALUE).
+
+Reordering factor levels is useful for controlling the order of axes and
+legends. See Recipes [???](#RECIPE_AXIS_ORDER) and
+[???](#RECIPE_LEGEND_ORDER) for more information.
+
+Changing the Order of Factor Levels Based on Data Values {#RECIPE_DATAPREP_FACTOR_REORDER_VALUE}
+--------------------------------------------------------
+
+### Problem {#_problem_145}
+
+You want to change the order of levels in a factor based on values in
+the data.
+
+### Solution {#_solution_145}
+
+Use reorder() with the factor that has levels to reorder, the values to
+base the reordering on, and a function that aggregates the values:
+
+\# Make a copy since we'll modify it iss &lt;- InsectSprays iss\$spray
+\[1\] A A A A A A A A A A A A B B B B B B B B B B B B C C C C C C C C C
+C C C D D \[39\] D D D D D D D D D D E E E E E E E E E E E E F F F F F F
+F F F F F F Levels: A B C D E F
+iss\$spray &lt;- reorder(iss\$spray, iss\$count, FUN=mean) iss\$spray
+\[1\] A A A A A A A A A A A A B B B B B B B B B B B B C C C C C C C C C
+C C C D D \[39\] D D D D D D D D D D E E E E E E E E E E E E F F F F F F
+F F F F F F attr(,"scores") A B C D E F 14.500000 15.333333 2.083333
+4.916667 3.500000 16.666667 Levels: C E D A B F
+Notice that the original levels were ABCDEF, while the reordered levels
+are CEDABF. The new order is determined by splitting iss\$count into
+pieces according to the values in iss\$spray, and then taking the mean
+of each group.
+
+### Discussion {#_discussion_137}
+
+The usefulness of reorder() might not be obvious from just looking at
+the raw output. [figure\_title](#FIG_DATAPREP_FACTOR_REORDER_VALUE)
+shows three graphs made with reorder(). In these graphs, the order in
+which the items appear is determined by their values.
+
+![Left: original data; middle: reordered by the mean of each group;
+right: reordered by the median of each group](figs/rgcb_1501.png)
+
+In the middle graph in
+[figure\_title](#FIG_DATAPREP_FACTOR_REORDER_VALUE), the boxes are
+sorted by the mean. The horizontal line that runs across each box
+represents the *median* of the data. Notice that these values do not
+increase strictly from left to right. ThatRSQUOs because with this
+particular data set, sorting by the mean gives a different order than
+sorting by the median. To make the median lines increase from left to
+right, as in the graph on the right in
+[figure\_title](#FIG_DATAPREP_FACTOR_REORDER_VALUE), we used the
+median() function in reorder().
+
+### See Also {#_see_also_90}
+
+Reordering factor levels is also useful for controlling the order of
+axes and legends. See Recipes [???](#RECIPE_AXIS_ORDER) and
+[???](#RECIPE_LEGEND_ORDER) for more information.
+
+Changing the Names of Factor Levels {#RECIPE_DATAPREP_FACTOR_RENAME}
+-----------------------------------
+
+### Problem {#_problem_146}
+
+You want to change the names of levels in a factor.
+
+### Solution {#_solution_146}
+
+Use revalue() or mapvalues() from the plyr package:
+
+sizes &lt;- factor(c( "small", "large", "large", "small", "medium"))
+sizes
+small large large small medium Levels: large medium small
+levels(sizes)
+"large" "medium" "small"
+\# With revalue(), pass it a named vector with the mappings sizes1 &lt;-
+revalue(sizes, c(small="S", medium="M", large="L")) sizes1
+S L L S M Levels: L M S
+\# Can also use quotes -- useful if there are spaces or other strange
+characters revalue(sizes, c("small"="S", "medium"="M", "large"="L")) \#
+mapvalues() lets you use two separate vectors instead of a named vector
+mapvalues(sizes, c("small", "medium", "large"), c("S", "M", "L"))
+### Discussion {#_discussion_138}
+
+The revalue() and mapvalues() functions are convenient, but for a more
+traditional (and clunky) R method for renaming factor levels, use the
+levels()&lt;- function:
+
+sizes &lt;- factor(c( "small", "large", "large", "small", "medium")) \#
+Index into the levels and rename each one
+levels(sizes)\[levels(sizes)=="large"\] &lt;- "L"
+levels(sizes)\[levels(sizes)=="medium"\] &lt;- "M"
+levels(sizes)\[levels(sizes)=="small"\] &lt;- "S" sizes
+S L L S M Levels: L M S
+If you are renaming *all* your factor levels, there is a simpler method.
+You can pass a list to levels()&lt;-:
+
+sizes &lt;- factor(c("small", "large", "large", "small", "medium"))
+levels(sizes) &lt;- list(S="small", M="medium", L="large") sizes
+S L L S M Levels: L M S
+With this method, all factor levels must be specified in the list; if
+any are missing, they will be replaced with NA.
+
+ItRSQUOs also possible to rename factor levels by position, but this is
+somewhat inelegant:
+
+\# By default, levels are ordered alphabetically sizes &lt;-
+factor(c("small", "large", "large", "small", "medium"))
+small large large small medium Levels: large medium small
+levels(sizes)\[1\] &lt;- "L" sizes
+small L L small medium Levels: L medium small
+\# Rename all levels at once levels(sizes) &lt;- c("L", "M", "S") sizes
+\[1\] S L L S M Levels: L M S
+ItRSQUOs safer to rename factor levels by name rather than by position,
+since you will be less likely to make a mistake (and mistakes here may
+be hard to detect). Also, if your input data set changes to have more
+(or fewer) levels, the numeric positions of the existing levels could
+change, which could cause serious but nonobvious problems for your
+analysis.
+
+### See Also {#_see_also_91}
+
+If, instead of a factor, you have a character vector with items to
+rename, see [section\_title](#RECIPE_DATAPREP_CHARACTER_RENAME).
+
+Removing Unused Levels from a Factor {#RECIPE_DATAPREP_FACTOR_DROPLEVELS}
+------------------------------------
+
+### Problem {#_problem_147}
+
+You want to remove unused levels from a factor.
+
+### Solution {#_solution_147}
+
+Sometimes, after processing your data you will have a factor that
+contains levels that are no longer used. HereRSQUOs an example:
+
+sizes &lt;- factor(c("small", "large", "large", "small", "medium"))
+sizes &lt;- sizes\[1:3\] sizes
+small large large Levels: large medium small
+To remove them, use droplevels():
+
+sizes &lt;- droplevels(sizes) sizes
+small large large Levels: large small
+### Discussion {#_discussion_139}
+
+The droplevels() function preserves the order of factor levels.
+
+You can use the except argument to keep particular levels.
+
+Changing the Names of Items in a Character Vector {#RECIPE_DATAPREP_CHARACTER_RENAME}
+-------------------------------------------------
+
+### Problem {#_problem_148}
+
+You want to change the names of items in a character vector.
+
+### Solution {#_solution_148}
+
+Use revalue() or mapvalues() from the plyr package:
+
+sizes &lt;- c("small", "large", "large", "small", "medium") sizes
+"small" "large" "large" "small" "medium"
+\# With revalue(), pass it a named vector with the mappings sizes1 &lt;-
+revalue(sizes, c(small="S", medium="M", large="L")) sizes1
+"S" "L" "L" "S" "M"
+\# Can also use quotes -- useful if there are spaces or other strange
+characters revalue(sizes, c("small"="S", "medium"="M", "large"="L")) \#
+mapvalues() lets you use two separate vectors instead of a named vector
+mapvalues(sizes, c("small", "medium", "large"), c("S", "M", "L"))
+### Discussion {#_discussion_140}
+
+A more traditional R method is to use square-bracket indexing to select
+the items and rename them:
+
+sizes &lt;- c("small", "large", "large", "small", "medium") sizes
+"small" "large" "large" "small" "medium"
+sizes\[sizes=="small"\] &lt;- "S" sizes\[sizes=="medium"\] &lt;- "M"
+sizes\[sizes=="large"\] &lt;- "L" sizes
+"S" "L" "L" "S" "M"
+### See Also {#_see_also_92}
+
+If, instead of a character vector, you have a factor with levels to
+rename, see [section\_title](#RECIPE_DATAPREP_FACTOR_RENAME).
+
+Recoding a Categorical Variable to Another Categorical Variable {#RECIPE_DATAPREP_RECODE_CATEGORICAL}
+---------------------------------------------------------------
+
+### Problem {#_problem_149}
+
+You want to recode a categorical variable to another variable.
+
+### Solution {#_solution_149}
+
+For the examples here, weRSQUOll use a subset of the PlantGrowth data
+set:
+
+\# Work on a subset of the PlantGrowth data set pg &lt;-
+PlantGrowth\[c(1,2,11,21,22), \] pg
+weight group 4.17 ctrl 5.58 ctrl 4.81 trt1 6.31 trt2 5.12 trt2
+In this example, weRSQUOll recode the categorical variable group into
+another categorical variable, treatment. If the old value was "ctrl",
+the new value will be "No", and if the old value was "trt1" or "trt2",
+the new value will be "Yes".
+
+This can be done with the match() function:
+
+```{r}
+pg <- PlantGrowth
+
+oldvals <- c("ctrl", "trt1", "trt2")
+newvals <- factor(c("No",   "Yes",  "Yes"))
+
+pg$treatment <- newvals[ match(pg$group, oldvals) ]
+```
+
+It can also be done (more awkwardly) by indexing in the vectors:
+
+pg\$treatment\[pg\$group == "ctrl"\] &lt;- "no" pg\$treatment\[pg\$group
+== "trt1"\] &lt;- "yes" pg\$treatment\[pg\$group == "trt2"\] &lt;- "yes"
+\# Convert to a factor pg\$treatment &lt;- factor(pg\$treatment) pg
+weight group treatment 4.17 ctrl no 5.58 ctrl no 4.81 trt1 yes 6.31 trt2
+yes 5.12 trt2 yes
+Here, we combined two of the factor levels and put the result into a new
+column. If you simply want to rename the levels of a factor, see
+[section\_title](#RECIPE_DATAPREP_FACTOR_RENAME).
+
+### Discussion {#_discussion_141}
+
+The coding criteria can also be based on values in multiple columns, by
+using the &amp; and | operators:
+
+pg\$newcol\[pg\$group == "ctrl" & pg\$weight &lt; 5\] &lt;- "no\_small"
+pg\$newcol\[pg\$group == "ctrl" & pg\$weight &gt;= 5\] &lt;- "no\_large"
+pg\$newcol\[pg\$group == "trt1"\] &lt;- "yes" pg\$newcol\[pg\$group ==
+"trt2"\] &lt;- "yes" pg\$newcol &lt;- factor(pg\$newcol) pg
+weight group weightcat treatment newcol 4.17 ctrl small no no\_small
+5.58 ctrl large no no\_large 4.81 trt1 small yes yes 4.17 trt1 small yes
+yes 6.31 trt2 large yes yes 5.12 trt2 large yes yes
+ItRSQUOs also possible to combine two columns into one usingthe
+interaction() function, which appends the values with a "." in between.
+This combines the weightcat and treatment columns into a new column,
+weighttrt:
+
+pg\$weighttrt &lt;- interaction(pg\$weightcat, pg\$treatment) pg
+weight group weightcat treatment newcol weighttrt 4.17 ctrl small no
+no\_small small.no 5.58 ctrl large no no\_large large.no 4.81 trt1 small
+yes yes small.yes 4.17 trt1 small yes yes small.yes 6.31 trt2 large yes
+yes large.yes 5.12 trt2 large yes yes large.yes
+### See Also {#_see_also_93}
+
+For more on renaming factor levels, see
+[section\_title](#RECIPE_DATAPREP_FACTOR_RENAME).
+
+See [section\_title](#RECIPE_DATAPREP_RECODE_CONTINUOUS) for recoding
+continuous values to categorical values.
+
+Recoding a Continuous Variable to a Categorical Variable {#RECIPE_DATAPREP_RECODE_CONTINUOUS}
+--------------------------------------------------------
+
+### Problem {#_problem_150}
+
+You want to recode a continuous variable to another variable.
+
+### Solution {#_solution_150}
+
+For the examples here, weRSQUOll use a subset of the PlantGrowth data
+set.
+
+\# Work on a subset of the PlantGrowth data set pg &lt;-
+PlantGrowth\[c(1,2,11,21,22), \] pg
+weight group 4.17 ctrl 5.58 ctrl 4.81 trt1 6.31 trt2 5.12 trt2
+In this example, weRSQUOll recode the continuous variable weight into a
+categorical variable, wtclass, using the cut() function:
+
+pg\$wtclass &lt;- cut(pg\$weight, breaks = c(0, 5, 6, Inf)) pg
+weight group wtclass 4.17 ctrl (0,5\] 5.58 ctrl (5,6\] 4.81 trt1 (0,5\]
+4.17 trt1 (0,5\] 6.31 trt2 (6,Inf\] 5.12 trt2 (5,6\]
+### Discussion {#_discussion_142}
+
+For three categories we specify four bounds, which can include Inf and
+-Inf. If a data value falls outside of the specified bounds, itRSQUOs
+categorized as NA. The result of cut() is a factor, and you can see from
+the example that the factor levels are named after the bounds.
+
+To change the names of the levels, set the labels:
+
+pg\$wtclass &lt;- cut(pg\$weight, breaks = c(0, 5, 6, Inf), labels =
+c("small", "medium", "large")) pg
+weight group wtclass 4.17 ctrl small 5.58 ctrl medium 4.81 trt1 small
+4.17 trt1 small 6.31 trt2 large 5.12 trt2 medium
+As indicated by the factor levels, the bounds are by default *open* on
+the left and *closed* on the right. In other words, they donRSQUOt
+include the lowest value, but they do include the highest value. For the
+smallest category, you can have it include both the lower and upper
+values by setting include.lowest=TRUE. In this example, this would
+result in 0 values going into the small category; otherwise, 0 would be
+coded as NA.
+
+If you want the categories to be closed on the left and open on the
+right, set right = FALSE:
+
+```{r}
+cut(pg$weight, breaks = c(0, 5, 6, Inf), right = FALSE)
+```
+
+### See Also {#_see_also_94}
+
+To recode a categorical variable to another categoricalvariable, see
+[section\_title](#RECIPE_DATAPREP_RECODE_CATEGORICAL).
+
+Transforming Variables {#RECIPE_DATAPREP_TRANSFORM}
+----------------------
+
+### Problem {#_problem_151}
+
+You want to transform a variable in a data frame.
+
+### Solution {#_solution_151}
+
+Reference the new column with the \$ operator, and assign some values to
+it. For this example, weRSQUOll use a copy of the heightweight data set:
+
+library(gcookbook) \# For the data set \# Make a copy of the data hw
+&lt;- heightweight hw
+sex ageYear ageMonth heightIn weightLb f 11.92 143 56.3 85.0 f 12.92 155
+62.3 105.0 ... m 13.92 167 62.0 107.5 m 12.58 151 59.3 87.0
+This will convert heightIn to centimeters and store it in a new column,
+heightCm:
+
+hw\$heightCm &lt;- hw\$heightIn \* 2.54 hw
+sex ageYear ageMonth heightIn weightLb heightCm f 11.92 143 56.3 85.0
+143.002 f 12.92 155 62.3 105.0 158.242 ... m 13.92 167 62.0 107.5
+157.480 m 12.58 151 59.3 87.0 150.622
+### Discussion {#_discussion_143}
+
+For slightly easier-to-read code, you can use transform() or mutate()
+from the plyr package. You only need to specify the data frame once, as
+the first argument to the function, meaning these provide a cleaner
+syntax, especially if you are transforming multiple variables:
+
+hw &lt;- transform(hw, heightCm = heightIn \* 2.54, weightKg = weightLb
+/ 2.204) library(plyr) hw &lt;- mutate(hw, heightCm = heightIn \* 2.54,
+weightKg = weightLb / 2.204) hw
+sex ageYear ageMonth heightIn weightLb heightCm weightKg f 11.92 143
+56.3 85.0 143.002 38.56624 f 12.92 155 62.3 105.0 158.242 47.64065 ... m
+13.92 167 62.0 107.5 157.480 48.77495 m 12.58 151 59.3 87.0 150.622
+39.47368
+It is also possible to calculate a new variable based on multiple
+variables:
+
+\# These all have the same effect: hw &lt;- transform(hw, bmi = weightKg
+/ (heightCm / 100)\^2) hw &lt;- mutate(hw, bmi = weightKg / (heightCm /
+100)\^2) hw\$bmi &lt;- hw\$weightKg / (hw\$heightCm/100)\^2 hw
+sex ageYear ageMonth heightIn weightLb heightCm weightKg bmi f 11.92 143
+56.3 85.0 143.002 38.56624 18.85919 f 12.92 155 62.3 105.0 158.242
+47.64065 19.02542 ... m 13.92 167 62.0 107.5 157.480 48.77495 19.66736 m
+12.58 151 59.3 87.0 150.622 39.47368 17.39926
+The main functional difference between transform() and mutate() is that
+transform() calculates the new columns simultaneously, while mutate()
+calculates the new columns sequentially, allowing you to base one new
+column on another new column. Since bmi is calculated from heightCm and
+weightKg, it is not possible to calculate all of them in a single call
+to transform(); heightCm and weightKg must be calculated first, and then
+bmi, as shown here.
+
+With mutate(), however, we can calculate them all in one go. The
+following code has the same effect as the previous separate blocks:
+
+```{r}
+hw <- heightweight
+hw <- mutate(hw,
+    heightCm = heightIn * 2.54,
+    weightKg = weightLb / 2.204,
+    bmi = weightKg / (heightCm / 100)^2)
+```
+
+### See Also {#_see_also_95}
+
+See [section\_title](#RECIPE_DATAPREP_TRANSFORM_GROUP) for how to
+perform group-wise transformations on data.
+
+Transforming Variables by Group {#RECIPE_DATAPREP_TRANSFORM_GROUP}
+-------------------------------
+
+### Problem {#_problem_152}
+
+You want to transform variables by performing operations on groups of
+data, as specified by a grouping variable.
+
+### Solution {#_solution_152}
+
+Use ddply() from the plyr package with the transform() function, and
+specify the operations:
+
+library(MASS) \# For the data set library(plyr) cb &lt;- ddply(cabbages,
+"Cult", transform, DevWt = HeadWt - mean(HeadWt))
+Cult Date HeadWt VitC DevWt c39 d16 2.5 51 -0.40666667 c39 d16 2.2 55
+-0.70666667 ... c52 d21 1.5 66 -0.78000000 c52 d21 1.6 72 -0.68000000
+### Discussion {#_discussion_144}
+
+LetRSQUOs take a closer look at the cabbages data set. It has two
+grouping variables (factors): Cult, which has levels c39 and c52, and
+Date, which has levels d16, d20, and d21. It also has two measured
+numeric variables, HeadWt and VitC:
+
+cabbages
+Cult Date HeadWt VitC c39 d16 2.5 51 c39 d16 2.2 55 ... c52 d21 1.5 66
+c52 d21 1.6 72
+Suppose we want to find, for each case, the deviation of HeadWt from the
+overall mean. All we have to do is take the overall mean and subtract it
+from the observed value for each case:
+
+transform(cabbages, DevWt = HeadWt - mean(HeadWt))
+Cult Date HeadWt VitC DevWt c39 d16 2.5 51 -0.093333333 c39 d16 2.2 55
+-0.393333333 ... c52 d21 1.5 66 -1.093333333 c52 d21 1.6 72 -0.993333333
+YouRSQUOll often want to do separate operations like this for each
+group, where the groups are specified by one or more grouping variables.
+Suppose, for example, we want to normalize the data within each group by
+finding the deviation of each case from the mean *within the group*,
+where the groups are specified by Cult. In these cases, we can use
+ddply() from the plyr package with the transform() function:
+
+library(plyr) cb &lt;- ddply(cabbages, "Cult", transform, DevWt = HeadWt
+- mean(HeadWt)) cb
+Cult Date HeadWt VitC DevWt c39 d16 2.5 51 -0.40666667 c39 d16 2.2 55
+-0.70666667 ... c52 d21 1.5 66 -0.78000000 c52 d21 1.6 72 -0.68000000
+First it splits cabbages into separate data frames based on the value of
+Cult. There are two levels of Cult, c39 and c52, so there are two data
+frames. It then applies the transform() function, with the remaining
+arguments, to each data frame.
+
+Notice that the call to ddply() has all the same parts as the previous
+call to transform(). The only differences are that the parts are
+slightly rearranged and it adds the splitting variable, in this case,
+Cult.
+
+The before and after results are shown in
+[figure\_title](#FIG_DATAPREP_TRANSFORM_GROUP):
+
+```{r}
+# The data before normalizing
+ggplot(cb, aes(x=Cult, y=HeadWt)) + geom_boxplot()
+
+# After normalizing
+ggplot(cb, aes(x=Cult, y=DevWt)) + geom_boxplot()
+```
+
+![Left: before normalizing; right: after
+normalizing](figs/rgcb_1502.png)
+
+You can also split the data frame on multiple variables and perform
+operations on multiple variables. This will split by Cult and Date,
+forming a group for each distinct combination of the two variables, and
+then it will calculate the deviation from the mean of HeadWt and VitC
+within each group:
+
+ddply(cabbages, c("Cult", "Date"), transform, DevWt = HeadWt -
+mean(HeadWt), DevVitC = VitC - mean(VitC))
+Cult Date HeadWt VitC DevWt DevVitC c39 d16 2.5 51 -0.68 0.7 c39 d16 2.2
+55 -0.98 4.7 ... c52 d21 1.5 66 0.03 -5.8 c52 d21 1.6 72 0.13 0.2
+### See Also {#_see_also_96}
+
+To summarize data by groups, see
+[section\_title](#RECIPE_DATAPREP_SUMMARIZE).
+
+Summarizing Data by Groups {#RECIPE_DATAPREP_SUMMARIZE}
+--------------------------
+
+### Problem {#_problem_153}
+
+You want to summarize your data, based on one or more grouping
+variables.
+
+### Solution {#_solution_153}
+
+Use ddply() from theplyr package with the summarise() function, and
+specify the operations to do:
+
+library(MASS) \# For the data set library(plyr) ddply(cabbages,
+c("Cult", "Date"), summarise, Weight = mean(HeadWt), VitC = mean(VitC))
+Cult Date Weight VitC c39 d16 3.18 50.3 c39 d20 2.80 49.4 c39 d21 2.74
+54.8 c52 d16 2.26 62.5 c52 d20 3.11 58.9 c52 d21 1.47 71.8
+### Discussion {#_discussion_145}
+
+LetRSQUOs take a closer look at the cabbages data set. It has two
+factors that can be used as grouping variables: Cult, which has levels
+c39 and c52, and Date, which has levels d16, d20, and d21. It also has
+two numeric variables, HeadWt and VitC:
+
+cabbages
+Cult Date HeadWt VitC c39 d16 2.5 51 c39 d16 2.2 55 ... c52 d21 1.5 66
+c52 d21 1.6 72
+Finding the overall mean of HeadWt is simple. We could just use the
+mean() function on that column, but for reasons that will soon become
+clear, weRSQUOll use the summarise() function instead:
+
+library(plyr) summarise(cabbages, Weight = mean(HeadWt))
+Weight 2.593333
+The result is a data frame with one row and one column, named Weight.
+
+Often we want to find information about each subset of the data, as
+specified by a grouping variable. For example, suppose we want to find
+the mean of each Cult group. To do this, we can use ddply() with
+summarise(). Notice how the arguments get shifted around when we use
+them together:
+
+library(plyr) ddply(cabbages, "Cult", summarise, Weight = mean(HeadWt))
+Cult Weight c39 2.906667 c52 2.280000
+The command first splits the data frame cabbages into separate data
+frames based on the value of Cult. There are two levels of Cult, c39 and
+c52, so there are two data frames. It then applies the summarise()
+function to each of these data frames; it calculates Weight by taking
+the mean() of the HeadWt column in each of the data frames. The
+resulting summarized data frames each have one row, and ddply() puts
+them back together into one data frame, which is then returned.
+
+Summarizing the data frame by splitting it up with more variables (or
+columns) is simple: just use a vector that names the additional
+variables. ItRSQUOs also possible to get more than one summary value by
+specifying more calculated columns. Here weRSQUOll summarize each Cult
+and Date group, getting the average of HeadWt and VitC:
+
+ddply(cabbages, c("Cult", "Date"), summarise, Weight = mean(HeadWt),
+VitC = mean(VitC))
+Cult Date Weight VitC c39 d16 3.18 50.3 c39 d20 2.80 49.4 c39 d21 2.74
+54.8 c52 d16 2.26 62.5 c52 d20 3.11 58.9 c52 d21 1.47 71.8
+ItRSQUOs possible to do more than take the mean. You may, for example,
+want to compute the standard deviation and count of each group. To get
+the standard deviation, use the sd() function, and to get a count, use
+the length() function:
+
+ddply(cabbages, c("Cult", "Date"), summarise, Weight = mean(HeadWt), sd
+= sd(HeadWt), n = length(HeadWt))
+Cult Date Weight sd n c39 d16 3.18 0.9566144 10 c39 d20 2.80 0.2788867
+10 c39 d21 2.74 0.9834181 10 c52 d16 2.26 0.4452215 10 c52 d20 3.11
+0.7908505 10 c52 d21 1.47 0.2110819 10
+Other useful functions for generating summary statistics include min(),
+max(), and median().
+
+#### Dealing with NAs {#_dealing_with_literal_na_literal_s}
+
+One potential pitfall is that NAs in the data will lead to NAs in the
+output. LetRSQUOs see what happens if we sprinkle a few NAs into HeadWt:
+
+c1 &lt;- cabbages \# Make a copy c1\$HeadWt\[c(1,20,45)\] &lt;- NA \#
+Set some values to NA ddply(c1, c("Cult", "Date"), summarise, Weight =
+mean(HeadWt), sd = sd(HeadWt), n = length(HeadWt))
+Cult Date Weight sd n c39 d16 NA NA 10 c39 d20 NA NA 10 c39 d21 2.74
+0.9834181 10 c52 d16 2.26 0.4452215 10 c52 d20 NA NA 10 c52 d21 1.47
+0.2110819 10
+There are two problems here. The first problem is that mean() and sd()
+simply return NA if any of the input values are NA. Fortunately, these
+functions have an option to deal with this very issue: setting
+na.rm=TRUE will tell them to ignore the NAs.
+
+The second problem is that length() counts NAs just like any other
+value, but since these values represent missing data, they should be
+excluded from the count. The length() function doesnRSQUOt have an na.rm
+flag, but we can get the same effect by using sum(!is.na(...)). The
+is.na() function returns a logical vector: it has a TRUE for each NA
+item, and a FALSE for all other items. It is inverted by the !, and then
+sum() adds up the number of TRUEs. The end result is a count of non-NAs:
+
+ddply(c1, c("Cult", "Date"), summarise, Weight = mean(HeadWt,
+na.rm=TRUE), sd = sd(HeadWt, na.rm=TRUE), n = sum(!is.na(HeadWt)))
+Cult Date Weight sd n c39 d16 3.255556 0.9824855 9 c39 d20 2.722222
+0.1394433 9 c39 d21 2.740000 0.9834181 10 c52 d16 2.260000 0.4452215 10
+c52 d20 3.044444 0.8094923 9 c52 d21 1.470000 0.2110819 10
+#### Missing combinations {#_missing_combinations}
+
+If there are any empty combinations of the grouping variables, they will
+not appear in the summarized data frame. These missing combinations can
+cause problems when making graphs. To illustrate, weRSQUOll remove all
+entries that have levels c52 and d21. The graph on the left in
+[figure\_title](#FIG_DATAPREP_SUMMARIZE_MISSING_COMBO) shows what
+happens when thereRSQUOs a missing combination in a bar graph:
+
+\# Copy cabbages and remove all rows with both c52 and d21 c2 &lt;-
+subset(c1, !( Cult=="c52" & Date=="d21" ) ) c2a &lt;- ddply(c2,
+c("Cult", "Date"), summarise, Weight = mean(HeadWt, na.rm=TRUE), sd =
+sd(HeadWt, na.rm=TRUE), n = sum(!is.na(HeadWt))) c2a
+Cult Date Weight sd n c39 d16 3.255556 0.9824855 9 c39 d20 2.722222
+0.1394433 9 c39 d21 2.740000 0.9834181 10 c52 d16 2.260000 0.4452215 10
+c52 d20 3.044444 0.8094923 9
+\# Make the graph ggplot(c2a, aes(x=Date, fill=Cult, y=Weight)) +
+geom\_bar(position="dodge")
+![Left: bar graph with a missing combination; right: with missing
+combination filled](figs/rgcb_1503.png)
+
+To fill in the missing combination
+([figure\_title](#FIG_DATAPREP_SUMMARIZE_MISSING_COMBO), right), give
+ddply() the .drop=FALSE flag:
+
+c2b &lt;- ddply(c2, c("Cult", "Date"), .drop=FALSE, summarise, Weight =
+mean(HeadWt, na.rm=TRUE), sd = sd(HeadWt, na.rm=TRUE), n =
+sum(!is.na(HeadWt))) c2b
+Cult Date Weight sd n c39 d16 3.255556 0.9824855 9 c39 d20 2.722222
+0.1394433 9 c39 d21 2.740000 0.9834181 10 c52 d16 2.260000 0.4452215 10
+c52 d20 3.044444 0.8094923 9 c52 d21 NaN NA 0
+\# Make the graph ggplot(c2b, aes(x=Date, fill=Cult, y=Weight)) +
+geom\_bar(position="dodge")
+### See Also {#_see_also_97}
+
+If you want to calculate standard errors and confidence intervals, see
+[section\_title](#RECIPE_DATAPREP_SUMMARIZE_SE).
+
+See [???](#RECIPE_DISTRIBUTION_BOXPLOT_MEAN) for an example of using
+stat\$\$\_\$\$summary() to calculate means and overlay them on a graph.
+
+To perform transformations on data by groups, see
+[section\_title](#RECIPE_DATAPREP_TRANSFORM_GROUP).
+
+Summarizing Data with Standard Errors and Confidence Intervals {#RECIPE_DATAPREP_SUMMARIZE_SE}
+--------------------------------------------------------------
+
+### Problem {#_problem_154}
+
+You want to summarize your data with the standard error of the mean
+and/or confidence intervals.
+
+### Solution {#_solution_154}
+
+Getting the standard error of the mean involves two steps: first get the
+standard deviation and count for each group, then use those values to
+calculate the standard error. The standard error for each group is just
+the standard deviation divided by the square root of the sample size:
+
+library(MASS) \# For the data set library(plyr) ca &lt;- ddply(cabbages,
+c("Cult", "Date"), summarise, Weight = mean(HeadWt, na.rm=TRUE), sd =
+sd(HeadWt, na.rm=TRUE), n = sum(!is.na(HeadWt)), se = sd/sqrt(n)) ca
+Cult Date Weight sd n se c39 d16 3.18 0.9566144 10 0.30250803 c39 d20
+2.80 0.2788867 10 0.08819171 c39 d21 2.74 0.9834181 10 0.31098410 c52
+d16 2.26 0.4452215 10 0.14079141 c52 d20 3.11 0.7908505 10 0.25008887
+c52 d21 1.47 0.2110819 10 0.06674995
+> **Note**
+>
+> In versions of plyr before 1.8, summarise() created all the new
+> columns simultaneously, so you would have to create the se column
+> separately, after creating the sd and n columns.
+
+### Discussion {#_discussion_146}
+
+Another method is to calculate the standard error in the call ddply.
+ItRSQUOs not possible to refer to the sd and n columns inside of the
+ddply call, so weRSQUOll have to recalculate them to get se. This will
+do the same thing as the two-step version shown previously:
+
+```{r}
+ddply(cabbages, c("Cult", "Date"), summarise,
+      Weight = mean(HeadWt, na.rm=TRUE),
+      sd = sd(HeadWt, na.rm=TRUE),
+      n = sum(!is.na(HeadWt)),
+      se = sd / sqrt(n) )
+```
+
+#### Confidence Intervals {#_confidence_intervals}
+
+Confidence intervals are calculated using the standard error of the mean
+and the degrees of freedom. To calculate a confidence interval, use the
+qt() function to get the quantile, then multiply that by the standard
+error. The qt() function will give quantiles of the *t*-distribution
+when given a probability level and degrees of freedom. For a 95%
+confidence interval, use a probability level of .975; for the
+bell-shaped *t*-distribution, this will in essence cut off 2.5% of the
+area under the curve at either end. The degrees of freedom equal the
+sample size minus one.
+
+This will calculate the multiplier for each group. There are six groups
+and each has the same number of observations (10), so they will all have
+the same multiplier:
+
+ciMult &lt;- qt(.975, ca\$n-1) ciMult
+\# 2.262157 2.262157 2.262157 2.262157 2.262157 2.262157
+Now we can multiply that vector by the standard error to get the 95%
+confidence interval:
+
+ca\$ci &lt;- ca\$se \* ciMult
+Cult Date Weight sd n se ci c39 d16 3.18 0.9566144 10 0.30250803
+0.6843207 c39 d20 2.80 0.2788867 10 0.08819171 0.1995035 c39 d21 2.74
+0.9834181 10 0.31098410 0.7034949 c52 d16 2.26 0.4452215 10 0.14079141
+0.3184923 c52 d20 3.11 0.7908505 10 0.25008887 0.5657403 c52 d21 1.47
+0.2110819 10 0.06674995 0.1509989
+We could have done this all in one line, like this:
+
+```{r}
+ca$ci95 <- ca$se * qt(.975, ca$n)
+```
+
+For a 99% confidence interval, use .995.
+
+Error bars that represent the standard error of the mean and confidence
+intervals serve the same general purpose: to give the viewer an idea of
+how good the estimate of the population mean is. The standard error is
+the standard deviation of the sampling distribution. Confidence
+intervals are easier to interpret. Very roughly, a 95% confidence
+interval means that thereRSQUOs a 95% chance that the true population
+mean is within the interval (actually, it doesnRSQUOt mean this at all,
+but this seemingly simple topic is way too complicated to cover here; if
+you want to know more, read up on Bayesian statistics).
+
+This function will perform all the steps of calculating the standard
+deviation, count, standard error, and confidence intervals. It can also
+handle NAs and missing combinations, with the na.rm and .drop options.
+By default, it provides a 95% confidence interval, but this can be set
+with the conf.interval argument:
+
+```{r}
+summarySE <- function(data=NULL, measurevar, groupvars=NULL,
+                      conf.interval=.95, na.rm=FALSE, .drop=TRUE) {
+    require(plyr)
+
+    # New version of length that can handle NAs: if na.rm==T, don't count them
+    length2 <- function (x, na.rm=FALSE) {
+        if (na.rm) sum(!is.na(x))
+        else       length(x)
+    }
+
+    # This does the summary
+    datac <- ddply(data, groupvars, .drop=.drop,
+                   .fun = function(xx, col, na.rm) {
+                           c( n    = length2(xx[,col], na.rm=na.rm),
+                              mean = mean   (xx[,col], na.rm=na.rm),
+                              sd   = sd     (xx[,col], na.rm=na.rm)
+                              )
+                          },
+                    measurevar,
+                    na.rm
+             )
+
+    # Rename the "mean" column
+    datac <- rename(datac, c("mean" = measurevar))
+
+    datac$se <- datac$sd / sqrt(datac$n)  # Calculate standard error of the mean
+
+    # Confidence interval multiplier for standard error
+    # Calculate t-statistic for confidence interval:
+    # e.g., if conf.interval is .95, use .975 (above/below), and use
+    #  df=n-1, or if n==0, use df=0
+    ciMult <- qt(conf.interval/2 + .5, datac$n-1)
+    datac$ci <- datac$se * ciMult
+
+    return(datac)
+}
+```
+
+The following usage example has a 99% confidence interval and handles
+NAs and missing combinations:
+
+\# Remove all rows with both c52 and d21 c2 &lt;- subset(cabbages, !(
+Cult=="c52" & Date=="d21" ) ) \# Set some values to NA
+c2\$HeadWt\[c(1,20,45)\] &lt;- NA summarySE(c2, "HeadWt", c("Cult",
+"Date"), conf.interval=.99, na.rm=TRUE, .drop=FALSE)
+Cult Date n HeadWt sd se ci c39 d16 9 3.255556 0.9824855 0.32749517
+1.0988731 c39 d20 9 2.722222 0.1394433 0.04648111 0.1559621 c39 d21 10
+2.740000 0.9834181 0.31098410 1.0106472 c52 d16 10 2.260000 0.4452215
+0.14079141 0.4575489 c52 d20 9 3.044444 0.8094923 0.26983077 0.9053867
+c52 d21 0 NaN NA NA NA Warning message: In qt(p, df, lower.tail, log.p)
+: NaNs produced
+It will give this warning message when there are missing combinations.
+This isnRSQUOt a problem; it just indicates that it couldnRSQUOt
+calculate a quantile for a group with no observations.
+
+### See Also {#_see_also_98}
+
+See [???](#RECIPE_ANNOTATE_ERROR_BAR) to use the values calculated here
+to add error bars to a graph.
+
+Converting Data from Wide to Long {#RECIPE_DATAPREP_WIDE_TO_LONG}
+---------------------------------
+
+### Problem {#_problem_155}
+
+You want to convert a data frame from LDQUOwideRDQUO format to
+LDQUOlongRDQUO format.
+
+### Solution {#_solution_155}
+
+Use melt() from the reshape2 package. In the anthoming data set, for
+each angle, there are two measurements: one column contains measurements
+in the experimental condition and the other contains measurements in the
+control condition:
+
+library(gcookbook) \# For the data set anthoming
+angle expt ctrl -20 1 0 -10 7 3 0 2 3 10 0 3 20 0 1
+We can reshape the data so that all the measurements are in one column.
+This will put the values from expt and ctrl into one column, and put the
+names into a different column:
+
+library(reshape2) melt(anthoming, id.vars="angle",
+variable.name="condition", value.name="count")
+angle condition count -20 expt 1 -10 expt 7 0 expt 2 10 expt 0 20 expt 0
+-20 ctrl 0 -10 ctrl 3 0 ctrl 3 10 ctrl 3 20 ctrl 1
+This data frame represents the same information as the original one, but
+it is structured in a way that is more conducive to some analyses.
+
+### Discussion {#_discussion_147}
+
+In the source data, there are *ID* variables and *measure* variables.
+The ID variables are those that specify which values go together. In the
+source data, the first row holds measurements for when angle is –20. In
+the output data frame, the two measurements, for expt and ctrl, are no
+longer in the same row, but we can still tell that they belong together
+because they have the same value of angle.
+
+The measure variables are by default all the non-ID variables. The names
+of these variables are put into a new column specified by variable.name,
+and the values are put into a new column specified by value.name.
+
+If you donRSQUOt want to use all the non-ID columns as measure
+variables, you can specify measure.vars. For example, in the drunk data
+set, we can use just the 0-29 and 30-39 groups:
+
+drunk
+sex 0-29 30-39 40-49 50-59 60+ male 185 207 260 180 71 female 4 13 10 7
+10
+melt(drunk, id.vars="sex", measure.vars=c("0-29", "30-39"),
+variable.name="age", value.name="count")
+sex age count male 0-29 185 female 0-29 4 male 30-39 207 female 30-39 13
+ItRSQUOs also possible to use more than one column as the ID variables:
+
+plum\_wide
+length time dead alive long at\_once 84 156 long in\_spring 156 84 short
+at\_once 133 107 short in\_spring 209 31
+melt(plum\_wide, id.vars=c("length","time"), variable.name="survival",
+value.name="count")
+length time survival count long at\_once dead 84 long in\_spring dead
+156 short at\_once dead 133 short in\_spring dead 209 long at\_once
+alive 156 long in\_spring alive 84 short at\_once alive 107 short
+in\_spring alive 31
+Some data sets donRSQUOt come with a column with an ID variable. For
+example, in the corneas data set, each row represents one pair of
+measurements, but there is no ID variable. Without an ID variable, you
+wonRSQUOt be able to tell how the values are meant to be paired
+together. In these cases, you can add an ID variable before using
+melt():
+
+\# Make a copy of the data co &lt;- corneas co
+affected notaffected 488 484 478 478 480 492 426 444 440 436 410 398 458
+464 460 476
+\# Add an ID column co\$id &lt;- 1:nrow(co) melt(co, id.vars="id",
+variable.name="eye", value.name="thickness")
+id eye thickness 1 affected 488 2 affected 478 3 affected 480 4 affected
+426 5 affected 440 6 affected 410 7 affected 458 8 affected 460 1
+notaffected 484 2 notaffected 478 3 notaffected 492 4 notaffected 444 5
+notaffected 436 6 notaffected 398 7 notaffected 464 8 notaffected 476
+Having numeric values for the ID variable may be problematic for
+subsequent analyses, so you may want to convert id to a character vector
+with as.character(), or a factor with factor().
+
+### See Also {#_see_also_99}
+
+See [section\_title](#RECIPE_DATAPREP_LONG_TO_WIDE) to do conversions in
+the other direction, from long to wide.
+
+See the stack() function for another way of converting from wide to
+long.
+
+Converting Data from Long to Wide {#RECIPE_DATAPREP_LONG_TO_WIDE}
+---------------------------------
+
+### Problem {#_problem_156}
+
+You want to convert a data frame from LDQUOlongRDQUO format to
+LDQUOwideRDQUO format.
+
+### Solution {#_solution_156}
+
+Use the dcast() function from the reshape2 package. In this example,
+weRSQUOll use the plum data set, which is in a long format:
+
+library(gcookbook) \# For the data set plum
+length time survival count long at\_once dead 84 long in\_spring dead
+156 short at\_once dead 133 short in\_spring dead 209 long at\_once
+alive 156 long in\_spring alive 84 short at\_once alive 107 short
+in\_spring alive 31
+The conversion to wide format takes each unique value in one column and
+uses those values as headers for new columns, then uses another column
+for source values. For example, we can LDQUOmoveRDQUO values in the
+survival column to the top and fill them with values from count:
+
+library(reshape2) dcast(plum, length + time \~ survival,
+value.var="count")
+length time dead alive long at\_once 84 156 long in\_spring 156 84 short
+at\_once 133 107 short in\_spring 209 31
+### Discussion {#_discussion_148}
+
+The dcast() function requires you to specify the *ID* variables (those
+that remain in columns) and the *variable* variables (those that get
+LDQUOmoved to the topRDQUO). This is done with a formula where the ID
+variables are before the tilde (\$\$\~\$\$) and the variable variables
+are after it.
+
+In the preceding example, there are two ID variables and one variable
+variable. In the next one, there is one ID variable and two variable
+variables. When there is more than one variable variable, the values are
+combined with an underscore:
+
+dcast(plum, time \~ length + survival, value.var="count")
+time long\_dead long\_alive short\_dead short\_alive at\_once 84 156 133
+107 in\_spring 156 84 209 31
+### See Also {#_see_also_100}
+
+See [section\_title](#RECIPE_DATAPREP_WIDE_TO_LONG) to do conversions in
+the other direction, from wide to long.
+
+See the unstack() function for another way of converting from long to
+wide.
+
+Converting a Time Series Object to Times and Values {#RECIPE_DATAPREP_TIMESERIES}
+---------------------------------------------------
+
+### Problem {#_problem_157}
+
+You have a time series object that you wish to convert to numeric
+vectors representing the time and values at each time.
+
+### Solution {#_solution_157}
+
+Use the time() function to get the time for each observation, then
+convert the times and values to numeric vectors with as.numeric():
+
+\# Look at nhtemp Time Series object nhtemp
+Time Series: Start = 1912 End = 1971 Frequency = 1 \[1\] 49.9 52.3 49.4
+51.1 49.4 47.9 49.8 50.9 49.3 51.9 50.8 49.6 49.3 50.6 48.4 \[16\] 50.7
+50.9 50.6 51.5 52.8 51.8 51.1 49.8 50.2 50.4 51.6 51.8 50.9 48.8 51.7
+\[31\] 51.0 50.6 51.7 51.5 52.1 51.3 51.0 54.0 51.4 52.7 53.1 54.6 52.0
+52.0 50.9 \[46\] 52.6 50.2 52.6 51.6 51.9 50.5 50.9 51.7 51.4 51.7 50.8
+51.9 51.8 51.9 53.0
+\# Get times for each observation as.numeric(time(nhtemp))
+\[1\] 1912 1913 1914 1915 1916 1917 1918 1919 1920 1921 1922 1923 1924
+1925 1926 \[16\] 1927 1928 1929 1930 1931 1932 1933 1934 1935 1936 1937
+1938 1939 1940 1941 \[31\] 1942 1943 1944 1945 1946 1947 1948 1949 1950
+1951 1952 1953 1954 1955 1956 \[46\] 1957 1958 1959 1960 1961 1962 1963
+1964 1965 1966 1967 1968 1969 1970 1971
+\# Get value of each observation as.numeric(nhtemp)
+\[1\] 49.9 52.3 49.4 51.1 49.4 47.9 49.8 50.9 49.3 51.9 50.8 49.6 49.3
+50.6 48.4 \[16\] 50.7 50.9 50.6 51.5 52.8 51.8 51.1 49.8 50.2 50.4 51.6
+51.8 50.9 48.8 51.7 \[31\] 51.0 50.6 51.7 51.5 52.1 51.3 51.0 54.0 51.4
+52.7 53.1 54.6 52.0 52.0 50.9 \[46\] 52.6 50.2 52.6 51.6 51.9 50.5 50.9
+51.7 51.4 51.7 50.8 51.9 51.8 51.9 53.0
+\# Put them in a data frame nht &lt;-
+data.frame(year=as.numeric(time(nhtemp)), temp=as.numeric(nhtemp)) nht
+year temp 1912 49.9 1913 52.3 ... 1970 51.9 1971 53.0
+### Discussion {#_discussion_149}
+
+Time series objects efficiently store information when there are
+observations at regular time intervals, but for use with ggplot2, they
+need to be converted to a format that separately represents times and
+values for each observation.
+
+Some time series objects are cyclical. The presidents data set, for
+example, contains four observations per year, one for each quarter:
+
+presidents
+Qtr1 Qtr2 Qtr3 Qtr4 1945 NA 87 82 75 1946 63 50 43 32 1947 35 60 54 55
+... 1972 49 61 NA NA 1973 68 44 40 27 1974 28 25 24 24
+To convert it to a two-column data frame with one column representing
+the year with fractional values, we can do the same as before:
+
+pres\_rating &lt;- data.frame( year = as.numeric(time(presidents)),
+rating = as.numeric(presidents) ) pres\_rating
+year rating 1945.00 NA 1945.25 87 1945.50 82 ... 1974.25 25 1974.50 24
+1974.75 24
+It is also possible to store the year and quarter in separate columns,
+which may be useful in some visualizations:
+
+pres\_rating2 &lt;- data.frame( year =
+as.numeric(floor(time(presidents))), quarter =
+as.numeric(cycle(presidents)), rating = as.numeric(presidents) )
+pres\_rating2
+year quarter rating 1945 1 NA 1945 2 87 1945 3 82 ... 1974 2 25 1974 3
+24 1974 4 24
+### See Also {#_see_also_101}
+
+The zoo package is also useful for working with time seriesobjects.

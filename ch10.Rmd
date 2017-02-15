@@ -1,0 +1,652 @@
+Legends {#CHAPTER_LEGEND}
+=======
+
+Like the x- or y-axis, a legend is a guide: it shows people how to map
+visual (aesthetic) properties back to data values.
+
+Removing the Legend {#RECIPE_LEGEND_REMOVE}
+-------------------
+
+### Problem {#_problem_89}
+
+You want to remove the legend from a graph.
+
+### Solution {#_solution_89}
+
+Use guides(), and specify the scale that should have its legend removed
+([figure\_title](#FIG_LEGEND_REMOVE)):
+
+```{r}
+# The base plot (with legend)
+p <- ggplot(PlantGrowth, aes(x=group, y=weight, fill=group)) + geom_boxplot()
+p
+
+# Remove the legend for fill
+p + guides(fill=FALSE)
+```
+
+![Left: default appearance; right: with legend
+removed](figs/rgcb_1001.png)
+
+### Discussion {#_discussion_82}
+
+Another way to remove a legend is to set guide=FALSE in the scale. This
+will result in the exact same output as the preceding code:
+
+```{r}
+# Remove the legend for fill
+p + scale_fill_discrete(guide=FALSE)
+```
+
+Yet another way to remove the legend is to use the theming system. If
+you have more than one aesthetic mapping with a legend (color and shape,
+for example), this will remove legends for all of them:
+
+```{r}
+p + theme(legend.position="none")
+```
+
+Sometimes a legend is redundant, or it is supplied in another graph that
+will be displayed with the current one. In these cases, it can be useful
+to remove the legend from a graph.
+
+In the example used here, the colors provide the same information that
+is on the x-axis, so the legend is unnecessary. Notice that with the
+legend removed, the area used for graphing the data is larger. If you
+want to achieve the same proportions in the graphing area, you will need
+to adjust the overall dimensions of the graph.
+
+When a variable is mapped to fill, the default scale used is
+scale\$\$\_\$\$fill\$\$\_\$\$discrete() (equivalent to
+scale\$\$\_\$\$fill\$\$\_\$\$hue()), which maps the factor levels to
+colors that are equally spaced around the color wheel. There are other
+scales for fill, such as scale\$\$\_\$\$fill\$\$\_\$\$manual(). If you
+use scales for other aesthetics, such as colour (for lines and points)
+or shape (for points), you must use the appropriate scale. Commonly used
+scales include:
+
+-   scale\$\$\_\$\$fill\$\$\_\$\$discrete()
+
+-   scale\$\$\_\$\$fill\$\$\_\$\$hue()
+
+-   scale\$\$\_\$\$fill\$\$\_\$\$manual()
+
+-   scale\$\$\_\$\$fill\$\$\_\$\$grey()
+
+-   scale\$\$\_\$\$fill\$\$\_\$\$brewer()
+
+-   scale\$\$\_\$\$colour\$\$\_\$\$discrete()
+
+-   scale\$\$\_\$\$colour\$\$\_\$\$hue()
+
+-   scale\$\$\_\$\$colour\$\$\_\$\$manual()
+
+-   scale\$\$\_\$\$colour\$\$\_\$\$grey()
+
+-   scale\$\$\_\$\$colour\$\$\_\$\$brewer()
+
+-   scale\$\$\_\$\$shape\$\$\_\$\$manual()
+
+-   scale\$\$\_\$\$linetype()
+
+Changing the Position of a Legend {#RECIPE_LEGEND_POSITION}
+---------------------------------
+
+### Problem {#_problem_90}
+
+You want to move the legend from its default place on the right side.
+
+### Solution {#_solution_90}
+
+Use theme(legend.position=...). It can be put on the top, left, right,
+or bottom by using one of those strings as the position
+([figure\_title](#FIG_LEGEND_POSITION), left):
+
+```{r}
+p <- ggplot(PlantGrowth, aes(x=group, y=weight, fill=group)) + geom_boxplot() +
+    scale_fill_brewer(palette="Pastel2")
+
+p + theme(legend.position="top")
+```
+
+![Left: legend on top; right: legend inside of graphing
+area](figs/rgcb_1002.png)
+
+The legend can also be placed inside the graphing area by specifying a
+coordinate position, as in legend.position=c(1,0)
+([figure\_title](#FIG_LEGEND_POSITION), right). The coordinate space
+starts at (0, 0) in the bottom left and goes to (1, 1) in the top right.
+
+### Discussion {#_discussion_83}
+
+You can also use legend.justification to set which *part* of the legend
+box is set to the position at legend.position. By default, the center of
+the legend (.5, .5) is placed at the coordinate, but it is often useful
+to specify a different point.
+
+For example, this will place the bottom-right corner of the legend (1,0)
+in the bottom-right corner of the graphing area (1,0):
+
+```{r}
+p + theme(legend.position=c(1,0), legend.justification=c(1,0))
+```
+
+![Left: legend in bottom-right corner; right: legend in top-right
+corner.](figs/rgcb_1003.png)
+
+And this will place the top-right corner of the legend in the top-right
+corner of the graphing area, as in the graph on the right in
+[figure\_title](#FIG_LEGEND_POSITION_JUSTIFICATION):
+
+```{r}
+p + theme(legend.position=c(1,1), legend.justification=c(1,1))
+```
+
+When placing the legend inside of the graphing area, it may be helpful
+to add an opaque border to set it apart
+([figure\_title](#FIG_LEGEND_POSITION_BACKGROUND), left):
+
+```{r}
+p + theme(legend.position=c(.85,.2)) +
+    theme(legend.background=element_rect(fill="white", colour="black"))
+```
+
+![Left: legend with opaque background and outline; right: with no
+background or outlines](figs/rgcb_1004.png)
+
+You can also remove the border around its elements so that itblends in
+([figure\_title](#FIG_LEGEND_POSITION_BACKGROUND), right):
+
+```{r}
+p + theme(legend.position=c(.85,.2)) +
+    theme(legend.background=element_blank()) +  # Remove overall border
+    theme(legend.key=element_blank())           # Remove border around each item
+```
+
+Changing the Order of Items in a Legend {#RECIPE_LEGEND_ORDER}
+---------------------------------------
+
+### Problem {#_problem_91}
+
+You want to change the order of the items in a legend.
+
+### Solution {#_solution_91}
+
+Set the limits in the scale to the desired order
+([figure\_title](#FIG_LEGEND_ORDER)):
+
+```{r}
+# The base plot
+p <- ggplot(PlantGrowth, aes(x=group, y=weight, fill=group)) + geom_boxplot()
+p
+
+# Change the order of items
+p + scale_fill_discrete(limits=c("trt1", "trt2", "ctrl"))
+```
+
+![Left: default order for legend; right: modified
+order](figs/rgcb_1005.png)
+
+### Discussion {#_discussion_84}
+
+Note that the order of the items on the x-axis did not change. To do
+that, you would have to set the limits of
+scale\$\$\_\$\$x\$\$\_\$\$discrete() ([???](#RECIPE_AXIS_ORDER)), or
+change the data to have a different factor level order
+([???](#RECIPE_DATAPREP_FACTOR_REORDER)).
+
+In the preceding example, group was mapped to the fill aesthetic. By
+default this uses scale\$\$\_\$\$fill\$\$\_\$\$discrete() (which is the
+sameas scale\$\$\_\$\$fill\$\$\_\$\$hue()), which maps the factor levels
+to colors that are equally spaced around the color wheel. We could have
+used a different scale\$\$\_\$\$fill\$\$\_\$\$*xxx*(), though. For
+example, we could use a grey palette
+([figure\_title](#FIG_LEGEND_ORDER2), left):
+
+```{r}
+p + scale_fill_grey(start=.5, end=1, limits=c("trt1", "trt2", "ctrl"))
+```
+
+Or we could use a palette from RColorBrewer
+([figure\_title](#FIG_LEGEND_ORDER2), right):
+
+```{r}
+p + scale_fill_brewer(palette="Pastel2", limits=c("trt1", "trt2", "ctrl"))
+```
+
+![Left: modified order with a grey palette; right: with a palette from
+RColorBrewer](figs/rgcb_1006.png)
+
+All the previous examples were for fill. If you use scales for other
+aesthetics, such as colour (for lines and points) or shape (for points),
+you must use the appropriate scale. Commonly used scales include:
+
+-   scale\$\$\_\$\$fill\$\$\_\$\$discrete()
+
+-   scale\$\$\_\$\$fill\$\$\_\$\$hue()
+
+-   scale\$\$\_\$\$fill\$\$\_\$\$manual()
+
+-   scale\$\$\_\$\$fill\$\$\_\$\$grey()
+
+-   scale\$\$\_\$\$fill\$\$\_\$\$brewer()
+
+-   scale\$\$\_\$\$colour\$\$\_\$\$discrete()
+
+-   scale\$\$\_\$\$colour\$\$\_\$\$hue()
+
+-   scale\$\$\_\$\$colour\$\$\_\$\$manual()
+
+-   scale\$\$\_\$\$colour\$\$\_\$\$grey()
+
+-   scale\$\$\_\$\$colour\$\$\_\$\$brewer()
+
+-   scale\$\$\_\$\$shape\$\$\_\$\$manual()
+
+-   scale\$\$\_\$\$linetype()
+
+By default, using scale\$\$\_\$\$fill\$\$\_\$\$discrete() is equivalent
+to using scale\$\$\_\$\$fill\$\$\_\$\$hue(); the same is true for color
+scales.
+
+### See Also {#_see_also_61}
+
+To reverse the order of the legend, see
+[section\_title](#RECIPE_LEGEND_REVERSE).
+
+To change the order of factor levels, see
+[???](#RECIPE_DATAPREP_FACTOR_REORDER). To order legend items based on
+values in another variable, see
+[???](#RECIPE_DATAPREP_FACTOR_REORDER_VALUE).
+
+Reversing the Order of Items in a Legend {#RECIPE_LEGEND_REVERSE}
+----------------------------------------
+
+### Problem {#_problem_92}
+
+You want to reverse the order of items in a legend.
+
+### Solution {#_solution_92}
+
+Add guides(fill=guide\$\$\_\$\$legend(reverse=TRUE)) toreverse the order
+of the legend, as in [figure\_title](#FIG_LEGEND_TITLE_REVERSE) (for
+other aesthetics, replace fill with the name of the aesthetic, such as
+colour or size):
+
+```{r}
+# The base plot
+p <- ggplot(PlantGrowth, aes(x=group, y=weight, fill=group)) + geom_boxplot()
+p
+
+# Reverse the legend order
+p + guides(fill=guide_legend(reverse=TRUE))
+```
+
+![Left: default order for legend; right: reversed
+order](figs/rgcb_1007.png)
+
+### Discussion {#_discussion_85}
+
+It is also possible to control the legend when specifying the scale, as
+in the following:
+
+```{r}
+scale_fill_hue(guide=guide_legend(reverse=TRUE))
+```
+
+Changing a Legend Title {#RECIPE_LEGEND_TITLE_TEXT}
+-----------------------
+
+### Problem {#_problem_93}
+
+You want to change the text of a legend title.
+
+### Solution {#_solution_93}
+
+Use labs() and setthe value of fill, colour, shape, or whatever
+aesthetic is appropriate for the legend
+([figure\_title](#FIG_LEGEND_TITLE)):
+
+```{r}
+# The base plot
+p <- ggplot(PlantGrowth, aes(x=group, y=weight, fill=group)) + geom_boxplot()
+p
+
+# Set the legend title to "Condition"
+p + labs(fill="Condition")
+```
+
+![With the legend title set to LDQUOConditionRDQUO](figs/rgcb_1008.png)
+
+### Discussion {#_discussion_86}
+
+ItRSQUOs also possible to set the title of the legend in the scale
+specification. Since legends and axes are both guides, this works the
+same way as setting the title of the x- or y-axis.
+
+This would have the same effect as the previous code:
+
+```{r}
+p + scale_fill_discrete(name="Condition")
+```
+
+If there are multiple variables mapped to aesthetics with a legend
+(those other than x and y), you can set the title of each individually.
+In the example here weRSQUOll use \$\$\\\$\$n to add a line break in one
+of the titles ([figure\_title](#FIG_LEGEND_TITLE_MULTI)):
+
+```{r}
+library(gcookbook) # For the data set
+
+# Make the base plot
+hw <- ggplot(heightweight, aes(x=ageYear, y=heightIn, colour=sex)) +
+      geom_point(aes(size=weightLb)) + scale_size_continuous(range=c(1,4))
+
+hw
+
+# With new legend titles
+hw + labs(colour="Male/Female", size="Weight\n(pounds)")
+```
+
+![Left: two legends with original titles; right: with new
+titles](figs/rgcb_1009.png)
+
+If you have one variable mapped to two separate aesthetics, the default
+is to have a single legend that combines both. For example, if we map
+sex to both shape and weight, there will be just one legend
+([figure\_title](#FIG_LEGEND_TITLE_MULTI_SAME), left):
+
+```{r}
+hw1 <- ggplot(heightweight, aes(x=ageYear, y=heightIn, shape=sex, colour=sex)) +
+       geom_point()
+
+hw1
+```
+
+![Left: default legend with a variable mapped to shape and colour;
+middle: with shape renamed; right: with both shape and colour
+renamed](figs/rgcb_1010.png)
+
+To change the title ([figure\_title](#FIG_LEGEND_TITLE_MULTI_SAME),
+right), you need to set the name for both of them. If you change the
+name for just one, it will result in two separate legends
+([figure\_title](#FIG_LEGEND_TITLE_MULTI_SAME), middle):
+
+```{r}
+# Change just shape
+hw1 + labs(shape="Male/Female")
+
+# Change both shape and colour
+hw1 + labs(shape="Male/Female", colour="Male/Female")
+```
+
+It is also possible to control the legend title with the guides()
+function. ItRSQUOs a little more verbose, but it can be useful when
+youRSQUOre already using it to control other properties:
+
+```{r}
+p + guides(fill=guide_legend(title="Condition"))
+```
+
+Changing the Appearance of a Legend Title {#RECIPE_LEGEND_TITLE_APPEARANCE}
+-----------------------------------------
+
+### Problem {#_problem_94}
+
+You want to change the appearance of a legend titleRSQUOs text.
+
+### Solution {#_solution_94}
+
+Use theme(legend.title=element\$\$\_\$\$text())
+([figure\_title](#FIG_LEGEND_TITLE_APPEARANCE)):
+
+```{r}
+p <- ggplot(PlantGrowth, aes(x=group, y=weight, fill=group)) + geom_boxplot()
+
+p + theme(legend.title=element_text(face="italic", family="Times", colour="red",
+                                    size=14))
+```
+
+![Customized legend title appearance](figs/rgcb_1011.png)
+
+### Discussion {#_discussion_87}
+
+ItRSQUOs also possible to specify the legend titleRSQUOs appearance via
+guides(), but this method can be a bit verbose. This has the same effect
+as the previous code:
+
+```{r}
+p + guides(fill=guide_legend(title.theme=
+           element_text(face="italic", family="times", colour="red", size=14)))
+```
+
+### See Also {#_see_also_62}
+
+See [???](#RECIPE_APPEARANCE_TEXT_APPEARANCE) for more on controlling
+the appearance of text.
+
+Removing a Legend Title {#RECIPE_LEGEND_TITLE_REMOVE}
+-----------------------
+
+### Problem {#_problem_95}
+
+You want to remove a legend title.
+
+### Solution {#_solution_95}
+
+Add guides(fill=guide\$\$\_\$\$legend(title=NULL)) to remove the title
+from a legend, as in [figure\_title](#FIG_LEGEND_TITLE_REMOVE) (for
+other aesthetics, replace fill with the name of the aesthetic, such as
+colour or size):
+
+```{r}
+ggplot(PlantGrowth, aes(x=group, y=weight, fill=group)) + geom_boxplot() +
+    guides(fill=guide_legend(title=NULL))
+```
+
+![Box plot with no legend title](figs/rgcb_1012.png)
+
+### Discussion {#_discussion_88}
+
+It is also possible to control the legend title when specifying the
+scale. This has the same effect as the preceding code:
+
+```{r}
+scale_fill_hue(guide = guide_legend(title=NULL))
+```
+
+Changing the Labels in a Legend {#RECIPE_LEGEND_LABEL_TEXT}
+-------------------------------
+
+### Problem {#_problem_96}
+
+You want to change the text of labels in a legend.
+
+### Solution {#_solution_96}
+
+Set the labels in the scale ([figure\_title](#FIG_LEGEND_LABEL), left):
+
+```{r}
+library(gcookbook) # For the data set
+
+# The base plot
+p <- ggplot(PlantGrowth, aes(x=group, y=weight, fill=group)) + geom_boxplot()
+
+# Change the legend labels
+p + scale_fill_discrete(labels=c("Control", "Treatment 1", "Treatment 2"))
+```
+
+![Left: manually specified legend labels with the default discrete
+scale; right: manually specified labels with a different
+scale](figs/rgcb_1013.png)
+
+### Discussion {#_discussion_89}
+
+Note that the labels on the x-axis did not change. To do that, you would
+have to set the labels of scale\$\$\_\$\$x\$\$\_\$\$discrete()
+([???](#RECIPE_AXES_AXIS_LABEL)), or change the data to have different
+factor level names ([???](#RECIPE_DATAPREP_FACTOR_RENAME)).
+
+In the preceding example, group was mapped to the fill aesthetic. By
+default this uses scale\$\$\_\$\$fill\$\$\_\$\$discrete(), which maps
+the factor levels to colors that are equally spaced around the color
+wheel (the same as scale\$\$\_\$\$fill\$\$\_\$\$hue()). There are other
+fill scales we could use, and setting the labels works the same way. For
+example, to produce the graph on the right in
+[figure\_title](#FIG_LEGEND_LABEL):
+
+```{r}
+p + scale_fill_grey(start=.5, end=1,
+                    labels=c("Control", "Treatment 1", "Treatment 2"))
+```
+
+If you are also changing the order of items in the legend, the labels
+are matched to the items by position. In this example weRSQUOll change
+the item order, and make sure to set the labels in the same order
+([figure\_title](#FIG_LEGEND_LABEL_ORDER)):
+
+```{r}
+p + scale_fill_discrete(limits=c("trt1", "trt2", "ctrl"),
+                        labels=c("Treatment 1", "Treatment 2", "Control"))
+```
+
+![Modified legend label order and manually specified labels (note that
+the x-axis labels and their order are unchanged)](figs/rgcb_1014.png)
+
+If you have one variable mapped to two separate aesthetics, the default
+is to have a single legend that combines both. If you want to change the
+legend labels, you must change them for both scales; otherwise you will
+end up with two separate legends, as shown in
+[figure\_title](#FIG_LEGEND_LABEL_MULTI_SAME):
+
+```{r}
+# The base plot
+p <- ggplot(heightweight, aes(x=ageYear, y=heightIn, shape=sex, colour=sex)) +
+     geom_point()
+p
+
+# Change the labels for one scale
+p + scale_shape_discrete(labels=c("Female", "Male"))
+
+# Change the labels for both scales
+p + scale_shape_discrete(labels=c("Female", "Male")) +
+    scale_colour_discrete(labels=c("Female", "Male"))
+```
+
+![Left: a variable mapped to shape and colour; middle: with new labels
+for shape; right: with new labels for both shape and
+colour](figs/rgcb_1015.png)
+
+Other commonly used scales with legends include:
+
+-   scale\$\$\_\$\$fill\$\$\_\$\$discrete()
+
+-   scale\$\$\_\$\$fill\$\$\_\$\$hue()
+
+-   scale\$\$\_\$\$fill\$\$\_\$\$manual()
+
+-   scale\$\$\_\$\$fill\$\$\_\$\$grey()
+
+-   scale\$\$\_\$\$fill\$\$\_\$\$brewer()
+
+-   scale\$\$\_\$\$colour\$\$\_\$\$discrete()
+
+-   scale\$\$\_\$\$colour\$\$\_\$\$hue()
+
+-   scale\$\$\_\$\$colour\$\$\_\$\$manual()
+
+-   scale\$\$\_\$\$colour\$\$\_\$\$grey()
+
+-   scale\$\$\_\$\$colour\$\$\_\$\$brewer()
+
+-   scale\$\$\_\$\$shape\$\$\_\$\$manual()
+
+-   scale\$\$\_\$\$linetype()
+
+By default, using scale\$\$\_\$\$fill\$\$\_\$\$discrete() is equivalent
+to using scale\$\$\_\$\$fill\$\$\_\$\$hue(); the same is true for color
+scales.
+
+Changing the Appearance of Legend Labels {#RECIPE_LEGEND_LABEL_APPEARANCE}
+----------------------------------------
+
+### Problem {#_problem_97}
+
+You want to change the appearance of labels in a legend.
+
+### Solution {#_solution_97}
+
+Use theme(legend.text=element\$\$\_\$\$text())
+([figure\_title](#FIG_LEGEND_LABEL_APPEARANCE)):
+
+```{r}
+# The base plot
+p <- ggplot(PlantGrowth, aes(x=group, y=weight, fill=group)) + geom_boxplot()
+
+# Change the legend label appearance
+p + theme(legend.text=element_text(face="italic", family="Times", colour="red",
+                                   size=14))
+```
+
+![Customized legend label appearance](figs/rgcb_1016.png)
+
+### Discussion {#_discussion_90}
+
+ItRSQUOs also possible to specify the legend label appearance via
+guides(), although this method is a bit unwieldy. This has the same
+effect as the previous code:
+
+```{r}
+# Changes the legend title text for the fill legend
+p + guides(fill=guide_legend(label.theme=
+           element_text(face="italic", family="Times", colour="red", size=14)))
+```
+
+### See Also {#_see_also_63}
+
+See [???](#RECIPE_APPEARANCE_TEXT_APPEARANCE) for more on controlling
+the appearance of text.
+
+Using Labels with Multiple Lines of Text {#RECIPE_LEGEND_LABEL_MULTILINE}
+----------------------------------------
+
+### Problem {#_problem_98}
+
+You want to use legend labels that have more than one line of text.
+
+### Solution {#_solution_98}
+
+Set the labels in the scale, using \$\$\\\$\$n to represent a newline.
+In this example, weRSQUOll use scale\$\$\_\$\$fill\$\$\_\$\$discrete()
+to control the legend for the fill scale
+([figure\_title](#FIG_LEGEND_LABEL_MULTILINE), left):
+
+```{r}
+p <- ggplot(PlantGrowth, aes(x=group, y=weight, fill=group)) + geom_boxplot()
+
+# Labels that have more than one line
+p + scale_fill_discrete(labels=c("Control", "Type 1\ntreatment",
+                                 "Type 2\ntreatment"))
+```
+
+![Left: multiline legend labels; right: with increased key height and
+reduced line spacing](figs/rgcb_1017.png)
+
+### Discussion {#_discussion_91}
+
+As you can see in the version on the left in
+[figure\_title](#FIG_LEGEND_LABEL_MULTILINE), with the default settings
+the lines of text will run into each other when you use labels that have
+more than one line. To deal with this problem, you can increase the
+height of the legend keys and decrease the spacing between lines, using
+theme() ([figure\_title](#FIG_LEGEND_LABEL_MULTILINE), right). To do
+this, you will need to specify the height using the unit() function from
+the grid package:
+
+```{r}
+library(grid)
+p + scale_fill_discrete(labels=c("Control", "Type 1\ntreatment",
+                                 "Type 2\ntreatment")) +
+    theme(legend.text=element_text(lineheight=.8),
+          legend.key.height=unit(1, "cm"))
+```

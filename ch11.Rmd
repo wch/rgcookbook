@@ -1,0 +1,233 @@
+Facets {#CHAPTER_FACET}
+======
+
+One of the most useful techniques in data visualization is rendering
+groups of data alongside each other, making it easy to compare the
+groups. With ggplot2, one way to do this is by mapping a discrete
+variable to an aesthetic, like *x* position, color, or shape. Another
+way of doing this is to create a subplot for each group and draw the
+subplots side by side.
+
+These kinds of plots are known as *Trellis* displays. TheyRSQUOre
+implemented in the lattice package as well as in the ggplot2 package. In
+ggplot2, theyRSQUOre called *facets*. In this chapter IRSQUOll explain
+how to use them.
+
+Splitting Data into Subplots with Facets {#RECIPE_FACET_BASIC}
+----------------------------------------
+
+### Problem {#_problem_99}
+
+You want to plot subsets of your data in separate panels.
+
+### Solution {#_solution_99}
+
+Use facet\$\$\_\$\$grid() or facet\$\$\_\$\$wrap(), and specify the
+variables on which to split.
+
+With facet\$\$\_\$\$grid(), you can specify a variable to split the data
+into vertical subpanels, and another variable to split it into
+horizontal subpanels ([figure\_title](#FIG_FACET_FACET_GRID)):
+
+```{r}
+# The base plot
+p <- ggplot(mpg, aes(x=displ, y=hwy)) + geom_point()
+
+# Faceted by drv, in vertically arranged subpanels
+p + facet_grid(drv ~ .)
+
+# Faceted by cyl, in horizontally arranged subpanels
+p + facet_grid(. ~ cyl)
+
+# Split by drv (vertical) and cyl (horizontal)
+p + facet_grid(drv ~ cyl)
+```
+
+![Top: faceting horizontally by drv; bottom left: faceting vertically by
+cyl; bottom right: faceting in both directions, with both
+variables](figs/rgcb_1101.png)
+
+With facet\$\$\_\$\$wrap(), the subplots are laid out horizontally and
+wrap around, like words on a page, as in
+[figure\_title](#FIG_FACET_FACET_WRAP):
+
+```{r}
+# Facet on class
+# Note there is nothing before the tilde
+p + facet_wrap( ~ class)
+```
+
+![A scatter plot with facet\_wrap() on class](figs/rgcb_1102.png)
+
+### Discussion {#_discussion_92}
+
+With facet\$\$\_\$\$wrap(), the default is to use the same number of
+rows and columns. In [figure\_title](#FIG_FACET_FACET_WRAP), there were
+seven facets, and they fit into a 3 ×3 LDQUOsquare.RDQUO To change this,
+you can pass a value for nrow or ncol:
+
+```{r}
+# These will have the same result: 2 rows and 4 cols
+p + facet_wrap( ~ class, nrow=2)
+p + facet_wrap( ~ class, ncol=4)
+```
+
+The choice of faceting direction depends on the kind of comparison you
+would like to encourage. For example, if you want to compare heights of
+bars, itRSQUOs useful to make the facets go horizontally. If, on the
+other hand, you want to compare the horizontal distribution of
+histograms, it makes sense to make the facets go vertically.
+
+Sometimes both kinds of comparisons are important—there may not be a
+clear answer as to which faceting direction is best. It may turn out
+that displaying the groups in a single plot by mapping the grouping
+variable to an aesthetic like color works better than using facets. In
+these situations, youRSQUOll have to rely on your judgment.
+
+Using Facets with Different Axes {#RECIPE_FACET_FREE}
+--------------------------------
+
+### Problem {#_problem_100}
+
+You want subplots with different ranges or items on their axes.
+
+### Solution {#_solution_100}
+
+Set the scales to "free\$\$\_\$\$x", "free\$\$\_\$\$y", or "free"
+([figure\_title](#FIG_FACET_FACET_FREE)):
+
+```{r}
+# The base plot
+p <- ggplot(mpg, aes(x=displ, y=hwy)) + geom_point()
+
+# With free y scales
+p + facet_grid(drv ~ cyl, scales="free_y")
+
+# With free x and y scales
+p + facet_grid(drv ~ cyl, scales="free")
+```
+
+![Top: with free y scales; bottom: with free x and y
+scales](figs/rgcb_1103.png)
+
+### Discussion {#_discussion_93}
+
+Each row of subplots has its own *y* range when free *y* scales are
+used; the same applies to columns when free *x* scales are used.
+
+ItRSQUOs not possible to directly set the range of each row or column,
+but you can control the ranges by dropping unwanted data (to reduce the
+ranges), or by adding geom\$\$\_\$\$blank() (to expand the ranges).
+
+### See Also {#_see_also_64}
+
+See [???](#RECIPE_BAR_GRAPH_DOT_PLOT) for an example of faceting with
+free scales and a discrete axis.
+
+Changing the Text of Facet Labels {#RECIPE_FACET_LABEL_TEXT}
+---------------------------------
+
+### Problem {#_problem_101}
+
+You want to change the text of facet labels.
+
+### Solution {#_solution_101}
+
+Change the names of the factor levels
+([figure\_title](#FIG_FACET_LABEL_TEXT)):
+
+```{r}
+mpg2 <- mpg  # Make a copy of the original data
+
+# Rename 4 to 4wd, f to Front, r to Rear
+levels(mpg2$drv)[levels(mpg2$drv)=="4"]  <- "4wd"
+levels(mpg2$drv)[levels(mpg2$drv)=="f"]  <- "Front"
+levels(mpg2$drv)[levels(mpg2$drv)=="r"]  <- "Rear"
+
+# Plot the new data
+ggplot(mpg2, aes(x=displ, y=hwy)) + geom_point() + facet_grid(drv ~ .)
+```
+
+![Left: default facet labels; right: modified facet
+labels](figs/rgcb_1104.png)
+
+### Discussion {#_discussion_94}
+
+Unlike with scales where you can set the labels, to set facet labels you
+must change the data values. Also, at the time of this writing, there is
+no way to show the name of the faceting variable as a header for the
+facets, so it can be useful to use descriptive facet labels.
+
+With facet\$\$\_\$\$grid() but not facet\$\$\_\$\$wrap(), at this time),
+itRSQUOs possible to use a labeller function to set the labels. The
+labeller function label\$\$\_\$\$both() will print out both the name of
+the variable and the value of the variable in each facet
+([figure\_title](#FIG_FACET_LABEL_TEXT_LABELLER), left):
+
+```{r}
+ggplot(mpg2, aes(x=displ, y=hwy)) + geom_point() +
+    facet_grid(drv ~ ., labeller = label_both)
+```
+
+Another useful labeller is label\$\$\_\$\$parsed(), which takes strings
+and treats them as R math expressions
+([figure\_title](#FIG_FACET_LABEL_TEXT_LABELLER), right):
+
+```{r}
+mpg3 <- mpg
+
+levels(mpg3$drv)[levels(mpg3$drv)=="4"]  <- "4^{wd}"
+levels(mpg3$drv)[levels(mpg3$drv)=="f"]  <- "- Front %.% e^{pi * i}"
+levels(mpg3$drv)[levels(mpg3$drv)=="r"]  <- "4^{wd} - Front"
+
+ggplot(mpg3, aes(x=displ, y=hwy)) + geom_point() +
+    facet_grid(drv ~ ., labeller = label_parsed)
+```
+
+![Left: with label\_both(); right: with label\_parsed() for mathematical
+expressions](figs/rgcb_1105.png)
+
+### See Also {#_see_also_65}
+
+See [???](#RECIPE_DATAPREP_FACTOR_RENAME) for more on renaming factor
+levels. If the faceting variable is not a factor but a character vector,
+changing the values is somewhat different. See
+[???](#RECIPE_DATAPREP_CHARACTER_RENAME) for information on renaming
+items in character vectors.
+
+Changing the Appearance of Facet Labels and Headers {#RECIPE_FACET_LABEL_APPEARANCE}
+---------------------------------------------------
+
+### Problem {#_problem_102}
+
+You want to change the appearance of facet labels and headers.
+
+### Solution {#_solution_102}
+
+With the theming system, set strip.text to control the text appearance
+and strip.background to control the background appearance
+([figure\_title](#FIG_FACET_LABEL_APPEARANCE)):
+
+```{r}
+library(gcookbook)  # For the data set
+
+ggplot(cabbage_exp, aes(x=Cultivar, y=Weight)) + geom_bar(stat="identity") +
+    facet_grid(. ~ Date) +
+    theme(strip.text = element_text(face="bold", size=rel(1.5)),
+          strip.background = element_rect(fill="lightblue", colour="black",
+                                          size=1))
+```
+
+![Customized appearance for facet labels](figs/rgcb_1106.png)
+
+### Discussion {#_discussion}
+
+Using rel(1.5) makes the label text 1.5 times the size of the base text
+size for the theme. Using size=1 for the background makes the outline of
+the facets 1 mm thick.
+
+### See Also {#_see_also_66}
+
+For more on how the theme system works, see Recipes
+[???](#RECIPE_APPEARANCE_THEME) and
+[???](#RECIPE_APPEARANCE_THEME_MODIFY).

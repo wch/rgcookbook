@@ -1,0 +1,1786 @@
+Miscellaneous Graphs {#CHAPTER_MISCGRAPH}
+====================
+
+There are many, many ways of visualizing data, and sometimes things
+donRSQUOt fit into nice, tidy categories. This chapter shows how to make
+some of these other visualizations.
+
+Making a Correlation Matrix {#RECIPE_MISCGRAPH_CORRMATRIX}
+---------------------------
+
+### Problem {#_problem_110}
+
+You want to make a graphical correlation matrix.
+
+### Solution {#_solution_110}
+
+WeRSQUOll look at the mtcars data set:
+
+mtcars
+mpg cyl disp hp drat wt qsec vs am gear carb Mazda RX4 21.0 6 160.0 110
+3.90 2.620 16.46 0 1 4 4 Mazda RX4 Wag 21.0 6 160.0 110 3.90 2.875 17.02
+0 1 4 4 Datsun 710 22.8 4 108.0 93 3.85 2.320 18.61 1 1 4 1 ... Ferrari
+Dino 19.7 6 145.0 175 3.62 2.770 15.50 0 1 5 6 Maserati Bora 15.0 8
+301.0 335 3.54 3.570 14.60 0 1 5 8 Volvo 142E 21.4 4 121.0 109 4.11
+2.780 18.60 1 1 4 2
+First, generate the numerical correlation matrix using cor. This will
+generate correlation coefficients for each pair of columns:
+
+mcor &lt;- cor(mtcars) \# Print mcor and round to 2 digits round(mcor,
+digits=2)
+mpg cyl disp hp drat wt qsec vs am gear carb mpg 1.00 -0.85 -0.85 -0.78
+0.68 -0.87 0.42 0.66 0.60 0.48 -0.55 cyl -0.85 1.00 0.90 0.83 -0.70 0.78
+-0.59 -0.81 -0.52 -0.49 0.53 disp -0.85 0.90 1.00 0.79 -0.71 0.89 -0.43
+-0.71 -0.59 -0.56 0.39 hp -0.78 0.83 0.79 1.00 -0.45 0.66 -0.71 -0.72
+-0.24 -0.13 0.75 drat 0.68 -0.70 -0.71 -0.45 1.00 -0.71 0.09 0.44 0.71
+0.70 -0.09 wt -0.87 0.78 0.89 0.66 -0.71 1.00 -0.17 -0.55 -0.69 -0.58
+0.43 qsec 0.42 -0.59 -0.43 -0.71 0.09 -0.17 1.00 0.74 -0.23 -0.21 -0.66
+vs 0.66 -0.81 -0.71 -0.72 0.44 -0.55 0.74 1.00 0.17 0.21 -0.57 am 0.60
+-0.52 -0.59 -0.24 0.71 -0.69 -0.23 0.17 1.00 0.79 0.06 gear 0.48 -0.49
+-0.56 -0.13 0.70 -0.58 -0.21 0.21 0.79 1.00 0.27 carb -0.55 0.53 0.39
+0.75 -0.09 0.43 -0.66 -0.57 0.06 0.27 1.00
+If there are any columns that you donRSQUOt want used for correlations
+(for example, a column of names), you should exclude them. If there are
+any NA cells in the original data, the resulting correlation matrix will
+have NA values. To deal with this, you will probably want to use the
+option use="complete.obs" or use="pairwise.complete.obs".
+
+To graph the correlation matrix
+([figure\_title](#FIG_MISCGRAPH_CORRMATRIX_BASIC)), weRSQUOll use the
+corrplot package, which first must be installed with
+install.packages("corrplot"):
+
+```{r}
+library(corrplot)
+
+corrplot(mcor)
+```
+
+![A correlation matrix](figs/rgcb_1301.png)
+
+### Discussion {#_discussion_102}
+
+The corrplot() function hasmany, many options. Here is an example of how
+to make a correlation matrix with colored squares and black labels,
+rotated 45 degrees along the top
+([figure\_title](#FIG_MISCGRAPH_CORRMATRIX_SHADE)):
+
+```{r}
+corrplot(mcor, method="shade", shade.col=NA, tl.col="black", tl.srt=45)
+```
+
+![Correlation matrix with colored squares and black, rotated
+labels](figs/rgcb_1302.png)
+
+It may also be helpful to display labels representing the correlation
+coefficient on each square in the matrix. In this example weRSQUOll make
+a lighter palette so that the text is readable, and weRSQUOll remove the
+color legend, since itRSQUOs redundant. WeRSQUOll also order the items
+so that correlated items are closer together, using the order="AOE"
+(angular order of eigenvectors) option. The result is shown in
+[figure\_title](#FIG_MISCGRAPH_CORRMATRIX_SHADE_NUM):
+
+```{r}
+# Generate a lighter palette
+col <- colorRampPalette(c("#BB4444", "#EE9988", "#FFFFFF", "#77AADD", "#4477AA"))
+
+corrplot(mcor, method="shade", shade.col=NA, tl.col="black", tl.srt=45,
+         col=col(200), addCoef.col="black", addcolorlabel="no", order="AOE")
+```
+
+![Correlation matrix with correlation coefficients and no
+legend](figs/rgcb_1303.png)
+
+Like many other standalone graphing functions, corrplot() has its own
+menagerie of options, which canRSQUOt all be illustrated here.
+[table\_title](#TABLE_CORRPLOT) lists some useful options.
+
++-----------------------------------+-----------------------------------+
+| Option                            | Description                       |
++===================================+===================================+
+| type={"lower" | "upper"}          | Only use the lower or upper       |
+|                                   | triangle                          |
++-----------------------------------+-----------------------------------+
+| diag=FALSE                        | DonRSQUOt show values on the      |
+|                                   | diagonal                          |
++-----------------------------------+-----------------------------------+
+| addshade="all"                    | Add lines indicating the          |
+|                                   | direction of the correlation      |
++-----------------------------------+-----------------------------------+
+| shade.col=NA                      | Hide correlation direction lines  |
++-----------------------------------+-----------------------------------+
+| method="shade"                    | Use colored squares               |
++-----------------------------------+-----------------------------------+
+| method="ellipse"                  | Use ellipses                      |
++-----------------------------------+-----------------------------------+
+| addCoef.col="*color*"             | Add correlation coefficients, in  |
+|                                   | *color*                           |
++-----------------------------------+-----------------------------------+
+| tl.srt="*number*"                 | Specify the rotation angle for    |
+|                                   | top labels                        |
++-----------------------------------+-----------------------------------+
+| tl.col="*color*"                  | Specify the label color           |
++-----------------------------------+-----------------------------------+
+| order={"AOE" | "FPC" | "hclust"}  | Sort labels using angular order   |
+|                                   | of eigenvectors, first principal  |
+|                                   | component, or hierarchical        |
+|                                   | clustering                        |
++-----------------------------------+-----------------------------------+
+
+: Options for corrplot()
+
+### See Also {#_see_also_73}
+
+To create a scatter plot matrix, see [???](#RECIPE_SCATTER_SPLOM).
+
+For more on subsetting data, see [???](#RECIPE_DATAPREP_SUBSET).
+
+Plotting a Function {#RECIPE_MISCGRAPH_FUNCTION}
+-------------------
+
+### Problem {#_problem_111}
+
+You want to plot a function.
+
+### Solution {#_solution_111}
+
+Use stat\$\$\_\$\$function(). ItRSQUOs also necessary to give ggplot() a
+dummy data frame so that it will get the proper *x* range. In this
+example weRSQUOll use dnorm(), which gives the density of the normal
+distribution ([figure\_title](#FIG_MISCGRAPH_FUNCTION), left):
+
+```{r}
+# The data frame is only used for setting the range
+p <- ggplot(data.frame(x=c(-3,3)), aes(x=x))
+
+p + stat_function(fun = dnorm)
+```
+
+![Left: the normal distribution; right: the t-distribution with
+df=2](figs/rgcb_1304.png)
+
+### Discussion {#_discussion_103}
+
+Some functions take additional arguments. For example, dt(), the
+function for the density of the *t*-distribution, takes a parameter for
+degrees of freedom ([figure\_title](#FIG_MISCGRAPH_FUNCTION), right).
+These additional arguments can be passed to the function by putting them
+in a list and giving the list to args:
+
+```{r}
+p + stat_function(fun=dt, args=list(df=2))
+```
+
+ItRSQUOs also possible to define your own functions. It should take an
+*x* value for its first argument, and it should return a *y* value. In
+this example, weRSQUOll define a sigmoid function
+([figure\_title](#FIG_MISCGRAPH_FUNCTION_CUSTOM)):
+
+```{r}
+myfun <- function(xvar) {
+    1/(1 + exp(-xvar + 10))
+}
+
+ggplot(data.frame(x=c(0, 20)), aes(x=x)) + stat_function(fun=myfun)
+```
+
+![A user-defined function](figs/rgcb_1305.png)
+
+By default, the function is calculated at 101 points along the *x*
+range. If you have a rapidly fluctuating function, you may be able to
+see the individual segments. To smooth out the curve, pass a larger
+value of n to stat\$\$\_\$\$function(), as in
+stat\$\$\_\$\$function(fun=myfun, n=200).
+
+### See Also {#_see_also_74}
+
+For plotting predicted values from model objects (such as lm and glm),
+see [???](#RECIPE_SCATTER_FITLINES_MODEL).
+
+Shading a Subregion Under a Function Curve {#RECIPE_MISCGRAPH_FUNCTION_SHADE}
+------------------------------------------
+
+### Problem {#_problem_112}
+
+You want to shade part of the area under a function curve.
+
+### Solution {#_solution_112}
+
+Define a new wrapper function around your curve function, and replace
+out-of-range values with NA (), as shown in
+[figure\_title](#FIG_MISCGRAPH_FUNCTION_SHADE):
+
+```{r}
+# Return dnorm(x) for 0 < x < 2, and NA for all other x
+dnorm_limit <- function(x) {
+    y <- dnorm(x)
+    y[x < 0  |  x > 2] <- NA
+    return(y)
+}
+
+# ggplot() with dummy data
+p <- ggplot(data.frame(x=c(-3, 3)), aes(x=x))
+
+p + stat_function(fun=dnorm_limit, geom="area", fill="blue", alpha=0.2) +
+    stat_function(fun=dnorm)
+```
+
+![Function curve with a shaded region](figs/rgcb_1306.png)
+
+Remember that what gets passed to this function is a vector, not
+individual values. If this function operated on single elements at a
+time, it might make sense to use an if\$\$/\$\$else statement to decide
+what to return, conditional on the value of x. But that wonRSQUOt work
+here, since x is a vector with many values.
+
+### Discussion {#_discussion_104}
+
+R has first-class functions, and we can write a function that returns a
+*closure*—that is, we can program a function to program another
+function.
+
+This function will allow you to pass in a function, a minimum value, and
+a maximum value. Values outside the range will again be returned with
+NA:
+
+```{r}
+limitRange <- function(fun, min, max) {
+    function(x) {
+        y <- fun(x)
+        y[x < min  |  x > max] <- NA
+        return(y)
+    }
+}
+```
+
+Now we can call this function to create another function—one that is
+effectively the same as the dnorm\$\$\_\$\$limit() function used
+earlier:
+
+\# This returns a function dlimit &lt;- limitRange(dnorm, 0, 2) \# Now
+we'll try out the new function -- it only returns values for inputs \#
+between 0 and 2 dlimit(-2:4)
+\[1\] NA NA 0.39894228 0.24197072 0.05399097 NA NA
+We can use limitRange() to create a function that is passed to
+stat\$\$\_\$\$function():
+
+```{r}
+p + stat_function(fun = dnorm) +
+    stat_function(fun = limitRange(dnorm, 0, 2),
+                  geom="area", fill="blue", alpha=0.2)
+```
+
+The limitRange() function can be used with any function, not just
+dnorm(), to create a range-limited version of that function. The result
+of all this is that instead of having to write functions with different
+hardcoded values for each situation that arises, we can write one
+function and simply pass it different arguments depending on the
+situation.
+
+If you look very, very closely at the graph in
+[figure\_title](#FIG_MISCGRAPH_FUNCTION_SHADE), you may see that the
+shaded region does not align exactly with the range we specified. This
+is because ggplot2 does a numeric approximation by calculating values at
+fixed intervals, and these intervals may not fall exactly within the
+specified range. As in [section\_title](#RECIPE_MISCGRAPH_FUNCTION), we
+can improve the approximation by increasing the number of
+interpolatedvalues with stat\$\$\_\$\$function(n=200).
+
+Creating a Network Graph {#RECIPE_MISCGRAPH_GRAPH}
+------------------------
+
+### Problem {#_problem_113}
+
+You want to create a network graph.
+
+### Solution {#_solution_113}
+
+Use the igraph package. To create a graph, pass a vector containing
+pairs of items to graph(), then plot the resulting object
+([figure\_title](#FIG_MISCGRAPH_GRAPH_BASIC)):
+
+```{r}
+# May need to install first, with install.packages("igraph")
+library(igraph)
+
+# Specify edges for a directed graph
+gd <- graph(c(1,2, 2,3, 2,4, 1,4, 5,5, 3,6))
+plot(gd)
+
+# For an undirected graph
+gu <- graph(c(1,2, 2,3, 2,4, 1,4, 5,5, 3,6), directed=FALSE)
+# No labels
+plot(gu, vertex.label=NA)
+```
+
+![Left: a directed graph; right: an undirected graph, with no vertex
+labels](figs/rgcb_1307.png)
+
+This is the structure of each of the graph objects:
+
+str(gd)
+IGRAPH D--- 6 6 -- + edges: \[1\] 1-&gt;2 2-&gt;3 2-&gt;4 1-&gt;4
+5-&gt;5 3-&gt;6
+str(gu)
+IGRAPH U--- 6 6 -- + edges: \[1\] 1--2 2--3 2--4 1--4 5--5 3--6
+### Discussion {#_discussion_105}
+
+In a network graph, the position of the nodes is unspecified by the
+data, and theyRSQUOre placed randomly. To make the output repeatable,
+you can set the random seed before making the plot. You can try
+different random numbers until you get a result that you like:
+
+```{r}
+set.seed(229)
+plot(gu)
+```
+
+ItRSQUOs also possible to create a graph from a data frame. The first
+two columns of the data frame are used, and each row specifies a
+connection between two nodes. In the next example
+([figure\_title](#FIG_MISCGRAPH_GRAPH_DIRECTED)), weRSQUOll use the
+madmen2 data set, which has this structure. WeRSQUOll also use the
+Fruchterman-Reingold layout algorithm. The idea is that all the nodes
+have a magnetic repulsion from one another, but the edges between nodes
+act as springs, pulling the nodes together:
+
+![A directed graph from a data frame, with the Fruchterman-Reingold
+algorithm](figs/rgcb_1308.png)
+
+library(gcookbook) \# For the data set madmen2
+Name1 Name2 Abe Drexler Peggy Olson Allison Don Draper Arthur Case Betty
+Draper ...
+\# Create a graph object from the data set g &lt;-
+graph.data.frame(madmen2, directed=TRUE) \# Remove unnecessary margins
+par(mar=c(0,0,0,0)) plot(g, layout=layout.fruchterman.reingold,
+vertex.size=8, edge.arrow.size=0.5, vertex.label=NA)
+ItRSQUOs also possible to make a directed graph from a data frame. The
+madmen data set has only one row for each pairing, since direction
+doesnRSQUOt matter for an undirected graph. This time weRSQUOll use a
+circle layout ([figure\_title](#FIG_MISCGRAPH_GRAPH_CIRCLE)):
+
+```{r}
+g <- graph.data.frame(madmen, directed=FALSE)
+par(mar=c(0,0,0,0))  # Remove unnecessary margins
+plot(g, layout=layout.circle, vertex.size=8, vertex.label=NA)
+```
+
+![A circular undirected graph from a data frame](figs/rgcb_1309.png)
+
+### See Also {#_see_also_75}
+
+For more information about the available output options, see
+?plot.igraph. Also see ?igraph::layout for layout options.
+
+An alternative to igraph is Rgraphviz, which a frontend for Graphviz, an
+open-source library for visualizing graphs. It works better with labels
+and makes it easier to create graphs with a controlled layout, but it
+can be a bit challenging to install. Rgraphviz is available through the
+Bioconductor repository system.
+
+Using Text Labels in a Network Graph {#RECIPE_MISCGRAPH_GRAPH_LABEL}
+------------------------------------
+
+### Problem {#_problem_114}
+
+You want to use text labels in a network graph.
+
+### Solution {#_solution_114}
+
+The vertices/nodes may have names, but these names are not used as
+labels by default. To set the labels, pass in a vector of names to
+vertex.label ([figure\_title](#FIG_MISCGRAPH_GRAPH_LABEL)):
+
+library(igraph) library(gcookbook) \# For the data set \# Copy madmen
+and drop every other row m &lt;- madmen\[1:nrow(madmen) %% 2 == 1, \] g
+&lt;- graph.data.frame(m, directed=FALSE) \# Print out the names of each
+vertex V(g)\$name
+\[1\] "Betty Draper" "Don Draper" "Harry Crane" "Joan Holloway" \[5\]
+"Lane Pryce" "Peggy Olson" "Pete Campbell" "Roger Sterling" \[9\] "Sal
+Romano" "Henry Francis" "Allison" "Candace" \[13\] "Faye Miller" "Megan
+Calvet" "Rachel Menken" "Suzanne Farrell" \[17\] "Hildy" "Franklin"
+"Rebecca Pryce" "Abe Drexler" \[21\] "Duck Phillips" "Playtex bra model"
+"Ida Blankenship" "Mirabelle Ames" \[25\] "Vicky" "Kitty Romano"
+plot(g, layout=layout.fruchterman.reingold, vertex.size = 4, \# Smaller
+nodes vertex.label = V(g)\$name, \# Set the labels vertex.label.cex =
+0.8, \# Slightly smaller font vertex.label.dist = 0.4, \# Offset the
+labels vertex.label.color = "black")
+![A network graph with labels](figs/rgcb_1310.png)
+
+### Discussion {#_discussion_106}
+
+Another way to achieve the same effect is to modify the plot object,
+instead of passing in the values as arguments to plot(). To do this, use
+V()\$*xxx*&lt;- instead of passing a value to a vertex.*xxx* argument.
+For example, this will result in the same output as the previous code:
+
+```{r}
+# This is equivalent to the preceding code
+V(g)$size        <- 4
+V(g)$label       <- V(g)$name
+V(g)$label.cex   <- 0.8
+V(g)$label.dist  <- 0.4
+V(g)$label.color <- "black"
+
+# Set a property of the entire graph
+g$layout <- layout.fruchterman.reingold
+
+plot(g)
+```
+
+The properties of the edges can also be set, either with the E()
+function or by passing values to edge.*xxx* arguments
+([figure\_title](#FIG_MISCGRAPH_GRAPH_LABEL_EDGE)):
+
+    # View the edges
+    E(g)
+
+    # Set some of the labels to "M"
+    E(g)[c(2,11,19)]$label <- "M"
+
+    # Set color of all to grey, and then color a few red
+    E(g)$color             <- "grey70"
+    E(g)[c(2,11,19)]$color <- "red"
+
+    plot(g)
+
+![A network graph with labeled and colored edges](figs/rgcb_1311.png)
+
+### See Also {#_see_also_76}
+
+See ?igraph.plotting for more information about graphical parameters in
+igraph.
+
+Creating a Heat Map {#RECIPE_MISCGRAPH_HEATMAP}
+-------------------
+
+### Problem {#_problem_115}
+
+You want to make a heat map.
+
+### Solution {#_solution_115}
+
+Use geom\$\$\_\$\$tile() or geom\$\$\_\$\$raster() and map a continuous
+variable to fill. WeRSQUOll use the presidents data set, which is a time
+series object rather than a data frame:
+
+presidents
+Qtr1 Qtr2 Qtr3 Qtr4 1945 NA 87 82 75 1946 63 50 43 32 ... 1973 68 44 40
+27 1974 28 25 24 24
+str(presidents)
+Time-Series \[1:120\] from 1945 to 1975: NA 87 82 75 63 50 43 32 35 60
+...
+WeRSQUOll first convert it to a format that is usable by ggplot()—a data
+frame with columns that are numeric:
+
+pres\_rating &lt;- data.frame( rating = as.numeric(presidents), year =
+as.numeric(floor(time(presidents))), quarter =
+as.numeric(cycle(presidents)) ) pres\_rating
+rating year quarter NA 1945 1 87 1945 2 82 1945 3 ... 25 1974 2 24 1974
+3 24 1974 4
+Now we can make the plot using geom\$\$\_\$\$tile() or
+geom\$\$\_\$\$raster() ([figure\_title](#FIG_MISCGRAPH_HEATMAP)). Simply
+map one variable to x, one to y, and one to fill:
+
+```{r}
+# Base plot
+p <- ggplot(pres_rating, aes(x=year, y=quarter, fill=rating))
+
+# Using geom_tile()
+p + geom_tile()
+
+# Using geom_raster() - looks the same, but a little more efficient
+p + geom_raster()
+```
+
+![A heat map—the grey squares represent NAs in the
+data](figs/rgcb_1312.png)
+
+> **Note**
+>
+> The results with geom\$\$\_\$\$tile() and geom\$\$\_\$\$raster()
+> *should* look the same, but in practice they might appear different.
+> See [???](#RECIPE_DISTRIBUTION_DENSITY2D) for more information about
+> this issue.
+
+### Discussion {#_discussion_107}
+
+To better convey useful information, you may want to customize the
+appearance of the heat map. With this example, weRSQUOll reverse the
+y-axis so that it progresses from top to bottom, and weRSQUOll add tick
+marks every four years along the x-axis, to correspond with each
+presidential term. WeRSQUOll also change the color scale using
+scale\$\$\_\$\$fill\$\$\_\$\$gradient2(), which lets you specify a
+midpoint color and the two colors at the low and high ends
+([figure\_title](#FIG_MISCGRAPH_HEATMAP_CUSTOM)):
+
+```{r}
+p + geom_tile() +
+    scale_x_continuous(breaks = seq(1940, 1976, by = 4)) +
+    scale_y_reverse() +
+    scale_fill_gradient2(midpoint=50, mid="grey70", limits=c(0,100))
+```
+
+![A heat map with customized appearance](figs/rgcb_1313.png)
+
+### See Also {#_see_also_77}
+
+If you want to use a different color palette, see
+[???](#RECIPE_COLORS_PALETTE_CONTINUOUS).
+
+Creating a Three-Dimensional Scatter Plot {#RECIPE_MISCGRAPH_3D_SCATTER}
+-----------------------------------------
+
+### Problem {#_problem_116}
+
+You want to create a three-dimensional (3D) scatter plot.
+
+### Solution {#_solution_116}
+
+WeRSQUOll use the rgl package, which provides an interface to the OpenGL
+graphics library for 3D graphics. To create a 3D scatter plot, as in
+[figure\_title](#FIG_MISCGRAPH_3D_SCATTER), use plot3d() and pass in a
+data frame where the first three columns represent *x*, *y*, and *z*
+coordinates, or pass in three vectors representing the *x*, *y*, and *z*
+coordinates.
+
+```{r}
+# You may need to install first, with install.packages("rgl")
+library(rgl)
+plot3d(mtcars$wt, mtcars$disp, mtcars$mpg, type="s", size=0.75, lit=FALSE)
+```
+
+![A 3D scatter plot](figs/rgcb_1314.png)
+
+Viewers can rotate the image by clicking and dragging with the mouse,
+and zoom in and out with the scroll wheel.
+
+> **Note**
+>
+> By default, plot3d() uses square points, which do not appear properly
+> when saving to a PDF. For improved appearance, we used type="s" for
+> spherical points, made them smaller with size=0.75, and turned off the
+> 3D lighting with lit=FALSE (otherwise they look like shiny spheres).
+
+### Discussion {#_discussion_108}
+
+Three-dimensional scatter plots can be difficult to interpret, so
+itRSQUOs often better to use a two-dimensional representation of the
+data. That said, there are things that can help make a 3D scatter plot
+easier to understand.
+
+In [figure\_title](#FIG_MISCGRAPH_3D_SCATTER2), weRSQUOll add vertical
+segments to help give a sense of the spatial positions of the points:
+
+```{r}
+# Function to interleave the elements of two vectors
+interleave <- function(v1, v2)  as.vector(rbind(v1,v2))
+
+# Plot the points
+plot3d(mtcars$wt, mtcars$disp, mtcars$mpg,
+       xlab="Weight", ylab="Displacement", zlab="MPG",
+       size=.75, type="s", lit=FALSE)
+
+# Add the segments
+segments3d(interleave(mtcars$wt,   mtcars$wt),
+           interleave(mtcars$disp, mtcars$disp),
+           interleave(mtcars$mpg,  min(mtcars$mpg)),
+           alpha=0.4, col="blue")
+```
+
+![A 3D scatter plot with vertical lines for each
+point](figs/rgcb_1315.png)
+
+ItRSQUOs possible to tweak the appearance of the background and the
+axes. In [figure\_title](#FIG_MISCGRAPH_3D_SCATTER3), we change the
+number of tick marks and add tick marks and axis labels to the specified
+sides:
+
+```{r}
+# Make plot without axis ticks or labels
+plot3d(mtcars$wt, mtcars$disp, mtcars$mpg,
+       xlab = "", ylab = "", zlab = "",
+       axes = FALSE,
+       size=.75, type="s", lit=FALSE)
+
+segments3d(interleave(mtcars$wt,   mtcars$wt),
+           interleave(mtcars$disp, mtcars$disp),
+           interleave(mtcars$mpg,  min(mtcars$mpg)),
+           alpha = 0.4, col = "blue")
+
+# Draw the box.
+rgl.bbox(color="grey50",          # grey60 surface and black text
+         emission="grey50",       # emission color is grey50
+         xlen=0, ylen=0, zlen=0)  # Don't add tick marks
+
+# Set default color of future objects to black
+rgl.material(color="black")
+
+# Add axes to specific sides. Possible values are "x--", "x-+", "x+-", and "x++".
+axes3d(edges=c("x--", "y+-", "z--"),
+       ntick=6,                       # Attempt 6 tick marks on each side
+       cex=.75)                       # Smaller font
+
+# Add axis labels. 'line' specifies how far to set the label from the axis.
+mtext3d("Weight",       edge="x--", line=2)
+mtext3d("Displacement", edge="y+-", line=3)
+mtext3d("MPG",          edge="z--", line=3)
+```
+
+![Left: 3D scatter plot with axis ticks and labels repositioned; right:
+from a different point of view](figs/rgcb_1316.png)
+
+### See Also {#_see_also_78}
+
+See ?plot3d for more options for controlling the output.
+
+Adding a Prediction Surface to a Three-Dimensional Plot {#RECIPE_MISCGRAPH_3D_SCATTER_MODEL}
+-------------------------------------------------------
+
+### Problem {#_problem_117}
+
+You want to add a surface of predicted value to a three-dimensional
+scatter plot.
+
+### Solution {#_solution_117}
+
+First we need to define some utility functions for generating the
+predicted values from a model object:
+
+```{r}
+# Given a model, predict zvar from xvar and yvar
+# Defaults to range of x and y variables, and a 16x16 grid
+predictgrid <- function(model, xvar, yvar, zvar, res = 16, type = NULL) {
+  # Find the range of the predictor variable. This works for lm and glm
+  # and some others, but may require customization for others.
+  xrange <- range(model$model[[xvar]])
+  yrange <- range(model$model[[yvar]])
+
+  newdata <- expand.grid(x = seq(xrange[1], xrange[2], length.out = res),
+                         y = seq(yrange[1], yrange[2], length.out = res))
+  names(newdata) <- c(xvar, yvar)
+  newdata[[zvar]] <- predict(model, newdata = newdata, type = type)
+  newdata
+}
+
+
+# Convert long-style data frame with x, y, and z vars into a list
+# with x and y as row/column values, and z as a matrix.
+df2mat <- function(p, xvar = NULL, yvar = NULL, zvar = NULL) {
+  if (is.null(xvar)) xvar <- names(p)[1]
+  if (is.null(yvar)) yvar <- names(p)[2]
+  if (is.null(zvar)) zvar <- names(p)[3]
+
+  x <- unique(p[[xvar]])
+  y <- unique(p[[yvar]])
+  z <- matrix(p[[zvar]], nrow = length(y), ncol = length(x))
+
+  m <- list(x, y, z)
+  names(m) <- c(xvar, yvar, zvar)
+  m
+}
+
+# Function to interleave the elements of two vectors
+interleave <- function(v1, v2)  as.vector(rbind(v1,v2))
+```
+
+With these utility functions defined, we can make a linear model from
+the data and plot it as a mesh along with the data, using the
+surface3d() function, as shown in
+[figure\_title](#FIG_MISCGRAPH_3D_SCATTER_MODEL):
+
+```{r}
+library(rgl)
+
+# Make a copy of the data set
+m <- mtcars
+
+# Generate a linear model
+mod <- lm(mpg ~ wt + disp + wt:disp, data = m)
+
+# Get predicted values of mpg from wt and disp
+m$pred_mpg <- predict(mod)
+
+# Get predicted mpg from a grid of wt and disp
+mpgrid_df <- predictgrid(mod, "wt", "disp", "mpg")
+mpgrid_list <- df2mat(mpgrid_df)
+
+# Make the plot with the data points
+plot3d(m$wt, m$disp, m$mpg, type="s", size=0.5, lit=FALSE)
+
+# Add the corresponding predicted points (smaller)
+spheres3d(m$wt, m$disp, m$pred_mpg, alpha=0.4, type="s", size=0.5, lit=FALSE)
+
+# Add line segments showing the error
+segments3d(interleave(m$wt,   m$wt),
+           interleave(m$disp, m$disp),
+           interleave(m$mpg,  m$pred_mpg),
+           alpha=0.4, col="red")
+
+# Add the mesh of predicted values
+surface3d(mpgrid_list$wt, mpgrid_list$disp, mpgrid_list$mpg,
+          alpha=0.4, front="lines", back="lines")
+```
+
+![A 3D scatter plot with a prediction surface](figs/rgcb_1317.png)
+
+### Discussion {#_discussion_109}
+
+We can tweak the appearance of the graph, as shown in
+[figure\_title](#FIG_MISCGRAPH_3D_SCATTER_MODEL2). WeRSQUOll add each of
+the components of the graph separately:
+
+```{r}
+plot3d(mtcars$wt, mtcars$disp, mtcars$mpg,
+       xlab = "", ylab = "", zlab = "",
+       axes = FALSE,
+       size=.5, type="s", lit=FALSE)
+
+# Add the corresponding predicted points (smaller)
+spheres3d(m$wt, m$disp, m$pred_mpg, alpha=0.4, type="s", size=0.5, lit=FALSE)
+
+# Add line segments showing the error
+segments3d(interleave(m$wt,   m$wt),
+           interleave(m$disp, m$disp),
+           interleave(m$mpg,  m$pred_mpg),
+           alpha=0.4, col="red")
+
+# Add the mesh of predicted values
+surface3d(mpgrid_list$wt, mpgrid_list$disp, mpgrid_list$mpg,
+          alpha=0.4, front="lines", back="lines")
+
+# Draw the box
+rgl.bbox(color="grey50",          # grey60 surface and black text
+         emission="grey50",       # emission color is grey50
+         xlen=0, ylen=0, zlen=0)  # Don't add tick marks
+
+# Set default color of future objects to black
+rgl.material(color="black")
+
+# Add axes to specific sides. Possible values are "x--", "x-+", "x+-", and "x++".
+axes3d(edges=c("x--", "y+-", "z--"),
+       ntick=6,                       # Attempt 6 tick marks on each side
+       cex=.75)                       # Smaller font
+
+# Add axis labels. 'line' specifies how far to set the label from the axis.
+mtext3d("Weight",       edge="x--", line=2)
+mtext3d("Displacement", edge="y+-", line=3)
+mtext3d("MPG",          edge="z--", line=3)
+```
+
+![Three-dimensional scatter plot with customized
+appearance](figs/rgcb_1318.png)
+
+### See Also {#_see_also_79}
+
+For more on changing the appearance of the surface, see ?rgl.material.
+
+Saving a Three-Dimensional Plot {#RECIPE_MISCGRAPH_3D_SAVE}
+-------------------------------
+
+### Problem {#_problem_118}
+
+You want to save a three-dimensional plot created with the rgl package.
+
+### Solution {#_solution_118}
+
+To save a bitmap image of a plot created with rgl, use rgl.snapshot().
+This will capture the exact image that is on the screen:
+
+```{r}
+library(rgl)
+plot3d(mtcars$wt, mtcars$disp, mtcars$mpg, type="s", size=0.75, lit=FALSE)
+
+rgl.snapshot('3dplot.png', fmt='png')
+```
+
+You can also use rgl.postscript() to save a PostScript or PDF file:
+
+```{r}
+rgl.postscript('figs/miscgraph/3dplot.pdf', fmt='pdf')
+
+rgl.postscript('figs/miscgraph/3dplot.ps', fmt='ps')
+```
+
+PostScript and PDF output does not support many features of the OpenGL
+library on which rgl is based. For example, it does not support
+transparency, and the sizes of objects such as points and lines may not
+be the same as what appears on the screen.
+
+### Discussion {#_discussion_110}
+
+To make the output more repeatable, you can save your current viewpoint
+and restore it later:
+
+```{r}
+# Save the current viewpoint
+view <- par3d("userMatrix")
+
+# Restore the saved viewpoint
+par3d(userMatrix = view)
+```
+
+To save view in a script, you can use dput(), then copy and paste the
+output into your script:
+
+dput(view)
+structure(c(0.907931625843048, 0.267511069774628, -0.322642296552658, 0,
+-0.410978674888611, 0.417272746562958, -0.810543060302734, 0,
+-0.0821993798017502, 0.868516683578491, 0.488796472549438, 0, 0, 0, 0,
+1), .Dim = c(4L, 4L))
+Once you have the text representation of the userMatrix, add the
+following to your script:
+
+```{r}
+view <- structure(c(0.907931625843048, 0.267511069774628, -0.322642296552658,
+0, -0.410978674888611, 0.417272746562958, -0.810543060302734,
+0, -0.0821993798017502, 0.868516683578491, 0.488796472549438,
+0, 0, 0, 0, 1), .Dim = c(4L, 4L))
+
+par3d(userMatrix = view)
+```
+
+Animating a Three-Dimensional Plot {#RECIPE_MISCGRAPH_3D_ANIMATE}
+----------------------------------
+
+### Problem {#_problem_119}
+
+You want to animate a three-dimensional plot by moving the viewpoint
+around the plot.
+
+### Solution {#_solution_119}
+
+Rotating a 3D plot can provide a more complete view of the data. To
+animate a 3D plot, use play3d() with spin3d():
+
+```{r}
+library(rgl)
+plot3d(mtcars$wt, mtcars$disp, mtcars$mpg, type="s", size=0.75, lit=FALSE)
+
+play3d(spin3d())
+```
+
+### Discussion {#_discussion_111}
+
+By default, the graph will be rotated on the z (vertical) axis, until
+you send a break command to R.
+
+You can change the rotation axis, rotation speed, and duration:
+
+```{r}
+# Spin on x-axis, at 4 rpm, for 20 seconds
+play3d(spin3d(axis=c(1,0,0), rpm=4), duration=20)
+```
+
+To save the movie, use the movie3d() function in the same way as
+play3d(). It will generate a series of *.png* files, one for each frame,
+and then attempt to combine them into a single animated *.gif* file
+using the convert program from the ImageMagick image utility.
+
+This will spin the plot once in 15 seconds, at 50 frames per second:
+
+```{r}
+# Spin on z axis, at 4 rpm, for 15 seconds
+movie3d(spin3d(axis=c(0,0,1), rpm=4), duration=15, fps=50)
+```
+
+The output file will be saved in a temporary directory, and the name
+will be printed on the R console.
+
+If you donRSQUOt want to use ImageMagick to convert the output to a
+*.gif*, you can specify convert=FALSE and then convert the series of
+*.png* files to a movie using some other utility.
+
+Creating a Dendrogram {#RECIPE_MISCGRAPH_DENDROGRAM}
+---------------------
+
+### Problem {#_problem_120}
+
+You want to make a dendrogram to show how items are clustered.
+
+### Solution {#_solution_120}
+
+Use hclust() and plot the output from it. This can require a fair bit of
+data preprocessing. For this example, weRSQUOll first take a subset of
+the countries data set from the year 2009. For simplicity, weRSQUOll
+also drop all rows that contain an NA, and then select a random 25 of
+the remaining rows:
+
+library(gcookbook) \# For the data set \# Get data from year 2009 c2
+&lt;- subset(countries, Year==2009) \# Drop rows that have any NA values
+c2 &lt;- c2\[complete.cases(c2), \] \# Pick out a random 25 countries \#
+(Set random seed to make this repeatable) set.seed(201) c2 &lt;-
+c2\[sample(1:nrow(c2), 25), \] c2
+Name Code Year GDP laborrate healthexp infmortality 6731 Mongolia MNG
+2009 1690.4170 72.9 74.19826 27.8 1733 Canada CAN 2009 39599.0418 67.8
+4379.76084 5.2 ... 5966 Macedonia, FYR MKD 2009 4510.2380 54.0 313.68971
+10.6 10148 Turkmenistan TKM 2009 3710.4536 68.0 77.06955 48.0
+Notice that the row names (the first column) are essentially random
+numbers, since the rows were selected randomly. We need to do a few more
+things to the data before making a dendrogram from it. First, we need to
+set the *row names*—right now thereRSQUOs a column called Name, but the
+row names are those random numbers (we donRSQUOt often use row names,
+but for the hclust() function theyRSQUOre essential). Next, weRSQUOll
+need to drop all the columns that arenRSQUOt values used for clustering.
+These columns are Name, Code, and Year:
+
+rownames(c2) &lt;- c2\$Name c2 &lt;- c2\[,4:7\] c2
+GDP laborrate healthexp infmortality Mongolia 1690.4170 72.9 74.19826
+27.8 Canada 39599.0418 67.8 4379.76084 5.2 ... Macedonia, FYR 4510.2380
+54.0 313.68971 10.6 Turkmenistan 3710.4536 68.0 77.06955 48.0
+The values for GDP are several orders of magnitude larger than the
+values for, say, infmortality. Because of this, the effect of
+infmortality on the clustering will be negligible compared to the effect
+of GDP.This probably isnRSQUOt what we want. To address this issue,
+weRSQUOll scale the data:
+
+c3 &lt;- scale(c2) c3
+GDP laborrate healthexp infmortality Mongolia -0.6783472 1.15028714
+-0.6341393599 -0.08334689 Canada 1.7504703 0.59747293 1.9736219974
+-0.88014885 ... Macedonia, FYR -0.4976803 -0.89837729 -0.4890859471
+-0.68976254 Turkmenistan -0.5489228 0.61915192 -0.6324002997 0.62883892
+attr(,"scaled:center") GDP laborrate healthexp infmortality 12277.960
+62.288 1121.198 30.164 attr(,"scaled:scale") GDP laborrate healthexp
+infmortality 15607.852864 9.225523 1651.056974 28.363384
+By default the scale() function scales each column relative to its
+standard deviation, but other methods may be used.
+
+Finally, weRSQUOre ready to make the dendrogram, as shown in
+[figure\_title](#FIG_MISCGRAPH_DENDROGRAM):
+
+```{r}
+hc <- hclust(dist(c3))
+
+# Make the dendrogram
+plot(hc)
+
+# With text aligned
+plot(hc, hang = -1)
+```
+
+![Left: a dendrogram; right: with text aligned](figs/rgcb_1319.png)
+
+### Discussion {#_discussion_112}
+
+A cluster analysis is simply a way of assigning points to groups in an
+*n*-dimensional space (four dimensions, in this example). A hierarchical
+cluster analysis divides each group into two smaller groups, and can be
+represented with the dendrograms in this recipe. There are many
+different parameters you can control in the hierarchical cluster
+analysis process, and there may not be a single LDQUOrightRDQUO way to
+do it for your data.
+
+First, we normalized the data using scale() with its default settings.
+You can scale your data differently, or not at all. (With this data set,
+*not* scaling the data will lead to GDP overwhelming the other
+variables, as shown in
+[figure\_title](#FIG_MISCGRAPH_DENDROGRAM_UNSCALED).)
+
+![Dendrogram with unscaled data—notice the much larger Height values,
+which are largely due to the unscaled GDP values](figs/rgcb_1320.png)
+
+For the distance calculation, we used the default method, "euclidean",
+which calculates the Euclidean distance between the points. The other
+possible methods are "maximum", "manhattan", "canberra", "binary", and
+"minkowski".
+
+The hclust() function provides several methods for performing the
+cluster analysis. The default is "complete"; the other possible methods
+are "ward", "single", "average", "mcquitty", "median", and "centroid".
+
+### See Also {#_see_also}
+
+See ?hclust for more information about the different clustering methods.
+
+Creating a Vector Field {#RECIPE_MISCGRAPH_VECTORFIELD}
+-----------------------
+
+### Problem {#_problem_121}
+
+You want to make a vector field.
+
+### Solution {#_solution_121}
+
+Use geom\$\$\_\$\$segment(). For this example, weRSQUOll use the isabel
+data set:
+
+library(gcookbook) \# For the data set isabel
+x y z vx vy vz t speed -83.00000 41.70000 0.035 NA NA NA NA NA -83.00000
+41.62786 0.035 NA NA NA NA NA -83.00000 41.55571 0.035 NA NA NA NA NA
+... -62.04208 23.88036 18.035 -12.54371 -5.300128 -0.045253485 -66.96269
+13.61749 -62.04208 23.80822 18.035 -12.56157 -5.254994 -0.020277001
+-66.98840 13.61646 -62.04208 23.73607 18.035 -12.78071 -5.259613
+0.005555035 -67.00575 13.82064
+x and y are the longitude and latitude, respectively, and z is the
+height in kilometers. The vx, vy, and vz values are the wind speed
+components in each of these directions, in meters per second, and speed
+is the wind speed.
+
+The height (z) ranges from 0.035 km to 18.035 km. For this example,
+weRSQUOll just use the lowest slice of data.
+
+To draw the vectors ([figure\_title](#FIG_MISCGRAPH_VECTOR)), weRSQUOll
+use geom\$\$\_\$\$segment(). Each segment has a starting point and an
+ending point. WeRSQUOll use the x and y values as the starting points
+for each segment, then add a fraction of the vx and vy values to get the
+end points for each segment. If we didnRSQUOt scale down these values,
+the lines would be much too long:
+
+```{r}
+islice <- subset(isabel, z == min(z))
+
+ggplot(islice, aes(x=x, y=y)) +
+       geom_segment(aes(xend = x + vx/50, yend = y + vy/50),
+                    size = 0.25)   # Make the line segments 0.25 mm thick
+```
+
+![First attempt at a vector field—the resolution of the data is too
+high, but it does hint at some interesting patterns not visible in
+graphs with a lower data resolution](figs/rgcb_1321.png)
+
+This vector field has two problems: the data is at too high a resolution
+to read, and the segments do not have arrows indicating the direction of
+the flow. To reduce the resolution of the data, weRSQUOll define a
+function every\$\$\_\$\$n() that keeps one out of every n values in the
+data and drops the rest:
+
+```{r}
+# Take a slice where z is equal to the minimum value of z
+islice <- subset(isabel, z == min(z))
+
+# Keep 1 out of every 'by' values in vector x
+every_n <- function(x, by = 2) {
+    x <- sort(x)
+    x[seq(1, length(x), by = by)]
+}
+
+# Keep 1 of every 4 values in x and y
+keepx <- every_n(unique(isabel$x), by=4)
+keepy <- every_n(unique(isabel$y), by=4)
+
+# Keep only those rows where x value is in keepx and y value is in keepy
+islicesub <- subset(islice, x %in% keepx  &  y %in% keepy)
+```
+
+Now that weRSQUOve taken a subset of the data, we can plot it, with
+arrowheads, as shown in
+[figure\_title](#FIG_MISCGRAPH_VECTORFIELD_ARROW):
+
+```{r}
+# Need to load grid for arrow() function
+library(grid)
+
+# Make the plot with the subset, and use an arrowhead 0.1 cm long
+ggplot(islicesub, aes(x=x, y=y)) +
+    geom_segment(aes(xend = x+vx/50, yend = y+vy/50),
+                 arrow = arrow(length = unit(0.1, "cm")), size = 0.25)
+```
+
+![Vector field with arrowheads](figs/rgcb_1322.png)
+
+### Discussion {#_discussion_113}
+
+One effect of arrowheads is that short vectors appear with more ink than
+is proportional to their length. This could somewhat distort the
+interpretation of the data. To mitigate this effect, it may also be
+useful to map the speed to other properties, like size (line thickness),
+alpha, or colour. Here, weRSQUOll map speed to alpha
+([figure\_title](#FIG_MISCGRAPH_VECTORFIELD_AES), left):
+
+```{r}
+# The existing 'speed' column includes the z component. We'll calculate
+# speedxy, the horizontal speed.
+islicesub$speedxy <- sqrt(islicesub$vx^2 + islicesub$vy^2)
+
+# Map speed to alpha
+ggplot(islicesub, aes(x=x, y=y)) +
+    geom_segment(aes(xend = x+vx/50, yend = y+vy/50, alpha = speed),
+                 arrow = arrow(length = unit(0.1,"cm")), size = 0.6)
+```
+
+Next, weRSQUOll map speed to colour. WeRSQUOll also add a map of the
+United States and zoom in on the area of interest, as shown in the graph
+on the right in [figure\_title](#FIG_MISCGRAPH_VECTORFIELD_AES),using
+coord\$\$\_\$\$cartesian() (without this, the entire USA will be
+displayed):
+
+```{r}
+# Get USA map data
+usa <- map_data("usa")
+
+# Map speed to colour, and set go from "grey80" to "darkred"
+ggplot(islicesub, aes(x=x, y=y)) +
+    geom_segment(aes(xend = x+vx/50, yend = y+vy/50, colour = speed),
+                 arrow = arrow(length = unit(0.1,"cm")), size = 0.6) +
+    scale_colour_continuous(low="grey80", high="darkred") +
+    geom_path(aes(x=long, y=lat, group=group), data=usa) +
+    coord_cartesian(xlim = range(islicesub$x), ylim = range(islicesub$y))
+```
+
+![Left: vector field with speed mapped to alpha; right: with speed
+mapped to colour](figs/rgcb_1323.png)
+
+The isabel data set has three-dimensional data, so we can also make a
+faceted graph of the data, as shown in
+[figure\_title](#FIG_MISCGRAPH_VECTORFIELD_FACET). Because each facet is
+small, we will use a sparser subset than before:
+
+```{r}
+# Keep 1 out of every 5 values in x and y, and 1 in 2 values in z
+keepx <- every_n(unique(isabel$x), by=5)
+keepy <- every_n(unique(isabel$y), by=5)
+keepz <- every_n(unique(isabel$z), by=2)
+
+isub <- subset(isabel, x %in% keepx  &  y %in% keepy  &  z %in% keepz)
+
+ggplot(isub, aes(x=x, y=y)) +
+    geom_segment(aes(xend = x+vx/50, yend = y+vy/50, colour = speed),
+                 arrow = arrow(length = unit(0.1,"cm")), size = 0.5) +
+    scale_colour_continuous(low="grey80", high="darkred") +
+    facet_wrap( ~ z)
+```
+
+![Vector field of wind speeds faceted on z](figs/rgcb_1324.png)
+
+### See Also {#_see_also_80}
+
+If you want to use a different color palette, see
+[???](#RECIPE_COLORS_PALETTE_CONTINUOUS).
+
+See [???](#RECIPE_AXES_RANGE) for more information about zooming in on
+part of a graph.
+
+Creating a QQ Plot {#RECIPE_MISCGRAPH_QQ}
+------------------
+
+### Problem {#_problem_122}
+
+You want to make a quantile-quantile (QQ) plot to compare an empirical
+distribution to a theoretical distribution.
+
+### Solution {#_solution_122}
+
+Use qqnorm() to compare to a normal distribution. Give qqnorm() a vector
+of numerical values, and add a theoretical distribution line with
+qqline() ([figure\_title](#FIG_MISCGRAPH_QQ)):
+
+```{r}
+library(gcookbook) # For the data set
+
+# QQ plot of height
+qqnorm(heightweight$heightIn)
+qqline(heightweight$heightIn)
+
+# QQ plot of age
+qqnorm(heightweight$ageYear)
+qqline(heightweight$ageYear)
+```
+
+![Left: QQ plot of height, which is close to normally distributed;
+right: QQ plot of age, which is not normally
+distributed](figs/rgcb_1325.png)
+
+### Discussion {#_discussion_114}
+
+The points for heightIn are close to the line, which means that the
+distribution is close to normal. In contrast, the points for ageYear
+veer far away from the line, especially on the left, indicating that the
+distribution is skewed. A histogram may also be useful for exploring how
+the data is distributed.
+
+### See Also {#_see_also_81}
+
+See ?qqplot for information on comparing data to theoretical
+distributions other than the normal distribution.
+
+ggplot2 has a stat\$\$\_\$\$qq() function, but it doesnRSQUOt provide an
+easy way to draw the QQ line.
+
+Creating a Graph of an Empirical Cumulative Distribution Function {#RECIPE_MISCGRAPH_ECDF}
+-----------------------------------------------------------------
+
+### Problem {#_problem_123}
+
+You want to graph the empirical cumulative distribution function (ECDF)
+of a data set.
+
+### Solution {#_solution_123}
+
+Use stat\$\$\_\$\$ecdf() ([figure\_title](#FIG_MISCGRAPH_ECDF)):
+
+```{r}
+library(gcookbook) # For the data set
+
+# ecdf of heightIn
+ggplot(heightweight, aes(x=heightIn)) + stat_ecdf()
+
+# ecdf of ageYear
+ggplot(heightweight, aes(x=ageYear)) + stat_ecdf()
+```
+
+![Left: ECDF of height; right: ECDF of age](figs/rgcb_1326.png)
+
+### Discussion {#_discussion_115}
+
+The ECDF shows what proportion of observations are at or below the given
+*x* value. Because it is *empirical*, the line takes a step up at each
+*x* value where there are one or more observations.
+
+Creating a Mosaic Plot {#RECIPE_MISCGRAPH_MOSAIC}
+----------------------
+
+### Problem {#_problem_124}
+
+You want to make a mosaic plot to visualize a contingency table.
+
+### Solution {#_solution_124}
+
+Use the mosaic() function from the vcd package. For this example
+weRSQUOll use the USBAdmissions data set, which is a contingency table
+with three dimensions. WeRSQUOll first take a look at the data in a few
+different ways:
+
+UCBAdmissions
+, , Dept = A Gender Admit Male Female Admitted 512 89 Rejected 313 19
+... \[four other Depts\] , , Dept = F Gender Admit Male Female Admitted
+22 24 Rejected 351 317
+\# Print a "flat" contingency table ftable(UCBAdmissions)
+Dept A B C D E F Admit Gender Admitted Male 512 353 120 138 53 22 Female
+89 17 202 131 94 24 Rejected Male 313 207 205 279 138 351 Female 19 8
+391 244 299 317
+dimnames(UCBAdmissions)
+\$Admit \[1\] "Admitted" "Rejected" \$Gender \[1\] "Male" "Female"
+\$Dept \[1\] "A" "B" "C" "D" "E" "F"
+The three dimensions are Admit, Gender, and Dept. To visualize the
+relationships between the variables
+([figure\_title](#FIG_MISCGRAPH_MOSAIC)), use mosaic() and pass it a
+formula with the variables that will be used to split up the data:
+
+```{r}
+# You may need to install first, with install.packages("vcd")
+library(vcd)
+# Split by Admit, then Gender, then Dept
+mosaic( ~ Admit + Gender + Dept, data=UCBAdmissions)
+```
+
+![Mosaic plot of UC-Berkeley admissions data—the area of each rectangle
+is proportional to the number of cases in that cell](figs/rgcb_1327.png)
+
+Notice that mosaic() splits the data in the order in which the variables
+are provided: first on admission status, then gender, then department.
+The resulting plot order makes it very clear that more applicants were
+rejected than admitted. It is also clear that within the admitted group
+there were many more men than women, while in the rejected group there
+were approximately the same number of men and women. It is difficult to
+make comparisons within each department, though. A different variable
+splitting order may reveal some other interesting information.
+
+Another way of looking at the data is to split first by department, then
+gender, then admission status, as in
+[figure\_title](#FIG_MISCGRAPH_MOSAIC2). This makes the admission status
+the last variable that is partitioned, so that *after* partitioning by
+department and gender, the admitted and rejected cells for each group
+are right next to each other:
+
+```{r}
+mosaic( ~ Dept + Gender + Admit, data=UCBAdmissions,
+    highlighting="Admit", highlighting_fill=c("lightblue", "pink"),
+    direction=c("v","h","v"))
+```
+
+![Mosaic plot with a different variable splitting order: first
+department, then gender, then admission status](figs/rgcb_1328.png)
+
+We also specified a variable to highlight (Admit), and which colors to
+use in the highlighting.
+
+### Discussion {#_discussion_116}
+
+In the preceding example we also specified the *direction* in which each
+variable will be split. The first variable, Dept, is split vertically;
+the second variable, Gender, is split horizontally; and the third
+variable, Admit, is split vertically. The reason that we chose these
+directions is because, in this particular example, it makes it easy to
+compare the male and female groups within each department.
+
+We can also use different splitting directions, as shown in Figures
+[figure\_title](#FIG_MISCGRAPH_MOSAIC3) and
+[figure\_title](#FIG_MISCGRAPH_MOSAIC4):
+
+```{r}
+# Another possible set of splitting directions
+mosaic( ~ Dept + Gender + Admit, data=UCBAdmissions,
+    highlighting="Admit", highlighting_fill=c("lightblue", "pink"),
+    direction=c("v", "v", "h"))
+
+# This order makes it difficult to compare male and female
+mosaic( ~ Dept + Gender + Admit, data=UCBAdmissions,
+    highlighting="Admit", highlighting_fill=c("lightblue", "pink"),
+    direction=c("v", "h", "h"))
+```
+
+![Splitting Dept vertically, Gender vertically, and Admit
+horizontally](figs/rgcb_1329.png)
+
+![Splitting Dept vertically, Gender horizontally, and Admit
+horizontally](figs/rgcb_1330.png)
+
+The example here illustrates a classic case of SimpsonRSQUOs paradox, in
+which a relationship between variables within subgroups can change (or
+reverse!) when the groups are combined. The UCBerkeley table contains
+admissions data from the University of California-Berkeley in 1973.
+Overall, men were admitted at a higher rate than women, and because of
+this, the university was sued for gender bias. But when each department
+was examined separately, it was found that they each had approximately
+equal admission rates for men and women. The difference in overall
+admission rates was because women were more likely to apply to
+competitive departments with lower admission rates.
+
+In Figures [figure\_title](#FIG_MISCGRAPH_MOSAIC2) and
+[figure\_title](#FIG_MISCGRAPH_MOSAIC3), you can see that within each
+department, admission rates were approximately equal between men and
+women. You can also see that departments with higher admission rates (A
+and B) were very imbalanced in the gender ratio of applicants: far more
+men applied to these departments than did women. As you can see,
+partitioning the data in different orders and directions can bring out
+different aspects of the data. In
+[figure\_title](#FIG_MISCGRAPH_MOSAIC3), as in
+[figure\_title](#FIG_MISCGRAPH_MOSAIC2), it’s easy to compare male and
+female admission rates within each department and across departments.
+Splitting Dept vertically, Gender horizontally, and Admit horizontally,
+as in [figure\_title](#FIG_MISCGRAPH_MOSAIC4), makes it difficult to
+compare male and female admission rates within each department, but it
+is easy to compare male and female application rates across departments.
+
+### See Also {#_see_also_82}
+
+See ?mosaicplot for another function that can create mosaic plots.
+
+P.J. Bickel, E.A. Hammel, and J.W. ORSQUOConnell, LDQUOSex Bias in
+Graduate Admissions: Data from Berkeley,RDQUO *Science* 187 (1975):
+398–404.
+
+Creating a Pie Chart {#RECIPE_MISCGRAPH_PIE}
+--------------------
+
+### Problem {#_problem_125}
+
+You want to make a pie chart.
+
+### Solution {#_solution_125}
+
+Use the pie() function. In this example
+([figure\_title](#FIG_MISCGRAPH_PIE)), weRSQUOll use the survey data set
+from the MASS library:
+
+library(MASS) \# For the data set \# Get a table of how many cases are
+in each level of fold fold &lt;- table(survey\$Fold) fold
+L on R Neither R on L 99 18 120
+\# Make the pie chart pie(fold)
+![A pie chart](figs/rgcb_1331.png)
+
+We passed pie() an object of class table. We could have instead given it
+a named vector, or a vector of values and a vector of labels, like this:
+
+```{r}
+pie(c(99, 18, 120), labels=c("L on R", "Neither", "R on L"))
+```
+
+### Discussion {#_discussion_117}
+
+The lowly pie chart is the subject of frequent abuse from data
+visualization experts. If youRSQUOre thinking of using a pie chart,
+consider whether a bar graph (or stacked bar graph) would convey the
+information more effectively. Despite their faults, pie charts do have
+one important virtue: everyone knows how to read them.
+
+Creating a Map {#RECIPE_MISCGRAPH_MAP}
+--------------
+
+### Problem {#_problem_126}
+
+You want to create a geographical map.
+
+### Solution {#_solution_126}
+
+Retrieve map data from the maps package and draw it with
+geom\$\$\_\$\$polygon() (which can have a color fill) or
+geom\$\$\_\$\$path() (which canRSQUOt have a fill). By default, the
+latitude and longitude will be drawn on a Cartesian coordinate plane,
+but you can use coord\$\$\_\$\$map() and specify a projection. The
+default projection is "mercator", which, unlike the Cartesian plane, has
+a progressively changing spacing for latitude lines
+([figure\_title](#FIG_MISCGRAPH_MAP)):
+
+```{r}
+library(maps) # For map data
+# Get map data for USA
+states_map <- map_data("state") # ggplot2 must be loaded to use map_data()
+
+ggplot(states_map, aes(x=long, y=lat, group=group)) +
+    geom_polygon(fill="white", colour="black")
+
+# geom_path (no fill) and Mercator projection
+ggplot(states_map, aes(x=long, y=lat, group=group)) +
+    geom_path() + coord_map("mercator")
+```
+
+![Top: a basic map with fill; bottom: with no fill, and Mercator
+projection](figs/rgcb_1332.png)
+
+### Discussion {#_discussion_118}
+
+The map\$\$\_\$\$data() functionreturns a data frame with the following
+columns:
+
+long
+
+:   Longitude.
+
+lat
+
+:   Latitude.
+
+group
+
+:   This is a grouping variable for each polygon. A region or subregion
+    might have multiple polygons, for example, if it includes islands.
+
+order
+
+:   The order to connect each point within a group.
+
+region
+
+:   Roughly, the names of countries, although some other objects are
+    present (such as some lakes).
+
+subregion
+
+:   The names of subregions within a region, which can contain multiple
+    groups. For example, the Alaska subregion includes many islands,
+    each with its own group.
+
+There are a number of different maps available, including world, nz,
+france, italy, usa (outline of the United States), state (each state in
+the USA), and county (each county in the USA). For example, to get map
+data for the world:
+
+\# Get map data for world world\_map &lt;- map\_data("world") world\_map
+long lat group order region subregion -133.3664 58.42416 1 1 Canada
+&lt;NA&gt; -132.2681 57.16308 1 2 Canada &lt;NA&gt; -132.0498 56.98610 1
+3 Canada &lt;NA&gt; ... 124.7772 11.35419 2284 27634 Philippines Leyte
+124.9697 11.30280 2284 27635 Philippines Leyte 125.0155 11.13887 2284
+27636 Philippines Leyte
+If you want to draw a map of a region in the world map for which there
+isnRSQUOt a separate map, you can first look for the region name, like
+so:
+
+sort(unique(world\_map\$region))
+"Afghanistan" "Albania" "Algeria" "American Samoa" "Andaman Islands"
+"Andorra" "Angola" "Anguilla" "Antarctica" ... "USA" "USSR" "Vanuatu"
+"Venezuela" "Vietnam" "Virgin Islands" "Vislinskiy Zaliv" "Wales" "West
+Bank" "Western Sahara" "Yemen" "Yugoslavia" "Zaire" "Zambia" "Zimbabwe"
+\# You might have noticed that it's a little out of date!
+ItRSQUOs possible to get data for specific regions from a particular map
+([figure\_title](#FIG_MISCGRAPH_MAP_REGIONS)):
+
+```{r}
+east_asia <- map_data("world", region=c("Japan", "China", "North Korea",
+                                        "South Korea"))
+# Map region to fill color
+ggplot(east_asia, aes(x=long, y=lat, group=group, fill=region)) +
+    geom_polygon(colour="black") +
+    scale_fill_brewer(palette="Set2")
+```
+
+![Specific regions from the world map](figs/rgcb_1333.png)
+
+If there is a separate map available for a region, such as nz (New
+Zealand), that map data will be at a higher resolution than if you were
+to extract it from the world map, as shown in
+[figure\_title](#FIG_MISCGRAPH_MAP_RESOLUTION):
+
+```{r}
+# Get New Zealand data from world map
+nz1 <- map_data("world", region="New Zealand")
+nz1 <- subset(nz1, long > 0 & lat > -48)        # Trim off islands
+ggplot(nz1, aes(x=long, y=lat, group=group)) + geom_path()
+
+# Get New Zealand data from the nz map
+nz2 <- map_data("nz")
+ggplot(nz2, aes(x=long, y=lat, group=group)) + geom_path()
+```
+
+![Left: New Zealand data taken from world map; right: data from nz
+map](figs/rgcb_1334.png)
+
+### See Also {#_see_also_83}
+
+See the mapdata package for more map data sets. It includes maps of
+China and Japan, as well as a high-resolution world map, worldHires.
+
+See the map() function, for quickly generating maps.
+
+See ?mapproject for a list of available map projections.
+
+Creating a Choropleth Map {#RECIPE_MISCGRAPH_CHOROPLETH}
+-------------------------
+
+### Problem {#_problem_127}
+
+You want to create a map with regions that are colored according to
+variable values.
+
+### Solution {#_solution_127}
+
+Merge the value data with the map data, then map a variable to fill:
+
+\# Transform the USArrests data set to the correct format crimes &lt;-
+data.frame(state = tolower(rownames(USArrests)), USArrests) crimes
+state Murder Assault UrbanPop Rape Alabama alabama 13.2 236 58 21.2
+Alaska alaska 10.0 263 48 44.5 Arizona arizona 8.1 294 80 31.0 ... West
+Virginia west virginia 5.7 81 39 9.3 Wisconsin wisconsin 2.6 53 66 10.8
+Wyoming wyoming 6.8 161 60 15.6
+library(maps) \# For map data states\_map &lt;- map\_data("state") \#
+Merge the data sets together crime\_map &lt;- merge(states\_map, crimes,
+by.x="region", by.y="state") \# After merging, the order has changed,
+which would lead to polygons drawn in \# the incorrect order. So, we
+sort the data. head(crime\_map)
+region long lat group order subregion Murder Assault UrbanPop Rape
+alabama -87.46201 30.38968 1 1 &lt;NA&gt; 13.2 236 58 21.2 alabama
+-87.48493 30.37249 1 2 &lt;NA&gt; 13.2 236 58 21.2 alabama -87.95475
+30.24644 1 13 &lt;NA&gt; 13.2 236 58 21.2 alabama -88.00632 30.24071 1
+14 &lt;NA&gt; 13.2 236 58 21.2 alabama -88.01778 30.25217 1 15
+&lt;NA&gt; 13.2 236 58 21.2 alabama -87.52503 30.37249 1 3 &lt;NA&gt;
+13.2 236 58 21.2
+library(plyr) \# For arrange() function \# Sort by group, then order
+crime\_map &lt;- arrange(crime\_map, group, order) head(crime\_map)
+region long lat group order subregion Murder Assault UrbanPop Rape
+alabama -87.46201 30.38968 1 1 &lt;NA&gt; 13.2 236 58 21.2 alabama
+-87.48493 30.37249 1 2 &lt;NA&gt; 13.2 236 58 21.2 alabama -87.52503
+30.37249 1 3 &lt;NA&gt; 13.2 236 58 21.2 alabama -87.53076 30.33239 1 4
+&lt;NA&gt; 13.2 236 58 21.2 alabama -87.57087 30.32665 1 5 &lt;NA&gt;
+13.2 236 58 21.2 alabama -87.58806 30.32665 1 6 &lt;NA&gt; 13.2 236 58
+21.2
+Once the data is in the correct format, it can be plotted
+([figure\_title](#FIG_MISCGRAPH_CHOROPLETH)), mapping one of the columns
+with data values to fill:
+
+```{r}
+ggplot(crime_map, aes(x=long, y=lat, group=group, fill=Assault)) +
+    geom_polygon(colour="black") +
+    coord_map("polyconic")
+```
+
+![A map with a variable mapped to fill](figs/rgcb_1335.png)
+
+### Discussion {#_discussion_119}
+
+The preceding example used the default color scale, which goes from dark
+to light blue. If you want to show how the values diverge from some
+middle value, you can use scale\$\$\_\$\$fill\$\$\_\$\$gradient2(), as
+shown in [figure\_title](#FIG_MISCGRAPH_CHOROPLETH_MIDPOINT):
+
+```{r}
+ggplot(crimes, aes(map_id = state, fill=Assault)) +
+    geom_map(map = states_map, colour="black") +
+    scale_fill_gradient2(low="#559999", mid="grey90", high="#BB650B",
+                         midpoint=median(crimes$Assault)) +
+    expand_limits(x = states_map$long, y = states_map$lat) +
+    coord_map("polyconic")
+```
+
+![With a diverging color scale](figs/rgcb_1336.png)
+
+The previous example mapped continuous values to fill, but we could just
+as well use discrete values. ItRSQUOs sometimes easier to interpret the
+data if the values are discretized. For example, we can categorize the
+values into quantiles and show those quantiles, as in
+[figure\_title](#FIG_MISCGRAPH_CHOROPLETH_DISCRETE):
+
+\# Find the quantile bounds qa &lt;- quantile(crimes\$Assault, c(0, 0.2,
+0.4, 0.6, 0.8, 1.0)) qa
+0% 20% 40% 60% 80% 100% 45.0 98.8 135.0 188.8 254.2 337.0
+\# Add a column of the quantile category crimes\$Assault\_q &lt;-
+cut(crimes\$Assault, qa, labels=c("0-20%", "20-40%", "40-60%", "60-80%",
+"80-100%"), include.lowest=TRUE) crimes
+state Murder Assault UrbanPop Rape Assault\_q Alabama alabama 13.2 236
+58 21.2 60-80% Alaska alaska 10.0 263 48 44.5 80-100% ... Wisconsin
+wisconsin 2.6 53 66 10.8 0-20% Wyoming wyoming 6.8 161 60 15.6 40-60%
+\# Generate a discrete color palette with 5 values pal &lt;-
+colorRampPalette(c("\#559999", "grey80", "\#BB650B"))(5) pal
+"\#559999" "\#90B2B2" "\#CCCCCC" "\#C3986B" "\#BB650B"
+ggplot(crimes, aes(map\_id = state, fill=Assault\_q)) + geom\_map(map =
+states\_map, colour="black") + scale\_fill\_manual(values=pal) +
+expand\_limits(x = states\_map\$long, y = states\_map\$lat) +
+coord\_map("polyconic") + labs(fill="Assault Rate\\nPercentile")
+![Choropleth map with discretized data](figs/rgcb_1337.png)
+
+Another way to make a choropleth, but without needing to merge the map
+data with the value data, is to use geom\$\$\_\$\$map(). As of this
+writing, this will render maps faster than the method just described.
+
+For this method, the map data frame must have columns named lat, long,
+and region. In the value data frame, there must be a column that is
+matched to the region column in the map data frame, and this column is
+specified by mapping it to the map\$\$\_\$\$id aesthetic. For example,
+this code will have the same output as the first example
+([figure\_title](#FIG_MISCGRAPH_CHOROPLETH)):
+
+```{r}
+# The 'state' column in the crimes data is to be matched to the 'region' column
+# in the states_map data
+ggplot(crimes, aes(map_id = state, fill=Assault)) +
+    geom_map(map = states_map) +
+    expand_limits(x = states_map$long, y = states_map$lat) +
+    coord_map("polyconic")
+```
+
+Notice that we also needed to use expand\$\$\_\$\$limits(). This is
+because unlike most geoms, geom\$\$\_\$\$map() doesnRSQUOt automatically
+set the x and y limits; the use of expand\$\$\_\$\$limits() makes it
+include those x and y values. (Another way to accomplish the same result
+is to use ylim() and xlim().)
+
+### See Also {#_see_also_84}
+
+For an example of data overlaid on a map, see
+[section\_title](#RECIPE_MISCGRAPH_VECTORFIELD).
+
+For more on using continuous colors, see
+[???](#RECIPE_COLORS_PALETTE_CONTINUOUS).
+
+Making a Map with a Clean Background {#RECIPE_MISCGRAPH_MAP_BACKGROUND}
+------------------------------------
+
+### Problem {#_problem_128}
+
+You want to remove background elements from a map.
+
+### Solution {#_solution_128}
+
+First, save the following theme:
+
+```{r}
+# Create a theme with many of the background elements removed
+theme_clean <- function(base_size = 12) {
+require(grid) # Needed for unit() function
+  theme_grey(base_size) %+replace%
+  theme(
+    axis.title        = element_blank(),
+    axis.text         = element_blank(),
+    panel.background  = element_blank(),
+    panel.grid        = element_blank(),
+    axis.ticks.length = unit(0, "cm"),
+    axis.ticks.margin = unit(0, "cm"),
+    panel.margin      = unit(0, "lines"),
+    plot.margin       = unit(c(0, 0, 0, 0), "lines"),
+    complete = TRUE
+  )
+}
+```
+
+Then add it to the map ([figure\_title](#FIG_MISCGRAPH_MAP_BACKGROUND)).
+In this example, weRSQUOll add it to one of the choropleths we created
+in [section\_title](#RECIPE_MISCGRAPH_CHOROPLETH):
+
+```{r}
+ggplot(crimes, aes(map_id = state, fill=Assault_q)) +
+    geom_map(map = states_map, colour="black") +
+    scale_fill_manual(values=pal) +
+    expand_limits(x = states_map$long, y = states_map$lat) +
+    coord_map("polyconic") +
+    labs(fill="Assault Rate\nPercentile") +
+    theme_clean()
+```
+
+![A map with a clean background](figs/rgcb_1338.png)
+
+> **Note**
+>
+> ThereRSQUOs a bug in R versions 2.15.2 and earlier, which may throw an
+> error that looks like this:
+>
+>     Error in grid.Call.graphics(L_setviewport, pvp, TRUE) :
+>       Non-finite location and/or size for viewport
+>
+>     This happens because some dimensions add up to having zero length, and the grid graphics engine has trouble handling this. This bug was fixed as of R 3.0. If you&rsquo;re using a version of R where this happens, you can work around it by changing the theme to use ++axis.ticks.margin = unit(0.01, "cm")++ instead of ++axis.ticks.margin = unit(0, "cm")++.
+
+### Discussion {#_discussion_120}
+
+In some maps, itRSQUOs important to include contextual information such
+as the latitude and longitude. In others, this information is
+unimportant and distracts from the information thatRSQUOs being
+conveyed. In [figure\_title](#FIG_MISCGRAPH_MAP_BACKGROUND), itRSQUOs
+unlikely that viewers will care about the latitude and longitude of the
+states. They can probably identify the states by shape and relative
+position, and even if they canRSQUOt, having the latitude and longitude
+isnRSQUOt really helpful.
+
+Creating a Map from a Shapefile {#RECIPE_MISCGRAPH_MAP_SHAPEFILE}
+-------------------------------
+
+### Problem {#_problem_129}
+
+You want to create a geographical map from an Esri shapefile.
+
+### Solution {#_solution_129}
+
+Load the shapefile using readShapePoly() from the maptools package,
+convert it to a data frame with fortify(), then plot it
+([figure\_title](#FIG_MISCGRAPH_MAP_SHAPEFILE)):
+
+```{r}
+library(maptools)
+
+# Load the shapefile and convert to a data frame
+taiwan_shp <- readShapePoly("TWN_adm/TWN_adm2.shp")
+taiwan_map <- fortify(taiwan_shp)
+
+ggplot(taiwan_map, aes(x = long, y = lat, group=group)) + geom_path()
+```
+
+![A map created from a shapefile](figs/rgcb_1339.png)
+
+### Discussion {#_discussion_121}
+
+Esri shapefiles are a common format for map data. The readShapePoly()
+function reads a shape file and returns a SpatialPolygonsDataFrame
+object:
+
+taiwan\_shp &lt;- readShapePoly("TWN\_adm/TWN\_adm2.shp") \# Look at the
+structure of the object str(taiwan\_shp)
+Formal class 'SpatialPolygonsDataFrame' \[package "sp"\] with 5 slots
+..@ data :'data.frame': 22 obs. of 11 variables: .. ..\$ ID\_0 : int
+\[1:22\] 223 223 223 223 223 223 223 223 223 223 ... .. ..\$ ISO :
+Factor w/ 1 level "TWN": 1 1 1 1 1 1 1 1 1 1 ... .. ..\$ NAME\_0 :
+Factor w/ 1 level "Taiwan": 1 1 1 1 1 1 1 1 1 1 ... .. ..\$ ID\_1 : int
+\[1:22\] 1 2 3 4 4 4 4 4 4 4 ... ... \[lots more stuff\] ..@
+proj4string:Formal class 'CRS' \[package "sp"\] with 1 slots .. .. ..@
+projargs: chr NA
+Converting it to a regular data frame gives the following:
+
+taiwan\_map &lt;- fortify(taiwan\_shp) taiwan\_map
+long lat order hole piece group id 120.2390 22.75155 1 FALSE 1 0.1 0
+120.2701 22.74135 2 FALSE 1 0.1 0 120.2996 22.70920 3 FALSE 1 0.1 0 ...
+120.1340 23.61569 1236 FALSE 3 21.3 21 120.1340 23.61597 1237 FALSE 3
+21.3 21 120.1365 23.61597 1238 FALSE 3 21.3 21
+ItRSQUOs actually possible to pass the SpatialPolygonsDataFrame object
+directly to ggplot(), which will automatically fortify() it:
+
+```{r}
+# Send the SpatialPolygonsDataFrame directly to ggplot()
+ggplot(taiwan_shp, aes(x=long, y=lat, group=group)) + geom_path()
+```
+
+Even though this code is a bit simpler, you may still want to convert it
+yourself using fortify(). This will let you more easily inspect the data
+structure that is sent to ggplot(), or merge the data frame with another
+data set.
+
+### See Also {#_see_also_85}
+
+The shapefile used in this example is not included inthe gcookbook
+package. It and many other shapefiles are [available for
+download](http://www.gadm.org).

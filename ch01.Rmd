@@ -1,0 +1,220 @@
+R Basics
+========
+
+This chapter covers the basics: installing and using packages and loading data.
+
+If you want to get started quickly, most of the recipes in this book require the ggplot2 and gcookbook packages to be installed on your computer. To do this, run:
+
+```{r, eval=FALSE}
+install.packages(c("ggplot2", "gcookbook"))
+```
+
+Then, in each R session, before running the examples in this book, you can load them with:
+
+```{r, eval=FALSE}
+library(ggplot2)
+library(gcookbook)
+```
+
+> **Note**
+>
+> [???](#CHAPTER_GGPLOT2) provides an introduction to the ggplot2 graphing package, for readers who are not already familiar with its use.
+
+Packages in R are collections of functions and/or data that are bundled up for easy distribution, and installing a package will extend the functionality of R on your computer. If an R user creates a package and thinks that it might be useful for others, that user can distribute it through a package repository. The primary repository for distributing R packages is called CRAN (the Comprehensive R Archive Network), but there are others, such as Bioconductor and Omegahat.
+
+Installing a Package
+--------------------
+
+### Problem
+
+You want to install a package from CRAN.
+
+### Solution
+
+Use install.packages() and give it the name of the package you want to install. To install ggplot2, run:
+
+```{r}
+install.packages("ggplot2")
+```
+
+At this point you may be prompted to select a download mirror. You can either choose the one nearest to you, or, if you want to make sure you have the most up-to-date version of your package, choose the Austria site, which is the primary CRAN server.
+
+### Discussion
+
+When you tell R to install a package, it will automatically install any other packages that the first package depends on.
+
+CRAN is a repository of packages for R, and it is mirrored on servers around the globe. ItRSQUOs the default repository system used by R. There are other package repositories; Bioconductor, for example, is a repository of packages related to analyzing genomic data.
+
+Loading a Package
+-----------------
+
+### Problem
+
+You want to load an installed package.
+
+### Solution
+
+Use library() and giveit the name of the package you want to install. To load ggplot2, run:
+
+```{r}
+library(ggplot2)
+```
+
+The package must already be installed on the computer.
+
+### Discussion
+
+Most of the recipes in this book require loading a package before running the code, either for the graphing capabilities (as in the ggplot2 package) or for example data sets (as in the MASS and gcookbook packages).
+
+One of RRSQUOs quirks is the package/library terminology. Although you use the library() function to load a package, a package is not a library, and some longtime R users will get irate if you call it that.
+
+A *library* is a directory that contains a set of packages. You might, for example, have a system-wide library as well as a library for each user.
+
+Loading a Delimited Text Data File
+----------------------------------
+
+### Problem
+
+You want to load data from a delimited text file.
+
+### Solution
+
+The most common way to read in a file is to use comma-separated values (CSV) data:
+
+```{r}
+data <- read.csv("datafile.csv")
+```
+
+### Discussion
+
+Since data files have many different formats, there are many options for loading them. For example, if the data file does *not* have headers in the first row:
+
+```{r}
+data <- read.csv("datafile.csv", header=FALSE)
+```
+
+The resulting data frame will have columns named V1, V2, and so on, and you will probably want to rename them manually:
+
+```{r}
+# Manually assign the header names
+names(data) <- c("Column1","Column2","Column3")
+```
+
+You can set the delimiter with sep. If it is space-delimited, use sep=" ". If it is tab-delimited, use \$\$\\\$\$t, as in:
+
+```{r}
+data <- read.csv("datafile.csv", sep="\t")
+```
+
+By default, strings in the data are treated as factors. Suppose this is your data file, and you read it in using read.csv():
+
+    "First","Last","Sex","Number"
+    "Currer","Bell","F",2
+    "Dr.","Seuss","M",49
+    "","Student",NA,21
+
+The resulting data frame will store First and Last as *factors*, though it makes more sense in this case to treat them as strings (or *characters* in R terminology). To differentiate this, set stringsAsFactors=FALSE. If there are any columns that should be treated as factors, you can then convert them individually:
+
+data &lt;- read.csv("datafile.csv", stringsAsFactors=FALSE)
+\# Convert to factor
+data\$Sex &lt;- factor(data\$Sex)
+str(data)
+'data.frame': 3 obs. of 4 variables:
+\$ First : chr "Currer" "Dr." ""
+\$ Last : chr "Bell" "Seuss" "Student"
+\$ Sex : Factor w/ 2 levels "F","M": 1 2 NA
+\$ Number: int 2 49 21
+Alternatively, you could load the file with strings as factors, and then convert individual columns from factors to characters.
+
+### See Also
+
+read.csv() is a convenience wrapper function around read.table(). If you need more control over the input, see ?read.table.
+
+Loading Data from an Excel File
+-------------------------------
+
+### Problem
+
+You want to load data from an Excel file.
+
+### Solution
+
+The xlsx package has the function read.xlsx() for reading Excel files. This will read the first sheet of an Excel spreadsheet:
+
+```{r}
+# Only need to install once
+install.packages("xlsx")
+
+library(xlsx)
+data <- read.xlsx("datafile.xlsx", 1)
+```
+
+For reading older Excel files in the *.xls* format, the gdata package has the function read.xls():
+
+```{r}
+# Only need to install once
+install.packages("gdata")
+
+library(gdata)
+# Read first sheet
+data <- read.xls("datafile.xls")
+```
+
+### Discussion
+
+With read.xlsx(), you can load from other sheets by specifying a number for sheetIndex or a name for sheetName:
+
+```{r}
+data <- read.xlsx("datafile.xls", sheetIndex=2)
+
+data <- read.xlsx("datafile.xls", sheetName="Revenues")
+```
+
+With read.xls(), you can load from other sheets by specifying a number for sheet:
+
+```{r}
+data <- read.xls("datafile.xls", sheet=2)
+```
+
+Both the xlsx and gdata packages require other software to be installed on your computer. For xlsx, you need to install Java on your machine. For gdata, you need Perl, which comes as standard on Linux and Mac OS X, but not Windows. On Windows, youRSQUOll need ActiveState Perl. The Community Edition can be [obtained for free](http://www.activestate.com/activeperl).
+
+If you donRSQUOt want to mess with installing this stuff, a simpler alternative is to open the file in Excel and save it as a standard format, such as CSV.
+
+### See Also
+
+See ?read.xls and ?read.xlsx for more options controlling the reading of these files.
+
+Loading Data from an SPSS File
+------------------------------
+
+### Problem
+
+You want to load data from an SPSS file.
+
+### Solution
+
+The foreign package has the function read.spss() for reading SPSS files. To load data from the first sheet of an SPSS file:
+
+```{r}
+# Only need to install the first time
+install.packages("foreign")
+
+library(foreign)
+data <- read.spss("datafile.sav")
+```
+
+### Discussion
+
+The foreign package also includes functions to load from other formats, including:
+
+-   read.octave(): Octave and MATLAB
+
+-   read.systat():SYSTAT
+
+-   read.xport(): SASXPORT
+
+-   read.dta(): Stata
+
+### See Also
+
+See ls("package:foreign") for a full list of functions in the package.

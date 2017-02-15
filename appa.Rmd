@@ -1,0 +1,412 @@
+Introduction to ggplot2 {#CHAPTER_GGPLOT2}
+=======================
+
+Most of the recipes in this book involve the ggplot2 package, written
+byHadley Wickham. ggplot2 has only been around for a few years, but in
+that short time it has attracted many users in the R community because
+of its versatility, clear and consistent interface, and beautiful
+output.
+
+ggplot2 takes a different approach to graphics than other graphing
+packages in R. It gets its name from Leland WilkinsonRSQUOs *grammar of
+graphics*, which provides a formal, structured perspective on how to
+describe data graphics.
+
+Even though this book deals largely with ggplot2, I donRSQUOt mean to
+say that itRSQUOs the be-all and end-all of graphics in R. For example,
+I sometimes find it faster and easier to inspect and explore data with
+RRSQUOs base graphics, especially when the data isnRSQUOt already
+structured properly for use with ggplot2. There are some things that
+ggplot2 canRSQUOt do, or canRSQUOt do as well as other graphing
+packages. There are other things that ggplot2 can do, but that
+specialized packages are better suited to handling. For most purposes,
+though, I believe that ggplot2 gives the best return on time invested,
+and it provides beautiful, publication-ready results.
+
+Another excellent package for general-purpose graphs is lattice,
+byDeepyan Sarkar, which is an implementation of *trellis* graphics. It
+is included as part of the base installation of R.
+
+If you want a deeper understanding of ggplot2, read on!
+
+Background {#_background}
+==========
+
+In a data graphic, there is a mapping (or correspondence) from
+properties of the data to visual properties in the graphic. The data
+properties are typically numerical or categorical values, while the
+visual properties include the *x* and *y* positions of points, colors of
+lines, heights of bars, and so on. A data visualization that didnRSQUOt
+map the data to visual properties wouldnRSQUOt be a data visualization.
+On the surface, representing a number with an *x* coordinate may seem
+very different from representing a number with a color of a point, but
+at an abstract level, they are the same. Everyone who has made data
+graphics has at least an implicit understanding of this. For most of us,
+thatRSQUOs where our understanding remains.
+
+In the grammar of graphics, this deep similarity is not just recognized,
+but made central. In RRSQUOs base graphics functions, each mapping of
+data properties to visual properties is its own special case, and
+changing the mappings may require restructuring your data, issuing
+completely different graphing commands, or both.
+
+To illustrate, IRSQUOll show a graph made from the simpledat data set
+from the gcookbook package:
+
+library(gcookbook) \# For the data set simpledat
+A1 A2 A3 B1 10 7 12 B2 9 11 6
+This will make a simple grouped bar graph, with the As going along the
+x-axis and the bars grouped by the Bs
+([figure\_title](#app_figure_16-1)):
+
+```{r}
+barplot(simpledat, beside=TRUE)
+```
+
+![A bar graph made with barplot()](figs/rgcb_16in01.png)
+
+One thing we might want to do is switch things up so the Bs go along the
+x-axis and the As are used for grouping. To do this, we need to
+restructure the data by transposing the matrix:
+
+t(simpledat)
+B1 B2 A1 10 9 A2 7 11 A3 12 6
+With the restructured data, we can create the graph the same way as
+before ([figure\_title](#app_figure_16-2)):
+
+```{r}
+barplot(t(simpledat), beside=TRUE)
+```
+
+![A bar graph with transposed data](figs/rgcb_16in02.png)
+
+Another thing we might want to do is to represent the data withlines
+instead of bars, as shown in [figure\_title](#app_figure_16-3). To do
+this with base graphics, we need to use a completely different set of
+commands. First we call plot(), which tells R to create a new graph and
+draw a line for one row of data. Then we tell it to draw a second row
+with lines():
+
+```{r}
+plot(simpledat[1,], type="l")
+lines(simpledat[2,], type="l", col="blue")
+```
+
+![A line graph made with plot() and lines()](figs/rgcb_16in03.png)
+
+The resulting graph has a few quirks. The second (blue) line runs below
+the visible range, because the *y* range was set only for the first
+line, when the plot() function was called. Additionally, the x-axis is
+numbered instead of categorical.
+
+Now letRSQUOs take a look at the corresponding code and graphs with
+ggplot2. With ggplot2, the structure of the data is always the same: it
+requires a data frame in LDQUOlongRDQUO format, as opposed to the
+LDQUOwideRDQUO format used previously. When the data is in long format,
+each row represents one item. Instead of having their groups determined
+by their *positions* in the matrix, the items have their groups
+specified in a separate column. Here is simpledat, converted to long
+format:
+
+simpledat\_long
+Aval Bval value A1 B1 10 A1 B2 9 A2 B1 7 A2 B2 11 A3 B1 12 A3 B2 6
+This represents the same information, but with a different structure.
+There are advantages and disadvantages to the long format, but on the
+whole, I find that it makes things simpler when dealing with complicated
+data sets. See Recipes [???](#RECIPE_DATAPREP_WIDE_TO_LONG) and
+[???](#RECIPE_DATAPREP_LONG_TO_WIDE) for information about converting
+between wide and long data formats.
+
+To make the first grouped bar graph ([figure\_title](#app_figure_16-4)),
+we first have to load the ggplot2 library. Then we tell it to map Aval
+to the *x* position with x=Aval, and Bval to the fill color with
+fill=Bval. This will make the As run along the x-axis and the Bs
+determine the grouping. We also tell it to map value to the *y*
+position, or height, of the bars, with y=value. Finally, we tell it to
+draw bars with geom\$\$\_\$\$bar() donRSQUOt worry about the other
+details yet; weRSQUOll get to those later):
+
+```{r}
+library(ggplot2)
+ggplot(simpledat_long, aes(x=Aval, y=value, fill=Bval)) +
+    geom_bar(stat="identity", position="dodge")
+```
+
+![A bar graph made with ggplot() and geom\_bar()](figs/rgcb_16in04.png)
+
+To switch things so that the Bs go along the x-axis and the As determine
+the grouping ([figure\_title](#app_figure_16-5)), we simply swap the
+mapping specification, with x=Bval and fill=Aval. Unlike with base
+graphics, we donRSQUOt have to change the data; we just change the
+commands for making the graph:
+
+```{r}
+ggplot(simpledat_long, aes(x=Bval, y=value, fill=Aval)) +
+    geom_bar(stat="identity", position="dodge")
+```
+
+![Bar graph of the same data, but with x and fill mappings
+switched](figs/rgcb_aa05.png)
+
+> **Note**
+>
+> You may have noticed that with ggplot2, components of the plot are
+> combined with the \$\$+\$\$ operator. You can gradually build up a
+> ggplot object by adding components to it, then, when you’re all done,
+> you can tell it to print.
+
+To change it to a line graph ([figure\_title](#app_figure_16-6)), we
+change geom\$\$\_\$\$bar() to geom\$\$\_\$\$line(). WeRSQUOll also map
+Bval to the *line* color, with colour, instead of the *fill* colour
+(note the British spelling—the author of ggplot2 is a Kiwi). Again,
+donRSQUOt worry about the other details yet:
+
+```{r}
+ggplot(simpledat_long, aes(x=Aval, y=value, colour=Bval, group=Bval)) +
+    geom_line()
+```
+
+![A line graph made with ggplot() and
+geom\_line()](figs/rgcb_16in06.png)
+
+With base graphics, we had to use completely different commands to make
+a line graph instead of a bar graph. With ggplot2, we just changed the
+*geom* from bars to lines. The resulting graph also has important
+differences from the base graphics version: the *y* range is
+automatically adjusted to fit all the data because all the lines are
+drawn together instead of one at a time, and the x-axis remains
+categorical instead of being converted to a numeric axis. The ggplot2
+graphs also have automatically generated legends.
+
+Some Terminology and Theory {#_some_terminology_and_theory}
+---------------------------
+
+Before we go any further, itRSQUOll be helpful to define some of the
+terminology used in ggplot2:
+
+-   The *data* is what we want to visualize. It consists of *variables*,
+    which are stored as columns in a data frame.
+
+-   *Geoms* are the geometric objects that are drawn to represent the
+    data, such as bars, lines, and points.
+
+-   Aesthetic attributes, or *aesthetics*, are visual properties of
+    geoms, such as *x* and *y* position, line color, point shapes, etc.
+
+-   There are *mappings* from data values to aesthetics.
+
+-   *Scales* control the mapping from the values in the data space to
+    values in the aesthetic space. A continuous *y* scale maps larger
+    numerical values to vertically higher positions in space.
+
+-   *Guides* show the viewer how to map the visual properties back to
+    the data space. The most commonly used guides are the tick marks and
+    labels on an axis.
+
+HereRSQUOs an example of how a typical mapping works. You have *data*,
+which is a set of numerical or categorical values. You have *geoms* to
+represent each observation. You have an *aesthetic*, such as *y*
+(vertical) position. And you have a *scale*, which defines the mapping
+from the data space (numeric values) to the aesthetic space (vertical
+position). A typical linear *y*-scale might map the value 0 to the
+baseline of the graph, 5 to the middle, and 10 to the top. A logarithmic
+*y* scale would place them differently.
+
+These arenRSQUOt the only kinds of data and aesthetic spaces possible.
+In the abstract grammar of graphics, the data and aesthetics could be
+anything; in the ggplot2 implementation, there are some predetermined
+types of data and aesthetics. Commonly used data types include numeric
+values, categorical values, and text strings. Some commonly used
+aesthetics include horizontal and vertical position, color, size, and
+shape.
+
+To interpret the graph, viewers refer to the *guides*. An example of a
+guide is the y-axis, including the tick marks and labels. The viewer
+refers to this guide to interpret what it means when a point is in the
+middle of the scale. A *legend* is another type of scale. A legend might
+show people what it means for a point to be a circle or a triangle, or
+what it means for a line to be blue or red.
+
+Some aesthetics can only work with categorical variables, such as the
+shape of a point: triangles, circles, squares, etc. Some aesthetics work
+with categorical or continuous variables, such as *x* (horizontal)
+position. For a bar graph, the variable must be categorical—it would
+make no sense for there to be a continuous variable on the x-axis. For a
+scatter plot, the variable must be numeric. Both of these types of data
+(categorical and numeric) can be mapped to the aesthetic space of *x*
+position, but they require different types of scales.
+
+> **Note**
+>
+> In ggplot2 terminology, categorical variables are called *discrete*,
+> and numeric variables are called *continuous*. These terms may not
+> always correspond to how theyRSQUOre used elsewhere. Sometimes a
+> variable that is continuous in the ggplot2 sense is discrete in the
+> ordinary sense. For example, the number of visible sunspots must be an
+> integer, so itRSQUOs numeric (*continuous* to ggplot2) and discrete
+> (in ordinary language).
+
+Building a Simple Graph {#_building_a_simple_graph}
+-----------------------
+
+Ggplot2 has a simple requirement for data structures: they must be
+stored in data frames, and each type of variable that is mapped to an
+aesthetic must be stored in its own column. In the simpledat examples we
+looked at earlier, we first mapped one variable to the x aesthetic and
+another to the fill aesthetic; then we changed the mapping specification
+to change which variable was mapped to which aesthetic.
+
+WeRSQUOll walk through a simple example here. First, weRSQUOll make a
+data frame of some sample data:
+
+dat &lt;- data.frame(xval=1:4, yval=c(3,5,6,9),
+group=c("A","B","A","B")) dat
+xval yval group 1 3 A 2 5 B 3 6 A 4 9 B
+A basic ggplot() specification looks like this:
+
+```{r}
+ggplot(dat, aes(x=xval, y=yval))
+```
+
+This creates a ggplot object using the data frame dat. It also specifies
+default *aesthetic mappings* within aes():
+
+-   x=xval maps the column xval to the *x* position.
+
+-   y=yval maps the column yval to the *y* position.
+
+After weRSQUOve given ggplot() the data frame and the aesthetic
+mappings, thereRSQUOs one more critical component: we need to tell it
+what *geometric objects* to put there. At this point, ggplot2
+doesnRSQUOt know if we want bars, lines, points, or something else to be
+drawn on the graph. WeRSQUOll add geom\$\$\_\$\$point() to draw points,
+resulting in a scatter plot:
+
+```{r}
+ggplot(dat, aes(x=xval, y=yval)) + geom_point()
+```
+
+![A basic scatter plot](figs/rgcb_16in07.png)
+
+If youRSQUOre going to reuse some of these components, you canstore them
+in variables. We can save the ggplot object in p, and then add
+geom\$\$\_\$\$point() to it. This has the same effect as the preceding
+code:
+
+```{r}
+p <- ggplot(dat, aes(x=xval, y=yval))
+p + geom_point()
+```
+
+We can also map the variable group to the color of the points, by
+putting aes() inside the call to geom\$\$\_\$\$point(), and specifying
+colour=group:
+
+```{r}
+p + geom_point(aes(colour=group))
+```
+
+![A scatter plot with a variable mapped to colour](figs/rgcb_16in08.png)
+
+This doesnRSQUOt alter the *default* aesthetic mappings that we defined
+previously, inside of ggplot(...). What it does is add an aesthetic
+mapping for this particular geom, geom\$\$\_\$\$point(). If we added
+other geoms, this mapping would not apply to them.
+
+Contrast this aesthetic *mapping* with aesthetic *setting*. This time,
+we wonRSQUOt use aes(); weRSQUOll just set the value of colour directly:
+
+```{r}
+p + geom_point(colour="blue")
+```
+
+![A scatter plot with colors set](figs/rgcb_16in09.png)
+
+We can also modify the *scales*; that is, the mappings from data to
+visual attributes. Here, weRSQUOll change the *x* scale so that it has a
+larger range:
+
+```{r}
+p + geom_point() + scale_x_continuous(limits=c(0,8))
+```
+
+![A scatter plot with increased x-range](figs/rgcb_16in10.png)
+
+If we go back to the example with the colour=group mapping, we can also
+modify the color scale:
+
+```{r}
+p + geom_point() +
+    scale_colour_manual(values=c("orange","forestgreen"))
+```
+
+![A scatter plot with modified colors and a different
+palette](figs/rgcb_16in11.png)
+
+Both times when we modified the scale, the *guide* also changed. With
+the *x* scale, the guide was the markings along the x-axis. With the
+color scale, the guide was the legend.
+
+Notice that weRSQUOve used \$\$+\$\$ to join together the pieces. In
+this last example, we ended a line with \$\$+\$\$, then added more on
+the next line. If you are going to have multiple lines, you have to put
+the \$\$+\$\$ at the end of each line, instead of at the beginning of
+the next line. Otherwise, RRSQUOs parser wonRSQUOt know that thereRSQUOs
+more stuff coming; itRSQUOll think youRSQUOve finished the expression
+and evaluate it.
+
+Printing {#_printing}
+--------
+
+In RRSQUOs base graphics, the graphing functions tell R to draw graphs
+to the output device (the screen or a file). Ggplot2 is a little
+different. The commands donRSQUOt directly draw to the output device.
+Instead, the functions build plot *objects*, and the graphs arenRSQUOt
+drawn until you use the print() function, as in print(*object*). You
+might be thinking, LDQUOBut wait, I havenRSQUOt told R to print
+anything, yet itRSQUOs made these graphs!RDQUO Well, thatRSQUOs not
+exactly true. In R, when you issue a command at the prompt, it really
+does two things: first it runs the command, then it runs print() with
+the returned result of that command.
+
+The behavior at the interactive R prompt is different from when you run
+a script or function. In scripts, commands arenRSQUOt automatically
+printed. The same is true for functions, but with a slight catch: the
+result of the last command in a function is returned, so if you call the
+function from the R prompt, the result of that last command willbe
+printed because itRSQUOs the result of the function.
+
+> **Note**
+>
+> Some introductions to ggplot2 make use of a function called qplot(),
+> which is intended as a convenient interface for making graphs. It does
+> require a little less typing than using ggplot() plus a geom, but
+> IRSQUOve found it a bit confusing to use because it has a slightly
+> different way of specifying certain graphing parameters. I think
+> itRSQUOs simpler and easier to just use ggplot().
+
+Stats {#_stats}
+-----
+
+Sometimes your data must be transformed or summarized before it is
+mapped to an aesthetic. This is true, for example, with a histogram,
+where the samples are grouped into bins and counted. The counts for each
+bin are then used to specify the height of a bar. Some geoms, like
+geom\$\$\_\$\$histogram(), automatically do this for you, but sometimes
+youRSQUOll want to do this yourself, using various stat\$\$\_\$\$*xx*
+functions.
+
+Themes {#_theme}
+------
+
+Some aspects of a graphRSQUOs appearance fall outside the scope of the
+grammar of graphics. These include the color of the background and grid
+lines in the graphing area, the fonts used in the axis labels, and the
+text in the graph title. These are controlled with the theme() function,
+explored in [???](#CHAPTER_APPEARANCE).
+
+End {#_end}
+---
+
+Hopefully you now have an understanding of the concepts behind ggplot2.
+The rest of this book shows you how to use it!

@@ -1,0 +1,598 @@
+Annotations {#CHAPTER_ANNOTATE}
+===========
+
+Displaying just your data usually isnRSQUOt enough—thereRSQUOs all sorts
+of other information that can help the viewer interpret the data. In
+addition to the standard repertoire of axis labels, tick marks, and
+legends, you can also add individual graphical or text elements to your
+plot. These can be used to add extra contextual information, highlight
+an area of the plot, or add some descriptive text about the data.
+
+Adding Text Annotations {#RECIPE_ANNOTATE_TEXT}
+-----------------------
+
+### Problem {#_problem_56}
+
+You want to add a text annotation to a plot.
+
+### Solution {#_solution_56}
+
+Use annotate() and a text geom ([figure\_title](#FIG_ANNOTATE_TEXT)):
+
+```{r}
+p <- ggplot(faithful, aes(x=eruptions, y=waiting)) + geom_point()
+
+p + annotate("text", x=3, y=48, label="Group 1") +
+    annotate("text", x=4.5, y=66, label="Group 2")
+```
+
+![Text annotations](figs/rgcb_0701.png)
+
+### Discussion {#_discussion_51}
+
+The annotate() function can be used to add any type of geometric object.
+In this case, we used geom="text".
+
+Other text properties can be specified, as shown in
+[figure\_title](#FIG_ANNOTATE_TEXT_PROPERTIES):
+
+```{r}
+p + annotate("text", x=3, y=48, label="Group 1", family="serif",
+             fontface="italic", colour="darkred", size=3) +
+    annotate("text", x=4.5, y=66, label="Group 2", family="serif",
+             fontface="italic", colour="darkred", size=3)
+```
+
+![Modified text properties](figs/rgcb_0702.png)
+
+Be careful not to use geom\$\$\_\$\$text() when you want to add
+individual text objects. While annotate(geom="text") will add a single
+text object to the plot, geom\$\$\_\$\$text() will create many text
+objects based on the data, as discussed in
+[???](#RECIPE_SCATTER_LABELS).
+
+If you use geom\$\$\_\$\$text(), the text will be heavily overplotted on
+the same location, with one copy per data point:
+
+```{r}
+p + annotate("text", x=3, y=48, label="Group 1", alpha=.1) +     # Normal
+    geom_text(x=4.5, y=66, label="Group 2", alpha=.1)            # Overplotted
+```
+
+In [figure\_title](#FIG_ANNOTATE_TEXT_GEOM_OVERPLOT), each text label is
+90% transparent, making it clear which one is overplotted. The
+overplotting can lead to output with aliased (jagged) edges when
+outputting to a bitmap.
+
+![Overplotting one of the labels—both should be 90%
+transparent](figs/rgcb_0703.png)
+
+If the axes are continuous, you can use the special values Inf and -Inf
+to place text annotations at the edge of the plotting area, as shown in
+[figure\_title](#FIG_ANNOTATE_TEXT_EDGE). You will also need to adjust
+the position of the text relative to the corner using hjust and vjust—if
+you leave them at their default values, the text will be centered on the
+edge. It may take a little experimentation with these values to get the
+text positioned to your liking:
+
+```{r}
+p + annotate("text", x=-Inf, y=Inf, label="Upper left", hjust=-.2, vjust=2) +
+    annotate("text", x=mean(range(faithful$eruptions)), y=-Inf, vjust=-0.4,
+             label="Bottom middle")
+```
+
+![Text positioned at the edge of the plotting area](figs/rgcb_0704.png)
+
+### See Also {#_see_also_41}
+
+See [???](#RECIPE_SCATTER_LABELS) for making a scatter plot with text.
+
+For more on controlling the appearance of the text, see
+[???](#RECIPE_APPEARANCE_TEXT_APPEARANCE).
+
+Using Mathematical Expressions in Annotations {#RECIPE_ANNOTATE_TEXT_MATH}
+---------------------------------------------
+
+### Problem {#_problem_57}
+
+You want to add a text annotation with mathematical notation.
+
+### Solution {#_solution_57}
+
+Use annotate(geom="text") and set parse=TRUE
+([figure\_title](#FIG_ANNOTATE_TEXT_MATH)):
+
+```{r}
+# A normal curve
+p <- ggplot(data.frame(x=c(-3,3)), aes(x=x)) + stat_function(fun = dnorm)
+
+p + annotate("text", x=2, y=0.3, parse=TRUE,
+             label="frac(1, sqrt(2 * pi)) * e ^ {-x^2 / 2}")
+```
+
+![Annotation with mathematical expressions](figs/rgcb_0705.png)
+
+### Discussion {#_discussion_52}
+
+Mathematical expressions made with text geoms usingparse=TRUE in ggplot2
+have a format similar to those made with plotmathand expression in
+baseR, except that they are stored as strings, rather than as expression
+objects.
+
+To mix regular text with expressions, use single quotes within double
+quotes (or vice versa) to mark the plain-text parts. Each block of text
+enclosed by the inner quotes is treated as a variable in a mathematical
+expression. Bear in mind that, in RRSQUOs syntax for mathematical
+expressions, you canRSQUOt simply put a variable right next to another
+without something else in between. To display two variables next to each
+other, as in [figure\_title](#FIG_ANNOTATE_TEXT_MATH_MIX), put a
+\$\$\*\$\$ operator between them; when displayed in a graphic, this is
+treated as an invisible multiplication sign (for a visible
+multiplication sign, use %\$\$\*\$\$%):
+
+```{r}
+p + annotate("text", x=0, y=0.05, parse=TRUE, size=4,
+             label="'Function:  ' * y==frac(1, sqrt(2*pi)) * e^{-x^2/2}")
+```
+
+![Mathematical expression with regular text](figs/rgcb_0706.png)
+
+### See Also {#_see_also_42}
+
+See ?plotmath for many examples of mathematical expressions, and
+?demo(plotmath) for graphical examples of mathematical expressions.
+
+See [???](#RECIPE_SCATTER_FITLINES_TEXT) for adding regression
+coefficients to a graph.
+
+For using other fonts in mathematical expressions, see
+[???](#RECIPE_OUTPUT_FONTS_PDF).
+
+Adding Lines {#RECIPE_ANNOTATE_LINES}
+------------
+
+### Problem {#_problem_58}
+
+You want to add lines to a plot.
+
+### Solution {#_solution_58}
+
+For horizontal and vertical lines, use geom\$\$\_\$\$hline() and
+geom\$\$\_\$\$vline(), and for angled lines, use geom\$\$\_\$\$abline()
+([figure\_title](#FIG_ANNOTATE_LINES)). For this example, weRSQUOll use
+the heightweight data set:
+
+```{r}
+library(gcookbook) # For the data set
+
+p <- ggplot(heightweight, aes(x=ageYear, y=heightIn, colour=sex)) + geom_point()
+
+# Add horizontal and vertical lines
+p + geom_hline(yintercept=60) + geom_vline(xintercept=14)
+
+# Add angled line
+p + geom_abline(intercept=37.4, slope=1.75)
+```
+
+![Left: horizontal and vertical lines; right: angled
+line](figs/rgcb_0707.png)
+
+### Discussion {#_discussion_53}
+
+The previous examples demonstrate setting the positions of the lines
+manually, resulting in one line drawn for each geom added. It is also
+possible to *map* values from the data to xintercept, yintercept, and so
+on, and even draw them from another data frame.
+
+Here weRSQUOll take the average height for males and females and store
+it in a data frame, hw\$\$\_\$\$means. Then weRSQUOll draw a horizontal
+line for each, and set the linetype and size
+([figure\_title](#FIG_ANNOTATE_LINES_MULTI)):
+
+library(plyr) \# For the ddply() function hw\_means &lt;-
+ddply(heightweight, "sex", summarise, heightIn=mean(heightIn)) hw\_means
+sex heightIn f 60.52613 m 62.06000
+p + geom\_hline(aes(yintercept=heightIn, colour=sex), data=hw\_means,
+linetype="dashed", size=1)
+![Multiple lines, drawn at the mean of each group](figs/rgcb_0708.png)
+
+If one of the axes is discrete rather than continuous, you canRSQUOt
+specify the intercepts as just a character string—they must still be
+specified as numbers. If the axis represents a factor, the first level
+has a numeric value of 1, the second level has a value of 2, and so on.
+You can specify the numerical intercept manually, or calculate the
+numerical value using which(levels(...))
+([figure\_title](#FIG_ANNOTATE_LINES_FACTOR)):
+
+```{r}
+pg <- ggplot(PlantGrowth, aes(x=group, y=weight)) + geom_point()
+
+pg + geom_vline(xintercept = 2)
+
+pg + geom_vline(xintercept = which(levels(PlantGrowth$group)=="ctrl"))
+```
+
+![Lines with a discrete axis](figs/rgcb_0709.png)
+
+> **Note**
+>
+> You may have noticed that adding lines differs from adding other
+> annotations. Instead of using the annotate() function, weRSQUOve used
+> geom\$\$\_\$\$hline() and friends. This is because previous versions
+> of ggplot2 didnRSQUOt have the annotate() function. The line geoms had
+> code to handle the special cases where they were used to add a single
+> line, and changing it would break backward compatibility. In a future
+> version of ggplot2, this will change, and annotate() will work with
+> line geoms.
+
+### See Also {#_see_also_43}
+
+For adding regression lines, see Recipes [???](#RECIPE_SCATTER_FITLINES)
+and [???](#RECIPE_SCATTER_FITLINES_MODEL).
+
+Lines are often used to indicate summarized information about data. See
+[???](#RECIPE_DATAPREP_SUMMARIZE) for more on how to summarize data by
+groups.
+
+Adding Line Segments and Arrows {#RECIPE_ANNOTATE_SEGMENT}
+-------------------------------
+
+### Problem {#_problem_59}
+
+You want to add line segments or arrows to a plot.
+
+### Solution {#_solution_59}
+
+Use annotate("segment"). In this example, weRSQUOll use the climate data
+set and use a subset of data from the Berkeley source
+([figure\_title](#FIG_ANNOTATE_SEGMENT)):
+
+```{r}
+library(gcookbook) # For the data set
+
+p <- ggplot(subset(climate, Source=="Berkeley"), aes(x=Year, y=Anomaly10y)) +
+     geom_line()
+
+p + annotate("segment", x=1950, xend=1980, y=-.25, yend=-.25)
+```
+
+![Line segment annotation](figs/rgcb_0710.png)
+
+### Discussion {#_discussion_54}
+
+ItRSQUOs possible to add arrowheads or flat ends to the line segments,
+using arrow() from the grid package. In this example, weRSQUOll do both
+([figure\_title](#FIG_ANNOTATE_SEGMENT_ARROWS)):
+
+```{r}
+library(grid)
+p + annotate("segment", x=1850, xend=1820, y=-.8, yend=-.95, colour="blue",
+             size=2, arrow=arrow()) +
+    annotate("segment", x=1950, xend=1980, y=-.25, yend=-.25,
+             arrow=arrow(ends="both", angle=90, length=unit(.2,"cm")))
+```
+
+![Line segments with arrow heads](figs/rgcb_0711.png)
+
+The default angle is 30, and the default length of the arrowhead lines
+is 0.2 inches.
+
+If one or both axes are discrete, the *x* and *y* positions are such
+that the categorical items have coordinate values 1, 2, 3, and so on.
+
+### See Also {#_see_also_44}
+
+For more information about the parameters for drawing arrows, load the
+grid package and see ?arrow.
+
+Adding a Shaded Rectangle {#RECIPE_ANNOTATE_RECT}
+-------------------------
+
+### Problem {#_problem_60}
+
+You want to add a shaded region.
+
+### Solution {#_solution_60}
+
+Use annotate("rect") ([figure\_title](#FIG_ANNOTATE_RECT)):
+
+```{r}
+library(gcookbook) # For the data set
+
+p <- ggplot(subset(climate, Source=="Berkeley"), aes(x=Year, y=Anomaly10y)) +
+     geom_line()
+
+p + annotate("rect", xmin=1950, xmax=1980, ymin=-1, ymax=1, alpha=.1,
+             fill="blue")
+```
+
+![A shaded rectangle](figs/rgcb_0712.png)
+
+### Discussion {#_discussion_55}
+
+Each layer is drawn in the order that itRSQUOs added to the ggplot
+object, so in the preceding example, the rectangle is drawn on top of
+the line. ItRSQUOs not a problem in that case, but if youRSQUOd like to
+have the line above the rectangle, add the rectangle first, and then the
+line.
+
+Any geom can be used with annotate(), as long as you pass in the proper
+parameters. In this case, geom\$\$\_\$\$rect() requires min and max
+values for x and y.
+
+Highlighting an Item {#RECIPE_ANNOTATE_HIGHLIGHT}
+--------------------
+
+### Problem {#_problem_61}
+
+You want to change the color of an item to make it stand out.
+
+### Solution {#_solution_61}
+
+To highlight one or more items, create a new column in the data and map
+it to the color. In this example, weRSQUOll create a new column, hl, and
+set its value based on the value of group:
+
+```{r}
+pg <- PlantGrowth                 # Make a copy of the PlantGrowth data
+pg$hl <- "no"                     # Set all to "no"
+pg$hl[pg$group=="trt2"] <- "yes"  # If group is "trt2", set to "yes"
+```
+
+Then weRSQUOll plot it with manually specified colors and with no legend
+([figure\_title](#FIG_ANNOTATE_HIGHLIGHT)):
+
+```{r}
+ggplot(pg, aes(x=group, y=weight, fill=hl)) + geom_boxplot() +
+    scale_fill_manual(values=c("grey85", "#FFDDCC"), guide=FALSE)
+```
+
+![Highlighting one item](figs/rgcb_0713.png)
+
+### Discussion {#_discussion_56}
+
+If you have a small number of items, as in this example, instead of
+creating a new column you could use the original one and specify the
+colors for every level of that variable. For example, the following code
+will use the group column from PlantGrowth and manually set the colors
+for each of the three levels. The result will appear the same as with
+the preceding code:
+
+```{r}
+ggplot(PlantGrowth, aes(x=group, y=weight, fill=group)) + geom_boxplot() +
+    scale_fill_manual(values=c("grey85", "grey85", "#FFDDCC"), guide=FALSE)
+```
+
+### See Also {#_see_also_45}
+
+See [???](#CHAPTER_COLORS) for more information about specifying colors.
+
+For more information about removing the legend, see
+[???](#RECIPE_LEGEND_REMOVE).
+
+Adding Error Bars {#RECIPE_ANNOTATE_ERROR_BAR}
+-----------------
+
+### Problem {#_problem_62}
+
+You want to add error bars to a graph.
+
+### Solution {#_solution_62}
+
+Use geom\$\$\_\$\$errorbar andmap variables to the values for ymin and
+ymax. Adding the error bars is done the same way for bar graphs and line
+graphs, as shown in [figure\_title](#FIG_ANNOTATE_ERRORBAR_BASIC)
+(notice that default *y* range is different for bars and lines, though):
+
+```{r}
+library(gcookbook) # For the data set
+# Take a subset of the cabbage_exp data for this example
+ce <- subset(cabbage_exp, Cultivar == "c39")
+
+# With a bar graph
+ggplot(ce, aes(x=Date, y=Weight)) +
+    geom_bar(fill="white", colour="black") +
+    geom_errorbar(aes(ymin=Weight-se, ymax=Weight+se), width=.2)
+
+# With a line graph
+ggplot(ce, aes(x=Date, y=Weight)) +
+    geom_line(aes(group=1)) +
+    geom_point(size=4) +
+    geom_errorbar(aes(ymin=Weight-se, ymax=Weight+se), width=.2)
+```
+
+![Left: error bars on a bar graph; right: on a line
+graph](figs/rgcb_0714.png)
+
+### Discussion {#_discussion_57}
+
+In this example, the data already has values for the standard error of
+the mean (se), which weRSQUOll use for the error bars (it also has
+values for the standard deviation, sd, but weRSQUOre not using that
+here):
+
+ce
+Cultivar Date Weight sd n se c39 d16 3.18 0.9566144 10 0.30250803 c39
+d20 2.80 0.2788867 10 0.08819171 c39 d21 2.74 0.9834181 10 0.31098410
+To get the values for ymax and ymin, we took the y variable, Weight, and
+added/subtracted se.
+
+We also specified the width of the ends of the error bars, with
+width=.2. ItRSQUOs best to play around with this to find a value that
+looks good. If you donRSQUOt set the width, the error bars will be very
+wide, spanning all the space between items on the x-axis.
+
+For a bar graph with groups of bars, the error bars must also be
+*dodged*; otherwise, theyRSQUOll have the exact same *x* coordinate and
+wonRSQUOt line up with the bars. (See
+[???](#RECIPE_BAR_GRAPH_GROUPED_BAR) for more information about grouped
+bars and dodging.)
+
+WeRSQUOll work with the full cabbage\$\$\_\$\$exp data set this time:
+
+cabbage\_exp
+Cultivar Date Weight sd n se c39 d16 3.18 0.9566144 10 0.30250803 c39
+d20 2.80 0.2788867 10 0.08819171 c39 d21 2.74 0.9834181 10 0.31098410
+c52 d16 2.26 0.4452215 10 0.14079141 c52 d20 3.11 0.7908505 10
+0.25008887 c52 d21 1.47 0.2110819 10 0.06674995
+The default dodge width for geom\$\$\_\$\$bar() is 0.9, and youRSQUOll
+have to tell the error bars to be dodged the same width. If you
+donRSQUOt specify the dodge width, it will default to dodging by the
+width of the error bars, which is usually less than the width of the
+bars ([figure\_title](#FIG_ANNOTATE_ERRORBAR_GROUP_BAR)):
+
+```{r}
+# Bad: dodge width not specified
+ggplot(cabbage_exp, aes(x=Date, y=Weight, fill=Cultivar)) +
+    geom_bar(position="dodge") +
+    geom_errorbar(aes(ymin=Weight-se, ymax=Weight+se),
+                  position="dodge", width=.2)
+
+# Good: dodge width set to same as bar width (0.9)
+ggplot(cabbage_exp, aes(x=Date, y=Weight, fill=Cultivar)) +
+    geom_bar(position="dodge") +
+    geom_errorbar(aes(ymin=Weight-se, ymax=Weight+se),
+                  position=position_dodge(0.9), width=.2)
+```
+
+![Left: error bars on a grouped bar graph without dodging width
+specified; right: with dodging width specified](figs/rgcb_0715.png)
+
+> **Note**
+>
+> Notice that we used position="dodge", which is shorthand for
+> position=position\$\$\_\$\$dodge(), in the first version. But to pass
+> a specific value, we have to spell it out, as in
+> position\$\$\_\$\$dodge(0.9).
+
+For line graphs, if the error bars are a different color than the lines
+and points, you should draw the error bars first, so that they are
+underneath the points and lines. Otherwise the error bars will be drawn
+on top of the points and lines, which wonRSQUOt look right.
+
+Additionally, you should dodge all the geometric elements so that they
+will align with the error bars, as shown in
+[figure\_title](#FIG_ANNOTATE_ERRORBAR_GROUP_LINE_DODGE):
+
+```{r}
+pd <- position_dodge(.3)  # Save the dodge spec because we use it repeatedly
+
+ggplot(cabbage_exp, aes(x=Date, y=Weight, colour=Cultivar, group=Cultivar)) +
+    geom_errorbar(aes(ymin=Weight-se, ymax=Weight+se),
+                  width=.2, size=0.25, colour="black", position=pd) +
+    geom_line(position=pd) +
+    geom_point(position=pd, size=2.5)
+
+# Thinner error bar lines with size=0.25, and larger points with size=2.5
+```
+
+![Error bars on a line graph, dodged so they donRSQUOt
+overlap](figs/rgcb_0716.png)
+
+Notice that we set colour="black" to make the error bars black;
+otherwise, they would inherit colour. We also made sure the Cultivar was
+used as a grouping variable by mapping it to group.
+
+When a discrete variable is *mapped* to an aesthetic like colour or fill
+(as in the case of the bars), that variable is used for grouping the
+data. But by *setting* the colour of the error bars, we made it so that
+the variable for colour was not used for grouping, and we needed some
+other way to inform ggplot() that the two data entries at each *x* were
+in different groups so that they would be dodged.
+
+### See Also {#_see_also_46}
+
+See [???](#RECIPE_BAR_GRAPH_GROUPED_BAR) for more about creating grouped
+bar graphs, and [???](#RECIPE_LINE_GRAPH_MULTIPLE_LINE) for more about
+creating line graphs with multiple lines.
+
+See [???](#RECIPE_DATAPREP_SUMMARIZE_SE) for calculating summaries with
+means, standard deviations, standard errors, and confidence intervals.
+
+See [???](#RECIPE_LINE_GRAPH_REGION) for adding a confidence region when
+the data has a higher density along the x-axis.
+
+Adding Annotations to Individual Facets {#RECIPE_ANNOTATE_FACET}
+---------------------------------------
+
+### Problem {#_problem_63}
+
+You want to add annotations to each facet in a plot.
+
+### Solution {#_solution_63}
+
+Create a new data frame with the faceting variable(s), and a value to
+use in each facet. Then use geom\$\$\_\$\$text() with the new data frame
+([figure\_title](#FIG_ANNOTATE_FACET)):
+
+```{r}
+# The base plot
+p <- ggplot(mpg, aes(x=displ, y=hwy)) + geom_point() + facet_grid(. ~ drv)
+
+# A data frame with labels for each facet
+f_labels <- data.frame(drv = c("4", "f", "r"), label = c("4wd", "Front", "Rear"))
+
+p + geom_text(x=6, y=40, aes(label=label), data=f_labels)
+
+# If you use annotate(), the label will appear in all facets
+p + annotate("text", x=6, y=42, label="label text")
+```
+
+![Top: different annotations in each facet; bottom: the same annotation
+in each facet](figs/rgcb_0717.png)
+
+### Discussion {#_discussion_58}
+
+This method can be used to display information about the data in each
+facet, as shown in [figure\_title](#FIG_ANNOTATE_FACET_MATH). For
+example, in each facet we can show linear regression lines, the formula
+for each line, and the *r^2^* value (). To do this, weRSQUOll write a
+function that takes a data frame and returns another data frame
+containing a string for a regression equation, and a string for the
+*r^2^* value. Then weRSQUOll use ddply() to apply that function to each
+group of the data:
+
+\# This function returns a data frame with strings representing the
+regression \# equation, and the r\^2 value \# These strings will be
+treated as R math expressions lm\_labels &lt;- function(dat) { mod &lt;-
+lm(hwy \~ displ, data=dat) formula &lt;- sprintf("italic(y) == %.2f
+%+.2f \* italic(x)", round(coef(mod)\[1\], 2), round(coef(mod)\[2\], 2))
+r &lt;- cor(dat\$displ, dat\$hwy) r2 &lt;- sprintf("italic(R\^2) ==
+%.2f", r\^2) data.frame(formula=formula, r2=r2, stringsAsFactors=FALSE)
+} library(plyr) \# For the ddply() function labels &lt;- ddply(mpg,
+"drv", lm\_labels) labels
+drv formula r2 4 italic(y) == 30.68 -2.88 \* italic(x) italic(R\^2) ==
+0.65 f italic(y) == 37.38 -3.60 \* italic(x) italic(R\^2) == 0.36 r
+italic(y) == 25.78 -0.92 \* italic(x) italic(R\^2) == 0.04
+\# Plot with formula and R\^2 values p + geom\_smooth(method=lm,
+se=FALSE) + geom\_text(x=3, y=40, aes(label=formula), data=labels,
+parse=TRUE, hjust=0) + geom\_text(x=3, y=35, aes(label=r2), data=labels,
+parse=TRUE, hjust=0)
+![Annotations in each facet with information about the
+data](figs/rgcb_0718.png)
+
+We needed to write our own function here because generating the linear
+model and extracting the coefficients requires operating on each subset
+data frame directly. If you just want to display the r^2^ values,
+itRSQUOs possible to do something simpler, by using ddply() with the
+summarise() function and then passing additional arguments for
+summarise():
+
+```{r}
+# Find r^2 values for each group
+labels <- ddply(mpg, "drv", summarise, r2 = cor(displ, hwy)^2)
+labels$r2 <- sprintf("italic(R^2) == %.2f", labels$r2)
+```
+
+Text geoms arenRSQUOt the only kind that can be added individually for
+each facet. Any geom can be used, as long as the input data is
+structured correctly.
+
+### See Also {#_see_also_47}
+
+See [section\_title](#RECIPE_ANNOTATE_TEXT_MATH) for more about using
+math expressions in plots.
+
+If you want to make prediction lines from your own model objects,
+instead of having ggplot2 do it for you with stat\$\$\_\$\$smooth(), see
+[???](#RECIPE_SCATTER_FITLINES_MODEL_MULTI).
