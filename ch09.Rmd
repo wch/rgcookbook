@@ -1,15 +1,15 @@
 Controlling the Overall Appearance of Graphs {#CHAPTER_APPEARANCE}
 ============================================
 
-In this chapter IRSQUOll discuss how to control the overall appearance
+In this chapter I'll discuss how to control the overall appearance
 of graphics made by ggplot2. The grammar of graphics that
 underliesggplot2 is concerned with how data is processed and
-displayed—itRSQUOs not concerned with things like fonts, background
-colors, and so on. When it comes to presenting your data, thereRSQUOs a
-good chance that youRSQUOll want to tune the appearance of these things.
-ggplot2RSQUOs theming system provides control over the appearance of
+displayed—it's not concerned with things like fonts, background
+colors, and so on. When it comes to presenting your data, there's a
+good chance that you'll want to tune the appearance of these things.
+ggplot2's theming system provides control over the appearance of
 non-data elements. I touched on the theme system in the previous
-chapter, and here IRSQUOll explain a bit more about how it works.
+chapter, and here I'll explain a bit more about how it works.
 
 Setting the Title of a Graph {#RECIPE_APPEARANCE_TITLE}
 ----------------------------
@@ -100,7 +100,7 @@ p + ggtitle("Age and Height\nof Schoolchildren") +
 # For theme elements, font size is in points.
 ```
 
-To set the appearance of text geoms (text thatRSQUOs in the plot itself,
+To set the appearance of text geoms (text that's in the plot itself,
 with geom\$\$\_\$\$text() or annotate()), set the text properties. For
 example ([figure\_title](#FIG_APPEARANCE_TEXT_APPEARANCE), right):
 
@@ -516,7 +516,7 @@ lines](figs/rgcb_0909.png)
 
 ### Discussion {#_discussion_81}
 
-ItRSQUOs possible to hide just the vertical or horizontal grid lines, as
+It's possible to hide just the vertical or horizontal grid lines, as
 shown in the middle and righthand graphs in
 [figure\_title](#FIG_APPEARANCE_HIDE_GRIDLINES), with
 panel.grid.major.x, panel.grid.major.y, panel.grid.minor.x, and

@@ -5,23 +5,23 @@ When it comes to making graphs, half the battle occurs before you call
 any graphing commands. Before you pass your data to the graphing
 functions, it must first be read in and given the correct structure. The
 data sets provided with R are ready to use, but when dealing with
-real-world data, this usually isnRSQUOt the case: youRSQUOll have to
+real-world data, this usually isn't the case: you'll have to
 clean up and restructure the data before you can visualize it.
 
-Data sets in R are most often stored in data frames. TheyRSQUOre
+Data sets in R are most often stored in data frames. They're
 typically used as two-dimensional data structures, with each row
 representing one case and each column representing one variable. Data
 frames are essentially lists of vectors and factors, all of the same
 length, where each vector or factor represents one column.
 
-HereRSQUOs the heightweight data set:
+Here's the heightweight data set:
 
 library(gcookbook) \# For the data set heightweight
 sex ageYear ageMonth heightIn weightLb f 11.92 143 56.3 85.0 f 12.92 155
 62.3 105.0 ... m 13.92 167 62.0 107.5 m 12.58 151 59.3 87.0
 It consists of five columns, with each row representing one case: a set
 of information about a single person. We can get a clearer idea of how
-itRSQUOs structured by using the str() function:
+it's structured by using the str() function:
 
 str(heightweight)
 'data.frame': 236 obs. of 5 variables: \$ sex : Factor w/ 2 levels
@@ -143,7 +143,7 @@ frame, then the vector is repeated to fill all the rows.
 
 ### Discussion {#_discussion_131}
 
-Each LDQUOcolumnRDQUO of a data frame is a vector or factor. R handles
+Each "column" of a data frame is a vector or factor. R handles
 them slightly differently from standalone vectors, because all the
 columns in a data frame have the same length.
 
@@ -268,7 +268,7 @@ You want to get a subset of a data frame.
 Use the subset() function. It can be used to pull out rows that satisfy
 a set of conditions and to select particular columns.
 
-WeRSQUOll use the climate data set for the examples here:
+We'll use the climate data set for the examples here:
 
 library(gcookbook) \# For the data set climate
 Source Year Anomaly1y Anomaly5y Anomaly10y Unc10y Berkeley 1800 NA NA
@@ -310,7 +310,7 @@ climate[climate$Source=="Berkeley" & climate$Year >= 1900 & climate$Year <= 2000
         c("Year", "Anomaly10y"), drop=FALSE]
 ```
 
-Finally, itRSQUOs also possible to pick out rows and columns by their
+Finally, it's also possible to pick out rows and columns by their
 numeric position. This gets the second and fifth columns of the first
 100 rows:
 
@@ -319,7 +319,7 @@ climate[1:100, c(2, 5)]
 ```
 
 I generally recommend indexing using names rather than numbers when
-possible. It makes the code easier to understand when youRSQUOre
+possible. It makes the code easier to understand when you're
 collaborating with others or when you come back to it months or years
 after writing it, and it makes the code less likely to break when there
 are changes to the data, such as when columns are added or removed.
@@ -334,7 +334,7 @@ You want to change the order of levels in a factor.
 ### Solution {#_solution_144}
 
 The level order can be specified explicitly by passing thefactor to
-factor() and specifying levels. In this example, weRSQUOll create a
+factor() and specifying levels. In this example, we'll create a
 factor that initially has the wrong ordering:
 
 \# By default, levels are ordered alphabetically sizes &lt;-
@@ -416,7 +416,7 @@ In the middle graph in
 [figure\_title](#FIG_DATAPREP_FACTOR_REORDER_VALUE), the boxes are
 sorted by the mean. The horizontal line that runs across each box
 represents the *median* of the data. Notice that these values do not
-increase strictly from left to right. ThatRSQUOs because with this
+increase strictly from left to right. That's because with this
 particular data set, sorting by the mean gives a different order than
 sorting by the median. To make the median lines increase from left to
 right, as in the graph on the right in
@@ -473,7 +473,7 @@ S L L S M Levels: L M S
 With this method, all factor levels must be specified in the list; if
 any are missing, they will be replaced with NA.
 
-ItRSQUOs also possible to rename factor levels by position, but this is
+It's also possible to rename factor levels by position, but this is
 somewhat inelegant:
 
 \# By default, levels are ordered alphabetically sizes &lt;-
@@ -483,7 +483,7 @@ levels(sizes)\[1\] &lt;- "L" sizes
 small L L small medium Levels: L medium small
 \# Rename all levels at once levels(sizes) &lt;- c("L", "M", "S") sizes
 \[1\] S L L S M Levels: L M S
-ItRSQUOs safer to rename factor levels by name rather than by position,
+It's safer to rename factor levels by name rather than by position,
 since you will be less likely to make a mistake (and mistakes here may
 be hard to detect). Also, if your input data set changes to have more
 (or fewer) levels, the numeric positions of the existing levels could
@@ -505,7 +505,7 @@ You want to remove unused levels from a factor.
 ### Solution {#_solution_147}
 
 Sometimes, after processing your data you will have a factor that
-contains levels that are no longer used. HereRSQUOs an example:
+contains levels that are no longer used. Here's an example:
 
 sizes &lt;- factor(c("small", "large", "large", "small", "medium"))
 sizes &lt;- sizes\[1:3\] sizes
@@ -564,13 +564,13 @@ You want to recode a categorical variable to another variable.
 
 ### Solution {#_solution_149}
 
-For the examples here, weRSQUOll use a subset of the PlantGrowth data
+For the examples here, we'll use a subset of the PlantGrowth data
 set:
 
 \# Work on a subset of the PlantGrowth data set pg &lt;-
 PlantGrowth\[c(1,2,11,21,22), \] pg
 weight group 4.17 ctrl 5.58 ctrl 4.81 trt1 6.31 trt2 5.12 trt2
-In this example, weRSQUOll recode the categorical variable group into
+In this example, we'll recode the categorical variable group into
 another categorical variable, treatment. If the old value was "ctrl",
 the new value will be "No", and if the old value was "trt1" or "trt2",
 the new value will be "Yes".
@@ -609,7 +609,7 @@ pg\$newcol\[pg\$group == "trt1"\] &lt;- "yes" pg\$newcol\[pg\$group ==
 weight group weightcat treatment newcol 4.17 ctrl small no no\_small
 5.58 ctrl large no no\_large 4.81 trt1 small yes yes 4.17 trt1 small yes
 yes 6.31 trt2 large yes yes 5.12 trt2 large yes yes
-ItRSQUOs also possible to combine two columns into one usingthe
+It's also possible to combine two columns into one usingthe
 interaction() function, which appends the values with a "." in between.
 This combines the weightcat and treatment columns into a new column,
 weighttrt:
@@ -636,13 +636,13 @@ You want to recode a continuous variable to another variable.
 
 ### Solution {#_solution_150}
 
-For the examples here, weRSQUOll use a subset of the PlantGrowth data
+For the examples here, we'll use a subset of the PlantGrowth data
 set.
 
 \# Work on a subset of the PlantGrowth data set pg &lt;-
 PlantGrowth\[c(1,2,11,21,22), \] pg
 weight group 4.17 ctrl 5.58 ctrl 4.81 trt1 6.31 trt2 5.12 trt2
-In this example, weRSQUOll recode the continuous variable weight into a
+In this example, we'll recode the continuous variable weight into a
 categorical variable, wtclass, using the cut() function:
 
 pg\$wtclass &lt;- cut(pg\$weight, breaks = c(0, 5, 6, Inf)) pg
@@ -651,7 +651,7 @@ weight group wtclass 4.17 ctrl (0,5\] 5.58 ctrl (5,6\] 4.81 trt1 (0,5\]
 ### Discussion {#_discussion_142}
 
 For three categories we specify four bounds, which can include Inf and
--Inf. If a data value falls outside of the specified bounds, itRSQUOs
+-Inf. If a data value falls outside of the specified bounds, it's
 categorized as NA. The result of cut() is a factor, and you can see from
 the example that the factor levels are named after the bounds.
 
@@ -662,7 +662,7 @@ c("small", "medium", "large")) pg
 weight group wtclass 4.17 ctrl small 5.58 ctrl medium 4.81 trt1 small
 4.17 trt1 small 6.31 trt2 large 5.12 trt2 medium
 As indicated by the factor levels, the bounds are by default *open* on
-the left and *closed* on the right. In other words, they donRSQUOt
+the left and *closed* on the right. In other words, they don't
 include the lowest value, but they do include the highest value. For the
 smallest category, you can have it include both the lower and upper
 values by setting include.lowest=TRUE. In this example, this would
@@ -691,7 +691,7 @@ You want to transform a variable in a data frame.
 ### Solution {#_solution_151}
 
 Reference the new column with the \$ operator, and assign some values to
-it. For this example, weRSQUOll use a copy of the heightweight data set:
+it. For this example, we'll use a copy of the heightweight data set:
 
 library(gcookbook) \# For the data set \# Make a copy of the data hw
 &lt;- heightweight hw
@@ -771,7 +771,7 @@ Cult Date HeadWt VitC DevWt c39 d16 2.5 51 -0.40666667 c39 d16 2.2 55
 -0.70666667 ... c52 d21 1.5 66 -0.78000000 c52 d21 1.6 72 -0.68000000
 ### Discussion {#_discussion_144}
 
-LetRSQUOs take a closer look at the cabbages data set. It has two
+Let's take a closer look at the cabbages data set. It has two
 grouping variables (factors): Cult, which has levels c39 and c52, and
 Date, which has levels d16, d20, and d21. It also has two measured
 numeric variables, HeadWt and VitC:
@@ -786,7 +786,7 @@ from the observed value for each case:
 transform(cabbages, DevWt = HeadWt - mean(HeadWt))
 Cult Date HeadWt VitC DevWt c39 d16 2.5 51 -0.093333333 c39 d16 2.2 55
 -0.393333333 ... c52 d21 1.5 66 -1.093333333 c52 d21 1.6 72 -0.993333333
-YouRSQUOll often want to do separate operations like this for each
+You'll often want to do separate operations like this for each
 group, where the groups are specified by one or more grouping variables.
 Suppose, for example, we want to normalize the data within each group by
 finding the deviation of each case from the mean *within the group*,
@@ -855,7 +855,7 @@ Cult Date Weight VitC c39 d16 3.18 50.3 c39 d20 2.80 49.4 c39 d21 2.74
 54.8 c52 d16 2.26 62.5 c52 d20 3.11 58.9 c52 d21 1.47 71.8
 ### Discussion {#_discussion_145}
 
-LetRSQUOs take a closer look at the cabbages data set. It has two
+Let's take a closer look at the cabbages data set. It has two
 factors that can be used as grouping variables: Cult, which has levels
 c39 and c52, and Date, which has levels d16, d20, and d21. It also has
 two numeric variables, HeadWt and VitC:
@@ -865,7 +865,7 @@ Cult Date HeadWt VitC c39 d16 2.5 51 c39 d16 2.2 55 ... c52 d21 1.5 66
 c52 d21 1.6 72
 Finding the overall mean of HeadWt is simple. We could just use the
 mean() function on that column, but for reasons that will soon become
-clear, weRSQUOll use the summarise() function instead:
+clear, we'll use the summarise() function instead:
 
 library(plyr) summarise(cabbages, Weight = mean(HeadWt))
 Weight 2.593333
@@ -889,15 +889,15 @@ them back together into one data frame, which is then returned.
 
 Summarizing the data frame by splitting it up with more variables (or
 columns) is simple: just use a vector that names the additional
-variables. ItRSQUOs also possible to get more than one summary value by
-specifying more calculated columns. Here weRSQUOll summarize each Cult
+variables. It's also possible to get more than one summary value by
+specifying more calculated columns. Here we'll summarize each Cult
 and Date group, getting the average of HeadWt and VitC:
 
 ddply(cabbages, c("Cult", "Date"), summarise, Weight = mean(HeadWt),
 VitC = mean(VitC))
 Cult Date Weight VitC c39 d16 3.18 50.3 c39 d20 2.80 49.4 c39 d21 2.74
 54.8 c52 d16 2.26 62.5 c52 d20 3.11 58.9 c52 d21 1.47 71.8
-ItRSQUOs possible to do more than take the mean. You may, for example,
+It's possible to do more than take the mean. You may, for example,
 want to compute the standard deviation and count of each group. To get
 the standard deviation, use the sd() function, and to get a count, use
 the length() function:
@@ -913,7 +913,7 @@ max(), and median().
 #### Dealing with NAs {#_dealing_with_literal_na_literal_s}
 
 One potential pitfall is that NAs in the data will lead to NAs in the
-output. LetRSQUOs see what happens if we sprinkle a few NAs into HeadWt:
+output. Let's see what happens if we sprinkle a few NAs into HeadWt:
 
 c1 &lt;- cabbages \# Make a copy c1\$HeadWt\[c(1,20,45)\] &lt;- NA \#
 Set some values to NA ddply(c1, c("Cult", "Date"), summarise, Weight =
@@ -928,7 +928,7 @@ na.rm=TRUE will tell them to ignore the NAs.
 
 The second problem is that length() counts NAs just like any other
 value, but since these values represent missing data, they should be
-excluded from the count. The length() function doesnRSQUOt have an na.rm
+excluded from the count. The length() function doesn't have an na.rm
 flag, but we can get the same effect by using sum(!is.na(...)). The
 is.na() function returns a logical vector: it has a TRUE for each NA
 item, and a FALSE for all other items. It is inverted by the !, and then
@@ -943,10 +943,10 @@ c52 d20 3.044444 0.8094923 9 c52 d21 1.470000 0.2110819 10
 
 If there are any empty combinations of the grouping variables, they will
 not appear in the summarized data frame. These missing combinations can
-cause problems when making graphs. To illustrate, weRSQUOll remove all
+cause problems when making graphs. To illustrate, we'll remove all
 entries that have levels c52 and d21. The graph on the left in
 [figure\_title](#FIG_DATAPREP_SUMMARIZE_MISSING_COMBO) shows what
-happens when thereRSQUOs a missing combination in a bar graph:
+happens when there's a missing combination in a bar graph:
 
 \# Copy cabbages and remove all rows with both c52 and d21 c2 &lt;-
 subset(c1, !( Cult=="c52" & Date=="d21" ) ) c2a &lt;- ddply(c2,
@@ -1014,8 +1014,8 @@ c52 d21 1.47 0.2110819 10 0.06674995
 ### Discussion {#_discussion_146}
 
 Another method is to calculate the standard error in the call ddply.
-ItRSQUOs not possible to refer to the sd and n columns inside of the
-ddply call, so weRSQUOll have to recalculate them to get se. This will
+It's not possible to refer to the sd and n columns inside of the
+ddply call, so we'll have to recalculate them to get se. This will
 do the same thing as the two-step version shown previously:
 
 ```{r}
@@ -1066,8 +1066,8 @@ intervals serve the same general purpose: to give the viewer an idea of
 how good the estimate of the population mean is. The standard error is
 the standard deviation of the sampling distribution. Confidence
 intervals are easier to interpret. Very roughly, a 95% confidence
-interval means that thereRSQUOs a 95% chance that the true population
-mean is within the interval (actually, it doesnRSQUOt mean this at all,
+interval means that there's a 95% chance that the true population
+mean is within the interval (actually, it doesn't mean this at all,
 but this seemingly simple topic is way too complicated to cover here; if
 you want to know more, read up on Bayesian statistics).
 
@@ -1130,7 +1130,7 @@ Cult Date n HeadWt sd se ci c39 d16 9 3.255556 0.9824855 0.32749517
 c52 d21 0 NaN NA NA NA Warning message: In qt(p, df, lower.tail, log.p)
 : NaNs produced
 It will give this warning message when there are missing combinations.
-This isnRSQUOt a problem; it just indicates that it couldnRSQUOt
+This isn't a problem; it just indicates that it couldn't
 calculate a quantile for a group with no observations.
 
 ### See Also {#_see_also_98}
@@ -1143,8 +1143,8 @@ Converting Data from Wide to Long {#RECIPE_DATAPREP_WIDE_TO_LONG}
 
 ### Problem {#_problem_155}
 
-You want to convert a data frame from LDQUOwideRDQUO format to
-LDQUOlongRDQUO format.
+You want to convert a data frame from "wide" format to
+"long" format.
 
 ### Solution {#_solution_155}
 
@@ -1179,7 +1179,7 @@ The measure variables are by default all the non-ID variables. The names
 of these variables are put into a new column specified by variable.name,
 and the values are put into a new column specified by value.name.
 
-If you donRSQUOt want to use all the non-ID columns as measure
+If you don't want to use all the non-ID columns as measure
 variables, you can specify measure.vars. For example, in the drunk data
 set, we can use just the 0-29 and 30-39 groups:
 
@@ -1189,7 +1189,7 @@ sex 0-29 30-39 40-49 50-59 60+ male 185 207 260 180 71 female 4 13 10 7
 melt(drunk, id.vars="sex", measure.vars=c("0-29", "30-39"),
 variable.name="age", value.name="count")
 sex age count male 0-29 185 female 0-29 4 male 30-39 207 female 30-39 13
-ItRSQUOs also possible to use more than one column as the ID variables:
+It's also possible to use more than one column as the ID variables:
 
 plum\_wide
 length time dead alive long at\_once 84 156 long in\_spring 156 84 short
@@ -1200,10 +1200,10 @@ length time survival count long at\_once dead 84 long in\_spring dead
 156 short at\_once dead 133 short in\_spring dead 209 long at\_once
 alive 156 long in\_spring alive 84 short at\_once alive 107 short
 in\_spring alive 31
-Some data sets donRSQUOt come with a column with an ID variable. For
+Some data sets don't come with a column with an ID variable. For
 example, in the corneas data set, each row represents one pair of
 measurements, but there is no ID variable. Without an ID variable, you
-wonRSQUOt be able to tell how the values are meant to be paired
+won't be able to tell how the values are meant to be paired
 together. In these cases, you can add an ID variable before using
 melt():
 
@@ -1233,13 +1233,13 @@ Converting Data from Long to Wide {#RECIPE_DATAPREP_LONG_TO_WIDE}
 
 ### Problem {#_problem_156}
 
-You want to convert a data frame from LDQUOlongRDQUO format to
-LDQUOwideRDQUO format.
+You want to convert a data frame from "long" format to
+"wide" format.
 
 ### Solution {#_solution_156}
 
 Use the dcast() function from the reshape2 package. In this example,
-weRSQUOll use the plum data set, which is in a long format:
+we'll use the plum data set, which is in a long format:
 
 library(gcookbook) \# For the data set plum
 length time survival count long at\_once dead 84 long in\_spring dead
@@ -1248,7 +1248,7 @@ alive 156 long in\_spring alive 84 short at\_once alive 107 short
 in\_spring alive 31
 The conversion to wide format takes each unique value in one column and
 uses those values as headers for new columns, then uses another column
-for source values. For example, we can LDQUOmoveRDQUO values in the
+for source values. For example, we can "move" values in the
 survival column to the top and fill them with values from count:
 
 library(reshape2) dcast(plum, length + time \~ survival,
@@ -1259,7 +1259,7 @@ at\_once 133 107 short in\_spring 209 31
 
 The dcast() function requires you to specify the *ID* variables (those
 that remain in columns) and the *variable* variables (those that get
-LDQUOmoved to the topRDQUO). This is done with a formula where the ID
+"moved to the top"). This is done with a formula where the ID
 variables are before the tilde (\$\$\~\$\$) and the variable variables
 are after it.
 

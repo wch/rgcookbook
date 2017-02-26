@@ -1,14 +1,14 @@
 Quickly Exploring Data {#CHAPTER_QUICK}
 ======================
 
-Although IRSQUOve used the ggplot2 package for most of the graphics in
+Although I've used the ggplot2 package for most of the graphics in
 this book, it is not the only way to make graphs. For very quick
-exploration of data, itRSQUOs sometimes useful to use the plotting
+exploration of data, it's sometimes useful to use the plotting
 functions in base R. These are installed by default with R and do not
-require any additional packages to be installed. TheyRSQUOre quick to
+require any additional packages to be installed. They're quick to
 type, are straightforward to use in simple cases, and run very quickly.
 
-If you want to do anything beyond very simple graphs, though, itRSQUOs
+If you want to do anything beyond very simple graphs, though, it's
 generally better to switch to ggplot2. This is in part because ggplot2
 provides a unified interface and set of options, instead of the grab bag
 of modifiers and special cases required in base graphics. Once you learn
@@ -153,7 +153,7 @@ barplot(BOD$demand, names.arg=BOD$Time)
 ![Left: bar graph of values with base graphics; right: bar graph of
 counts](figs/rgcb_0205.png)
 
-Sometimes LDQUObar graphRDQUO refers to a graph where the bars represent
+Sometimes "bar graph" refers to a graph where the bars represent
 the *count* of cases in each category. This is similar to a histogram,
 but with a discrete instead of continuous x-axis. To generate the count
 of each unique value in a vector, usethe table() function:
@@ -325,7 +325,7 @@ qplot(supp, len, data=ToothGrowth, geom="boxplot")
 ggplot(ToothGrowth, aes(x=supp, y=len)) + geom_boxplot()
 ```
 
-ItRSQUOs also possible to make box plots for multiple variables, by
+It's also possible to make box plots for multiple variables, by
 combining the variables with interaction(), as in
 [figure\_title](#FIG_QUICK_BOXPLOT_QPLOT). In this case, the dose
 variable is numeric, so we must convert it to a factor to use it as a

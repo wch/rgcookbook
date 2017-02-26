@@ -1,7 +1,7 @@
 Using Colors in Plots {#CHAPTER_COLORS}
 =====================
 
-In ggplot2RSQUOs implementation of the grammar of graphics, color is an
+In ggplot2's implementation of the grammar of graphics, color is an
 aesthetic, just like *x* position, *y* position, and size. If color is
 just another aesthetic, why does it deserve its own chapter? The reason
 is that color is a more complicated aesthetic than the others. Instead
@@ -10,7 +10,7 @@ when you use color, there are many degrees of freedom and many more
 choices to make. What palette should you use for discrete values? Should
 you use a gradient with several different hues? How do you choose colors
 that can be interpreted accurately by those with color-vision
-deficiencies? In this chapter, IRSQUOll address these issues.
+deficiencies? In this chapter, I'll address these issues.
 
 Setting the Colors of Objects {#RECIPE_COLORS_SETTING}
 -----------------------------
@@ -36,7 +36,7 @@ points](figs/rgcb_1201.png)
 
 ### Discussion {#_discussion_95}
 
-In ggplot2, thereRSQUOs an important difference between *setting* and
+In ggplot2, there's an important difference between *setting* and
 *mapping* aesthetic properties. In the preceding example, we set the
 color of the objects to "red".
 
@@ -169,7 +169,7 @@ Use one of the scales listed in
 
 : Discrete fill and color scales
 
-In the example here weRSQUOll use the default palette (hue), and a
+In the example here we'll use the default palette (hue), and a
 ColorBrewer palette ([figure\_title](#FIG_COLORS_PALETTE_DISCRETE)):
 
 ```{r}
@@ -200,7 +200,7 @@ aesthetic attributes. There are two types of scales that use colors:
 With scale\$\$\_\$\$fill\$\$\_\$\$hue(), the colors are taken from
 around the color wheel in the HCL (hue-chroma-lightness) color space.
 The default lightness value is 65 on a scale from 0–100. This is good
-for filled areas, but itRSQUOs a bit light for points and lines. To make
+for filled areas, but it's a bit light for points and lines. To make
 the colors darker for points and lines, as in
 [figure\_title](#FIG_COLORS_PALETTE_LIGHTNESS) (right), set the value of
 l (luminance/lightness):
@@ -275,7 +275,7 @@ You want to use different colors for a discrete mapped variable.
 
 ### Solution {#_solution_106}
 
-In the example here, weRSQUOll manually define colors by specifying
+In the example here, we'll manually define colors by specifying
 values with scale\$\$\_\$\$colour\$\$\_\$\$manual()
 ([figure\_title](#FIG_COLORS_PALETTE_DISCRETE_MANUAL)). The colors can
 be named, or they can be specified with RGB values:
@@ -303,7 +303,7 @@ For fill scales, use scale\$\$\_\$\$fill\$\$\_\$\$manual() instead.
 The order of the items in the values vector matches the order of the
 factor levels for the discrete scale. In the preceding example, the
 order of sex is f, then m, so the first item in values goes with f and
-the second goes with m. HereRSQUOs how to see the order of factor
+the second goes with m. Here's how to see the order of factor
 levels:
 
 levels(heightweight\$sex)
@@ -312,7 +312,7 @@ If the variable is a character vector, not a factor, it will
 automatically be converted to a factor, and by default the levels will
 appear in alphabetical order.
 
-ItRSQUOs possible to specify the colors in a different order by using a
+It's possible to specify the colors in a different order by using a
 named vector:
 
 ```{r}
@@ -323,7 +323,7 @@ There is a large set of named colors in R, which you can see by running
 color(). Some basic color names are useful: "white", "black", "grey80",
 "red", "blue", "darkred", and so on. There are many other named colors,
 but their names are generally not very informative (I certainly have no
-idea what "thistle3" and "seashell" look like), so itRSQUOs often easier
+idea what "thistle3" and "seashell" look like), so it's often easier
 to use numeric RGB values for specifying colors.
 
 RGB colors are specified as six-digit hexadecimal (base-16) numbers of
@@ -398,7 +398,7 @@ c("#000000", "#E69F00", "#56B4E9", "#009E73", "#F0E442", "#0072B2", "#D55E00",
 ### Discussion {#_discussion_99}
 
 About 8 percent of males and 0.5 percent of females have some form of
-color-vision deficiency, so thereRSQUOs a good chance that someone in
+color-vision deficiency, so there's a good chance that someone in
 your audience will be among them.
 
 There are many different forms of color blindness. The palette here is
@@ -413,10 +413,10 @@ The [source of this palette](http://jfly.iam.u-tokyo.ac.jp/color/).
 
 The [Color Oracle program](http://colororacle.org) can simulate how
 things on your screen appear to someone with color vision deficiency,
-but keep in mind that the simulation isnRSQUOt perfect. In my informal
+but keep in mind that the simulation isn't perfect. In my informal
 testing, I viewed an image with simulated red-green deficiency, and I
 could distinguish the colors just fine—but others with actual red-green
-deficiency viewed the same image and couldnRSQUOt tell the colors apart!
+deficiency viewed the same image and couldn't tell the colors apart!
 
 Using a Manually Defined Palette for a Continuous Variable {#RECIPE_COLORS_PALETTE_CONTINUOUS}
 ----------------------------------------------------------
@@ -427,7 +427,7 @@ You want to use different colors for a continuous variable.
 
 ### Solution {#_solution_108}
 
-In the example here, weRSQUOll specify the colors for a continuous
+In the example here, we'll specify the colors for a continuous
 variable using various gradient scales
 ([figure\_title](#FIG_COLORS_PALETTE_CONTINUOUS)). The colors can be
 named, or they can be specified with RGB values:
@@ -517,7 +517,7 @@ Source Year Anomaly1y Anomaly5y Anomaly10y Unc10y valence Berkeley 1800
 NA NA -0.435 0.505 neg Berkeley 1801 NA NA -0.453 0.493 neg Berkeley
 1802 NA NA -0.460 0.486 neg ... Berkeley 2002 NA NA 0.856 0.028 pos
 Berkeley 2003 NA NA 0.869 0.028 pos Berkeley 2004 NA NA 0.884 0.029 pos
-Once weRSQUOve categorized the values as positive or negative, we can
+Once we've categorized the values as positive or negative, we can
 make the plot, mapping valence to the fill color, as shown in
 [figure\_title](#FIG_COLORS_AREA_VALUE):
 
@@ -533,7 +533,7 @@ around 1950](figs/rgcb_1213.png)
 
 ### Discussion {#_discussion_101}
 
-If you look closely at the figure, youRSQUOll notice that there are some
+If you look closely at the figure, you'll notice that there are some
 stray shaded areas near the zero line. This is because each of the two
 colored areas is a single polygon bounded by the data points, and the
 data points are not actually at zero. To solve this problem, we can
@@ -555,7 +555,7 @@ here.
 
 Now we can plot the interpolated data
 ([figure\_title](#FIG_COLORS_AREA_VALUE_INTERPOLATED)). This time
-weRSQUOll make a few adjustments—weRSQUOll make the shaded regions
+we'll make a few adjustments—we'll make the shaded regions
 partially transparent, change the colors, remove the legend, and remove
 the padding on the left and right sides:
 

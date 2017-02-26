@@ -9,10 +9,10 @@ drug administered to experimental subjects.
 
 As with bar graphs, there are exceptions. Line graphs can also be used
 with a discrete variable on the x-axis. This is appropriate when the
-variable is ordered (e.g., LDQUOsmallRDQUO, LDQUOmediumRDQUO,
-LDQUOlargeRDQUO), but not when the variable is unordered (e.g.,
-LDQUOcowRDQUO, LDQUOgooseRDQUO, LDQUOpigRDQUO). Most of the examples in
-this chapter use a continuous *x* variable, but weRSQUOll see one
+variable is ordered (e.g., "small", "medium",
+"large"), but not when the variable is unordered (e.g.,
+"cow", "goose", "pig"). Most of the examples in
+this chapter use a continuous *x* variable, but we'll see one
 example where the variable is converted to a factor and thus treated as
 a discrete variable.
 
@@ -64,10 +64,10 @@ allocated on the x-axis for 6)](figs/rgcb_0402.png)
 In the BOD data set there is no entry for Time=6, so there is no level 6
 when Time is converted to a factor. Factors hold categorical values, and
 in that context, 6 is just another value. It happens to not be in the
-data set, so thereRSQUOs no space for it on the x-axis.
+data set, so there's no space for it on the x-axis.
 
 With ggplot2, the default *y* range of a line graph is just enough to
-include the *y* values in the data. For some kinds of data, itRSQUOs
+include the *y* values in the data. For some kinds of data, it's
 better to have the *y* range start from zero. You can use ylim() to set
 the range, or you can use expand\$\$\_\$\$limits() to expand the range
 to include a value. This will set the range from zero to the maximum
@@ -193,7 +193,7 @@ str(tg)
 
 Line graphs can be used with a continuous or categorical variable on the
 x-axis. Sometimes the variable mapped to the x-axis is *conceived* of as
-being categorical, even when itRSQUOs stored as a number. In the example
+being categorical, even when it's stored as a number. In the example
 here, there are three values of dose: 0.5, 1.0, and 2.0. You may want to
 treat these as categories rather than values on a continuous scale. To
 do this, convert dose to a factor
@@ -206,7 +206,7 @@ ggplot(tg, aes(x=factor(dose), y=length, colour=supp, group=supp)) + geom_line()
 ![Line graph with continuous x variable converted to a
 factor](figs/rgcb_0407.png)
 
-Notice the use of group=supp. Without this statement, ggplot() wonRSQUOt
+Notice the use of group=supp. Without this statement, ggplot() won't
 know how to group the data together to draw the lines, and it will give
 an error:
 
@@ -224,17 +224,17 @@ ggplot(tg, aes(x=dose, y=length)) + geom_line()
 ![A sawtooth pattern indicates improper grouping](figs/rgcb_0408.png)
 
 This happens because there are multiple data points at each *y*
-location, and ggplot() thinks theyRSQUOre all in one group. The data
+location, and ggplot() thinks they're all in one group. The data
 points for each group are connected with a single line, leading to the
 sawtooth pattern. If any *discrete* variables are mapped to aesthetics
 like colour or linetype, they are automatically used as grouping
 variables. But if you want to use other variables for grouping (that
-arenRSQUOt mapped to an aesthetic), they should be used with group.
+aren't mapped to an aesthetic), they should be used with group.
 
 > **Note**
 >
 > When in doubt, if your line graph looks wrong, try explicitly
-> specifying the grouping variable with group. ItRSQUOs common for
+> specifying the grouping variable with group. It's common for
 > problems to occur with line graphs because ggplot() is unsure of how
 > the variables should be grouped.
 
@@ -295,7 +295,7 @@ If there is more than one line, setting the aesthetic properties will
 affect all of the lines. On the other hand, *mapping* variables to the
 properties, as we saw in
 [section\_title](#RECIPE_LINE_GRAPH_MULTIPLE_LINE), will result in each
-line looking different. The default colors arenRSQUOt the most
+line looking different. The default colors aren't the most
 appealing, so you may want to use a different palette, as shown in
 [figure\_title](#FIG_LINE_GRAPH_MULTI_LINE_PALETTE), by using
 scale\$\$\_\$\$colour\$\$\_\$\$brewer() or
@@ -445,10 +445,10 @@ ggplot(sunspotyear, aes(x=Year, y=Sunspots)) + geom_area()
 
 By default, the area will be filled with a very dark grey and will have
 no outline. The color can be changed by setting fill. In the following
-example, weRSQUOll set it to "blue", and weRSQUOll also make it 80%
+example, we'll set it to "blue", and we'll also make it 80%
 transparent by setting alpha to 0.2. This makes it possible to see the
 grid lines through the area, as shown in
-[figure\_title](#FIG_LINE_GRAPH_AREA_OUTLINE). WeRSQUOll also add an
+[figure\_title](#FIG_LINE_GRAPH_AREA_OUTLINE). We'll also add an
 outline, by setting colour:
 
 ```{r}
@@ -529,7 +529,7 @@ ggplot(uspopage, aes(x=Year, y=Thousands, fill=AgeGroup)) +
 ![Reversed legend order, lines, and a different
 palette](figs/rgcb_0421.png)
 
-To reverse the stacking order, weRSQUOll put order=desc(AgeGroup) inside
+To reverse the stacking order, we'll put order=desc(AgeGroup) inside
 of aes() ([figure\_title](#FIG_LINE_GRAPH_STACKED_AREA_REVSTACK)):
 
 ```{r}
@@ -576,7 +576,7 @@ a constant value.
 
 ### Solution {#_solution_29}
 
-First, calculate the proportions. In this example, weRSQUOll useddply()
+First, calculate the proportions. In this example, we'll useddply()
 to break uspopage into groups by Year, then calculate a new column,
 Percent. This value is the Thousands for each row, divided by the sum of
 Thousands for each Year group, multiplied by 100 to get a percent value:
@@ -590,7 +590,7 @@ uspopage_prop <- ddply(uspopage, "Year", transform,
                        Percent = Thousands / sum(Thousands) * 100)
 ```
 
-Once weRSQUOve calculated the proportions, plotting is the same as with
+Once we've calculated the proportions, plotting is the same as with
 a regular stacked area graph
 ([figure\_title](#FIG_LINE_GRAPH_PROPORTIONAL_STACKED_AREA)):
 
@@ -604,13 +604,13 @@ ggplot(uspopage_prop, aes(x=Year, y=Percent, fill=AgeGroup)) +
 
 ### Discussion {#_discussion_25}
 
-LetRSQUOs take a closer look at the data and how it was summarized:
+Let's take a closer look at the data and how it was summarized:
 
 uspopage
 Year AgeGroup Thousands 1900 &lt;5 9181 1900 5-14 16966 1900 15-24 14951
 1900 25-34 12161 1900 35-44 9273 1900 45-54 6437 1900 55-64 4026 1900
 &gt;64 3099 1901 &lt;5 9336 1901 5-14 17158 ...
-WeRSQUOll use ddply() to splitit into separate data frames for each
+We'll use ddply() to splitit into separate data frames for each
 value of Year, then apply the transform() function to each piece and
 calculate the Percent for each piece. Then ddply() puts all the data
 frames back together:
@@ -640,7 +640,7 @@ Use geom\$\$\_\$\$ribbon() and map values to ymin and ymax.
 
 In the climate data set, Anomaly10y is a 10-year running average of the
 deviation (in Celsius) from the average 1950–1980 temperature, and
-Unc10y is the 95% confidence interval. WeRSQUOll set ymax and ymin to
+Unc10y is the 95% confidence interval. We'll set ymax and ymin to
 Anomaly10y plus or minus Unc10y
 ([figure\_title](#FIG_LINE_GRAPH_REGION)):
 
@@ -668,7 +668,7 @@ transparent.
 Notice that the geom\$\$\_\$\$ribbon() is before geom\$\$\_\$\$line(),
 so that the line is drawn on top of the shaded region. If the reverse
 order were used, the shaded region could obscure the line. In this
-particular case that wouldnRSQUOt be a problem since the shaded region
+particular case that wouldn't be a problem since the shaded region
 is mostly transparent, but it would be a problem if the shaded region
 were opaque.
 

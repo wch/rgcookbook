@@ -4,33 +4,33 @@ Preface {#_preface}
 I started using R several years ago to analyze data I had collected for
 my research in graduate school. My motivation at first was to escape
 from the restrictive environments and canned analyses offered by
-statistical programs like SPSS. And even better, because itRSQUOs freely
-available, I didnRSQUOt need to convince someone to buy me a copy of the
+statistical programs like SPSS. And even better, because it's freely
+available, I didn't need to convince someone to buy me a copy of the
 software—very important for a poor graduate student! As I delved deeper
 into R, I discovered that it could also create excellent data graphics.
 
 Each recipe in this book lists a problem and a solution. In most cases,
-the solutions I offer arenRSQUOt the only way to do things in R, but
-they are, in my opinion, the best way. One of the reasons for RRSQUOs
+the solutions I offer aren't the only way to do things in R, but
+they are, in my opinion, the best way. One of the reasons for R's
 popularity is that there are many available add-on packages, each of
 which provides some functionality for R. There are many packages for
 visualizing data in R, but this book primarily uses ggplot2.
-(Disclaimer: itRSQUOs now part of my job to do development on ggplot2.
+(Disclaimer: it's now part of my job to do development on ggplot2.
 However, I wrote much of this book before I had any idea that I would
 start a job related to ggplot2.)
 
-This book isnRSQUOt meant to be a comprehensive manual of all the
+This book isn't meant to be a comprehensive manual of all the
 different ways of creating data visualizations in R, but hopefully it
 will help you figure out how to make the graphics you have in mind. Or,
-if youRSQUOre not sure what you want to make, browsing its pages may
-give you some ideas about whatRSQUOs possible.
+if you're not sure what you want to make, browsing its pages may
+give you some ideas about what's possible.
 
 Recipes {#_recipes}
 =======
 
 This book is intended for readers who have at least a basic
 understanding of R. The recipes in this book will show you how to do
-specific tasks. IRSQUOve tried to use examples that are simple, so that
+specific tasks. I've tried to use examples that are simple, so that
 you can understand how they work and transfer the solutions over to your
 own problems.
 
@@ -48,8 +48,8 @@ site](http://www.r-project.org).
 > If you are not familiar with ggplot2, see [???](#CHAPTER_GGPLOT2) for
 > a brief introduction to the package.
 
-Once youRSQUOve installed R, you can install the necessary packages. In
-addition to ggplot2, youRSQUOll also want to install the gcookbook
+Once you've installed R, you can install the necessary packages. In
+addition to ggplot2, you'll also want to install the gcookbook
 package, which contains data sets for many of the examples in this book.
 To install them both, run:
 
@@ -59,17 +59,17 @@ install.packages("gcookbook")
 ```
 
 You may be asked to choose a mirror site for CRAN, the Comprehensive R
-Archive Network. Any of the sites should work, but itRSQUOs a good idea
+Archive Network. Any of the sites should work, but it's a good idea
 to choose one close to you because it will likely be faster than one far
-away. Once youRSQUOve installed the packages, run this in each R session
+away. Once you've installed the packages, run this in each R session
 in which you want to use ggplot2:
 
 ```{r}
 library(ggplot2)
 ```
 
-The recipes in this book will assume that youRSQUOve already loaded
-ggplot2, so they wonRSQUOt show this line.
+The recipes in this book will assume that you've already loaded
+ggplot2, so they won't show this line.
 
 If you see an error like this, it means that you forgot to load ggplot2:
 
@@ -120,19 +120,19 @@ Using Code Examples {#_using_code_examples}
 
 This book is here to help you get your job done. In general, you may use
 the code in this book in your programs and documentation. You do not
-need to contact us for permission unless youRSQUOre reproducing a
+need to contact us for permission unless you're reproducing a
 significant portion of the code. For example, writing a program that
 uses several chunks of code from this book does not require permission.
-Selling or distributing a CD-ROM of examples from ORSQUOReilly books
+Selling or distributing a CD-ROM of examples from O'Reilly books
 does require permission. Answering a question by citing this book and
 quoting example code does not require permission. Incorporating a
 significant amount of example code from this book into your
-productRSQUOs documentation does require permission.
+product's documentation does require permission.
 
 We appreciate, but do not require, attribution. An attribution usually
-includes the title, author, publisher, and ISBN. For example: LDQUO*R
-Graphics Cookbook* by Winston Chang (ORSQUOReilly). Copyright 2013
-Winston Chang, 978-1-449-31695-2.RDQUO
+includes the title, author, publisher, and ISBN. For example: "*R
+Graphics Cookbook* by Winston Chang (O'Reilly). Copyright 2013
+Winston Chang, 978-1-449-31695-2."
 
 If you feel your use of code examples falls outside fair use or the
 permission given above, feel free to contact us at

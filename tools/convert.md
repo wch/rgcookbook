@@ -33,5 +33,12 @@ Convert md to Rmd, then fix up code blocks:
 cd ../rgcookbook2e
 mmv -e \\.md .Rmd
 
+# Fix code blocks
 mreplace -e " \{.r\}" "{r}" *.Rmd
+
+# Fix smart quote markers
+mreplace -e "RSQUO" "'" *.Rmd
+mreplace -e "RDQUO" '"' *.Rmd
+mreplace -e "LDQUO" '"' *.Rmd
+
 ```

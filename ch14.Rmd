@@ -2,12 +2,12 @@ Output for Presentation {#CHAPTER_OUTPUT}
 =======================
 
 Broadly speaking, visualizations of data serve two purposes: discovery
-and communication. In the discovery phase, youRSQUOll create exploratory
-graphics, and when you do this, itRSQUOs important to be able try out
-different things quickly. In the communication phase, youRSQUOll present
-your graphics to others. When you do that, youRSQUOll need to tweak the
-appearance of the graphics (which IRSQUOve written about in previous
-chapters), and youRSQUOll usually need to put them somewhere other than
+and communication. In the discovery phase, you'll create exploratory
+graphics, and when you do this, it's important to be able try out
+different things quickly. In the communication phase, you'll present
+your graphics to others. When you do that, you'll need to tweak the
+appearance of the graphics (which I've written about in previous
+chapters), and you'll usually need to put them somewhere other than
 on your computer screen. This chapter is about that last part: *saving*
 your graphics so that they can be presented in documents.
 
@@ -52,7 +52,7 @@ pdf("myplot.pdf", width=8/2.54, height=8/2.54)
 If you are creating plots from a script and it throws an error while
 creating one, R might not reach the call to dev.off(), and could be left
 in a state where the PDF device is still open. When this happens, the
-PDF file wonRSQUOt open properly until you manually call dev.off().
+PDF file won't open properly until you manually call dev.off().
 
 If you are creating a graph with ggplot2, using ggsave() can be a little
 simpler. It simply saves the last plot created with ggplot():
@@ -64,23 +64,23 @@ ggplot(mtcars, aes(x=wt, y=mpg)) + geom_point()
 ggsave("myplot.pdf", width=8, height=8, units="cm")
 ```
 
-With ggsave(), you donRSQUOt need to print the ggplot object, and if
-there is an error while creating or saving the plot, thereRSQUOs no need
-to manually close the graphic device. ggsave() canRSQUOt be used to make
+With ggsave(), you don't need to print the ggplot object, and if
+there is an error while creating or saving the plot, there's no need
+to manually close the graphic device. ggsave() can't be used to make
 multipage plots, though.
 
 ### Discussion {#_discussion_122}
 
 PDF files are usually the best option when your goal is to output to
 printed documents. They work easily with LaTeX and can be used in
-presentations with AppleRSQUOs Keynote, but Microsoft programs may have
+presentations with Apple's Keynote, but Microsoft programs may have
 trouble importing them. (See [section\_title](#RECIPE_OUTPUT_VECTOR_WMF)
 for details on creating vector images that can be imported into
 Microsoft programs.)
 
 PDF files are also generally smaller than bitmap files such asportable
 network graphics (PNG) files, because they contain a set of
-instructions, such as LDQUODraw a line from here to there,RDQUO instead
+instructions, such as "Draw a line from here to there," instead
 of information about the color of each pixel. However, there are cases
 where bitmap files are smaller. For example, if you have a scatter plot
 that is heavily overplotted, a PDF file can end up much larger than a
@@ -188,15 +188,15 @@ ggsave("myplot.pdf", width=4, height=4, useDingbats=FALSE)
 >
 > Inkscape might have some issues with fonts as well. You may have
 > noticed that the fonts in
-> [figure\_title](#FIG_OUTPUT_EDIT_VECTOR_DINGBATS) donRSQUOt look quite
-> right. This is because Inkscape (version 0.48) couldnRSQUOt find
+> [figure\_title](#FIG_OUTPUT_EDIT_VECTOR_DINGBATS) don't look quite
+> right. This is because Inkscape (version 0.48) couldn't find
 > Helvetica, and substituted the font Bitstream Vera Sans instead. A
 > workaround is to copy the Helvetica font file to your personal font
 > library. For example, on Mac OS X, run cp
 > \$\$/\$\$System\$\$/\$\$Library\$\$/\$\$Fonts\$\$/\$\$Helvetica.dfont
 > \$\$\~/\$\$Library\$\$/\$\$Fonts\$\$/\$\$ from a Terminal window to do
-> this, then, when it says there is a font conflict, click LDQUOIgnore
-> Conflict.RDQUO After this, Inkscape should properly display the
+> this, then, when it says there is a font conflict, click "Ignore
+> Conflict." After this, Inkscape should properly display the
 > Helvetica font.
 
 Outputting to Bitmap (PNG/TIFF) Files {#RECIPE_OUTPUT_BITMAP}
@@ -246,7 +246,7 @@ screen, but will look pixelated and jagged in print.
 
 For high-quality print output, use at least 300 ppi.
 [figure\_title](#FIG_OUTPUT_BITMAP_RES) shows portions of the same plot
-at different resolutions. In this example, weRSQUOll use 300 ppi and
+at different resolutions. In this example, we'll use 300 ppi and
 create a 4 ×4-inch PNG file:
 
 ```{r}
@@ -263,7 +263,7 @@ size)](figs/rgcb_1402.png)
 If you are creating plots from a script and it throws an error while
 creating one, R might not reach the call to dev.off(), and could be left
 in a state where the PNG device is still open. When this happens, the
-PNG file wonRSQUOt open properly in a viewing program until you manually
+PNG file won't open properly in a viewing program until you manually
 call dev.off().
 
 If you are creating a graph with ggplot2, using ggsave() can be a little
@@ -278,8 +278,8 @@ ggplot(mtcars, aes(x=wt, y=mpg)) + geom_point()
 ggsave("myplot.png", width=8, height=8, unit="cm", dpi=300)
 ```
 
-With ggsave(), you donRSQUOt need to print the ggplot object, and if
-there is an error while creating or saving the plot thereRSQUOs no need
+With ggsave(), you don't need to print the ggplot object, and if
+there is an error while creating or saving the plot there's no need
 to manually close the graphic device.
 
 > **Note**
@@ -292,10 +292,10 @@ to manually close the graphic device.
 ### Discussion {#_discussion_126}
 
 R supports other bitmap formats, like BMP, TIFF, and JPEG, but
-thereRSQUOs really not much reason to use them instead of PNG.
+there's really not much reason to use them instead of PNG.
 
 The exact appearance of the resulting bitmaps varies from platform to
-platform. Unlike RRSQUOs PDF output device, which renders consistently
+platform. Unlike R's PDF output device, which renders consistently
 across platforms, the bitmap output devices may render the same plot
 differently on Windows, Linux, and Mac OS X. There can even be variation
 within each of these operating systems.
@@ -391,17 +391,17 @@ embed_fonts("myplot.pdf")
 Fonts can be difficult to work with in R. Some output devices, such as
 the on-screen quartz device on Mac OS X, can display any font installed
 on the computer. Other output devices, such as the default png device on
-Windows, arenRSQUOt able to display system fonts.
+Windows, aren't able to display system fonts.
 
 On top of this, PDF files have their own quirks when it comes to fonts.
-The PDF specification has 14 LDQUOcoreRDQUO fonts. These are fonts that
+The PDF specification has 14 "core" fonts. These are fonts that
 every PDF renderer has, and they include standards such as Times,
 Helvetica, and Courier. If you create a PDF with these fonts, any PDF
 renderer should display it properly.
 
 If you want to use a font that is *not* one of these core fonts, though,
-thereRSQUOs no guarantee that the PDF renderer on a given device will
-have that font, so you canRSQUOt be sure that the font will display
+there's no guarantee that the PDF renderer on a given device will
+have that font, so you can't be sure that the font will display
 properly on another computer or printer. To solve this problem, non-core
 fonts can be *embedded* into the PDF; in other words, the PDF file can
 itself contain a copy of the font you want to use.
@@ -482,4 +482,4 @@ are for PDF files.
 On Windows, for bitmap output it is necessary to register each font
 manually with R (extrafont makes this much easier). On Mac OS X and
 Linux, the fonts should already be available for bitmap output; it
-isnRSQUOt necessary to register them manually.
+isn't necessary to register them manually.

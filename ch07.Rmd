@@ -1,7 +1,7 @@
 Annotations {#CHAPTER_ANNOTATE}
 ===========
 
-Displaying just your data usually isnRSQUOt enough—thereRSQUOs all sorts
+Displaying just your data usually isn't enough—there's all sorts
 of other information that can help the viewer interpret the data. In
 addition to the standard repertoire of axis labels, tick marks, and
 legends, you can also add individual graphical or text elements to your
@@ -122,8 +122,8 @@ objects.
 To mix regular text with expressions, use single quotes within double
 quotes (or vice versa) to mark the plain-text parts. Each block of text
 enclosed by the inner quotes is treated as a variable in a mathematical
-expression. Bear in mind that, in RRSQUOs syntax for mathematical
-expressions, you canRSQUOt simply put a variable right next to another
+expression. Bear in mind that, in R's syntax for mathematical
+expressions, you can't simply put a variable right next to another
 without something else in between. To display two variables next to each
 other, as in [figure\_title](#FIG_ANNOTATE_TEXT_MATH_MIX), put a
 \$\$\*\$\$ operator between them; when displayed in a graphic, this is
@@ -159,7 +159,7 @@ You want to add lines to a plot.
 
 For horizontal and vertical lines, use geom\$\$\_\$\$hline() and
 geom\$\$\_\$\$vline(), and for angled lines, use geom\$\$\_\$\$abline()
-([figure\_title](#FIG_ANNOTATE_LINES)). For this example, weRSQUOll use
+([figure\_title](#FIG_ANNOTATE_LINES)). For this example, we'll use
 the heightweight data set:
 
 ```{r}
@@ -184,8 +184,8 @@ manually, resulting in one line drawn for each geom added. It is also
 possible to *map* values from the data to xintercept, yintercept, and so
 on, and even draw them from another data frame.
 
-Here weRSQUOll take the average height for males and females and store
-it in a data frame, hw\$\$\_\$\$means. Then weRSQUOll draw a horizontal
+Here we'll take the average height for males and females and store
+it in a data frame, hw\$\$\_\$\$means. Then we'll draw a horizontal
 line for each, and set the linetype and size
 ([figure\_title](#FIG_ANNOTATE_LINES_MULTI)):
 
@@ -196,7 +196,7 @@ p + geom\_hline(aes(yintercept=heightIn, colour=sex), data=hw\_means,
 linetype="dashed", size=1)
 ![Multiple lines, drawn at the mean of each group](figs/rgcb_0708.png)
 
-If one of the axes is discrete rather than continuous, you canRSQUOt
+If one of the axes is discrete rather than continuous, you can't
 specify the intercepts as just a character string—they must still be
 specified as numbers. If the axis represents a factor, the first level
 has a numeric value of 1, the second level has a value of 2, and so on.
@@ -217,9 +217,9 @@ pg + geom_vline(xintercept = which(levels(PlantGrowth$group)=="ctrl"))
 > **Note**
 >
 > You may have noticed that adding lines differs from adding other
-> annotations. Instead of using the annotate() function, weRSQUOve used
+> annotations. Instead of using the annotate() function, we've used
 > geom\$\$\_\$\$hline() and friends. This is because previous versions
-> of ggplot2 didnRSQUOt have the annotate() function. The line geoms had
+> of ggplot2 didn't have the annotate() function. The line geoms had
 > code to handle the special cases where they were used to add a single
 > line, and changing it would break backward compatibility. In a future
 > version of ggplot2, this will change, and annotate() will work with
@@ -243,7 +243,7 @@ You want to add line segments or arrows to a plot.
 
 ### Solution {#_solution_59}
 
-Use annotate("segment"). In this example, weRSQUOll use the climate data
+Use annotate("segment"). In this example, we'll use the climate data
 set and use a subset of data from the Berkeley source
 ([figure\_title](#FIG_ANNOTATE_SEGMENT)):
 
@@ -260,8 +260,8 @@ p + annotate("segment", x=1950, xend=1980, y=-.25, yend=-.25)
 
 ### Discussion {#_discussion_54}
 
-ItRSQUOs possible to add arrowheads or flat ends to the line segments,
-using arrow() from the grid package. In this example, weRSQUOll do both
+It's possible to add arrowheads or flat ends to the line segments,
+using arrow() from the grid package. In this example, we'll do both
 ([figure\_title](#FIG_ANNOTATE_SEGMENT_ARROWS)):
 
 ```{r}
@@ -310,9 +310,9 @@ p + annotate("rect", xmin=1950, xmax=1980, ymin=-1, ymax=1, alpha=.1,
 
 ### Discussion {#_discussion_55}
 
-Each layer is drawn in the order that itRSQUOs added to the ggplot
+Each layer is drawn in the order that it's added to the ggplot
 object, so in the preceding example, the rectangle is drawn on top of
-the line. ItRSQUOs not a problem in that case, but if youRSQUOd like to
+the line. It's not a problem in that case, but if you'd like to
 have the line above the rectangle, add the rectangle first, and then the
 line.
 
@@ -330,7 +330,7 @@ You want to change the color of an item to make it stand out.
 ### Solution {#_solution_61}
 
 To highlight one or more items, create a new column in the data and map
-it to the color. In this example, weRSQUOll create a new column, hl, and
+it to the color. In this example, we'll create a new column, hl, and
 set its value based on the value of group:
 
 ```{r}
@@ -339,7 +339,7 @@ pg$hl <- "no"                     # Set all to "no"
 pg$hl[pg$group=="trt2"] <- "yes"  # If group is "trt2", set to "yes"
 ```
 
-Then weRSQUOll plot it with manually specified colors and with no legend
+Then we'll plot it with manually specified colors and with no legend
 ([figure\_title](#FIG_ANNOTATE_HIGHLIGHT)):
 
 ```{r}
@@ -407,8 +407,8 @@ graph](figs/rgcb_0714.png)
 ### Discussion {#_discussion_57}
 
 In this example, the data already has values for the standard error of
-the mean (se), which weRSQUOll use for the error bars (it also has
-values for the standard deviation, sd, but weRSQUOre not using that
+the mean (se), which we'll use for the error bars (it also has
+values for the standard deviation, sd, but we're not using that
 here):
 
 ce
@@ -418,26 +418,26 @@ To get the values for ymax and ymin, we took the y variable, Weight, and
 added/subtracted se.
 
 We also specified the width of the ends of the error bars, with
-width=.2. ItRSQUOs best to play around with this to find a value that
-looks good. If you donRSQUOt set the width, the error bars will be very
+width=.2. It's best to play around with this to find a value that
+looks good. If you don't set the width, the error bars will be very
 wide, spanning all the space between items on the x-axis.
 
 For a bar graph with groups of bars, the error bars must also be
-*dodged*; otherwise, theyRSQUOll have the exact same *x* coordinate and
-wonRSQUOt line up with the bars. (See
+*dodged*; otherwise, they'll have the exact same *x* coordinate and
+won't line up with the bars. (See
 [???](#RECIPE_BAR_GRAPH_GROUPED_BAR) for more information about grouped
 bars and dodging.)
 
-WeRSQUOll work with the full cabbage\$\$\_\$\$exp data set this time:
+We'll work with the full cabbage\$\$\_\$\$exp data set this time:
 
 cabbage\_exp
 Cultivar Date Weight sd n se c39 d16 3.18 0.9566144 10 0.30250803 c39
 d20 2.80 0.2788867 10 0.08819171 c39 d21 2.74 0.9834181 10 0.31098410
 c52 d16 2.26 0.4452215 10 0.14079141 c52 d20 3.11 0.7908505 10
 0.25008887 c52 d21 1.47 0.2110819 10 0.06674995
-The default dodge width for geom\$\$\_\$\$bar() is 0.9, and youRSQUOll
+The default dodge width for geom\$\$\_\$\$bar() is 0.9, and you'll
 have to tell the error bars to be dodged the same width. If you
-donRSQUOt specify the dodge width, it will default to dodging by the
+don't specify the dodge width, it will default to dodging by the
 width of the error bars, which is usually less than the width of the
 bars ([figure\_title](#FIG_ANNOTATE_ERRORBAR_GROUP_BAR)):
 
@@ -468,7 +468,7 @@ specified; right: with dodging width specified](figs/rgcb_0715.png)
 For line graphs, if the error bars are a different color than the lines
 and points, you should draw the error bars first, so that they are
 underneath the points and lines. Otherwise the error bars will be drawn
-on top of the points and lines, which wonRSQUOt look right.
+on top of the points and lines, which won't look right.
 
 Additionally, you should dodge all the geometric elements so that they
 will align with the error bars, as shown in
@@ -486,7 +486,7 @@ ggplot(cabbage_exp, aes(x=Date, y=Weight, colour=Cultivar, group=Cultivar)) +
 # Thinner error bar lines with size=0.25, and larger points with size=2.5
 ```
 
-![Error bars on a line graph, dodged so they donRSQUOt
+![Error bars on a line graph, dodged so they don't
 overlap](figs/rgcb_0716.png)
 
 Notice that we set colour="black" to make the error bars black;
@@ -546,10 +546,10 @@ in each facet](figs/rgcb_0717.png)
 This method can be used to display information about the data in each
 facet, as shown in [figure\_title](#FIG_ANNOTATE_FACET_MATH). For
 example, in each facet we can show linear regression lines, the formula
-for each line, and the *r^2^* value (). To do this, weRSQUOll write a
+for each line, and the *r^2^* value (). To do this, we'll write a
 function that takes a data frame and returns another data frame
 containing a string for a regression equation, and a string for the
-*r^2^* value. Then weRSQUOll use ddply() to apply that function to each
+*r^2^* value. Then we'll use ddply() to apply that function to each
 group of the data:
 
 \# This function returns a data frame with strings representing the
@@ -574,7 +574,7 @@ data](figs/rgcb_0718.png)
 We needed to write our own function here because generating the linear
 model and extracting the coefficients requires operating on each subset
 data frame directly. If you just want to display the r^2^ values,
-itRSQUOs possible to do something simpler, by using ddply() with the
+it's possible to do something simpler, by using ddply() with the
 summarise() function and then passing additional arguments for
 summarise():
 
@@ -584,7 +584,7 @@ labels <- ddply(mpg, "drv", summarise, r2 = cor(displ, hwy)^2)
 labels$r2 <- sprintf("italic(R^2) == %.2f", labels$r2)
 ```
 
-Text geoms arenRSQUOt the only kind that can be added individually for
+Text geoms aren't the only kind that can be added individually for
 each facet. Any geom can be used, as long as the input data is
 structured correctly.
 

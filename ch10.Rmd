@@ -316,11 +316,11 @@ p
 p + labs(fill="Condition")
 ```
 
-![With the legend title set to LDQUOConditionRDQUO](figs/rgcb_1008.png)
+![With the legend title set to "Condition"](figs/rgcb_1008.png)
 
 ### Discussion {#_discussion_86}
 
-ItRSQUOs also possible to set the title of the legend in the scale
+It's also possible to set the title of the legend in the scale
 specification. Since legends and axes are both guides, this works the
 same way as setting the title of the x- or y-axis.
 
@@ -332,7 +332,7 @@ p + scale_fill_discrete(name="Condition")
 
 If there are multiple variables mapped to aesthetics with a legend
 (those other than x and y), you can set the title of each individually.
-In the example here weRSQUOll use \$\$\\\$\$n to add a line break in one
+In the example here we'll use \$\$\\\$\$n to add a line break in one
 of the titles ([figure\_title](#FIG_LEGEND_TITLE_MULTI)):
 
 ```{r}
@@ -381,8 +381,8 @@ hw1 + labs(shape="Male/Female", colour="Male/Female")
 ```
 
 It is also possible to control the legend title with the guides()
-function. ItRSQUOs a little more verbose, but it can be useful when
-youRSQUOre already using it to control other properties:
+function. It's a little more verbose, but it can be useful when
+you're already using it to control other properties:
 
 ```{r}
 p + guides(fill=guide_legend(title="Condition"))
@@ -393,7 +393,7 @@ Changing the Appearance of a Legend Title {#RECIPE_LEGEND_TITLE_APPEARANCE}
 
 ### Problem {#_problem_94}
 
-You want to change the appearance of a legend titleRSQUOs text.
+You want to change the appearance of a legend title's text.
 
 ### Solution {#_solution_94}
 
@@ -411,7 +411,7 @@ p + theme(legend.title=element_text(face="italic", family="Times", colour="red",
 
 ### Discussion {#_discussion_87}
 
-ItRSQUOs also possible to specify the legend titleRSQUOs appearance via
+It's also possible to specify the legend title's appearance via
 guides(), but this method can be a bit verbose. This has the same effect
 as the previous code:
 
@@ -501,7 +501,7 @@ p + scale_fill_grey(start=.5, end=1,
 ```
 
 If you are also changing the order of items in the legend, the labels
-are matched to the items by position. In this example weRSQUOll change
+are matched to the items by position. In this example we'll change
 the item order, and make sure to set the labels in the same order
 ([figure\_title](#FIG_LEGEND_LABEL_ORDER)):
 
@@ -592,7 +592,7 @@ p + theme(legend.text=element_text(face="italic", family="Times", colour="red",
 
 ### Discussion {#_discussion_90}
 
-ItRSQUOs also possible to specify the legend label appearance via
+It's also possible to specify the legend label appearance via
 guides(), although this method is a bit unwieldy. This has the same
 effect as the previous code:
 
@@ -617,7 +617,7 @@ You want to use legend labels that have more than one line of text.
 ### Solution {#_solution_98}
 
 Set the labels in the scale, using \$\$\\\$\$n to represent a newline.
-In this example, weRSQUOll use scale\$\$\_\$\$fill\$\$\_\$\$discrete()
+In this example, we'll use scale\$\$\_\$\$fill\$\$\_\$\$discrete()
 to control the legend for the fill scale
 ([figure\_title](#FIG_LEGEND_LABEL_MULTILINE), left):
 

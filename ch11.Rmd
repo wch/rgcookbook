@@ -8,9 +8,9 @@ variable to an aesthetic, like *x* position, color, or shape. Another
 way of doing this is to create a subplot for each group and draw the
 subplots side by side.
 
-These kinds of plots are known as *Trellis* displays. TheyRSQUOre
+These kinds of plots are known as *Trellis* displays. They're
 implemented in the lattice package as well as in the ggplot2 package. In
-ggplot2, theyRSQUOre called *facets*. In this chapter IRSQUOll explain
+ggplot2, they're called *facets*. In this chapter I'll explain
 how to use them.
 
 Splitting Data into Subplots with Facets {#RECIPE_FACET_BASIC}
@@ -63,7 +63,7 @@ p + facet_wrap( ~ class)
 
 With facet\$\$\_\$\$wrap(), the default is to use the same number of
 rows and columns. In [figure\_title](#FIG_FACET_FACET_WRAP), there were
-seven facets, and they fit into a 3 ×3 LDQUOsquare.RDQUO To change this,
+seven facets, and they fit into a 3 ×3 "square." To change this,
 you can pass a value for nrow or ncol:
 
 ```{r}
@@ -74,7 +74,7 @@ p + facet_wrap( ~ class, ncol=4)
 
 The choice of faceting direction depends on the kind of comparison you
 would like to encourage. For example, if you want to compare heights of
-bars, itRSQUOs useful to make the facets go horizontally. If, on the
+bars, it's useful to make the facets go horizontally. If, on the
 other hand, you want to compare the horizontal distribution of
 histograms, it makes sense to make the facets go vertically.
 
@@ -82,7 +82,7 @@ Sometimes both kinds of comparisons are important—there may not be a
 clear answer as to which faceting direction is best. It may turn out
 that displaying the groups in a single plot by mapping the grouping
 variable to an aesthetic like color works better than using facets. In
-these situations, youRSQUOll have to rely on your judgment.
+these situations, you'll have to rely on your judgment.
 
 Using Facets with Different Axes {#RECIPE_FACET_FREE}
 --------------------------------
@@ -115,7 +115,7 @@ scales](figs/rgcb_1103.png)
 Each row of subplots has its own *y* range when free *y* scales are
 used; the same applies to columns when free *x* scales are used.
 
-ItRSQUOs not possible to directly set the range of each row or column,
+It's not possible to directly set the range of each row or column,
 but you can control the ranges by dropping unwanted data (to reduce the
 ranges), or by adding geom\$\$\_\$\$blank() (to expand the ranges).
 
@@ -159,7 +159,7 @@ no way to show the name of the faceting variable as a header for the
 facets, so it can be useful to use descriptive facet labels.
 
 With facet\$\$\_\$\$grid() but not facet\$\$\_\$\$wrap(), at this time),
-itRSQUOs possible to use a labeller function to set the labels. The
+it's possible to use a labeller function to set the labels. The
 labeller function label\$\$\_\$\$both() will print out both the name of
 the variable and the value of the variable in each facet
 ([figure\_title](#FIG_FACET_LABEL_TEXT_LABELLER), left):

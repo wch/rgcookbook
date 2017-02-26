@@ -5,7 +5,7 @@ The x- and y-axes provide context for interpreting the displayed data.
 Ggplot2 will display the axes with defaults that look good in most
 cases, but you might want to control, for example, the axis labels, the
 number and placement of tick marks, the tick mark labels, and so on. In
-this chapter, IRSQUOll cover how to fine-tune the appearance of the
+this chapter, I'll cover how to fine-tune the appearance of the
 axes.
 
 Swapping X- and Y-Axes {#RECIPE_AXES_SWAP_AXES}
@@ -37,7 +37,7 @@ mapped to x and y. But not all the geoms in ggplot2 treat the x- and
 y-axes equally. For example, box plots summarize the data along the
 y-axis, the lines in line graphs move in only one direction along the
 x-axis, error bars have a single *x* value and a range of *y* values,
-and so on. If youRSQUOre using these geoms and want them to behave as
+and so on. If you're using these geoms and want them to behave as
 though the axes are swapped, coord\$\$\_\$\$flip() is what you need.
 
 Sometimes when the axes are swapped, the order of items will be the
@@ -47,7 +47,7 @@ the normal way of reading, from left to right. When you swap the axes,
 the items still go from the origin outward, which in this case will be
 from bottom to top—but this conflicts with the normal way of reading,
 from top to bottom. Sometimes this is a problem, and sometimes it
-isnRSQUOt. If the *x* variable is a factor, the order can be reversed by
+isn't. If the *x* variable is a factor, the order can be reversed by
 using scale\$\$\_\$\$x\$\$\_\$\$discrete() with limits=rev(levels(...)),
 as in [figure\_title](#FIG_AXES_SWAP_AXES_REVLEVELS):
 
@@ -149,12 +149,12 @@ p + coord_cartesian(ylim = c(5, 6.5))
 ```
 
 ![Left: smaller y range using a scale (data has been dropped, so the box
-plots have changed shape); right: LDQUOzooming inRDQUO using a
+plots have changed shape); right: "zooming in" using a
 coordinate transform](figs/rgcb_0804.png)
 
-Finally, itRSQUOs also possible to *expand* the range in one direction,
+Finally, it's also possible to *expand* the range in one direction,
 using expand\$\$\_\$\$limits()
-([figure\_title](#FIG_AXES_RANGE_EXPAND)). You canRSQUOt use this to
+([figure\_title](#FIG_AXES_RANGE_EXPAND)). You can't use this to
 shrink the range, however:
 
 ```{r}
@@ -286,11 +286,11 @@ at specified positions](figs/rgcb_0810.png)
 
 ### Discussion {#_discussion_63}
 
-The marathon data set contains runnersRSQUO marathon and half-marathon
+The marathon data set contains runners' marathon and half-marathon
 times. In this case it might be useful to force the x- and y-axes to
 have the same scaling.
 
-ItRSQUOs also helpful to set the tick spacing to be the same, bysetting
+It's also helpful to set the tick spacing to be the same, bysetting
 breaks in scale\$\$\_\$\$y\$\$\_\$\$continuous() and
 scale\$\$\_\$\$x\$\$\_\$\$continuous() (also in
 [figure\_title](#FIG_AXES_SCALE_EQUAL)):
@@ -305,7 +305,7 @@ If, instead of an equal ratio, you want some other fixed ratio between
 the axes, set the ratio parameter. With the marathon data, we might want
 the axis with half-marathon times stretched out to twice that of the
 axis with the marathon times ([figure\_title](#FIG_AXES_SCALE_HALF)).
-WeRSQUOll also add tick marks twice as often on the x-axis:
+We'll also add tick marks twice as often on the x-axis:
 
 ```{r}
 sp + coord_fixed(ratio=1/2) +
@@ -400,8 +400,8 @@ labels on y-axis; right: with breaks=NULL](figs/rgcb_0814.png)
 
 To remove the tick marks, use
 theme(axis.ticks=element\$\$\_\$\$blank()). This will remove the tick
-marks on both axes. (ItRSQUOs not possible to hide the tick marks on
-just one axis.) In this example, weRSQUOll hide all tick marks as well
+marks on both axes. (It's not possible to hide the tick marks on
+just one axis.) In this example, we'll hide all tick marks as well
 as the *y* tick labels ([figure\_title](#FIG_AXES_SET_TICKS_NONE),
 center):
 
@@ -418,7 +418,7 @@ p + scale_y_continuous(breaks=NULL)
 
 This will work for continuous axes only; if you remove items from a
 categorical axis using limits, as in
-[section\_title](#RECIPE_AXIS_ORDER), the data with that value wonRSQUOt
+[section\_title](#RECIPE_AXIS_ORDER), the data with that value won't
 be shown at all.
 
 ### Discussion {#_discussion_65}
@@ -485,7 +485,7 @@ footinch_formatter <- function(x) {
 }
 ```
 
-HereRSQUOs what it returns for values 56–64 (the backslashes are there
+Here's what it returns for values 56–64 (the backslashes are there
 as escape characters, to distinguish the quotes *in* a string from the
 quotes that *delimit* a string):
 
@@ -558,7 +558,7 @@ You want to change the appearance of tick labels.
 
 ### Solution {#_solution_72}
 
-In [figure\_title](#FIG_AXES_TICK_LABEL_ROTATE) (left), weRSQUOve
+In [figure\_title](#FIG_AXES_TICK_LABEL_ROTATE) (left), we've
 manually set the labels to be long—long enough that they overlap:
 
 ```{r}
@@ -608,7 +608,7 @@ In this example, the size is set to rel(0.9), which means that it is 0.9
 times the size of the base font size for the theme.
 
 These commands control the appearance of only the tick labels, on only
-one axis. They donRSQUOt affect the other axis, the axis label, the
+one axis. They don't affect the other axis, the axis label, the
 overall title, or the legend. To control all of these at once, you can
 use the theming system, as discussed in [???](#RECIPE_APPEARANCE_THEME).
 
@@ -663,7 +663,7 @@ like this:
 hwp + scale_x_continuous(name="Age in years")
 ```
 
-This may look a bit awkward, but it can be useful if youRSQUOre also
+This may look a bit awkward, but it can be useful if you're also
 setting other properties of the scale, such as the tick mark placement,
 range, and so on.
 
@@ -692,7 +692,7 @@ You want to remove the label on an axis.
 For the x-axis label, use theme(axis.title.x=element\$\$\_\$\$blank()).
 For they-axis label, do the same with axis.title.y.
 
-WeRSQUOll hide the x-axis in this example
+We'll hide the x-axis in this example
 ([figure\_title](#FIG_AXES_AXIS_LABEL_REMOVE)):
 
 ```{r}
@@ -707,10 +707,10 @@ p + theme(axis.title.x=element_blank())
 ### Discussion {#_discussion_69}
 
 Sometimes axis labels are redundant or obvious from the context, and
-donRSQUOt need to be displayed. In the example here, the x-axis
+don't need to be displayed. In the example here, the x-axis
 represents group, but this should be obvious from the context.
 Similarly, if the *y* tick labels had *kg* or some other unit in each
-label, the axis label LDQUOweightRDQUO would be unnecessary.
+label, the axis label "weight" would be unnecessary.
 
 Another way to remove the axis label is to set it to an empty string.
 However, if you do it this way, the resulting graph will still have
@@ -754,7 +754,7 @@ unrotated, as shown in [figure\_title](#FIG_AXES_AXIS_LABEL_YROTATE)
         theme(axis.title.y=element_text(angle=0, face="italic", size=14))
 
 When you call element\$\$\_\$\$text(), the default angle is 0, so if you
-set axis.title.y but donRSQUOt specify the angle, it will show in this
+set axis.title.y but don't specify the angle, it will show in this
 orientation, with the top of the text pointing up. If you change any
 other properties of axis.title.y and want it to be displayed in its
 usual orientation, rotated 90 degrees, you must manually specify the
@@ -826,7 +826,7 @@ p + theme_bw() +
           axis.line = element_line(colour="black", size=4, lineend="square"))
 ```
 
-![Left: with thick lines, the ends donRSQUOt fully overlap; right: full
+![Left: with thick lines, the ends don't fully overlap; right: full
 overlap with lineend="square"](figs/rgcb_0825.png)
 
 ### See Also {#_see_also_54}
@@ -879,14 +879,14 @@ body brain Mountain beaver 1.350 8.1 Cow 465.000 423.0 Grey wolf 36.330
 119.5 ... Brachiosaurus 87000.000 154.5 Mole 0.122 3.0 Pig 192.000 180.0
 As shown in [figure\_title](#FIG_AXES_LOG), we can make a scatter plot
 to visualize the relationship between brain and body mass. With the
-default linearly scaled axes, itRSQUOs hard to make much sense of this
+default linearly scaled axes, it's hard to make much sense of this
 graph. Because of a few very large animals, the rest of the animals get
 squished into the lower-left corner—a mouse barely looks different from
 a triceratops! This is a case where the data is distributed
 exponentially on both axes.
 
 Ggplot2 will try to make good decisions about where to place the tick
-marks, but if you donRSQUOt like them, you can change them by specifying
+marks, but if you don't like them, you can change them by specifying
 breaks and, optionally, labels. In the example here, the automatically
 generated tick marks are spaced farther apart than is ideal. For the
 y-axis tick marks, we can get a vector of every power of 10 from 10^0^
@@ -925,7 +925,7 @@ p + scale_x_log10(breaks=10^(-1:5),
 Another way to use log axes is to transform the data before mapping it
 to the *x* and *y* coordinates
 ([figure\_title](#FIG_AXES_LOG_BEFORE_MAPPING)). Technically, the axes
-are still linear—itRSQUOs the quantity that is log-transformed:
+are still linear—it's the quantity that is log-transformed:
 
 ```{r}
 ggplot(Animals, aes(x=log10(body), y=log10(brain), label=rownames(Animals))) +
@@ -934,7 +934,7 @@ ggplot(Animals, aes(x=log10(body), y=log10(brain), label=rownames(Animals))) +
 
 The previous examples used a log~10~ transformation, but it is possible
 to use other transformations, such as log~2~ and natural log, as shown
-in [figure\_title](#FIG_AXES_LOG_2_E). ItRSQUOs a bit more complicated
+in [figure\_title](#FIG_AXES_LOG_2_E). It's a bit more complicated
 to use these—scale\$\$\_\$\$x\$\$\_\$\$log10() is shorthand, but for
 these other log scales, we need to spell them out:
 
@@ -950,10 +950,10 @@ p + scale_x_continuous(trans = log_trans(),
                        labels = trans_format("log2", math_format(2^.x)))
 ```
 
-ItRSQUOs possible to use a log axis for just one axis. It is often
+It's possible to use a log axis for just one axis. It is often
 useful to represent financial data this way, because it better
 represents proportional change. [figure\_title](#FIG_AXES_LOG_Y) shows
-AppleRSQUOs stock price with linear and log y-axes. The default tick
+Apple's stock price with linear and log y-axes. The default tick
 marks might not be spaced well for your graph; they can be set with the
 breaks in the scale:
 
@@ -1012,9 +1012,9 @@ To get the colors of the tick marks and the grid lines to match up a bit
 better, you can use theme\$\$\_\$\$bw().
 
 By default, the minor grid lines appear visually halfway between the
-major grid lines, but this is not the same place as the LDQUO5RDQUO tick
+major grid lines, but this is not the same place as the "5" tick
 marks on a logarithmic scale. To get them to be the same, you can
-manually set the scaleRSQUOs minor\$\$\_\$\$breaks. To do this, we need
+manually set the scale's minor\$\$\_\$\$breaks. To do this, we need
 to set them to log10(5\$\$\*\$\$10\$\$\^\$\$(minpow:maxpow)), which
 reduces to log10(5) \$\$+\$\$ minpow:maxpow
 ([figure\_title](#FIG_AXES_LOG_TICKS_CUSTOM)):
@@ -1050,7 +1050,7 @@ You want to make a circular graph.
 
 ### Solution {#_solution_79}
 
-Use coord\$\$\_\$\$polar().For this example weRSQUOll use the wind data
+Use coord\$\$\_\$\$polar().For this example we'll use the wind data
 set from gcookbook. It contains samples of wind speed and direction for
 every 5 minutes throughout a day. The direction of the wind is
 categorized into 15-degree bins, and the speed is categorized into 5 m/s
@@ -1061,9 +1061,9 @@ TimeUTC Temp WindAvg WindMax WindDir SpeedCat DirCat 0 3.54 9.52 10.39
 89 10-15 90 5 3.52 9.10 9.90 92 5-10 90 10 3.53 8.73 9.51 92 5-10 90 ...
 2335 6.74 18.98 23.81 250 &gt;20 255 2340 6.62 17.68 22.05 252 &gt;20
 255 2345 6.22 18.54 23.91 259 &gt;20 255
-WeRSQUOll plot a count of the number of samples at each SpeedCat and
+We'll plot a count of the number of samples at each SpeedCat and
 DirCat using geom\$\$\_\$\$histogram()
-([figure\_title](#FIG_AXES_POLAR)). WeRSQUOll set binwidth to 15 and
+([figure\_title](#FIG_AXES_POLAR)). We'll set binwidth to 15 and
 make the origin of the histogram start at –7.5, so that each bin is
 centered around 0, 15, 30, etc.:
 
@@ -1083,7 +1083,7 @@ the data. In the example here, at 210 degrees there are 15 observations
 with a speed of 15–20 and 13 observations with a speed of &gt;20, but a
 quick glance at the picture makes it appear that there are more
 observations at &gt;20. There are also three observations with a speed
-of 10–15, but theyRSQUOre barely visible.
+of 10–15, but they're barely visible.
 
 In this example we can make the plot a little prettier by reversing the
 legend, using a different palette, adding an outline, and setting the
@@ -1105,7 +1105,7 @@ ggplot(wind, aes(x=DirCat, fill=SpeedCat)) +
 It may also be useful to set the starting angle with the start argument,
 especially when using a discrete variable for *theta*. The starting
 angle is specified in radians, so if you know the adjustment in degrees,
-youRSQUOll have to convert it to radians:
+you'll have to convert it to radians:
 
 ```{r}
 coord_polar(start=-45 * pi / 180)
@@ -1117,17 +1117,17 @@ these geoms. First, by default, for the variable that is mapped to *y*
 (or *r*), the smallest actual value gets mapped to the center; in other
 words, the smallest data value gets mapped to a visual radius value of
 0. You may be expecting a data value of 0 to be mapped to a radius of 0,
-but to make sure this happens, youRSQUOll need to set the limits.
+but to make sure this happens, you'll need to set the limits.
 
 Next, when using a continuous *x* (or *theta*), the smallest and largest
 data values are merged. Sometimes this is desirable, sometimes not. To
-change this behavior, youRSQUOll need to set the limits.
+change this behavior, you'll need to set the limits.
 
 Finally, the *theta* values of the polar coordinates do not wrap
 around—it is presently not possible to have a geom that crosses over the
 starting angle (usually vertical).
 
-WeRSQUOll illustrate these issues with an example. The following code
+We'll illustrate these issues with an example. The following code
 creates a data frame from the mdeaths time series data set and produces
 the graph shown on the left in
 [figure\_title](#FIG_AXES_POLAR_CONTINUOUS):
@@ -1147,7 +1147,7 @@ zero](figs/rgcb_0835.png)
 
 The first problem is that the data values (ranging from about 1000 to
 2100) are mapped to the radius such that the smallest data value is at
-radius 0. WeRSQUOll fix this by setting the *y* (or *r*) limits from 0
+radius 0. We'll fix this by setting the *y* (or *r*) limits from 0
 to the maximum data value, as shown in the graph on the right in
 [figure\_title](#FIG_AXES_POLAR_CONTINUOUS):
 
@@ -1157,7 +1157,7 @@ p + coord_polar() + ylim(0, max(md$deaths))
 ```
 
 The next problem is that the lowest and highest month values, 1 and 12,
-are shown at the same angle. WeRSQUOll fix this by setting the *x*
+are shown at the same angle. We'll fix this by setting the *x*
 limits from 0 to 12, creating the graph on the left in
 [figure\_title](#FIG_AXES_POLAR_CONTINUOUS2) (notice that using xlim()
 overridesthe scale\$\$\_\$\$x\$\$\_\$\$continuous() in p, so it no
@@ -1168,8 +1168,8 @@ longer displays breaks for each month; see
 p + coord_polar() + ylim(0, max(md$deaths)) + xlim(0, 12)
 ```
 
-ThereRSQUOs one last issue, which is that the beginning and end
-arenRSQUOt connected. To fix that, we need to modify our data frame by
+There's one last issue, which is that the beginning and end
+aren't connected. To fix that, we need to modify our data frame by
 adding one row with a month of 0 that has the same value as the row with
 month 12. This will make the starting and ending points the same, as in
 the graph on the right in [figure\_title](#FIG_AXES_POLAR_CONTINUOUS2)
@@ -1213,7 +1213,7 @@ You want to use dates on an axis.
 
 ### Solution {#_solution_80}
 
-Map a column of class Date to the x- or y-axis. WeRSQUOll use the
+Map a column of class Date to the x- or y-axis. We'll use the
 economics data set for this example:
 
 \# Look at the structure str(economics)
@@ -1241,9 +1241,9 @@ of one day, while POSIXt objects represent moments in time and have a
 resolution of a fraction of a second.
 
 Specifying the breaks is similar to with a numeric axis—the main
-difference is in specifying the sequence of dates to use. WeRSQUOll use
+difference is in specifying the sequence of dates to use. We'll use
 a subset of the economics data, ranging from mid-1992 to mid-1993. If
-breaks arenRSQUOt specified, they will be automatically selected, as
+breaks aren't specified, they will be automatically selected, as
 shown in [figure\_title](#FIG_AXES_DATE_BREAKS) (top):
 
 ```{r}
@@ -1274,8 +1274,8 @@ specified](figs/rgcb_0838.png)
 
 Notice that the formatting of the breaks changed. You can specify the
 formatting by using the date\$\$\_\$\$format() function from the scales
-package. Here weRSQUOll use "%Y %b", which results in a format like
-LDQUO1992 JunRDQUO, as shown in [figure\_title](#FIG_AXES_DATE_FORMAT):
+package. Here we'll use "%Y %b", which results in a format like
+"1992 Jun", as shown in [figure\_title](#FIG_AXES_DATE_FORMAT):
 
 ```{r}
 library(scales)
@@ -1289,7 +1289,7 @@ Common date format options are shown in
 [table\_title](#TABLE_AXES_DATE_FORMATS). They are to be put in a string
 that is passed to date\$\$\_\$\$format(), and the format specifiers will
 be replaced with the appropriate values. For example, if you use "%B %d,
-%Y", it will result in labels like LDQUOJune 01, 1992RDQUO.
+%Y", it will result in labels like "June 01, 1992".
 
 +-----------------------------------+-----------------------------------+
 | Option                            | Description                       |
@@ -1326,7 +1326,7 @@ be replaced with the appropriate values. For example, if you use "%B %d,
 
 : Date format options
 
-Some of these items are specific to the computerRSQUOs locale. Months
+Some of these items are specific to the computer's locale. Months
 and days have different names in different languages (the examples here
 are generated with a US locale). You can change the localewith
 Sys.setlocale(). For example, this will change the date formatting to
