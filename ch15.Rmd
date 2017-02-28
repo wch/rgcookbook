@@ -42,11 +42,11 @@ same order as the factor levels, which you can control.
 Creating a Data Frame {#RECIPE_DATAPREP_CREATE_DATAFRAME}
 ---------------------
 
-### Problem {#_problem_137}
+### Problem
 
 You want to create a data frame from vectors.
 
-### Solution {#_solution_137}
+### Solution
 
 You can put vectors together in a data frame with data.frame():
 
@@ -70,11 +70,11 @@ dat <- as.data.frame(lst)
 Getting Information About a Data Structure {#RECIPE_DATAPREP_INFO_DATA}
 ------------------------------------------
 
-### Problem {#_problem_138}
+### Problem
 
 You want to find out information about an object or data structure.
 
-### Solution {#_solution_138}
+### Solution
 
 Use the str() function:
 
@@ -116,11 +116,11 @@ OJ OJ OJ OJ OJ OJ \[51\] OJ OJ OJ OJ OJ OJ OJ OJ OJ OJ Levels: OJ VC
 Adding a Column to a Data Frame {#RECIPE_DATAPREP_ADD_COL}
 -------------------------------
 
-### Problem {#_problem_139}
+### Problem
 
 You want to add a column to a data frame.
 
-### Solution {#_solution_139}
+### Solution
 
 Just assign some value to the new column.
 
@@ -150,11 +150,11 @@ columns in a data frame have the same length.
 Deleting a Column from a Data Frame {#RECIPE_DATAPREP_DELETE_COL}
 -----------------------------------
 
-### Problem {#_problem_140}
+### Problem
 
 You want to delete a column from a data frame.
 
-### Solution {#_solution_140}
+### Solution
 
 Assign NULL to that column:
 
@@ -175,7 +175,7 @@ data <- subset(data, select = -badcol)
 data <- subset(data, select = c(-badcol, -othercol))
 ```
 
-### See Also {#_see_also_88}
+### See Also
 
 [section\_title](#RECIPE_DATAPREP_SUBSET) for more on getting a subset
 of a data frame.
@@ -183,11 +183,11 @@ of a data frame.
 Renaming Columns in a Data Frame {#RECIPE_DATAPREP_RENAME_COL}
 --------------------------------
 
-### Problem {#_problem_141}
+### Problem
 
 You want to rename the columns in a data frame.
 
-### Solution {#_solution_141}
+### Solution
 
 Use the names(dat) &lt;- function:
 
@@ -213,11 +213,11 @@ names(anthoming)\[1\] &lt;- "Angle" names(anthoming)
 Reordering Columns in a Data Frame {#RECIPE_DATAPREP_REORDER_COL}
 ----------------------------------
 
-### Problem {#_problem_142}
+### Problem
 
 You want to change the order of columns in a data frame.
 
-### Solution {#_solution_142}
+### Solution
 
 To reorder columns by their numeric position:
 
@@ -259,11 +259,11 @@ ctrl 0 3 3 3 1
 Getting a Subset of a Data Frame {#RECIPE_DATAPREP_SUBSET}
 --------------------------------
 
-### Problem {#_problem_143}
+### Problem
 
 You want to get a subset of a data frame.
 
-### Solution {#_solution_143}
+### Solution
 
 Use the subset() function. It can be used to pull out rows that satisfy
 a set of conditions and to select particular columns.
@@ -327,11 +327,11 @@ are changes to the data, such as when columns are added or removed.
 Changing the Order of Factor Levels {#RECIPE_DATAPREP_FACTOR_REORDER}
 -----------------------------------
 
-### Problem {#_problem_144}
+### Problem
 
 You want to change the order of levels in a factor.
 
-### Solution {#_solution_144}
+### Solution
 
 The level order can be specified explicitly by passing thefactor to
 factor() and specifying levels. In this example, we'll create a
@@ -366,7 +366,7 @@ To reverse the level order, you can use rev(levels()):
 
 factor(sizes, levels = rev(levels(sizes)))
 small large large small medium Levels: small medium large
-### See Also {#_see_also_89}
+### See Also
 
 To reorder a factor based on the value of another variable, see
 [section\_title](#RECIPE_DATAPREP_FACTOR_REORDER_VALUE).
@@ -378,12 +378,12 @@ legends. See Recipes [???](#RECIPE_AXIS_ORDER) and
 Changing the Order of Factor Levels Based on Data Values {#RECIPE_DATAPREP_FACTOR_REORDER_VALUE}
 --------------------------------------------------------
 
-### Problem {#_problem_145}
+### Problem
 
 You want to change the order of levels in a factor based on values in
 the data.
 
-### Solution {#_solution_145}
+### Solution
 
 Use reorder() with the factor that has levels to reorder, the values to
 base the reordering on, and a function that aggregates the values:
@@ -423,7 +423,7 @@ right, as in the graph on the right in
 [figure\_title](#FIG_DATAPREP_FACTOR_REORDER_VALUE), we used the
 median() function in reorder().
 
-### See Also {#_see_also_90}
+### See Also
 
 Reordering factor levels is also useful for controlling the order of
 axes and legends. See Recipes [???](#RECIPE_AXIS_ORDER) and
@@ -432,11 +432,11 @@ axes and legends. See Recipes [???](#RECIPE_AXIS_ORDER) and
 Changing the Names of Factor Levels {#RECIPE_DATAPREP_FACTOR_RENAME}
 -----------------------------------
 
-### Problem {#_problem_146}
+### Problem
 
 You want to change the names of levels in a factor.
 
-### Solution {#_solution_146}
+### Solution
 
 Use revalue() or mapvalues() from the plyr package:
 
@@ -490,7 +490,7 @@ be hard to detect). Also, if your input data set changes to have more
 change, which could cause serious but nonobvious problems for your
 analysis.
 
-### See Also {#_see_also_91}
+### See Also
 
 If, instead of a factor, you have a character vector with items to
 rename, see [section\_title](#RECIPE_DATAPREP_CHARACTER_RENAME).
@@ -498,11 +498,11 @@ rename, see [section\_title](#RECIPE_DATAPREP_CHARACTER_RENAME).
 Removing Unused Levels from a Factor {#RECIPE_DATAPREP_FACTOR_DROPLEVELS}
 ------------------------------------
 
-### Problem {#_problem_147}
+### Problem
 
 You want to remove unused levels from a factor.
 
-### Solution {#_solution_147}
+### Solution
 
 Sometimes, after processing your data you will have a factor that
 contains levels that are no longer used. Here's an example:
@@ -523,11 +523,11 @@ You can use the except argument to keep particular levels.
 Changing the Names of Items in a Character Vector {#RECIPE_DATAPREP_CHARACTER_RENAME}
 -------------------------------------------------
 
-### Problem {#_problem_148}
+### Problem
 
 You want to change the names of items in a character vector.
 
-### Solution {#_solution_148}
+### Solution
 
 Use revalue() or mapvalues() from the plyr package:
 
@@ -550,7 +550,7 @@ sizes &lt;- c("small", "large", "large", "small", "medium") sizes
 sizes\[sizes=="small"\] &lt;- "S" sizes\[sizes=="medium"\] &lt;- "M"
 sizes\[sizes=="large"\] &lt;- "L" sizes
 "S" "L" "L" "S" "M"
-### See Also {#_see_also_92}
+### See Also
 
 If, instead of a character vector, you have a factor with levels to
 rename, see [section\_title](#RECIPE_DATAPREP_FACTOR_RENAME).
@@ -558,11 +558,11 @@ rename, see [section\_title](#RECIPE_DATAPREP_FACTOR_RENAME).
 Recoding a Categorical Variable to Another Categorical Variable {#RECIPE_DATAPREP_RECODE_CATEGORICAL}
 ---------------------------------------------------------------
 
-### Problem {#_problem_149}
+### Problem
 
 You want to recode a categorical variable to another variable.
 
-### Solution {#_solution_149}
+### Solution
 
 For the examples here, we'll use a subset of the PlantGrowth data
 set:
@@ -619,7 +619,7 @@ weight group weightcat treatment newcol weighttrt 4.17 ctrl small no
 no\_small small.no 5.58 ctrl large no no\_large large.no 4.81 trt1 small
 yes yes small.yes 4.17 trt1 small yes yes small.yes 6.31 trt2 large yes
 yes large.yes 5.12 trt2 large yes yes large.yes
-### See Also {#_see_also_93}
+### See Also
 
 For more on renaming factor levels, see
 [section\_title](#RECIPE_DATAPREP_FACTOR_RENAME).
@@ -630,11 +630,11 @@ continuous values to categorical values.
 Recoding a Continuous Variable to a Categorical Variable {#RECIPE_DATAPREP_RECODE_CONTINUOUS}
 --------------------------------------------------------
 
-### Problem {#_problem_150}
+### Problem
 
 You want to recode a continuous variable to another variable.
 
-### Solution {#_solution_150}
+### Solution
 
 For the examples here, we'll use a subset of the PlantGrowth data
 set.
@@ -676,7 +676,7 @@ right, set right = FALSE:
 cut(pg$weight, breaks = c(0, 5, 6, Inf), right = FALSE)
 ```
 
-### See Also {#_see_also_94}
+### See Also
 
 To recode a categorical variable to another categoricalvariable, see
 [section\_title](#RECIPE_DATAPREP_RECODE_CATEGORICAL).
@@ -684,11 +684,11 @@ To recode a categorical variable to another categoricalvariable, see
 Transforming Variables {#RECIPE_DATAPREP_TRANSFORM}
 ----------------------
 
-### Problem {#_problem_151}
+### Problem
 
 You want to transform a variable in a data frame.
 
-### Solution {#_solution_151}
+### Solution
 
 Reference the new column with the \$ operator, and assign some values to
 it. For this example, we'll use a copy of the heightweight data set:
@@ -747,7 +747,7 @@ hw <- mutate(hw,
     bmi = weightKg / (heightCm / 100)^2)
 ```
 
-### See Also {#_see_also_95}
+### See Also
 
 See [section\_title](#RECIPE_DATAPREP_TRANSFORM_GROUP) for how to
 perform group-wise transformations on data.
@@ -755,12 +755,12 @@ perform group-wise transformations on data.
 Transforming Variables by Group {#RECIPE_DATAPREP_TRANSFORM_GROUP}
 -------------------------------
 
-### Problem {#_problem_152}
+### Problem
 
 You want to transform variables by performing operations on groups of
 data, as specified by a grouping variable.
 
-### Solution {#_solution_152}
+### Solution
 
 Use ddply() from the plyr package with the transform() function, and
 specify the operations:
@@ -831,7 +831,7 @@ ddply(cabbages, c("Cult", "Date"), transform, DevWt = HeadWt -
 mean(HeadWt), DevVitC = VitC - mean(VitC))
 Cult Date HeadWt VitC DevWt DevVitC c39 d16 2.5 51 -0.68 0.7 c39 d16 2.2
 55 -0.98 4.7 ... c52 d21 1.5 66 0.03 -5.8 c52 d21 1.6 72 0.13 0.2
-### See Also {#_see_also_96}
+### See Also
 
 To summarize data by groups, see
 [section\_title](#RECIPE_DATAPREP_SUMMARIZE).
@@ -839,12 +839,12 @@ To summarize data by groups, see
 Summarizing Data by Groups {#RECIPE_DATAPREP_SUMMARIZE}
 --------------------------
 
-### Problem {#_problem_153}
+### Problem
 
 You want to summarize your data, based on one or more grouping
 variables.
 
-### Solution {#_solution_153}
+### Solution
 
 Use ddply() from theplyr package with the summarise() function, and
 specify the operations to do:
@@ -972,7 +972,7 @@ Cult Date Weight sd n c39 d16 3.255556 0.9824855 9 c39 d20 2.722222
 c52 d20 3.044444 0.8094923 9 c52 d21 NaN NA 0
 \# Make the graph ggplot(c2b, aes(x=Date, fill=Cult, y=Weight)) +
 geom\_bar(position="dodge")
-### See Also {#_see_also_97}
+### See Also
 
 If you want to calculate standard errors and confidence intervals, see
 [section\_title](#RECIPE_DATAPREP_SUMMARIZE_SE).
@@ -986,12 +986,12 @@ To perform transformations on data by groups, see
 Summarizing Data with Standard Errors and Confidence Intervals {#RECIPE_DATAPREP_SUMMARIZE_SE}
 --------------------------------------------------------------
 
-### Problem {#_problem_154}
+### Problem
 
 You want to summarize your data with the standard error of the mean
 and/or confidence intervals.
 
-### Solution {#_solution_154}
+### Solution
 
 Getting the standard error of the mean involves two steps: first get the
 standard deviation and count for each group, then use those values to
@@ -1133,7 +1133,7 @@ It will give this warning message when there are missing combinations.
 This isn't a problem; it just indicates that it couldn't
 calculate a quantile for a group with no observations.
 
-### See Also {#_see_also_98}
+### See Also
 
 See [???](#RECIPE_ANNOTATE_ERROR_BAR) to use the values calculated here
 to add error bars to a graph.
@@ -1141,12 +1141,12 @@ to add error bars to a graph.
 Converting Data from Wide to Long {#RECIPE_DATAPREP_WIDE_TO_LONG}
 ---------------------------------
 
-### Problem {#_problem_155}
+### Problem
 
 You want to convert a data frame from "wide" format to
 "long" format.
 
-### Solution {#_solution_155}
+### Solution
 
 Use melt() from the reshape2 package. In the anthoming data set, for
 each angle, there are two measurements: one column contains measurements
@@ -1220,7 +1220,7 @@ Having numeric values for the ID variable may be problematic for
 subsequent analyses, so you may want to convert id to a character vector
 with as.character(), or a factor with factor().
 
-### See Also {#_see_also_99}
+### See Also
 
 See [section\_title](#RECIPE_DATAPREP_LONG_TO_WIDE) to do conversions in
 the other direction, from long to wide.
@@ -1231,12 +1231,12 @@ long.
 Converting Data from Long to Wide {#RECIPE_DATAPREP_LONG_TO_WIDE}
 ---------------------------------
 
-### Problem {#_problem_156}
+### Problem
 
 You want to convert a data frame from "long" format to
 "wide" format.
 
-### Solution {#_solution_156}
+### Solution
 
 Use the dcast() function from the reshape2 package. In this example,
 we'll use the plum data set, which is in a long format:
@@ -1271,7 +1271,7 @@ combined with an underscore:
 dcast(plum, time \~ length + survival, value.var="count")
 time long\_dead long\_alive short\_dead short\_alive at\_once 84 156 133
 107 in\_spring 156 84 209 31
-### See Also {#_see_also_100}
+### See Also
 
 See [section\_title](#RECIPE_DATAPREP_WIDE_TO_LONG) to do conversions in
 the other direction, from wide to long.
@@ -1282,12 +1282,12 @@ wide.
 Converting a Time Series Object to Times and Values {#RECIPE_DATAPREP_TIMESERIES}
 ---------------------------------------------------
 
-### Problem {#_problem_157}
+### Problem
 
 You have a time series object that you wish to convert to numeric
 vectors representing the time and values at each time.
 
-### Solution {#_solution_157}
+### Solution
 
 Use the time() function to get the time for each observation, then
 convert the times and values to numeric vectors with as.numeric():
@@ -1343,6 +1343,6 @@ as.numeric(cycle(presidents)), rating = as.numeric(presidents) )
 pres\_rating2
 year quarter rating 1945 1 NA 1945 2 87 1945 3 82 ... 1974 2 25 1974 3
 24 1974 4 24
-### See Also {#_see_also_101}
+### See Also
 
 The zoo package is also useful for working with time seriesobjects.

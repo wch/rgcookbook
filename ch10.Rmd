@@ -7,11 +7,11 @@ visual (aesthetic) properties back to data values.
 Removing the Legend {#RECIPE_LEGEND_REMOVE}
 -------------------
 
-### Problem {#_problem_89}
+### Problem
 
 You want to remove the legend from a graph.
 
-### Solution {#_solution_89}
+### Solution
 
 Use guides(), and specify the scale that should have its legend removed
 ([figure\_title](#FIG_LEGEND_REMOVE)):
@@ -92,11 +92,11 @@ scales include:
 Changing the Position of a Legend {#RECIPE_LEGEND_POSITION}
 ---------------------------------
 
-### Problem {#_problem_90}
+### Problem
 
 You want to move the legend from its default place on the right side.
 
-### Solution {#_solution_90}
+### Solution
 
 Use theme(legend.position=...). It can be put on the top, left, right,
 or bottom by using one of those strings as the position
@@ -166,11 +166,11 @@ p + theme(legend.position=c(.85,.2)) +
 Changing the Order of Items in a Legend {#RECIPE_LEGEND_ORDER}
 ---------------------------------------
 
-### Problem {#_problem_91}
+### Problem
 
 You want to change the order of the items in a legend.
 
-### Solution {#_solution_91}
+### Solution
 
 Set the limits in the scale to the desired order
 ([figure\_title](#FIG_LEGEND_ORDER)):
@@ -249,7 +249,7 @@ By default, using scale\$\$\_\$\$fill\$\$\_\$\$discrete() is equivalent
 to using scale\$\$\_\$\$fill\$\$\_\$\$hue(); the same is true for color
 scales.
 
-### See Also {#_see_also_61}
+### See Also
 
 To reverse the order of the legend, see
 [section\_title](#RECIPE_LEGEND_REVERSE).
@@ -262,11 +262,11 @@ values in another variable, see
 Reversing the Order of Items in a Legend {#RECIPE_LEGEND_REVERSE}
 ----------------------------------------
 
-### Problem {#_problem_92}
+### Problem
 
 You want to reverse the order of items in a legend.
 
-### Solution {#_solution_92}
+### Solution
 
 Add guides(fill=guide\$\$\_\$\$legend(reverse=TRUE)) toreverse the order
 of the legend, as in [figure\_title](#FIG_LEGEND_TITLE_REVERSE) (for
@@ -297,11 +297,11 @@ scale_fill_hue(guide=guide_legend(reverse=TRUE))
 Changing a Legend Title {#RECIPE_LEGEND_TITLE_TEXT}
 -----------------------
 
-### Problem {#_problem_93}
+### Problem
 
 You want to change the text of a legend title.
 
-### Solution {#_solution_93}
+### Solution
 
 Use labs() and setthe value of fill, colour, shape, or whatever
 aesthetic is appropriate for the legend
@@ -391,11 +391,11 @@ p + guides(fill=guide_legend(title="Condition"))
 Changing the Appearance of a Legend Title {#RECIPE_LEGEND_TITLE_APPEARANCE}
 -----------------------------------------
 
-### Problem {#_problem_94}
+### Problem
 
 You want to change the appearance of a legend title's text.
 
-### Solution {#_solution_94}
+### Solution
 
 Use theme(legend.title=element\$\$\_\$\$text())
 ([figure\_title](#FIG_LEGEND_TITLE_APPEARANCE)):
@@ -420,7 +420,7 @@ p + guides(fill=guide_legend(title.theme=
            element_text(face="italic", family="times", colour="red", size=14)))
 ```
 
-### See Also {#_see_also_62}
+### See Also
 
 See [???](#RECIPE_APPEARANCE_TEXT_APPEARANCE) for more on controlling
 the appearance of text.
@@ -428,11 +428,11 @@ the appearance of text.
 Removing a Legend Title {#RECIPE_LEGEND_TITLE_REMOVE}
 -----------------------
 
-### Problem {#_problem_95}
+### Problem
 
 You want to remove a legend title.
 
-### Solution {#_solution_95}
+### Solution
 
 Add guides(fill=guide\$\$\_\$\$legend(title=NULL)) to remove the title
 from a legend, as in [figure\_title](#FIG_LEGEND_TITLE_REMOVE) (for
@@ -458,11 +458,11 @@ scale_fill_hue(guide = guide_legend(title=NULL))
 Changing the Labels in a Legend {#RECIPE_LEGEND_LABEL_TEXT}
 -------------------------------
 
-### Problem {#_problem_96}
+### Problem
 
 You want to change the text of labels in a legend.
 
-### Solution {#_solution_96}
+### Solution
 
 Set the labels in the scale ([figure\_title](#FIG_LEGEND_LABEL), left):
 
@@ -570,11 +570,11 @@ scales.
 Changing the Appearance of Legend Labels {#RECIPE_LEGEND_LABEL_APPEARANCE}
 ----------------------------------------
 
-### Problem {#_problem_97}
+### Problem
 
 You want to change the appearance of labels in a legend.
 
-### Solution {#_solution_97}
+### Solution
 
 Use theme(legend.text=element\$\$\_\$\$text())
 ([figure\_title](#FIG_LEGEND_LABEL_APPEARANCE)):
@@ -602,7 +602,7 @@ p + guides(fill=guide_legend(label.theme=
            element_text(face="italic", family="Times", colour="red", size=14)))
 ```
 
-### See Also {#_see_also_63}
+### See Also
 
 See [???](#RECIPE_APPEARANCE_TEXT_APPEARANCE) for more on controlling
 the appearance of text.
@@ -610,11 +610,11 @@ the appearance of text.
 Using Labels with Multiple Lines of Text {#RECIPE_LEGEND_LABEL_MULTILINE}
 ----------------------------------------
 
-### Problem {#_problem_98}
+### Problem
 
 You want to use legend labels that have more than one line of text.
 
-### Solution {#_solution_98}
+### Solution
 
 Set the labels in the scale, using \$\$\\\$\$n to represent a newline.
 In this example, we'll use scale\$\$\_\$\$fill\$\$\_\$\$discrete()

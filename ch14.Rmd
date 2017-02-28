@@ -14,11 +14,11 @@ your graphics so that they can be presented in documents.
 Outputting to PDF Vector Files {#RECIPE_OUTPUT_VECTOR}
 ------------------------------
 
-### Problem {#_problem_130}
+### Problem
 
 You want to create a PDF of your plot.
 
-### Solution {#_solution_130}
+### Solution
 
 There are two ways to output to PDF files. One method is to open the PDF
 graphics device with pdf(), make the plots, then close the device with
@@ -89,7 +89,7 @@ contain instructions for drawing each and every point, whereas a bitmap
 file will not contain the redundant information. See
 [???](#RECIPE_SCATTER_OVERPLOT) for an example.
 
-### See Also {#_see_also_86}
+### See Also
 
 If you want to manually edit the PDF or SVG file, see
 [section\_title](#RECIPE_OUTPUT_EDIT_VECTOR).
@@ -97,11 +97,11 @@ If you want to manually edit the PDF or SVG file, see
 Outputting to SVG Vector Files {#RECIPE_OUTPUT_VECTOR_SVG}
 ------------------------------
 
-### Problem {#_problem_131}
+### Problem
 
 You want to create a scalable vector graphics (SVG) image of your plot.
 
-### Solution {#_solution_131}
+### Solution
 
 SVG files can be created and used in much the same way as PDF files:
 
@@ -124,11 +124,11 @@ have better PDF support.
 Outputting to WMF Vector Files {#RECIPE_OUTPUT_VECTOR_WMF}
 ------------------------------
 
-### Problem {#_problem_132}
+### Problem
 
 You want to create a Windows metafile (WMF) image of your plot.
 
-### Solution {#_solution_132}
+### Solution
 
 WMF files can be created and used in much the same way as PDF files—but
 they can only be created on Windows:
@@ -151,11 +151,11 @@ that WMF files do not support transparency (alpha).
 Editing a Vector Output File {#RECIPE_OUTPUT_EDIT_VECTOR}
 ----------------------------
 
-### Problem {#_problem_133}
+### Problem
 
 You want to open a vector output file for final editing.
 
-### Solution {#_solution_133}
+### Solution
 
 Sometimes you need to make final tweaks to the appearance of a graph for
 presentation. You can open PDF and SVG files with the excellent free
@@ -202,11 +202,11 @@ ggsave("myplot.pdf", width=4, height=4, useDingbats=FALSE)
 Outputting to Bitmap (PNG/TIFF) Files {#RECIPE_OUTPUT_BITMAP}
 -------------------------------------
 
-### Problem {#_problem_134}
+### Problem
 
 You want to create a bitmap of your plot, writing to a PNG file.
 
-### Solution {#_solution_134}
+### Solution
 
 There are two ways to output to PNG bitmap files. One method is to open
 the PNG graphics device with png(), make the plots, then close the
@@ -331,12 +331,12 @@ ppi](figs/rgcb_1403.png)
 Using Fonts in PDF Files {#RECIPE_OUTPUT_FONTS_PDF}
 ------------------------
 
-### Problem {#_problem_135}
+### Problem
 
 You want to use fonts other than the basic ones provided by R in a PDF
 file.
 
-### Solution {#_solution_135}
+### Solution
 
 The extrafont package can be used to create PDF files with different
 fonts.
@@ -420,7 +420,7 @@ package handles many of the ugly details for you.
 > fonts, but it may support other common formats, such as OpenType
 > (*.otf*), in the future.
 
-### See Also {#_see_also_87}
+### See Also
 
 For more on controlling text appearance, see
 [???](#RECIPE_APPEARANCE_TEXT_APPEARANCE).
@@ -428,12 +428,12 @@ For more on controlling text appearance, see
 Using Fonts in Windows Bitmap or Screen Output {#RECIPE_OUTPUT_FONTS_WIN}
 ----------------------------------------------
 
-### Problem {#_problem_136}
+### Problem
 
 You are using Windows and want to use fonts other than the basic ones
 provided by R for bitmap or screen output.
 
-### Solution {#_solution_136}
+### Solution
 
 The extrafont package can be used to create bitmap or screen output. The
 procedure is similar to using extrafont with PDF files

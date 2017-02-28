@@ -28,11 +28,11 @@ make more sophisticated graphics.
 Creating a Scatter Plot {#RECIPE_QUICK_SCATTER}
 -----------------------
 
-### Problem {#_problem_6}
+### Problem
 
 You want to create a scatter plot.
 
-### Solution {#_solution_6}
+### Solution
 
 To make a scatter plot ([figure\_title](#FIG_QUICK_SCATTER_BASE)), use
 plot() and pass it a vector of *x* values followed by a vector of *y*
@@ -63,7 +63,7 @@ qplot(wt, mpg, data=mtcars)
 ggplot(mtcars, aes(x=wt, y=mpg)) + geom_point()
 ```
 
-### See Also {#_see_also_4}
+### See Also
 
 See [???](#CHAPTER_SCATTER) for more in-depth information about creating
 scatter plots.
@@ -71,11 +71,11 @@ scatter plots.
 Creating a Line Graph {#RECIPE_QUICK_LINE}
 ---------------------
 
-### Problem {#_problem_7}
+### Problem
 
 You want to create a line graph.
 
-### Solution {#_solution_7}
+### Solution
 
 To make a line graph using plot()
 ([figure\_title](#FIG_QUICK_LINE_BASE), left), pass it a vector of *x*
@@ -127,7 +127,7 @@ qplot(temperature, pressure, data=pressure, geom=c("line", "point"))
 ggplot(pressure, aes(x=temperature, y=pressure)) + geom_line() + geom_point()
 ```
 
-### See Also {#_see_also_5}
+### See Also
 
 See [???](#CHAPTER_LINE_GRAPH) for more in-depth information about
 creating line graphs.
@@ -135,11 +135,11 @@ creating line graphs.
 Creating a Bar Graph {#RECIPE_QUICK_BAR}
 --------------------
 
-### Problem {#_problem_8}
+### Problem
 
 You want to make a bar graph.
 
-### Solution {#_solution_8}
+### Solution
 
 To make a bar graph of values ([figure\_title](#FIG_QUICK_BAR_BASE)),
 use barplot() and pass it a vector of values for the height of each bar
@@ -218,7 +218,7 @@ qplot(factor(cyl), data=mtcars)
 ggplot(mtcars, aes(x=factor(cyl))) + geom_bar()
 ```
 
-### See Also {#_see_also_6}
+### See Also
 
 See [???](#CHAPTER_BAR_GRAPH) for more in-depth information about
 creating bar graphs.
@@ -226,12 +226,12 @@ creating bar graphs.
 Creating a Histogram {#RECIPE_QUICK_HISTOGRAM}
 --------------------
 
-### Problem {#_problem_9}
+### Problem
 
 You want to view the distribution of one-dimensional data with a
 histogram.
 
-### Solution {#_solution_9}
+### Solution
 
 To make a histogram ([figure\_title](#FIG_QUICK_HIST_BASE)), use hist()
 and pass it a vector of values:
@@ -266,7 +266,7 @@ qplot(mpg, data=mtcars, binwidth=4)
 ggplot(mtcars, aes(x=mpg)) + geom_histogram(binwidth=4)
 ```
 
-### See Also {#_see_also_7}
+### See Also
 
 For more in-depth information about creating histograms, see Recipes
 [???](#RECIPE_DISTRIBUTION_BASIC_HIST) and
@@ -275,11 +275,11 @@ For more in-depth information about creating histograms, see Recipes
 Creating a Box Plot {#RECIPE_QUICK_BOXPLOT}
 -------------------
 
-### Problem {#_problem_10}
+### Problem
 
 You want to create a box plot for comparing distributions.
 
-### Solution {#_solution_10}
+### Solution
 
 To make a box plot ([figure\_title](#FIG_QUICK_BOXPLOT_BASE)), use
 plot() and pass it a factor of *x* values and a vector of *y* values.
@@ -350,7 +350,7 @@ ggplot(ToothGrowth, aes(x=interaction(supp, dose), y=len)) + geom_boxplot()
 > ?geom\$\$\_\$\$boxplot and ?boxplot.stats for more information on how
 > they differ.
 
-### See Also {#_see_also_8}
+### See Also
 
 For more on making basic box plots, see
 [???](#RECIPE_DISTRIBUTION_BASIC_BOXPLOT).
@@ -358,11 +358,11 @@ For more on making basic box plots, see
 Plotting a Function Curve {#RECIPE_QUICK_FUNCTION}
 -------------------------
 
-### Problem {#_problem_11}
+### Problem
 
 You want to plot a function curve.
 
-### Solution {#_solution_11}
+### Solution
 
 To plot a function curve, as in
 [figure\_title](#FIG_QUICK_FUNCTION_BASE), use curve() and pass it an
@@ -404,7 +404,7 @@ ggplot(data.frame(x=c(0, 20)), aes(x=x)) + stat_function(fun=myfun, geom="line")
 
 ![A function curve with qplot()](figs/rgcb_0213.png)
 
-### See Also {#_see_also_9}
+### See Also
 
 See [???](#RECIPE_MISCGRAPH_FUNCTION) for more in-depth information
 about plotting function curves.

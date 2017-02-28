@@ -20,13 +20,13 @@ recipes for both types of bar graphs.
 Making a Basic Bar Graph {#RECIPE_BAR_GRAPH_BASIC_BAR}
 ------------------------
 
-### Problem {#_problem_12}
+### Problem
 
 You have a data frame where one column represents the *x* position of
 each bar, and another column represents the vertical (y) height of each
 bar.
 
-### Solution {#_solution_12}
+### Solution
 
 Use ggplot() with geom\$\$\_\$\$bar(stat="identity") and specify what
 variables you want on the x- and y-axes
@@ -90,7 +90,7 @@ ggplot(pg_mean, aes(x=group, y=weight)) +
 > spellings are remapped to the British ones, so if you use the American
 > spelling it will still work.
 
-### See Also {#_see_also_10}
+### See Also
 
 If you want the height of the bars to represent the count of cases in
 each group, see [section\_title](#RECIPE_BAR_GRAPH_COUNTS).
@@ -105,11 +105,11 @@ For more information about using colors, see [???](#CHAPTER_COLORS).
 Grouping Bars Together {#RECIPE_BAR_GRAPH_GROUPED_BAR}
 ----------------------
 
-### Problem {#_problem_13}
+### Problem
 
 You want to group bars together by a second variable.
 
-### Solution {#_solution_13}
+### Solution
 
 Map a variable to fill, anduse geom\$\$\_\$\$bar(position="dodge").
 
@@ -182,7 +182,7 @@ space](figs/rgcb_0306.png)
 If your data has this issue, you can manually make an entry for the
 missing factor level combination with an NA for the *y* variable.
 
-### See Also {#_see_also_11}
+### See Also
 
 For more on using colors in bar graphs, see
 [section\_title](#RECIPE_BAR_GRAPH_COLORS).
@@ -193,12 +193,12 @@ variable, see [???](#RECIPE_DATAPREP_FACTOR_REORDER_VALUE).
 Making a Bar Graph of Counts {#RECIPE_BAR_GRAPH_COUNTS}
 ----------------------------
 
-### Problem {#_problem_14}
+### Problem
 
 Your data has one row representing each case, and you want plot counts
 of the cases.
 
-### Solution {#_solution_14}
+### Solution
 
 Use geom\$\$\_\$\$bar() withoutmapping anything to y
 ([figure\_title](#FIG_BAR_GRAPH_COUNT)):
@@ -240,7 +240,7 @@ histogram](figs/rgcb_0308.png)
 It turns out that in this case, the result is the same as if we had used
 geom\$\$\_\$\$histogram() instead of geom\$\$\_\$\$bar().
 
-### See Also {#_see_also_12}
+### See Also
 
 If, instead of having ggplot() count up the number of rows in each
 group, you have a column in your data frame representing the y values,
@@ -255,11 +255,11 @@ For more about histograms, see [???](#RECIPE_DISTRIBUTION_BASIC_HIST).
 Using Colors in a Bar Graph {#RECIPE_BAR_GRAPH_COLORS}
 ---------------------------
 
-### Problem {#_problem_15}
+### Problem
 
 You want to use different colors for the bars in your graph.
 
-### Solution {#_solution_15}
+### Solution
 
 Map the appropriate variable to the fill aesthetic.
 
@@ -310,7 +310,7 @@ This example also uses the reorder() function, as in this particular
 case it makes sense to sort the bars by their height, instead of in
 alphabetical order.
 
-### See Also {#_see_also_13}
+### See Also
 
 For more about using the reorder() function to reorder the levels of a
 factor based on the values of another variable, see
@@ -321,11 +321,11 @@ For more information about using colors, see [???](#CHAPTER_COLORS).
 Coloring Negative and Positive Bars Differently {#RECIPE_BAR_GRAPH_COLOR_NEG}
 -----------------------------------------------
 
-### Problem {#_problem_16}
+### Problem
 
 You want to use different colors for negative and positive-valued bars.
 
-### Solution {#_solution_16}
+### Solution
 
 We'll use a subset of the climate data and create a new column
 called pos, which indicates whether the value is positive or negative:
@@ -370,7 +370,7 @@ ggplot(csub, aes(x=Year, y=Anomaly10y, fill=pos)) +
 
 ![Graph with customized colors and no legend](figs/rgcb_0312.png)
 
-### See Also {#_see_also_14}
+### See Also
 
 To change the colors used, see Recipes
 [???](#RECIPE_COLORS_PALETTE_DISCRETE) and
@@ -381,11 +381,11 @@ To hide the legend, see [???](#RECIPE_LEGEND_REMOVE).
 Adjusting Bar Width and Spacing {#RECIPE_BAR_GRAPH_ADJUST_WIDTH}
 -------------------------------
 
-### Problem {#_problem_17}
+### Problem
 
 You want to adjust the width of bars and the spacing between them.
 
-### Solution {#_solution_17}
+### Solution
 
 To make the bars narrower or wider, set width in geom\$\$\_\$\$bar().
 The default value is 0.9; larger values make the bars wider, and smaller
@@ -480,11 +480,11 @@ this when writing to a file, see [???](#CHAPTER_OUTPUT).
 Making a Stacked Bar Graph {#RECIPE_BAR_GRAPH_STACKED_BAR}
 --------------------------
 
-### Problem {#_problem_18}
+### Problem
 
 You want to make a stacked bar graph.
 
-### Solution {#_solution_18}
+### Solution
 
 Use geom\$\$\_\$\$bar() and map a variable fill. This will put Date on
 the x-axis and use Cultivar for the fill color, as shown in
@@ -556,7 +556,7 @@ ggplot(cabbage_exp, aes(x=Date, y=Weight, fill=Cultivar)) +
 ![Stacked bar graph with reversed legend, new palette, and black
 outline](figs/rgcb_0319.png)
 
-### See Also {#_see_also_15}
+### See Also
 
 For more on using colors in bar graphs, see
 [section\_title](#RECIPE_BAR_GRAPH_COLORS).
@@ -569,12 +569,12 @@ change the order of factor levels, see
 Making a Proportional Stacked Bar Graph {#RECIPE_BAR_GRAPH_PROPORTIONAL_STACKED_BAR}
 ---------------------------------------
 
-### Problem {#_problem_19}
+### Problem
 
 You want to make a stacked bar graph that shows proportions (also called
 a 100% stacked bar graph).
 
-### Solution {#_solution_19}
+### Solution
 
 First, scale the data to 100% within each stack. This can be done by
 using ddply() from the plyr package, with transform(). Then plot the
@@ -635,7 +635,7 @@ ggplot(ce, aes(x=Date, y=percent_weight, fill=Cultivar)) +
 ![Proportional stacked bar graph with reversed legend, new palette, and
 black outline](figs/rgcb_0321.png)
 
-### See Also {#_see_also_16}
+### See Also
 
 For more on transforming data by groups, see
 [???](#RECIPE_DATAPREP_TRANSFORM_GROUP).
@@ -643,11 +643,11 @@ For more on transforming data by groups, see
 Adding Labels to a Bar Graph {#RECIPE_BAR_GRAPH_LABELS}
 ----------------------------
 
-### Problem {#_problem_20}
+### Problem
 
 You want to add labels to the bars in a bar graph.
 
-### Solution {#_solution_20}
+### Solution
 
 Add geom\$\$\_\$\$text() toyour graph. It requires a mapping for x, y,
 and the text itself. By setting vjust (the vertical justification), it
@@ -790,7 +790,7 @@ ggplot(ce, aes(x=Date, y=Weight, fill=Cultivar)) +
 
 ![Customized stacked bar graph with labels](figs/rgcb_0326.png)
 
-### See Also {#_see_also_17}
+### See Also
 
 To control the appearance of the text, see
 [???](#RECIPE_APPEARANCE_TEXT_APPEARANCE).
@@ -801,11 +801,11 @@ For more on transforming data by groups, see
 Making a Cleveland Dot Plot {#RECIPE_BAR_GRAPH_DOT_PLOT}
 ---------------------------
 
-### Problem {#_problem_21}
+### Problem
 
 You want to make a Cleveland dot plot.
 
-### Solution {#_solution_21}
+### Solution
 
 Cleveland dot plots are sometimes used instead of bar graphs because
 they reduce visual clutter and are easier to read.
@@ -934,7 +934,7 @@ point](figs/rgcb_0330.png)
 
 ![Faceted by league](figs/rgcb_0331.png)
 
-### See Also {#_see_also_18}
+### See Also
 
 For more on changing the order of factor levels, see
 [???](#RECIPE_DATAPREP_FACTOR_REORDER). Also see

@@ -15,11 +15,11 @@ deficiencies? In this chapter, I'll address these issues.
 Setting the Colors of Objects {#RECIPE_COLORS_SETTING}
 -----------------------------
 
-### Problem {#_problem_103}
+### Problem
 
 You want to set the color of some geoms in your graph.
 
-### Solution {#_solution_103}
+### Solution
 
 In the call to the geom, set the values of colour or fill
 ([figure\_title](#FIG_COLORS_SETTING)):
@@ -47,7 +47,7 @@ most point shapes, the color of the entire point is controlled by
 colour, not fill. The exception is the point shapes (21–25) that have
 both a fill and an outline.
 
-### See Also {#_see_also_67}
+### See Also
 
 For more information about point shapes, see
 [???](#RECIPE_LINE_GRAPH_POINT_APPEARANCE).
@@ -58,12 +58,12 @@ specifying colors.
 Mapping Variables to Colors {#RECIPE_COLORS_MAPPING}
 ---------------------------
 
-### Problem {#_problem_104}
+### Problem
 
 You want to use a variable (column from a data frame) to control the
 color of geoms.
 
-### Solution {#_solution_104}
+### Solution
 
 In the call to the geom, set the value of colour or fill to the name of
 one of the columns in the data ([figure\_title](#FIG_COLORS_MAPPING)):
@@ -125,7 +125,7 @@ ggplot(m, aes(x=wt, y=mpg, colour=cyl)) + geom_point()
 ![Mapping to colour with a continuous variable converted to a
 factor](figs/rgcb_1203.png)
 
-### See Also {#_see_also_68}
+### See Also
 
 You may also want to change the colors that are used in the scale. For
 continuous data, see
@@ -136,11 +136,11 @@ see Recipes [section\_title](#RECIPE_COLORS_PALETTE_DISCRETE) and
 Using a Different Palette for a Discrete Variable {#RECIPE_COLORS_PALETTE_DISCRETE}
 -------------------------------------------------
 
-### Problem {#_problem_105}
+### Problem
 
 You want to use different colors for a discrete mapped variable.
 
-### Solution {#_solution_105}
+### Solution
 
 Use one of the scales listed in
 [table\_title](#Table_12-1_discrete_fill_and_color_scales).
@@ -256,7 +256,7 @@ p + scale_fill_grey(start=0.7, end=0)
 ![Left: using the default grey palette; right: a different grey
 palette](figs/rgcb_1208.png)
 
-### See Also {#_see_also_69}
+### See Also
 
 See [???](#RECIPE_LEGEND_REVERSE) for more information about reversing
 the legend.
@@ -269,11 +269,11 @@ For more about ColorBrewer, see <http://colorbrewer.org>.
 Using a Manually Defined Palette for a Discrete Variable {#RECIPE_COLORS_PALETTE_DISCRETE_MANUAL}
 --------------------------------------------------------
 
-### Problem {#_problem_106}
+### Problem
 
 You want to use different colors for a discrete mapped variable.
 
-### Solution {#_solution_106}
+### Solution
 
 In the example here, we'll manually define colors by specifying
 values with scale\$\$\_\$\$colour\$\$\_\$\$manual()
@@ -349,18 +349,18 @@ Here are some rules of thumb for specifying and adjusting RGB colors:
     it more cyan. The same is true for the pairs green and magenta, and
     blue and yellow.
 
-### See Also {#_see_also_70}
+### See Also
 
 A [chart of RGB color codes](http://html-color-codes.com).
 
 Using a Colorblind-Friendly Palette {#RECIPE_COLORS_PALETTE_DISCRETE_COLORBLIND}
 -----------------------------------
 
-### Problem {#_problem_107}
+### Problem
 
 You want to use colors that can be distinguished by colorblind viewers.
 
-### Solution {#_solution_107}
+### Solution
 
 Use the palette defined here (cb\$\$\_\$\$palette)with
 scale\$\$\_\$\$fill\$\$\_\$\$manual()
@@ -407,7 +407,7 @@ color-vision deficiency to distinguish the colors. (Monochromacy, or
 total colorblindness, is rare. Those who have it can only see
 differences in brightness.)
 
-### See Also {#_see_also_71}
+### See Also
 
 The [source of this palette](http://jfly.iam.u-tokyo.ac.jp/color/).
 
@@ -421,11 +421,11 @@ deficiency viewed the same image and couldn't tell the colors apart!
 Using a Manually Defined Palette for a Continuous Variable {#RECIPE_COLORS_PALETTE_CONTINUOUS}
 ----------------------------------------------------------
 
-### Problem {#_problem_108}
+### Problem
 
 You want to use different colors for a continuous variable.
 
-### Solution {#_solution_108}
+### Solution
 
 In the example here, we'll specify the colors for a continuous
 variable using various gradient scales
@@ -491,7 +491,7 @@ Notice that we used the muted() function in the examples. This is a
 function from the scales package that returns an RGB value that is a
 less-saturated version of the color chosen.
 
-### See Also {#_see_also_72}
+### See Also
 
 If you want use a discrete (categorical) scale instead of a continuous
 one, you can recode your data into categorical values. See
@@ -500,11 +500,11 @@ one, you can recode your data into categorical values. See
 Coloring a Shaded Region Based on Value {#RECIPE_COLORS_AREA_VALUE}
 ---------------------------------------
 
-### Problem {#_problem_109}
+### Problem
 
 You want to set the color of a shaded region based on the *y* value.
 
-### Solution {#_solution_109}
+### Solution
 
 Add a column that categorizes the *y* values, then map that column to
 fill. In this example, we’ll first categorize the values as positive or

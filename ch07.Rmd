@@ -11,11 +11,11 @@ an area of the plot, or add some descriptive text about the data.
 Adding Text Annotations {#RECIPE_ANNOTATE_TEXT}
 -----------------------
 
-### Problem {#_problem_56}
+### Problem
 
 You want to add a text annotation to a plot.
 
-### Solution {#_solution_56}
+### Solution
 
 Use annotate() and a text geom ([figure\_title](#FIG_ANNOTATE_TEXT)):
 
@@ -83,7 +83,7 @@ p + annotate("text", x=-Inf, y=Inf, label="Upper left", hjust=-.2, vjust=2) +
 
 ![Text positioned at the edge of the plotting area](figs/rgcb_0704.png)
 
-### See Also {#_see_also_41}
+### See Also
 
 See [???](#RECIPE_SCATTER_LABELS) for making a scatter plot with text.
 
@@ -93,11 +93,11 @@ For more on controlling the appearance of the text, see
 Using Mathematical Expressions in Annotations {#RECIPE_ANNOTATE_TEXT_MATH}
 ---------------------------------------------
 
-### Problem {#_problem_57}
+### Problem
 
 You want to add a text annotation with mathematical notation.
 
-### Solution {#_solution_57}
+### Solution
 
 Use annotate(geom="text") and set parse=TRUE
 ([figure\_title](#FIG_ANNOTATE_TEXT_MATH)):
@@ -137,7 +137,7 @@ p + annotate("text", x=0, y=0.05, parse=TRUE, size=4,
 
 ![Mathematical expression with regular text](figs/rgcb_0706.png)
 
-### See Also {#_see_also_42}
+### See Also
 
 See ?plotmath for many examples of mathematical expressions, and
 ?demo(plotmath) for graphical examples of mathematical expressions.
@@ -151,11 +151,11 @@ For using other fonts in mathematical expressions, see
 Adding Lines {#RECIPE_ANNOTATE_LINES}
 ------------
 
-### Problem {#_problem_58}
+### Problem
 
 You want to add lines to a plot.
 
-### Solution {#_solution_58}
+### Solution
 
 For horizontal and vertical lines, use geom\$\$\_\$\$hline() and
 geom\$\$\_\$\$vline(), and for angled lines, use geom\$\$\_\$\$abline()
@@ -225,7 +225,7 @@ pg + geom_vline(xintercept = which(levels(PlantGrowth$group)=="ctrl"))
 > version of ggplot2, this will change, and annotate() will work with
 > line geoms.
 
-### See Also {#_see_also_43}
+### See Also
 
 For adding regression lines, see Recipes [???](#RECIPE_SCATTER_FITLINES)
 and [???](#RECIPE_SCATTER_FITLINES_MODEL).
@@ -237,11 +237,11 @@ groups.
 Adding Line Segments and Arrows {#RECIPE_ANNOTATE_SEGMENT}
 -------------------------------
 
-### Problem {#_problem_59}
+### Problem
 
 You want to add line segments or arrows to a plot.
 
-### Solution {#_solution_59}
+### Solution
 
 Use annotate("segment"). In this example, we'll use the climate data
 set and use a subset of data from the Berkeley source
@@ -280,7 +280,7 @@ is 0.2 inches.
 If one or both axes are discrete, the *x* and *y* positions are such
 that the categorical items have coordinate values 1, 2, 3, and so on.
 
-### See Also {#_see_also_44}
+### See Also
 
 For more information about the parameters for drawing arrows, load the
 grid package and see ?arrow.
@@ -288,11 +288,11 @@ grid package and see ?arrow.
 Adding a Shaded Rectangle {#RECIPE_ANNOTATE_RECT}
 -------------------------
 
-### Problem {#_problem_60}
+### Problem
 
 You want to add a shaded region.
 
-### Solution {#_solution_60}
+### Solution
 
 Use annotate("rect") ([figure\_title](#FIG_ANNOTATE_RECT)):
 
@@ -323,11 +323,11 @@ values for x and y.
 Highlighting an Item {#RECIPE_ANNOTATE_HIGHLIGHT}
 --------------------
 
-### Problem {#_problem_61}
+### Problem
 
 You want to change the color of an item to make it stand out.
 
-### Solution {#_solution_61}
+### Solution
 
 To highlight one or more items, create a new column in the data and map
 it to the color. In this example, we'll create a new column, hl, and
@@ -363,7 +363,7 @@ ggplot(PlantGrowth, aes(x=group, y=weight, fill=group)) + geom_boxplot() +
     scale_fill_manual(values=c("grey85", "grey85", "#FFDDCC"), guide=FALSE)
 ```
 
-### See Also {#_see_also_45}
+### See Also
 
 See [???](#CHAPTER_COLORS) for more information about specifying colors.
 
@@ -373,11 +373,11 @@ For more information about removing the legend, see
 Adding Error Bars {#RECIPE_ANNOTATE_ERROR_BAR}
 -----------------
 
-### Problem {#_problem_62}
+### Problem
 
 You want to add error bars to a graph.
 
-### Solution {#_solution_62}
+### Solution
 
 Use geom\$\$\_\$\$errorbar andmap variables to the values for ymin and
 ymax. Adding the error bars is done the same way for bar graphs and line
@@ -500,7 +500,7 @@ the variable for colour was not used for grouping, and we needed some
 other way to inform ggplot() that the two data entries at each *x* were
 in different groups so that they would be dodged.
 
-### See Also {#_see_also_46}
+### See Also
 
 See [???](#RECIPE_BAR_GRAPH_GROUPED_BAR) for more about creating grouped
 bar graphs, and [???](#RECIPE_LINE_GRAPH_MULTIPLE_LINE) for more about
@@ -515,11 +515,11 @@ the data has a higher density along the x-axis.
 Adding Annotations to Individual Facets {#RECIPE_ANNOTATE_FACET}
 ---------------------------------------
 
-### Problem {#_problem_63}
+### Problem
 
 You want to add annotations to each facet in a plot.
 
-### Solution {#_solution_63}
+### Solution
 
 Create a new data frame with the faceting variable(s), and a value to
 use in each facet. Then use geom\$\$\_\$\$text() with the new data frame
@@ -588,7 +588,7 @@ Text geoms aren't the only kind that can be added individually for
 each facet. Any geom can be used, as long as the input data is
 structured correctly.
 
-### See Also {#_see_also_47}
+### See Also
 
 See [section\_title](#RECIPE_ANNOTATE_TEXT_MATH) for more about using
 math expressions in plots.

@@ -17,11 +17,11 @@ chapter.
 Making a Basic Scatter Plot {#RECIPE_SCATTER_BASIC_SCATTER}
 ---------------------------
 
-### Problem {#_problem_31}
+### Problem
 
 You want to make a scatter plot.
 
-### Solution {#_solution_31}
+### Solution
 
 Use geom\$\$\_\$\$point(), andmap one variable to x and one to y.
 
@@ -76,11 +76,11 @@ devices](figs/rgcb_0503.png)
 Grouping Data Points by a Variable Using Shape or Color {#RECIPE_SCATTER_GROUPED_SCATTER}
 -------------------------------------------------------
 
-### Problem {#_problem_32}
+### Problem
 
 You want to group points by some variable, using shape or color.
 
-### Solution {#_solution_32}
+### Solution
 
 Map the grouping variable to shape or colour. In the heightweight data
 set, there are many columns, but we'll only use three of them in
@@ -137,7 +137,7 @@ ggplot(heightweight, aes(x=ageYear, y=heightIn, shape=sex, colour=sex)) +
 ![Left: mapping to both shape and colour; right: with manually set
 shapes and colors](figs/rgcb_0505.png)
 
-### See Also {#_see_also_26}
+### See Also
 
 To use different shapes, see [section\_title](#RECIPE_SCATTER_SHAPES).
 
@@ -146,11 +146,11 @@ For more on using different colors, see [???](#CHAPTER_COLORS).
 Using Different Point Shapes {#RECIPE_SCATTER_SHAPES}
 ----------------------------
 
-### Problem {#_problem_33}
+### Problem
 
 You want to use point shapes that are different from the defaults.
 
-### Solution {#_solution_33}
+### Solution
 
 If you want to set the shape of all the points
 ([figure\_title](#FIG_SCATTER_SHAPES)), specify the shape in
@@ -216,7 +216,7 @@ ggplot(hw, aes(x=ageYear, y=heightIn, shape=sex, fill=weightGroup)) +
 ![A variable mapped to shape and another mapped to
 fill](figs/rgcb_0508.png)
 
-### See Also {#_see_also_27}
+### See Also
 
 For more on using different colors, see [???](#CHAPTER_COLORS).
 
@@ -226,11 +226,11 @@ categorical one, see [???](#RECIPE_DATAPREP_RECODE_CONTINUOUS).
 Mapping a Continuous Variable to Color or Size {#RECIPE_SCATTER_CONTINUOUS_SCATTER}
 ----------------------------------------------
 
-### Problem {#_problem_34}
+### Problem
 
 You want to represent a third continuous variable using color or size.
 
-### Solution {#_solution_34}
+### Solution
 
 Map the continuous variable to size or colour. In the heightweight data
 set, there are many columns, but we'll only use four of them in this
@@ -338,7 +338,7 @@ than a size 3.5 circle. Also, some of the shapes really are different
 sizes: shapes 16 and 19 are both circles, but at any given numeric size,
 shape 19 circles are visually larger than shape 16 circles.
 
-### See Also {#_see_also_28}
+### See Also
 
 To use different colors from the default, see
 [???](#RECIPE_COLORS_PALETTE_CONTINUOUS).
@@ -349,7 +349,7 @@ plot.
 Dealing with Overplotting {#RECIPE_SCATTER_OVERPLOT}
 -------------------------
 
-### Problem {#_problem_35}
+### Problem
 
 You have many points and they obscure each other.
 
@@ -376,7 +376,7 @@ possible solutions:
 
 -   Use box plots
 
-### Discussion {#_solution_35}
+### Discussion
 
 The scatter plot in [figure\_title](#FIG_SCATTER_OVERPLOT) contains
 about 54,000 points. They are heavily overplotted, making it impossible
@@ -524,7 +524,7 @@ sp1 + geom_boxplot(aes(group=Time))
 ![Left: grouping into box plots; right: what happens if you don't
 specify groups](figs/rgcb_0517.png)
 
-### See Also {#_see_also_29}
+### See Also
 
 Instead of binning the data, it may be useful to display a 2D density
 estimate. To do this, see [???](#RECIPE_DISTRIBUTION_DENSITY2D).
@@ -532,11 +532,11 @@ estimate. To do this, see [???](#RECIPE_DISTRIBUTION_DENSITY2D).
 Adding Fitted Regression Model Lines {#RECIPE_SCATTER_FITLINES}
 ------------------------------------
 
-### Problem {#_problem_36}
+### Problem
 
 You want to add lines from a fitted regression model to a scatter plot.
 
-### Solution {#_solution_36}
+### Solution
 
 To add a linear regression line to a scatter plot, add
 stat\$\$\_\$\$smooth() and tell it to use method=lm. This instructs it
@@ -677,12 +677,12 @@ linearly and we don't grow forever.
 Adding Fitted Lines from an Existing Model {#RECIPE_SCATTER_FITLINES_MODEL}
 ------------------------------------------
 
-### Problem {#_problem_37}
+### Problem
 
 You have already created a fitted regression model object for a data
 set, and you want to plot the lines for that model.
 
-### Solution {#_solution_37}
+### Solution
 
 Usually the easiest way to overlay a fitted model is to simply ask
 stat\$\$\_\$\$smooth() to do it for you, as described in
@@ -826,12 +826,12 @@ ggplot(b, aes(x=V1, y=classn)) +
 Adding Fitted Lines from Multiple Existing Models {#RECIPE_SCATTER_FITLINES_MODEL_MULTI}
 -------------------------------------------------
 
-### Problem {#_problem_38}
+### Problem
 
 You have already created a fitted regression model object for a data
 set, and you want to plot the lines for that model.
 
-### Solution {#_solution_38}
+### Solution
 
 Use the predictvals() function from the previous recipe along with
 dlply() and ldply() from the plyr package.
@@ -917,11 +917,11 @@ together](figs/rgcb_0525.png)
 Adding Annotations with Model Coefficients {#RECIPE_SCATTER_FITLINES_TEXT}
 ------------------------------------------
 
-### Problem {#_problem_39}
+### Problem
 
 You want to add numerical information about a model to a plot.
 
-### Solution {#_solution_39}
+### Solution
 
 To add simple text to a plot, simply add an annotation. In this example,
 we'll create a linear model and use the predictvals() function
@@ -1002,7 +1002,7 @@ sp + annotate("text", label=eqn, parse=TRUE, x=Inf, y=-Inf, hjust=1.1, vjust=-.5
 ![Scatter plot with automatically generated
 expression](figs/rgcb_0527.png)
 
-### See Also {#_see_also_30}
+### See Also
 
 The math expression syntax in R can be a bit tricky. See
 [???](#RECIPE_ANNOTATE_TEXT_MATH) for more information.
@@ -1010,11 +1010,11 @@ The math expression syntax in R can be a bit tricky. See
 Adding Marginal Rugs to a Scatter Plot {#RECIPE_SCATTER_RUG}
 --------------------------------------
 
-### Problem {#_problem_40}
+### Problem
 
 You want to add marginal rugs to a scatter plot.
 
-### Solution {#_solution_40}
+### Solution
 
 Use geom\$\$\_\$\$rug(). Forthis example
 ([figure\_title](#FIG_SCATTER_RUG)), we'll use the faithful data
@@ -1048,7 +1048,7 @@ ggplot(faithful, aes(x=eruptions, y=waiting)) + geom_point() +
 
 ![Marginal rug with thinner, jittered lines](figs/rgcb_0529.png)
 
-### See Also {#_see_also_31}
+### See Also
 
 For more about overplotting, see
 [section\_title](#RECIPE_SCATTER_OVERPLOT).
@@ -1056,11 +1056,11 @@ For more about overplotting, see
 Labeling Points in a Scatter Plot {#RECIPE_SCATTER_LABELS}
 ---------------------------------
 
-### Problem {#_problem_41}
+### Problem
 
 You want to add labels to points in a scatter plot.
 
-### Solution {#_solution_41}
+### Solution
 
 For annotating just one or a few points, you canuse annotate() or
 geom\$\$\_\$\$text(). For this example, we'll use the countries data
@@ -1215,7 +1215,7 @@ vector format such as PDF or SVG (see Recipes
 [???](#RECIPE_OUTPUT_VECTOR) and [???](#RECIPE_OUTPUT_VECTOR_SVG)), then
 edit it in a program like Illustrator or Inkscape.
 
-### See Also {#_see_also_32}
+### See Also
 
 For more on controlling the appearance of the text, see
 [???](#RECIPE_APPEARANCE_TEXT_APPEARANCE).
@@ -1226,12 +1226,12 @@ If you want to manually edit a PDF or SVG file, see
 Creating a Balloon Plot {#RECIPE_SCATTER_BALLOON}
 -----------------------
 
-### Problem {#_problem_42}
+### Problem
 
 You want to make a balloon plot, where the area of the dots is
 proportional to their numerical value.
 
-### Solution {#_solution_42}
+### Solution
 
 Use geom\$\$\_\$\$point() with scale\$\$\_\$\$size\$\$\_\$\$area(). For
 this example, we'll use a subset of the countries data set:
@@ -1311,7 +1311,7 @@ doesn't jump out at the viewer and overwhelm the perceptual impact
 of the circles, but is still available if the viewer wants to know the
 exact values.
 
-### See Also {#_see_also_33}
+### See Also
 
 To add labels to the circles, see Recipes
 [section\_title](#RECIPE_SCATTER_LABELS) and
@@ -1323,11 +1323,11 @@ mapping variables to other aesthetics in a scatter plot.
 Making a Scatter Plot Matrix {#RECIPE_SCATTER_SPLOM}
 ----------------------------
 
-### Problem {#_problem_43}
+### Problem
 
 You want to make a scatter plot matrix.
 
-### Solution {#_solution_43}
+### Solution
 
 A scatter plot matrix is an excellent way of visualizing the pairwise
 relationships among several variables. To make one, use the pairs()
@@ -1458,7 +1458,7 @@ The default value for cex is 1; make it smaller for smaller points and
 larger for larger points. Values below .5 might not render properly with
 PDF output.
 
-### See Also {#_see_also_34}
+### See Also
 
 To create a correlation matrix, see [???](#RECIPE_MISCGRAPH_CORRMATRIX).
 

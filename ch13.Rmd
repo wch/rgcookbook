@@ -8,11 +8,11 @@ some of these other visualizations.
 Making a Correlation Matrix {#RECIPE_MISCGRAPH_CORRMATRIX}
 ---------------------------
 
-### Problem {#_problem_110}
+### Problem
 
 You want to make a graphical correlation matrix.
 
-### Solution {#_solution_110}
+### Solution
 
 We'll look at the mtcars data set:
 
@@ -129,7 +129,7 @@ menagerie of options, which can't all be illustrated here.
 
 : Options for corrplot()
 
-### See Also {#_see_also_73}
+### See Also
 
 To create a scatter plot matrix, see [???](#RECIPE_SCATTER_SPLOM).
 
@@ -138,11 +138,11 @@ For more on subsetting data, see [???](#RECIPE_DATAPREP_SUBSET).
 Plotting a Function {#RECIPE_MISCGRAPH_FUNCTION}
 -------------------
 
-### Problem {#_problem_111}
+### Problem
 
 You want to plot a function.
 
-### Solution {#_solution_111}
+### Solution
 
 Use stat\$\$\_\$\$function(). It's also necessary to give ggplot() a
 dummy data frame so that it will get the proper *x* range. In this
@@ -192,7 +192,7 @@ see the individual segments. To smooth out the curve, pass a larger
 value of n to stat\$\$\_\$\$function(), as in
 stat\$\$\_\$\$function(fun=myfun, n=200).
 
-### See Also {#_see_also_74}
+### See Also
 
 For plotting predicted values from model objects (such as lm and glm),
 see [???](#RECIPE_SCATTER_FITLINES_MODEL).
@@ -200,11 +200,11 @@ see [???](#RECIPE_SCATTER_FITLINES_MODEL).
 Shading a Subregion Under a Function Curve {#RECIPE_MISCGRAPH_FUNCTION_SHADE}
 ------------------------------------------
 
-### Problem {#_problem_112}
+### Problem
 
 You want to shade part of the area under a function curve.
 
-### Solution {#_solution_112}
+### Solution
 
 Define a new wrapper function around your curve function, and replace
 out-of-range values with NA (), as shown in
@@ -289,11 +289,11 @@ interpolatedvalues with stat\$\$\_\$\$function(n=200).
 Creating a Network Graph {#RECIPE_MISCGRAPH_GRAPH}
 ------------------------
 
-### Problem {#_problem_113}
+### Problem
 
 You want to create a network graph.
 
-### Solution {#_solution_113}
+### Solution
 
 Use the igraph package. To create a graph, pass a vector containing
 pairs of items to graph(), then plot the resulting object
@@ -367,7 +367,7 @@ plot(g, layout=layout.circle, vertex.size=8, vertex.label=NA)
 
 ![A circular undirected graph from a data frame](figs/rgcb_1309.png)
 
-### See Also {#_see_also_75}
+### See Also
 
 For more information about the available output options, see
 ?plot.igraph. Also see ?igraph::layout for layout options.
@@ -381,11 +381,11 @@ Bioconductor repository system.
 Using Text Labels in a Network Graph {#RECIPE_MISCGRAPH_GRAPH_LABEL}
 ------------------------------------
 
-### Problem {#_problem_114}
+### Problem
 
 You want to use text labels in a network graph.
 
-### Solution {#_solution_114}
+### Solution
 
 The vertices/nodes may have names, but these names are not used as
 labels by default. To set the labels, pass in a vector of names to
@@ -446,7 +446,7 @@ function or by passing values to edge.*xxx* arguments
 
 ![A network graph with labeled and colored edges](figs/rgcb_1311.png)
 
-### See Also {#_see_also_76}
+### See Also
 
 See ?igraph.plotting for more information about graphical parameters in
 igraph.
@@ -454,11 +454,11 @@ igraph.
 Creating a Heat Map {#RECIPE_MISCGRAPH_HEATMAP}
 -------------------
 
-### Problem {#_problem_115}
+### Problem
 
 You want to make a heat map.
 
-### Solution {#_solution_115}
+### Solution
 
 Use geom\$\$\_\$\$tile() or geom\$\$\_\$\$raster() and map a continuous
 variable to fill. We'll use the presidents data set, which is a time
@@ -523,7 +523,7 @@ p + geom_tile() +
 
 ![A heat map with customized appearance](figs/rgcb_1313.png)
 
-### See Also {#_see_also_77}
+### See Also
 
 If you want to use a different color palette, see
 [???](#RECIPE_COLORS_PALETTE_CONTINUOUS).
@@ -531,11 +531,11 @@ If you want to use a different color palette, see
 Creating a Three-Dimensional Scatter Plot {#RECIPE_MISCGRAPH_3D_SCATTER}
 -----------------------------------------
 
-### Problem {#_problem_116}
+### Problem
 
 You want to create a three-dimensional (3D) scatter plot.
 
-### Solution {#_solution_116}
+### Solution
 
 We'll use the rgl package, which provides an interface to the OpenGL
 graphics library for 3D graphics. To create a 3D scatter plot, as in
@@ -630,19 +630,19 @@ mtext3d("MPG",          edge="z--", line=3)
 ![Left: 3D scatter plot with axis ticks and labels repositioned; right:
 from a different point of view](figs/rgcb_1316.png)
 
-### See Also {#_see_also_78}
+### See Also
 
 See ?plot3d for more options for controlling the output.
 
 Adding a Prediction Surface to a Three-Dimensional Plot {#RECIPE_MISCGRAPH_3D_SCATTER_MODEL}
 -------------------------------------------------------
 
-### Problem {#_problem_117}
+### Problem
 
 You want to add a surface of predicted value to a three-dimensional
 scatter plot.
 
-### Solution {#_solution_117}
+### Solution
 
 First we need to define some utility functions for generating the
 predicted values from a model object:
@@ -771,18 +771,18 @@ mtext3d("MPG",          edge="z--", line=3)
 ![Three-dimensional scatter plot with customized
 appearance](figs/rgcb_1318.png)
 
-### See Also {#_see_also_79}
+### See Also
 
 For more on changing the appearance of the surface, see ?rgl.material.
 
 Saving a Three-Dimensional Plot {#RECIPE_MISCGRAPH_3D_SAVE}
 -------------------------------
 
-### Problem {#_problem_118}
+### Problem
 
 You want to save a three-dimensional plot created with the rgl package.
 
-### Solution {#_solution_118}
+### Solution
 
 To save a bitmap image of a plot created with rgl, use rgl.snapshot().
 This will capture the exact image that is on the screen:
@@ -843,12 +843,12 @@ par3d(userMatrix = view)
 Animating a Three-Dimensional Plot {#RECIPE_MISCGRAPH_3D_ANIMATE}
 ----------------------------------
 
-### Problem {#_problem_119}
+### Problem
 
 You want to animate a three-dimensional plot by moving the viewpoint
 around the plot.
 
-### Solution {#_solution_119}
+### Solution
 
 Rotating a 3D plot can provide a more complete view of the data. To
 animate a 3D plot, use play3d() with spin3d():
@@ -894,11 +894,11 @@ If you don't want to use ImageMagick to convert the output to a
 Creating a Dendrogram {#RECIPE_MISCGRAPH_DENDROGRAM}
 ---------------------
 
-### Problem {#_problem_120}
+### Problem
 
 You want to make a dendrogram to show how items are clustered.
 
-### Solution {#_solution_120}
+### Solution
 
 Use hclust() and plot the output from it. This can require a fair bit of
 data preprocessing. For this example, we'll first take a subset of
@@ -995,11 +995,11 @@ See ?hclust for more information about the different clustering methods.
 Creating a Vector Field {#RECIPE_MISCGRAPH_VECTORFIELD}
 -----------------------
 
-### Problem {#_problem_121}
+### Problem
 
 You want to make a vector field.
 
-### Solution {#_solution_121}
+### Solution
 
 Use geom\$\$\_\$\$segment(). For this example, we'll use the isabel
 data set:
@@ -1142,7 +1142,7 @@ ggplot(isub, aes(x=x, y=y)) +
 
 ![Vector field of wind speeds faceted on z](figs/rgcb_1324.png)
 
-### See Also {#_see_also_80}
+### See Also
 
 If you want to use a different color palette, see
 [???](#RECIPE_COLORS_PALETTE_CONTINUOUS).
@@ -1153,12 +1153,12 @@ part of a graph.
 Creating a QQ Plot {#RECIPE_MISCGRAPH_QQ}
 ------------------
 
-### Problem {#_problem_122}
+### Problem
 
 You want to make a quantile-quantile (QQ) plot to compare an empirical
 distribution to a theoretical distribution.
 
-### Solution {#_solution_122}
+### Solution
 
 Use qqnorm() to compare to a normal distribution. Give qqnorm() a vector
 of numerical values, and add a theoretical distribution line with
@@ -1188,7 +1188,7 @@ veer far away from the line, especially on the left, indicating that the
 distribution is skewed. A histogram may also be useful for exploring how
 the data is distributed.
 
-### See Also {#_see_also_81}
+### See Also
 
 See ?qqplot for information on comparing data to theoretical
 distributions other than the normal distribution.
@@ -1199,12 +1199,12 @@ easy way to draw the QQ line.
 Creating a Graph of an Empirical Cumulative Distribution Function {#RECIPE_MISCGRAPH_ECDF}
 -----------------------------------------------------------------
 
-### Problem {#_problem_123}
+### Problem
 
 You want to graph the empirical cumulative distribution function (ECDF)
 of a data set.
 
-### Solution {#_solution_123}
+### Solution
 
 Use stat\$\$\_\$\$ecdf() ([figure\_title](#FIG_MISCGRAPH_ECDF)):
 
@@ -1229,11 +1229,11 @@ The ECDF shows what proportion of observations are at or below the given
 Creating a Mosaic Plot {#RECIPE_MISCGRAPH_MOSAIC}
 ----------------------
 
-### Problem {#_problem_124}
+### Problem
 
 You want to make a mosaic plot to visualize a contingency table.
 
-### Solution {#_solution_124}
+### Solution
 
 Use the mosaic() function from the vcd package. For this example
 we'll use the USBAdmissions data set, which is a contingency table
@@ -1352,7 +1352,7 @@ as in [figure\_title](#FIG_MISCGRAPH_MOSAIC4), makes it difficult to
 compare male and female admission rates within each department, but it
 is easy to compare male and female application rates across departments.
 
-### See Also {#_see_also_82}
+### See Also
 
 See ?mosaicplot for another function that can create mosaic plots.
 
@@ -1363,11 +1363,11 @@ Graduate Admissions: Data from Berkeley," *Science* 187 (1975):
 Creating a Pie Chart {#RECIPE_MISCGRAPH_PIE}
 --------------------
 
-### Problem {#_problem_125}
+### Problem
 
 You want to make a pie chart.
 
-### Solution {#_solution_125}
+### Solution
 
 Use the pie() function. In this example
 ([figure\_title](#FIG_MISCGRAPH_PIE)), we'll use the survey data set
@@ -1397,11 +1397,11 @@ one important virtue: everyone knows how to read them.
 Creating a Map {#RECIPE_MISCGRAPH_MAP}
 --------------
 
-### Problem {#_problem_126}
+### Problem
 
 You want to create a geographical map.
 
-### Solution {#_solution_126}
+### Solution
 
 Retrieve map data from the maps package and draw it with
 geom\$\$\_\$\$polygon() (which can have a color fill) or
@@ -1515,7 +1515,7 @@ ggplot(nz2, aes(x=long, y=lat, group=group)) + geom_path()
 ![Left: New Zealand data taken from world map; right: data from nz
 map](figs/rgcb_1334.png)
 
-### See Also {#_see_also_83}
+### See Also
 
 See the mapdata package for more map data sets. It includes maps of
 China and Japan, as well as a high-resolution world map, worldHires.
@@ -1527,12 +1527,12 @@ See ?mapproject for a list of available map projections.
 Creating a Choropleth Map {#RECIPE_MISCGRAPH_CHOROPLETH}
 -------------------------
 
-### Problem {#_problem_127}
+### Problem
 
 You want to create a map with regions that are colored according to
 variable values.
 
-### Solution {#_solution_127}
+### Solution
 
 Merge the value data with the map data, then map a variable to fill:
 
@@ -1643,7 +1643,7 @@ set the x and y limits; the use of expand\$\$\_\$\$limits() makes it
 include those x and y values. (Another way to accomplish the same result
 is to use ylim() and xlim().)
 
-### See Also {#_see_also_84}
+### See Also
 
 For an example of data overlaid on a map, see
 [section\_title](#RECIPE_MISCGRAPH_VECTORFIELD).
@@ -1654,11 +1654,11 @@ For more on using continuous colors, see
 Making a Map with a Clean Background {#RECIPE_MISCGRAPH_MAP_BACKGROUND}
 ------------------------------------
 
-### Problem {#_problem_128}
+### Problem
 
 You want to remove background elements from a map.
 
-### Solution {#_solution_128}
+### Solution
 
 First, save the following theme:
 
@@ -1721,11 +1721,11 @@ isn't really helpful.
 Creating a Map from a Shapefile {#RECIPE_MISCGRAPH_MAP_SHAPEFILE}
 -------------------------------
 
-### Problem {#_problem_129}
+### Problem
 
 You want to create a geographical map from an Esri shapefile.
 
-### Solution {#_solution_129}
+### Solution
 
 Load the shapefile using readShapePoly() from the maptools package,
 convert it to a data frame with fortify(), then plot it
@@ -1779,7 +1779,7 @@ yourself using fortify(). This will let you more easily inspect the data
 structure that is sent to ggplot(), or merge the data frame with another
 data set.
 
-### See Also {#_see_also_85}
+### See Also
 
 The shapefile used in this example is not included inthe gcookbook
 package. It and many other shapefiles are [available for

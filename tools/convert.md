@@ -41,4 +41,6 @@ mreplace -e "RSQUO" "'" *.Rmd
 mreplace -e "RDQUO" '"' *.Rmd
 mreplace -e "LDQUO" '"' *.Rmd
 
+# Remove Problem/Solution/See Also labels
+mreplace " +{#_(problem|solution|see_also)_\\d+}" "" *.Rmd
 ```

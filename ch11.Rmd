@@ -16,11 +16,11 @@ how to use them.
 Splitting Data into Subplots with Facets {#RECIPE_FACET_BASIC}
 ----------------------------------------
 
-### Problem {#_problem_99}
+### Problem
 
 You want to plot subsets of your data in separate panels.
 
-### Solution {#_solution_99}
+### Solution
 
 Use facet\$\$\_\$\$grid() or facet\$\$\_\$\$wrap(), and specify the
 variables on which to split.
@@ -87,11 +87,11 @@ these situations, you'll have to rely on your judgment.
 Using Facets with Different Axes {#RECIPE_FACET_FREE}
 --------------------------------
 
-### Problem {#_problem_100}
+### Problem
 
 You want subplots with different ranges or items on their axes.
 
-### Solution {#_solution_100}
+### Solution
 
 Set the scales to "free\$\$\_\$\$x", "free\$\$\_\$\$y", or "free"
 ([figure\_title](#FIG_FACET_FACET_FREE)):
@@ -119,7 +119,7 @@ It's not possible to directly set the range of each row or column,
 but you can control the ranges by dropping unwanted data (to reduce the
 ranges), or by adding geom\$\$\_\$\$blank() (to expand the ranges).
 
-### See Also {#_see_also_64}
+### See Also
 
 See [???](#RECIPE_BAR_GRAPH_DOT_PLOT) for an example of faceting with
 free scales and a discrete axis.
@@ -127,11 +127,11 @@ free scales and a discrete axis.
 Changing the Text of Facet Labels {#RECIPE_FACET_LABEL_TEXT}
 ---------------------------------
 
-### Problem {#_problem_101}
+### Problem
 
 You want to change the text of facet labels.
 
-### Solution {#_solution_101}
+### Solution
 
 Change the names of the factor levels
 ([figure\_title](#FIG_FACET_LABEL_TEXT)):
@@ -187,7 +187,7 @@ ggplot(mpg3, aes(x=displ, y=hwy)) + geom_point() +
 ![Left: with label\_both(); right: with label\_parsed() for mathematical
 expressions](figs/rgcb_1105.png)
 
-### See Also {#_see_also_65}
+### See Also
 
 See [???](#RECIPE_DATAPREP_FACTOR_RENAME) for more on renaming factor
 levels. If the faceting variable is not a factor but a character vector,
@@ -198,11 +198,11 @@ items in character vectors.
 Changing the Appearance of Facet Labels and Headers {#RECIPE_FACET_LABEL_APPEARANCE}
 ---------------------------------------------------
 
-### Problem {#_problem_102}
+### Problem
 
 You want to change the appearance of facet labels and headers.
 
-### Solution {#_solution_102}
+### Solution
 
 With the theming system, set strip.text to control the text appearance
 and strip.background to control the background appearance
@@ -226,7 +226,7 @@ Using rel(1.5) makes the label text 1.5 times the size of the base text
 size for the theme. Using size=1 for the background makes the outline of
 the facets 1 mm thick.
 
-### See Also {#_see_also_66}
+### See Also
 
 For more on how the theme system works, see Recipes
 [???](#RECIPE_APPEARANCE_THEME) and

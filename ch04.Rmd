@@ -19,11 +19,11 @@ a discrete variable.
 Making a Basic Line Graph {#RECIPE_LINE_GRAPH_BASIC_LINE}
 -------------------------
 
-### Problem {#_problem_22}
+### Problem
 
 You want to make a basic line graph.
 
-### Solution {#_solution_22}
+### Solution
 
 Use ggplot() with geom\$\$\_\$\$line(), and specify what variables you
 mapped to x and y ([figure\_title](#FIG_LINE_GRAPH_BASIC_LINE)):
@@ -82,7 +82,7 @@ ggplot(BOD, aes(x=Time, y=demand)) + geom_line() + expand_limits(y=0)
 
 ![Line graph with manually set y range](figs/rgcb_0403.png)
 
-### See Also {#_see_also_19}
+### See Also
 
 See [???](#RECIPE_AXES_RANGE) for more on controlling the range of the
 axes.
@@ -90,11 +90,11 @@ axes.
 Adding Points to a Line Graph {#RECIPE_LINE_GRAPH_POINTS}
 -----------------------------
 
-### Problem {#_problem_23}
+### Problem
 
 You want to add points to a line graph.
 
-### Solution {#_solution_23}
+### Solution
 
 Add geom\$\$\_\$\$point() ([figure\_title](#FIG_LINE_GRAPH_POINT)):
 
@@ -140,7 +140,7 @@ years. In the most recent 1,000 years, the population has increased at a
 much faster rate. We can also see that the population estimates are much
 more frequent in recent times—and probably more accurate!
 
-### See Also {#_see_also_20}
+### See Also
 
 To change the appearance of the points, see
 [section\_title](#RECIPE_LINE_GRAPH_POINT_APPEARANCE).
@@ -148,11 +148,11 @@ To change the appearance of the points, see
 Making a Line Graph with Multiple Lines {#RECIPE_LINE_GRAPH_MULTIPLE_LINE}
 ---------------------------------------
 
-### Problem {#_problem_24}
+### Problem
 
 You want to make a line graph with more than one line.
 
-### Solution {#_solution_24}
+### Solution
 
 In addition to the variables mapped to the x- and y-axes, map another
 (discrete) variable to colour or linetype, as shown in
@@ -271,11 +271,11 @@ ggplot(tg, aes(x=dose, y=length, shape=supp)) +
 Changing the Appearance of Lines {#RECIPE_LINE_GRAPH_LINE_APPEARANCE}
 --------------------------------
 
-### Problem {#_problem_25}
+### Problem
 
 You want to change the appearance of the lines in a line graph.
 
-### Solution {#_solution_25}
+### Solution
 
 The type of line (solid, dashed, dotted, etc.) is set with linetype, the
 thickness (in mm) with size, and the color of the line with colour.
@@ -336,18 +336,18 @@ ggplot(tg, aes(x=dose, y=length, colour=supp)) +
 ![Left: line graph with constant size and color; right: with supp mapped
 to colour, and with points added](figs/rgcb_0413.png)
 
-### See Also {#_see_also_21}
+### See Also
 
 For more information about using colors, see [???](#CHAPTER_COLORS).
 
 Changing the Appearance of Points {#RECIPE_LINE_GRAPH_POINT_APPEARANCE}
 ---------------------------------
 
-### Problem {#_problem_26}
+### Problem
 
 You want to change the appearance of the points in a line graph.
 
-### Solution {#_solution_26}
+### Solution
 
 In geom\$\$\_\$\$point(), setthe size, shape, colour, and/or fill
 outside of aes() (the result is shown in
@@ -412,7 +412,7 @@ ggplot(tg, aes(x=dose, y=length, fill=supp)) +
 ![Line graph with manually specified fills of black and white, and a
 slight dodge](figs/rgcb_0416.png)
 
-### See Also {#_see_also_22}
+### See Also
 
 See [???](#RECIPE_SCATTER_SHAPES) for more on using different shapes,
 and [???](#CHAPTER_COLORS) for more aboutcolors.
@@ -420,11 +420,11 @@ and [???](#CHAPTER_COLORS) for more aboutcolors.
 Making a Graph with a Shaded Area {#RECIPE_LINE_GRAPH_AREA}
 ---------------------------------
 
-### Problem {#_problem_27}
+### Problem
 
 You want to make a graph with a shaded area.
 
-### Solution {#_solution_27}
+### Solution
 
 Use geom\$\$\_\$\$area() toget a shaded area, as in
 [figure\_title](#FIG_LINE_GRAPH_AREA):
@@ -475,18 +475,18 @@ ggplot(sunspotyear, aes(x=Year, y=Sunspots)) +
 ![Line graph with a line just on top, using
 geom\_line()](figs/rgcb_0419.png)
 
-### See Also {#_see_also_23}
+### See Also
 
 See [???](#CHAPTER_COLORS) for more on choosing colors.
 
 Making a Stacked Area Graph {#RECIPE_LINE_GRAPH_STACKED_AREA}
 ---------------------------
 
-### Problem {#_problem_28}
+### Problem
 
 You want to make a stacked area graph.
 
-### Solution {#_solution_28}
+### Solution
 
 Use geom\$\$\_\$\$area() andmap a factor to fill
 ([figure\_title](#FIG_LINE_GRAPH_STACKED_AREA)):
@@ -556,7 +556,7 @@ ggplot(uspopage, aes(x=Year, y=Thousands, fill=AgeGroup, order=desc(AgeGroup))) 
 
 ![No lines on the left and right of the graph](figs/rgcb_0423.png)
 
-### See Also {#_see_also_24}
+### See Also
 
 See [???](#RECIPE_DATAPREP_WIDE_TO_LONG) for more on converting data
 from wide to long format.
@@ -569,12 +569,12 @@ See [???](#CHAPTER_COLORS) for more on choosingcolors.
 Making a Proportional Stacked Area Graph {#RECIPE_LINE_GRAPH_PROPORTIONAL_STACKED_AREA}
 ----------------------------------------
 
-### Problem {#_problem_29}
+### Problem
 
 You want to make a stacked area graph with the overall height scaled to
 a constant value.
 
-### Solution {#_solution_29}
+### Solution
 
 First, calculate the proportions. In this example, we'll useddply()
 to break uspopage into groups by Year, then calculate a new column,
@@ -622,7 +622,7 @@ Year AgeGroup Thousands Percent 1900 &lt;5 9181 12.065340 1900 5-14
 1900 35-44 9273 12.186243 1900 45-54 6437 8.459274 1900 55-64 4026
 5.290825 1900 &gt;64 3099 4.072594 1901 &lt;5 9336 12.033409 1901 5-14
 17158 22.115385 ...
-### See Also {#_see_also_25}
+### See Also
 
 For more on summarizing data by groups, see
 [???](#RECIPE_DATAPREP_SUMMARIZE).
@@ -630,11 +630,11 @@ For more on summarizing data by groups, see
 Adding a Confidence Region {#RECIPE_LINE_GRAPH_REGION}
 --------------------------
 
-### Problem {#_problem_30}
+### Problem
 
 You want to add a confidence region to a graph.
 
-### Solution {#_solution_30}
+### Solution
 
 Use geom\$\$\_\$\$ribbon() and map values to ymin and ymax.
 

@@ -14,11 +14,11 @@ chapter, and here I'll explain a bit more about how it works.
 Setting the Title of a Graph {#RECIPE_APPEARANCE_TITLE}
 ----------------------------
 
-### Problem {#_problem_82}
+### Problem
 
 You want to set the title of a graph.
 
-### Solution {#_solution_82}
+### Solution
 
 Set title with ggtitle(), as shown in
 [figure\_title](#FIG_APPEARANCE_TITLE):
@@ -70,11 +70,11 @@ p + annotate("text", x=mean(range(heightweight$ageYear)), y=Inf,
 Changing the Appearance of Text {#RECIPE_APPEARANCE_TEXT_APPEARANCE}
 -------------------------------
 
-### Problem {#_problem_84}
+### Problem
 
 You want to change the appearance of text in a plot.
 
-### Solution {#_solution_84}
+### Solution
 
 To set the appearance of theme items such as the title, axis labels, and
 axis tick marks, use theme() and set the item with
@@ -204,11 +204,11 @@ lineheight](figs/rgcb_0905.png)
 Using Themes {#RECIPE_APPEARANCE_THEME}
 ------------
 
-### Problem {#_problem_85}
+### Problem
 
 You want to use premade themes to control the overall plot appearance.
 
-### Solution {#_solution_85}
+### Solution
 
 To use a premade theme, add theme\$\$\_\$\$bw() or theme\$\$\_\$\$grey()
 ([figure\_title](#FIG_APPEARANCE_THEME)):
@@ -261,7 +261,7 @@ p
 theme_set(theme_grey())
 ```
 
-### See Also {#_see_also_59}
+### See Also
 
 To modify a theme, see
 [section\_title](#RECIPE_APPEARANCE_THEME_MODIFY).
@@ -274,11 +274,11 @@ See ?theme to see all the available theme properties.
 Changing the Appearance of Theme Elements {#RECIPE_APPEARANCE_THEME_MODIFY}
 -----------------------------------------
 
-### Problem {#_problem_86}
+### Problem
 
 You want to change the appearance of theme elements.
 
-### Solution {#_solution_86}
+### Solution
 
 To modify a theme, add theme() with a corresponding
 element\$\$\_\$\$*xx* object. These include element\$\$\_\$\$line,
@@ -449,11 +449,11 @@ Many of the commonly used theme properties are shown in
 Creating Your Own Themes {#RECIPE_APPEARANCE_THEME_CREATE}
 ------------------------
 
-### Problem {#_problem_87}
+### Problem
 
 You want to create your own theme.
 
-### Solution {#_solution_87}
+### Solution
 
 You can create your own theme by adding elements to an existing theme
 ([figure\_title](#FIG_APPEARANCE_THEME_SAVE)):
@@ -482,7 +482,7 @@ modify these themes to suit your needs. You can add new theme elements
 or change the values of existing ones, and apply your changes globally
 or to a single plot.
 
-### See Also {#_see_also_60}
+### See Also
 
 The options for modifying themes are listed in
 [section\_title](#RECIPE_APPEARANCE_THEME_MODIFY).
@@ -490,11 +490,11 @@ The options for modifying themes are listed in
 Hiding Grid Lines {#RECIPE_APPEARANCE_HIDE_GRIDLINES}
 -----------------
 
-### Problem {#_problem_88}
+### Problem
 
 You want to hide the grid lines in a plot.
 
-### Solution {#_solution_88}
+### Solution
 
 The major grid lines (those that align with the tick marks) are
 controlled with panel.grid.major. The minor grid lines (the ones between

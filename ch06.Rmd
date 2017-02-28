@@ -6,11 +6,11 @@ This chapter explores how to visualize summarized distributions of data.
 Making a Basic Histogram {#RECIPE_DISTRIBUTION_BASIC_HIST}
 ------------------------
 
-### Problem {#_problem_44}
+### Problem
 
 You want to make a histogram.
 
-### Solution {#_solution_44}
+### Solution
 
 Use geom\$\$\_\$\$histogram() andmap a continuous variable to x
 ([figure\_title](#FIG_DISTRIBUTION_HIST_BASIC)):
@@ -101,7 +101,7 @@ It is also possible to use geom\$\$\_\$\$bar(stat="bin") for the same
 effect, although I find it easier to interpret the code if it uses
 geom\$\$\_\$\$histogram().
 
-### See Also {#_see_also_35}
+### See Also
 
 Frequency polygons provide a better way of visualizing multiple
 distributions without the bars interfering with each other. See
@@ -110,11 +110,11 @@ distributions without the bars interfering with each other. See
 Making Multiple Histograms from Grouped Data {#RECIPE_DISTRIBUTION_MULTI_HIST}
 --------------------------------------------
 
-### Problem {#_problem_45}
+### Problem
 
 You want to make histograms of multiple groups of data.
 
-### Solution {#_solution_45}
+### Solution
 
 Use geom\$\$\_\$\$histogram() anduse facets for each group, as shown in
 [figure\_title](#FIG_DISTRIBUTION_MULTI_HISTOGRAM_FACET):
@@ -219,11 +219,11 @@ difficult to see the distribution of each group.
 Making a Density Curve {#RECIPE_DISTRIBUTION_BASIC_DENSITY}
 ----------------------
 
-### Problem {#_problem_46}
+### Problem
 
 You want to make a kernel density curve.
 
-### Solution {#_solution_46}
+### Solution
 
 Use geom\$\$\_\$\$density()and map a continuous variable to x
 ([figure\_title](#FIG_DISTRIBUTION_DENSITY_BASIC)):
@@ -336,7 +336,7 @@ ggplot(faithful, aes(x=waiting, y=..density..)) +
 
 ![Density curve overlaid on a histogram](figs/rgcb_0611.png)
 
-### See Also {#_see_also_36}
+### See Also
 
 See [section\_title](#RECIPE_DISTRIBUTION_VIOLIN) for information on
 violin plots, which are another way of representing density curves and
@@ -345,11 +345,11 @@ may be more appropriate for comparing multipledistributions.
 Making Multiple Density Curves from Grouped Data {#RECIPE_DISTRIBUTION_MULTI_DENSITY}
 ------------------------------------------------
 
-### Problem {#_problem_47}
+### Problem
 
 You want to make density curves of multiple groups of data.
 
-### Solution {#_solution_47}
+### Solution
 
 Use geom\$\$\_\$\$density(), andmap the grouping variable to an
 aesthetic like colour or fill, as shown in
@@ -445,11 +445,11 @@ ggplot(birthwt1, aes(x=bwt, y=..density..)) +
 Making a Frequency Polygon {#RECIPE_DISTRIBUTION_FREQPOLY}
 --------------------------
 
-### Problem {#_problem_48}
+### Problem
 
 You want to make a frequency polygon.
 
-### Solution {#_solution_48}
+### Solution
 
 Use geom\$\$\_\$\$freqpoly()
 ([figure\_title](#FIG_DISTRIBUTION_FREQPOLY)):
@@ -484,7 +484,7 @@ binsize <- diff(range(faithful$waiting))/15
 ggplot(faithful, aes(x=waiting)) + geom_freqpoly(binwidth=binsize)
 ```
 
-### See Also {#_see_also_37}
+### See Also
 
 Histograms display the same information, but with bars instead of lines.
 See [section\_title](#RECIPE_DISTRIBUTION_BASIC_HIST).
@@ -492,11 +492,11 @@ See [section\_title](#RECIPE_DISTRIBUTION_BASIC_HIST).
 Making a Basic Box Plot {#RECIPE_DISTRIBUTION_BASIC_BOXPLOT}
 -----------------------
 
-### Problem {#_problem_49}
+### Problem
 
 You want to make a box (or box-and-whiskers) plot.
 
-### Solution {#_solution_49}
+### Solution
 
 Use geom\$\$\_\$\$boxplot(),mapping a continuous variable to y and a
 discrete variable to x
@@ -587,12 +587,12 @@ ggplot(birthwt, aes(x=1, y=bwt)) + geom_boxplot() +
 Adding Notches to a Box Plot {#RECIPE_DISTRIBUTION_BOXPLOT_NOTCH}
 ----------------------------
 
-### Problem {#_problem_50}
+### Problem
 
 You want to add notches to a box plot to assess whether the medians are
 different.
 
-### Solution {#_solution_50}
+### Solution
 
 Use geom\$\$\_\$\$boxplot() and set notch=TRUE
 ([figure\_title](#FIG_DISTRIBUTION_BOXPLOT_NOTCH)):
@@ -625,11 +625,11 @@ the hinges, but it can look strange in more extreme cases.
 Adding Means to a Box Plot {#RECIPE_DISTRIBUTION_BOXPLOT_MEAN}
 --------------------------
 
-### Problem {#_problem_51}
+### Problem
 
 You want to add markers for the mean to a box plot.
 
-### Solution {#_solution_51}
+### Solution
 
 Use stat\$\$\_\$\$summary(). Themean is often shown with a diamond, so
 we'll use shape 23 with a white fill. We'll also make the
@@ -654,12 +654,12 @@ will be about the same, but for skewed data these values will differ.
 Making a Violin Plot {#RECIPE_DISTRIBUTION_VIOLIN}
 --------------------
 
-### Problem {#_problem_52}
+### Problem
 
 You want to make a violin plot to compare density estimates of different
 groups.
 
-### Solution {#_solution_52}
+### Solution
 
 Use geom\$\$\_\$\$violin()
 ([figure\_title](#FIG_DISTRIBUTION_VIOLIN_BASIC)):
@@ -745,7 +745,7 @@ p + geom_violin(adjust=.5)
 ![Left: violin plot with more smoothing; right: with less
 smoothing](figs/rgcb_0626.png)
 
-### See Also {#_see_also_38}
+### See Also
 
 To create a traditional density curve, see
 [section\_title](#RECIPE_DISTRIBUTION_BASIC_DENSITY).
@@ -756,11 +756,11 @@ To use different point shapes, see
 Making a Dot Plot {#RECIPE_DISTRIBUTION_DOT_PLOT}
 -----------------
 
-### Problem {#_problem_53}
+### Problem
 
 You want to make a Wilkinson dot plot, which shows each data point.
 
-### Solution {#_solution_53}
+### Solution
 
 Use geom\$\$\_\$\$dotplot(). Forthis example
 ([figure\_title](#FIG_DISTRIBUTION_DOTPLOT_BASIC)), we'll use a
@@ -835,7 +835,7 @@ p + geom_dotplot(binwidth=.25, stackdir="centerwhole")
 ![Left: dot plot with stackdir="center"; right: with
 stackdir="centerwhole"](figs/rgcb_0630.png)
 
-### See Also {#_see_also_39}
+### See Also
 
 Leland Wilkinson, "Dot Plots," *The American Statistician* 53
 (1999): 276–281,
@@ -844,11 +844,11 @@ Leland Wilkinson, "Dot Plots," *The American Statistician* 53
 Making Multiple Dot Plots for Grouped Data {#RECIPE_DISTRIBUTION_DOT_PLOT_MULTI}
 ------------------------------------------
 
-### Problem {#_problem_54}
+### Problem
 
 You want to make multiple dot plots from grouped data.
 
-### Solution {#_solution_54}
+### Solution
 
 To compare multiple groups, it's possible to stack the dots along
 the y-axis, and group them along the x-axis, by setting binaxis="y". For
@@ -906,11 +906,11 @@ ggplot(heightweight, aes(x=sex, y=heightIn)) +
 Making a Density Plot of Two-Dimensional Data {#RECIPE_DISTRIBUTION_DENSITY2D}
 ---------------------------------------------
 
-### Problem {#_problem_55}
+### Problem
 
 You want to plot the density of two-dimensional (2D) data.
 
-### Solution {#_solution_55}
+### Solution
 
 Use stat\$\$\_\$\$density2d(). Thismakes a 2D kernel density estimate
 from the data. First we'll plot the density contour along with the
@@ -983,7 +983,7 @@ p + stat_density2d(aes(fill=..density..), geom="raster",
 ![Density plot with a smaller bandwidth in the x and y
 directions](figs/rgcb_0636.png)
 
-### See Also {#_see_also_40}
+### See Also
 
 The relationship between stat\$\$\_\$\$density2d() and
 stat\$\$\_\$\$bin2d() is the same as the relationship between their
