@@ -1,31 +1,13 @@
 Introduction to ggplot2 {#CHAPTER_GGPLOT2}
 =======================
 
-Most of the recipes in this book involve the ggplot2 package, written
-byHadley Wickham. ggplot2 has only been around for a few years, but in
-that short time it has attracted many users in the R community because
-of its versatility, clear and consistent interface, and beautiful
-output.
+Most of the recipes in this book involve the ggplot2 package, created by Hadley Wickham. ggplot2 has only been around for a few years, but in that short time it has attracted many users in the R community because of its versatility, clear and consistent interface, and beautiful output.
 
-ggplot2 takes a different approach to graphics than other graphing
-packages in R. It gets its name from Leland Wilkinson's *grammar of
-graphics*, which provides a formal, structured perspective on how to
-describe data graphics.
+ggplot2 takes a different approach to graphics than other graphing packages in R. It gets its name from Leland Wilkinson's *grammar of graphics*, which provides a formal, structured perspective on how to describe data graphics.
 
-Even though this book deals largely with ggplot2, I don't mean to
-say that it's the be-all and end-all of graphics in R. For example,
-I sometimes find it faster and easier to inspect and explore data with
-R's base graphics, especially when the data isn't already
-structured properly for use with ggplot2. There are some things that
-ggplot2 can't do, or can't do as well as other graphing
-packages. There are other things that ggplot2 can do, but that
-specialized packages are better suited to handling. For most purposes,
-though, I believe that ggplot2 gives the best return on time invested,
-and it provides beautiful, publication-ready results.
+Even though this book deals largely with ggplot2, I don't mean to say that it's the be-all and end-all of graphics in R. For example, I sometimes find it faster and easier to inspect and explore data with R's base graphics, especially when the data isn't already structured properly for use with ggplot2. There are some things that ggplot2 can't do, or can't do as well as other graphing packages. There are other things that ggplot2 can do, but that specialized packages are better suited to handling. For most purposes, though, I believe that ggplot2 gives the best return on time invested, and it provides beautiful, publication-ready results.
 
-Another excellent package for general-purpose graphs is lattice,
-byDeepyan Sarkar, which is an implementation of *trellis* graphics. It
-is included as part of the base installation of R.
+Another excellent package for general-purpose graphs is lattice, by Deepyan Sarkar, which is an implementation of *trellis* graphics. It is included as part of the base installation of R.
 
 If you want a deeper understanding of ggplot2, read on!
 
