@@ -41,6 +41,10 @@ mreplace -e "RSQUO" "'" *.Rmd
 mreplace -e "RDQUO" '"' *.Rmd
 mreplace -e "LDQUO" '"' *.Rmd
 
+# Rename FIG_X_Y to FIG-X-Y. knitr doesn't like underscores for numbered figure
+# refs. Run this repeatedly until no more are found.
+mreplace -e "FIG([^ \n]*?)_" "FIG\\1-" *.Rmd
+
 # Remove Problem/Solution/See Also labels
 mreplace " +{#_(problem|solution|see_also)_\\d+}" "" *.Rmd
 ```

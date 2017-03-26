@@ -46,7 +46,7 @@ have NA values. To deal with this, you will probably want to use the
 option use="complete.obs" or use="pairwise.complete.obs".
 
 To graph the correlation matrix
-([figure\_title](#FIG_MISCGRAPH_CORRMATRIX_BASIC)), we'll use the
+([figure\_title](#FIG-MISCGRAPH-CORRMATRIX-BASIC)), we'll use the
 corrplot package, which first must be installed with
 install.packages("corrplot"):
 
@@ -63,7 +63,7 @@ corrplot(mcor)
 The corrplot() function hasmany, many options. Here is an example of how
 to make a correlation matrix with colored squares and black labels,
 rotated 45 degrees along the top
-([figure\_title](#FIG_MISCGRAPH_CORRMATRIX_SHADE)):
+([figure\_title](#FIG-MISCGRAPH-CORRMATRIX-SHADE)):
 
 ```{r}
 corrplot(mcor, method="shade", shade.col=NA, tl.col="black", tl.srt=45)
@@ -78,7 +78,7 @@ a lighter palette so that the text is readable, and we'll remove the
 color legend, since it's redundant. We'll also order the items
 so that correlated items are closer together, using the order="AOE"
 (angular order of eigenvectors) option. The result is shown in
-[figure\_title](#FIG_MISCGRAPH_CORRMATRIX_SHADE_NUM):
+[figure\_title](#FIG-MISCGRAPH-CORRMATRIX-SHADE-NUM):
 
 ```{r}
 # Generate a lighter palette
@@ -147,7 +147,7 @@ You want to plot a function.
 Use stat\$\$\_\$\$function(). It's also necessary to give ggplot() a
 dummy data frame so that it will get the proper *x* range. In this
 example we'll use dnorm(), which gives the density of the normal
-distribution ([figure\_title](#FIG_MISCGRAPH_FUNCTION), left):
+distribution ([figure\_title](#FIG-MISCGRAPH-FUNCTION), left):
 
 ```{r}
 # The data frame is only used for setting the range
@@ -163,7 +163,7 @@ df=2](figs/rgcb_1304.png)
 
 Some functions take additional arguments. For example, dt(), the
 function for the density of the *t*-distribution, takes a parameter for
-degrees of freedom ([figure\_title](#FIG_MISCGRAPH_FUNCTION), right).
+degrees of freedom ([figure\_title](#FIG-MISCGRAPH-FUNCTION), right).
 These additional arguments can be passed to the function by putting them
 in a list and giving the list to args:
 
@@ -174,7 +174,7 @@ p + stat_function(fun=dt, args=list(df=2))
 It's also possible to define your own functions. It should take an
 *x* value for its first argument, and it should return a *y* value. In
 this example, we'll define a sigmoid function
-([figure\_title](#FIG_MISCGRAPH_FUNCTION_CUSTOM)):
+([figure\_title](#FIG-MISCGRAPH-FUNCTION-CUSTOM)):
 
 ```{r}
 myfun <- function(xvar) {
@@ -208,7 +208,7 @@ You want to shade part of the area under a function curve.
 
 Define a new wrapper function around your curve function, and replace
 out-of-range values with NA (), as shown in
-[figure\_title](#FIG_MISCGRAPH_FUNCTION_SHADE):
+[figure\_title](#FIG-MISCGRAPH-FUNCTION-SHADE):
 
 ```{r}
 # Return dnorm(x) for 0 < x < 2, and NA for all other x
@@ -278,7 +278,7 @@ function and simply pass it different arguments depending on the
 situation.
 
 If you look very, very closely at the graph in
-[figure\_title](#FIG_MISCGRAPH_FUNCTION_SHADE), you may see that the
+[figure\_title](#FIG-MISCGRAPH-FUNCTION-SHADE), you may see that the
 shaded region does not align exactly with the range we specified. This
 is because ggplot2 does a numeric approximation by calculating values at
 fixed intervals, and these intervals may not fall exactly within the
@@ -297,7 +297,7 @@ You want to create a network graph.
 
 Use the igraph package. To create a graph, pass a vector containing
 pairs of items to graph(), then plot the resulting object
-([figure\_title](#FIG_MISCGRAPH_GRAPH_BASIC)):
+([figure\_title](#FIG-MISCGRAPH-GRAPH-BASIC)):
 
 ```{r}
 # May need to install first, with install.packages("igraph")
@@ -338,7 +338,7 @@ plot(gu)
 It's also possible to create a graph from a data frame. The first
 two columns of the data frame are used, and each row specifies a
 connection between two nodes. In the next example
-([figure\_title](#FIG_MISCGRAPH_GRAPH_DIRECTED)), we'll use the
+([figure\_title](#FIG-MISCGRAPH-GRAPH-DIRECTED)), we'll use the
 madmen2 data set, which has this structure. We'll also use the
 Fruchterman-Reingold layout algorithm. The idea is that all the nodes
 have a magnetic repulsion from one another, but the edges between nodes
@@ -357,7 +357,7 @@ vertex.size=8, edge.arrow.size=0.5, vertex.label=NA)
 It's also possible to make a directed graph from a data frame. The
 madmen data set has only one row for each pairing, since direction
 doesn't matter for an undirected graph. This time we'll use a
-circle layout ([figure\_title](#FIG_MISCGRAPH_GRAPH_CIRCLE)):
+circle layout ([figure\_title](#FIG-MISCGRAPH-GRAPH-CIRCLE)):
 
 ```{r}
 g <- graph.data.frame(madmen, directed=FALSE)
@@ -389,7 +389,7 @@ You want to use text labels in a network graph.
 
 The vertices/nodes may have names, but these names are not used as
 labels by default. To set the labels, pass in a vector of names to
-vertex.label ([figure\_title](#FIG_MISCGRAPH_GRAPH_LABEL)):
+vertex.label ([figure\_title](#FIG-MISCGRAPH-GRAPH-LABEL)):
 
 library(igraph) library(gcookbook) \# For the data set \# Copy madmen
 and drop every other row m &lt;- madmen\[1:nrow(madmen) %% 2 == 1, \] g
@@ -430,7 +430,7 @@ plot(g)
 
 The properties of the edges can also be set, either with the E()
 function or by passing values to edge.*xxx* arguments
-([figure\_title](#FIG_MISCGRAPH_GRAPH_LABEL_EDGE)):
+([figure\_title](#FIG-MISCGRAPH-GRAPH-LABEL-EDGE)):
 
     # View the edges
     E(g)
@@ -479,7 +479,7 @@ as.numeric(cycle(presidents)) ) pres\_rating
 rating year quarter NA 1945 1 87 1945 2 82 1945 3 ... 25 1974 2 24 1974
 3 24 1974 4
 Now we can make the plot using geom\$\$\_\$\$tile() or
-geom\$\$\_\$\$raster() ([figure\_title](#FIG_MISCGRAPH_HEATMAP)). Simply
+geom\$\$\_\$\$raster() ([figure\_title](#FIG-MISCGRAPH-HEATMAP)). Simply
 map one variable to x, one to y, and one to fill:
 
 ```{r}
@@ -512,7 +512,7 @@ marks every four years along the x-axis, to correspond with each
 presidential term. We'll also change the color scale using
 scale\$\$\_\$\$fill\$\$\_\$\$gradient2(), which lets you specify a
 midpoint color and the two colors at the low and high ends
-([figure\_title](#FIG_MISCGRAPH_HEATMAP_CUSTOM)):
+([figure\_title](#FIG-MISCGRAPH-HEATMAP-CUSTOM)):
 
 ```{r}
 p + geom_tile() +
@@ -539,7 +539,7 @@ You want to create a three-dimensional (3D) scatter plot.
 
 We'll use the rgl package, which provides an interface to the OpenGL
 graphics library for 3D graphics. To create a 3D scatter plot, as in
-[figure\_title](#FIG_MISCGRAPH_3D_SCATTER), use plot3d() and pass in a
+[figure\_title](#FIG-MISCGRAPH-3D-SCATTER), use plot3d() and pass in a
 data frame where the first three columns represent *x*, *y*, and *z*
 coordinates, or pass in three vectors representing the *x*, *y*, and *z*
 coordinates.
@@ -569,7 +569,7 @@ it's often better to use a two-dimensional representation of the
 data. That said, there are things that can help make a 3D scatter plot
 easier to understand.
 
-In [figure\_title](#FIG_MISCGRAPH_3D_SCATTER2), we'll add vertical
+In [figure\_title](#FIG-MISCGRAPH-3D-SCATTER2), we'll add vertical
 segments to help give a sense of the spatial positions of the points:
 
 ```{r}
@@ -592,7 +592,7 @@ segments3d(interleave(mtcars$wt,   mtcars$wt),
 point](figs/rgcb_1315.png)
 
 It's possible to tweak the appearance of the background and the
-axes. In [figure\_title](#FIG_MISCGRAPH_3D_SCATTER3), we change the
+axes. In [figure\_title](#FIG-MISCGRAPH-3D-SCATTER3), we change the
 number of tick marks and add tick marks and axis labels to the specified
 sides:
 
@@ -687,7 +687,7 @@ interleave <- function(v1, v2)  as.vector(rbind(v1,v2))
 With these utility functions defined, we can make a linear model from
 the data and plot it as a mesh along with the data, using the
 surface3d() function, as shown in
-[figure\_title](#FIG_MISCGRAPH_3D_SCATTER_MODEL):
+[figure\_title](#FIG-MISCGRAPH-3D-SCATTER-MODEL):
 
 ```{r}
 library(rgl)
@@ -727,7 +727,7 @@ surface3d(mpgrid_list$wt, mpgrid_list$disp, mpgrid_list$mpg,
 ### Discussion {#_discussion_109}
 
 We can tweak the appearance of the graph, as shown in
-[figure\_title](#FIG_MISCGRAPH_3D_SCATTER_MODEL2). We'll add each of
+[figure\_title](#FIG-MISCGRAPH-3D-SCATTER-MODEL2). We'll add each of
 the components of the graph separately:
 
 ```{r}
@@ -946,7 +946,7 @@ By default the scale() function scales each column relative to its
 standard deviation, but other methods may be used.
 
 Finally, we're ready to make the dendrogram, as shown in
-[figure\_title](#FIG_MISCGRAPH_DENDROGRAM):
+[figure\_title](#FIG-MISCGRAPH-DENDROGRAM):
 
 ```{r}
 hc <- hclust(dist(c3))
@@ -974,7 +974,7 @@ First, we normalized the data using scale() with its default settings.
 You can scale your data differently, or not at all. (With this data set,
 *not* scaling the data will lead to GDP overwhelming the other
 variables, as shown in
-[figure\_title](#FIG_MISCGRAPH_DENDROGRAM_UNSCALED).)
+[figure\_title](#FIG-MISCGRAPH-DENDROGRAM-UNSCALED).)
 
 ![Dendrogram with unscaled data—notice the much larger Height values,
 which are largely due to the unscaled GDP values](figs/rgcb_1320.png)
@@ -1019,7 +1019,7 @@ is the wind speed.
 The height (z) ranges from 0.035 km to 18.035 km. For this example,
 we'll just use the lowest slice of data.
 
-To draw the vectors ([figure\_title](#FIG_MISCGRAPH_VECTOR)), we'll
+To draw the vectors ([figure\_title](#FIG-MISCGRAPH-VECTOR)), we'll
 use geom\$\$\_\$\$segment(). Each segment has a starting point and an
 ending point. We'll use the x and y values as the starting points
 for each segment, then add a fraction of the vx and vy values to get the
@@ -1064,7 +1064,7 @@ islicesub <- subset(islice, x %in% keepx  &  y %in% keepy)
 
 Now that we've taken a subset of the data, we can plot it, with
 arrowheads, as shown in
-[figure\_title](#FIG_MISCGRAPH_VECTORFIELD_ARROW):
+[figure\_title](#FIG-MISCGRAPH-VECTORFIELD-ARROW):
 
 ```{r}
 # Need to load grid for arrow() function
@@ -1085,7 +1085,7 @@ is proportional to their length. This could somewhat distort the
 interpretation of the data. To mitigate this effect, it may also be
 useful to map the speed to other properties, like size (line thickness),
 alpha, or colour. Here, we'll map speed to alpha
-([figure\_title](#FIG_MISCGRAPH_VECTORFIELD_AES), left):
+([figure\_title](#FIG-MISCGRAPH-VECTORFIELD-AES), left):
 
 ```{r}
 # The existing 'speed' column includes the z component. We'll calculate
@@ -1100,7 +1100,7 @@ ggplot(islicesub, aes(x=x, y=y)) +
 
 Next, we'll map speed to colour. We'll also add a map of the
 United States and zoom in on the area of interest, as shown in the graph
-on the right in [figure\_title](#FIG_MISCGRAPH_VECTORFIELD_AES),using
+on the right in [figure\_title](#FIG-MISCGRAPH-VECTORFIELD-AES),using
 coord\$\$\_\$\$cartesian() (without this, the entire USA will be
 displayed):
 
@@ -1122,7 +1122,7 @@ mapped to colour](figs/rgcb_1323.png)
 
 The isabel data set has three-dimensional data, so we can also make a
 faceted graph of the data, as shown in
-[figure\_title](#FIG_MISCGRAPH_VECTORFIELD_FACET). Because each facet is
+[figure\_title](#FIG-MISCGRAPH-VECTORFIELD-FACET). Because each facet is
 small, we will use a sparser subset than before:
 
 ```{r}
@@ -1162,7 +1162,7 @@ distribution to a theoretical distribution.
 
 Use qqnorm() to compare to a normal distribution. Give qqnorm() a vector
 of numerical values, and add a theoretical distribution line with
-qqline() ([figure\_title](#FIG_MISCGRAPH_QQ)):
+qqline() ([figure\_title](#FIG-MISCGRAPH-QQ)):
 
 ```{r}
 library(gcookbook) # For the data set
@@ -1206,7 +1206,7 @@ of a data set.
 
 ### Solution
 
-Use stat\$\$\_\$\$ecdf() ([figure\_title](#FIG_MISCGRAPH_ECDF)):
+Use stat\$\$\_\$\$ecdf() ([figure\_title](#FIG-MISCGRAPH-ECDF)):
 
 ```{r}
 library(gcookbook) # For the data set
@@ -1253,7 +1253,7 @@ dimnames(UCBAdmissions)
 \$Dept \[1\] "A" "B" "C" "D" "E" "F"
 The three dimensions are Admit, Gender, and Dept. To visualize the
 relationships between the variables
-([figure\_title](#FIG_MISCGRAPH_MOSAIC)), use mosaic() and pass it a
+([figure\_title](#FIG-MISCGRAPH-MOSAIC)), use mosaic() and pass it a
 formula with the variables that will be used to split up the data:
 
 ```{r}
@@ -1277,7 +1277,7 @@ splitting order may reveal some other interesting information.
 
 Another way of looking at the data is to split first by department, then
 gender, then admission status, as in
-[figure\_title](#FIG_MISCGRAPH_MOSAIC2). This makes the admission status
+[figure\_title](#FIG-MISCGRAPH-MOSAIC2). This makes the admission status
 the last variable that is partitioned, so that *after* partitioning by
 department and gender, the admitted and rejected cells for each group
 are right next to each other:
@@ -1304,8 +1304,8 @@ directions is because, in this particular example, it makes it easy to
 compare the male and female groups within each department.
 
 We can also use different splitting directions, as shown in Figures
-[figure\_title](#FIG_MISCGRAPH_MOSAIC3) and
-[figure\_title](#FIG_MISCGRAPH_MOSAIC4):
+[figure\_title](#FIG-MISCGRAPH-MOSAIC3) and
+[figure\_title](#FIG-MISCGRAPH-MOSAIC4):
 
 ```{r}
 # Another possible set of splitting directions
@@ -1336,19 +1336,19 @@ equal admission rates for men and women. The difference in overall
 admission rates was because women were more likely to apply to
 competitive departments with lower admission rates.
 
-In Figures [figure\_title](#FIG_MISCGRAPH_MOSAIC2) and
-[figure\_title](#FIG_MISCGRAPH_MOSAIC3), you can see that within each
+In Figures [figure\_title](#FIG-MISCGRAPH-MOSAIC2) and
+[figure\_title](#FIG-MISCGRAPH-MOSAIC3), you can see that within each
 department, admission rates were approximately equal between men and
 women. You can also see that departments with higher admission rates (A
 and B) were very imbalanced in the gender ratio of applicants: far more
 men applied to these departments than did women. As you can see,
 partitioning the data in different orders and directions can bring out
 different aspects of the data. In
-[figure\_title](#FIG_MISCGRAPH_MOSAIC3), as in
-[figure\_title](#FIG_MISCGRAPH_MOSAIC2), it’s easy to compare male and
+[figure\_title](#FIG-MISCGRAPH-MOSAIC3), as in
+[figure\_title](#FIG-MISCGRAPH-MOSAIC2), it’s easy to compare male and
 female admission rates within each department and across departments.
 Splitting Dept vertically, Gender horizontally, and Admit horizontally,
-as in [figure\_title](#FIG_MISCGRAPH_MOSAIC4), makes it difficult to
+as in [figure\_title](#FIG-MISCGRAPH-MOSAIC4), makes it difficult to
 compare male and female admission rates within each department, but it
 is easy to compare male and female application rates across departments.
 
@@ -1370,7 +1370,7 @@ You want to make a pie chart.
 ### Solution
 
 Use the pie() function. In this example
-([figure\_title](#FIG_MISCGRAPH_PIE)), we'll use the survey data set
+([figure\_title](#FIG-MISCGRAPH-PIE)), we'll use the survey data set
 from the MASS library:
 
 library(MASS) \# For the data set \# Get a table of how many cases are
@@ -1410,7 +1410,7 @@ latitude and longitude will be drawn on a Cartesian coordinate plane,
 but you can use coord\$\$\_\$\$map() and specify a projection. The
 default projection is "mercator", which, unlike the Cartesian plane, has
 a progressively changing spacing for latitude lines
-([figure\_title](#FIG_MISCGRAPH_MAP)):
+([figure\_title](#FIG-MISCGRAPH-MAP)):
 
 ```{r}
 library(maps) # For map data
@@ -1483,7 +1483,7 @@ sort(unique(world\_map\$region))
 Bank" "Western Sahara" "Yemen" "Yugoslavia" "Zaire" "Zambia" "Zimbabwe"
 \# You might have noticed that it's a little out of date!
 It's possible to get data for specific regions from a particular map
-([figure\_title](#FIG_MISCGRAPH_MAP_REGIONS)):
+([figure\_title](#FIG-MISCGRAPH-MAP-REGIONS)):
 
 ```{r}
 east_asia <- map_data("world", region=c("Japan", "China", "North Korea",
@@ -1499,7 +1499,7 @@ ggplot(east_asia, aes(x=long, y=lat, group=group, fill=region)) +
 If there is a separate map available for a region, such as nz (New
 Zealand), that map data will be at a higher resolution than if you were
 to extract it from the world map, as shown in
-[figure\_title](#FIG_MISCGRAPH_MAP_RESOLUTION):
+[figure\_title](#FIG-MISCGRAPH-MAP-RESOLUTION):
 
 ```{r}
 # Get New Zealand data from world map
@@ -1564,7 +1564,7 @@ alabama -87.46201 30.38968 1 1 &lt;NA&gt; 13.2 236 58 21.2 alabama
 13.2 236 58 21.2 alabama -87.58806 30.32665 1 6 &lt;NA&gt; 13.2 236 58
 21.2
 Once the data is in the correct format, it can be plotted
-([figure\_title](#FIG_MISCGRAPH_CHOROPLETH)), mapping one of the columns
+([figure\_title](#FIG-MISCGRAPH-CHOROPLETH)), mapping one of the columns
 with data values to fill:
 
 ```{r}
@@ -1580,7 +1580,7 @@ ggplot(crime_map, aes(x=long, y=lat, group=group, fill=Assault)) +
 The preceding example used the default color scale, which goes from dark
 to light blue. If you want to show how the values diverge from some
 middle value, you can use scale\$\$\_\$\$fill\$\$\_\$\$gradient2(), as
-shown in [figure\_title](#FIG_MISCGRAPH_CHOROPLETH_MIDPOINT):
+shown in [figure\_title](#FIG-MISCGRAPH-CHOROPLETH-MIDPOINT):
 
 ```{r}
 ggplot(crimes, aes(map_id = state, fill=Assault)) +
@@ -1597,7 +1597,7 @@ The previous example mapped continuous values to fill, but we could just
 as well use discrete values. It's sometimes easier to interpret the
 data if the values are discretized. For example, we can categorize the
 values into quantiles and show those quantiles, as in
-[figure\_title](#FIG_MISCGRAPH_CHOROPLETH_DISCRETE):
+[figure\_title](#FIG-MISCGRAPH-CHOROPLETH-DISCRETE):
 
 \# Find the quantile bounds qa &lt;- quantile(crimes\$Assault, c(0, 0.2,
 0.4, 0.6, 0.8, 1.0)) qa
@@ -1626,7 +1626,7 @@ and region. In the value data frame, there must be a column that is
 matched to the region column in the map data frame, and this column is
 specified by mapping it to the map\$\$\_\$\$id aesthetic. For example,
 this code will have the same output as the first example
-([figure\_title](#FIG_MISCGRAPH_CHOROPLETH)):
+([figure\_title](#FIG-MISCGRAPH-CHOROPLETH)):
 
 ```{r}
 # The 'state' column in the crimes data is to be matched to the 'region' column
@@ -1681,7 +1681,7 @@ require(grid) # Needed for unit() function
 }
 ```
 
-Then add it to the map ([figure\_title](#FIG_MISCGRAPH_MAP_BACKGROUND)).
+Then add it to the map ([figure\_title](#FIG-MISCGRAPH-MAP-BACKGROUND)).
 In this example, we'll add it to one of the choropleths we created
 in [section\_title](#RECIPE_MISCGRAPH_CHOROPLETH):
 
@@ -1712,7 +1712,7 @@ ggplot(crimes, aes(map_id = state, fill=Assault_q)) +
 In some maps, it's important to include contextual information such
 as the latitude and longitude. In others, this information is
 unimportant and distracts from the information that's being
-conveyed. In [figure\_title](#FIG_MISCGRAPH_MAP_BACKGROUND), it's
+conveyed. In [figure\_title](#FIG-MISCGRAPH-MAP-BACKGROUND), it's
 unlikely that viewers will care about the latitude and longitude of the
 states. They can probably identify the states by shape and relative
 position, and even if they can't, having the latitude and longitude
@@ -1729,7 +1729,7 @@ You want to create a geographical map from an Esri shapefile.
 
 Load the shapefile using readShapePoly() from the maptools package,
 convert it to a data frame with fortify(), then plot it
-([figure\_title](#FIG_MISCGRAPH_MAP_SHAPEFILE)):
+([figure\_title](#FIG-MISCGRAPH-MAP-SHAPEFILE)):
 
 ```{r}
 library(maptools)

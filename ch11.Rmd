@@ -27,7 +27,7 @@ variables on which to split.
 
 With facet\$\$\_\$\$grid(), you can specify a variable to split the data
 into vertical subpanels, and another variable to split it into
-horizontal subpanels ([figure\_title](#FIG_FACET_FACET_GRID)):
+horizontal subpanels ([figure\_title](#FIG-FACET-FACET-GRID)):
 
 ```{r}
 # The base plot
@@ -49,7 +49,7 @@ variables](figs/rgcb_1101.png)
 
 With facet\$\$\_\$\$wrap(), the subplots are laid out horizontally and
 wrap around, like words on a page, as in
-[figure\_title](#FIG_FACET_FACET_WRAP):
+[figure\_title](#FIG-FACET-FACET-WRAP):
 
 ```{r}
 # Facet on class
@@ -62,7 +62,7 @@ p + facet_wrap( ~ class)
 ### Discussion {#_discussion_92}
 
 With facet\$\$\_\$\$wrap(), the default is to use the same number of
-rows and columns. In [figure\_title](#FIG_FACET_FACET_WRAP), there were
+rows and columns. In [figure\_title](#FIG-FACET-FACET-WRAP), there were
 seven facets, and they fit into a 3 ×3 "square." To change this,
 you can pass a value for nrow or ncol:
 
@@ -94,7 +94,7 @@ You want subplots with different ranges or items on their axes.
 ### Solution
 
 Set the scales to "free\$\$\_\$\$x", "free\$\$\_\$\$y", or "free"
-([figure\_title](#FIG_FACET_FACET_FREE)):
+([figure\_title](#FIG-FACET-FACET-FREE)):
 
 ```{r}
 # The base plot
@@ -134,7 +134,7 @@ You want to change the text of facet labels.
 ### Solution
 
 Change the names of the factor levels
-([figure\_title](#FIG_FACET_LABEL_TEXT)):
+([figure\_title](#FIG-FACET-LABEL-TEXT)):
 
 ```{r}
 mpg2 <- mpg  # Make a copy of the original data
@@ -162,7 +162,7 @@ With facet\$\$\_\$\$grid() but not facet\$\$\_\$\$wrap(), at this time),
 it's possible to use a labeller function to set the labels. The
 labeller function label\$\$\_\$\$both() will print out both the name of
 the variable and the value of the variable in each facet
-([figure\_title](#FIG_FACET_LABEL_TEXT_LABELLER), left):
+([figure\_title](#FIG-FACET-LABEL-TEXT-LABELLER), left):
 
 ```{r}
 ggplot(mpg2, aes(x=displ, y=hwy)) + geom_point() +
@@ -171,7 +171,7 @@ ggplot(mpg2, aes(x=displ, y=hwy)) + geom_point() +
 
 Another useful labeller is label\$\$\_\$\$parsed(), which takes strings
 and treats them as R math expressions
-([figure\_title](#FIG_FACET_LABEL_TEXT_LABELLER), right):
+([figure\_title](#FIG-FACET-LABEL-TEXT-LABELLER), right):
 
 ```{r}
 mpg3 <- mpg
@@ -206,7 +206,7 @@ You want to change the appearance of facet labels and headers.
 
 With the theming system, set strip.text to control the text appearance
 and strip.background to control the background appearance
-([figure\_title](#FIG_FACET_LABEL_APPEARANCE)):
+([figure\_title](#FIG-FACET-LABEL-APPEARANCE)):
 
 ```{r}
 library(gcookbook)  # For the data set

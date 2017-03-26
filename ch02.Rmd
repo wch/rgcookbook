@@ -18,7 +18,7 @@ You want to create a scatter plot.
 
 ### Solution
 
-To make a scatter plot ([figure\_title](#FIG_QUICK_SCATTER_BASE)), use plot() and pass it a vector of *x* values followed by a vector of *y* values:
+To make a scatter plot ([figure\_title](#FIG-QUICK-SCATTER-BASE)), use `plot()` and pass it a vector of *x* values followed by a vector of *y* values:
 
 ```{r}
 plot(mtcars$wt, mtcars$mpg)
@@ -56,7 +56,7 @@ You want to create a line graph.
 
 ### Solution
 
-To make a line graph using plot() ([figure\_title](#FIG_QUICK_LINE_BASE), left), pass it a vector of *x* values and a vector of *y* values, and use type="l":
+To make a line graph using plot() ([figure\_title](#FIG-QUICK-LINE-BASE), left), pass it a vector of *x* values and a vector of *y* values, and use type="l":
 
 ```{r}
 plot(pressure$temperature, pressure$pressure, type="l")
@@ -64,7 +64,7 @@ plot(pressure$temperature, pressure$pressure, type="l")
 
 ![Left: line graph with base graphics; right: with points and another line](figs/rgcb_0203.png)
 
-To add points and/or multiple lines ([figure\_title](#FIG_QUICK_LINE_BASE), right), first call plot() for the first line, then add points with points() and additional lines with lines():
+To add points and/or multiple lines ([figure\_title](#FIG-QUICK-LINE-BASE), right), first call plot() for the first line, then add points with points() and additional lines with lines():
 
 ```{r}
 plot(pressure$temperature, pressure$pressure, type="l")
@@ -74,7 +74,7 @@ lines(pressure$temperature, pressure$pressure/2, col="red")
 points(pressure$temperature, pressure$pressure/2, col="red")
 ```
 
-With ggplot2, you can get a similar result using qplot() with geom="line" ([figure\_title](#FIG_QUICK_LINE_QPLOT)):
+With ggplot2, you can get a similar result using qplot() with geom="line" ([figure\_title](#FIG-QUICK-LINE-QPLOT)):
 
 ```{r}
 library(ggplot2)
@@ -110,7 +110,7 @@ You want to make a bar graph.
 
 ### Solution
 
-To make a bar graph of values ([figure\_title](#FIG_QUICK_BAR_BASE)), use barplot() and pass it a vector of values for the height of each bar and (optionally) a vector of labels for each bar. If the vector has names for the elements, the names will automatically be used as labels:
+To make a bar graph of values ([figure\_title](#FIG-QUICK-BAR-BASE)), use barplot() and pass it a vector of values for the height of each bar and (optionally) a vector of labels for each bar. If the vector has names for the elements, the names will automatically be used as labels:
 
 ```{r}
 barplot(BOD$demand, names.arg=BOD$Time)
@@ -130,21 +130,21 @@ Simply pass the table to barplot() to generate the graph of counts:
 barplot(table(mtcars$cyl))
 ```
 
-With the ggplot2 package, you can get a similar result using qplot() ([figure\_title](#FIG_QUICK_BAR_QPLOT)). To plot a bar graph of *values*, use geom="bar" and stat="identity". Notice the difference in the output when the *x* variable is continuous and when it is discrete:
+With the ggplot2 package, you can get a similar result using qplot() ([figure\_title](#FIG-QUICK-BAR-QPLOT)). To plot a bar graph of *values*, use geom="bar" and stat="identity". Notice the difference in the output when the *x* variable is continuous and when it is discrete:
 
 ```{r}
 library(ggplot2)
-qplot(BOD$Time, BOD$demand, geom="bar", stat="identity")
+# qplot(BOD$Time, BOD$demand, geom="bar", stat="identity")
 
 # Convert the x variable to a factor, so that it is treated as discrete
-qplot(factor(BOD$Time), BOD$demand, geom="bar", stat="identity")
+# qplot(factor(BOD$Time), BOD$demand, geom="bar", stat="identity")
 ```
 
 ![Left: bar graph of values with qplot() with continuous x variable;
 right: with x variable converted to a factor (notice that there is no
 entry for 6)](figs/rgcb_0206.png)
 
-qplot() can also be used to graph the *counts* in each category ([figure\_title](#FIG_QUICK_BAR_QPLOT_COUNT)). This is in fact the default way that ggplot2 creates bar graphs, and requires less typing than a bar graph of values. Once again, notice the difference between a continuous x-axis and a discrete one.
+qplot() can also be used to graph the *counts* in each category ([figure\_title](#FIG-QUICK-BAR-QPLOT-COUNT)). This is in fact the default way that ggplot2 creates bar graphs, and requires less typing than a bar graph of values. Once again, notice the difference between a continuous x-axis and a discrete one.
 
 ```{r}
 # cyl is continuous here
@@ -185,7 +185,7 @@ You want to view the distribution of one-dimensional data with a histogram.
 
 ### Solution
 
-To make a histogram ([figure\_title](#FIG_QUICK_HIST_BASE)), use hist() and pass it a vector of values:
+To make a histogram ([figure\_title](#FIG-QUICK-HIST-BASE)), use hist() and pass it a vector of values:
 
 ```{r}
 hist(mtcars$mpg)
@@ -197,7 +197,7 @@ hist(mtcars$mpg, breaks=10)
 ![Left: histogram with base graphics; right: with more bins. Notice that because the bins are narrower, there are fewer items in each bin.](figs/rgcb_0208.png)
 
 With the ggplot2 package, you can get a similar resultusing qplot()
-([figure\_title](#FIG_QUICK_HIST_QPLOT)):
+([figure\_title](#FIG-QUICK-HIST-QPLOT)):
 
 ```{r}
 qplot(mtcars$mpg)
@@ -230,7 +230,7 @@ You want to create a box plot for comparing distributions.
 
 ### Solution
 
-To make a box plot ([figure\_title](#FIG_QUICK_BOXPLOT_BASE)), use plot() and pass it a factor of *x* values and a vector of *y* values.  When *x* is a factor (as opposed to a numeric vector), it will automatically create a box plot:
+To make a box plot ([figure\_title](#FIG-QUICK-BOXPLOT-BASE)), use plot() and pass it a factor of *x* values and a vector of *y* values.  When *x* is a factor (as opposed to a numeric vector), it will automatically create a box plot:
 
 ```{r}
 plot(ToothGrowth$supp, ToothGrowth$len)
@@ -238,7 +238,7 @@ plot(ToothGrowth$supp, ToothGrowth$len)
 
 ![Left: box plot with base graphics; right: with multiple grouping variables](figs/rgcb_0210.png)
 
-If the two vectors are in the same data frame, you can also use formula syntax. With this syntax, you can combine two variables on the x-axis, as in [figure\_title](#FIG_QUICK_BOXPLOT_BASE):
+If the two vectors are in the same data frame, you can also use formula syntax. With this syntax, you can combine two variables on the x-axis, as in [figure\_title](#FIG-QUICK-BOXPLOT-BASE):
 
 ```{r}
 # Formula syntax
@@ -248,7 +248,7 @@ boxplot(len ~ supp, data = ToothGrowth)
 boxplot(len ~ supp + dose, data = ToothGrowth)
 ```
 
-With the ggplot2 package, you can get a similar resultusing qplot() ([figure\_title](#FIG_QUICK_BOXPLOT_QPLOT)), with geom="boxplot":
+With the ggplot2 package, you can get a similar resultusing qplot() ([figure\_title](#FIG-QUICK-BOXPLOT-QPLOT)), with geom="boxplot":
 
 ```{r}
 library(ggplot2)
@@ -265,7 +265,7 @@ qplot(supp, len, data=ToothGrowth, geom="boxplot")
 ggplot(ToothGrowth, aes(x=supp, y=len)) + geom_boxplot()
 ```
 
-It's also possible to make box plots for multiple variables, by combining the variables with interaction(), as in [figure\_title](#FIG_QUICK_BOXPLOT_QPLOT). In this case, the dose variable is numeric, so we must convert it to a factor to use it as a grouping variable:
+It's also possible to make box plots for multiple variables, by combining the variables with interaction(), as in [figure\_title](#FIG-QUICK-BOXPLOT-QPLOT). In this case, the dose variable is numeric, so we must convert it to a factor to use it as a grouping variable:
 
 ```{r}
 # Using three separate vectors
@@ -295,7 +295,7 @@ You want to plot a function curve.
 
 ### Solution
 
-To plot a function curve, as in [figure\_title](#FIG_QUICK_FUNCTION_BASE), use curve() and pass it an expression with the variable x:
+To plot a function curve, as in [figure\_title](#FIG-QUICK-FUNCTION-BASE), use curve() and pass it an expression with the variable x:
 
 ```{r}
 curve(x^3 - 5*x, from=-4, to=4)
@@ -315,7 +315,7 @@ curve(myfun(x), from=0, to=20)
 curve(1-myfun(x), add = TRUE, col = "red")
 ```
 
-With the ggplot2 package, you can get a similar resultusing qplot() ([figure\_title](#FIG_QUICK_FUNCTION_QPLOT)), by using stat="function" and geom="line" and passing it a function that takes a numeric vector as input and returns a numeric vector:
+With the ggplot2 package, you can get a similar resultusing qplot() ([figure\_title](#FIG-QUICK-FUNCTION-QPLOT)), by using stat="function" and geom="line" and passing it a function that takes a numeric vector as input and returns a numeric vector:
 
 ```{r}
 library(ggplot2)

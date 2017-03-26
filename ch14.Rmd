@@ -168,7 +168,7 @@ Normally, point objects drawn with the PDF device will be written as
 symbols from the Zapf Dingbats font. This can be problematic if you want
 to open the file in an editor like Illustrator or Inkscape; for example,
 points may appear as the letter *q*, as in
-[figure\_title](#FIG_OUTPUT_EDIT_VECTOR_DINGBATS), because that is the
+[figure\_title](#FIG-OUTPUT-EDIT-VECTOR-DINGBATS), because that is the
 corresponding letter for a solid bullet in Zapf Dingbats.
 
 ![Bad conversion of point symbols after opening in Inkscape—also notice
@@ -188,7 +188,7 @@ ggsave("myplot.pdf", width=4, height=4, useDingbats=FALSE)
 >
 > Inkscape might have some issues with fonts as well. You may have
 > noticed that the fonts in
-> [figure\_title](#FIG_OUTPUT_EDIT_VECTOR_DINGBATS) don't look quite
+> [figure\_title](#FIG-OUTPUT-EDIT-VECTOR-DINGBATS) don't look quite
 > right. This is because Inkscape (version 0.48) couldn't find
 > Helvetica, and substituted the font Bitstream Vera Sans instead. A
 > workaround is to copy the Helvetica font file to your personal font
@@ -245,7 +245,7 @@ pixels per inch (ppi). This resolution is suitable for displaying on a
 screen, but will look pixelated and jagged in print.
 
 For high-quality print output, use at least 300 ppi.
-[figure\_title](#FIG_OUTPUT_BITMAP_RES) shows portions of the same plot
+[figure\_title](#FIG-OUTPUT-BITMAP-RES) shows portions of the same plot
 at different resolutions. In this example, we'll use 300 ppi and
 create a 4 ×4-inch PNG file:
 
@@ -321,7 +321,7 @@ Changing the resolution affects the size (in pixels) of graphical
 objects like text, lines, and points. For example, a 6-by-6-inch image
 at 75 ppi has the same pixel dimensions as a 3-by-3-inch image at 150
 ppi, but the appearance will be different, as shown in
-[figure\_title](#FIG_OUTPUT_BITMAP_SIZE). Both of these images are
+[figure\_title](#FIG-OUTPUT-BITMAP-SIZE). Both of these images are
 450 ×450 pixels. When displayed on a computer screen, they may display
 at approximately the same size, as they dohere.
 
@@ -371,7 +371,7 @@ Sys.setenv(R_GSCMD = "C:/Program Files/gs/gs9.05/bin/gswin32c.exe")
 ```
 
 Finally, you can create a PDF file and embed fonts into it, as in
-[figure\_title](#FIG_OUTPUT_FONTS_PDF):
+[figure\_title](#FIG-OUTPUT-FONTS-PDF):
 
 ```{r}
 library(ggplot2)
@@ -461,7 +461,7 @@ loadfonts("win")
 ```
 
 Finally, you can create each output file or display graphs on screen, as
-in [figure\_title](#FIG_OUTPUT_FONTS_WIN):
+in [figure\_title](#FIG-OUTPUT-FONTS-WIN):
 
 ```{r}
 library(ggplot2)

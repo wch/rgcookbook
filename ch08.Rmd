@@ -18,7 +18,7 @@ You want to swap the x- and y-axes on a graph.
 ### Solution
 
 Use coord\$\$\_\$\$flip() to flip the axes
-([figure\_title](#FIG_AXES_SWAP_AXES)):
+([figure\_title](#FIG-AXES-SWAP-AXES)):
 
 ```{r}
 ggplot(PlantGrowth, aes(x=group, y=weight)) + geom_boxplot()
@@ -49,7 +49,7 @@ from bottom to top—but this conflicts with the normal way of reading,
 from top to bottom. Sometimes this is a problem, and sometimes it
 isn't. If the *x* variable is a factor, the order can be reversed by
 using scale\$\$\_\$\$x\$\$\_\$\$discrete() with limits=rev(levels(...)),
-as in [figure\_title](#FIG_AXES_SWAP_AXES_REVLEVELS):
+as in [figure\_title](#FIG-AXES-SWAP-AXES-REVLEVELS):
 
 ```{r}
 ggplot(PlantGrowth, aes(x=group, y=weight)) + geom_boxplot() + coord_flip() +
@@ -74,7 +74,7 @@ You want to set the range (or limits) of an axis.
 ### Solution
 
 You can use xlim() or ylim() to set the minimum and maximum values of a
-continuous axis. [figure\_title](#FIG_AXES_RANGE) shows one graph with
+continuous axis. [figure\_title](#FIG-AXES-RANGE) shows one graph with
 the default *y* limits, and one with manually set *y* limits:
 
 ```{r}
@@ -139,7 +139,7 @@ change.
 
 With a coordinate transform, the data is not clipped; in essence, it
 zooms in or out to the specified range.
-[figure\_title](#FIG_AXES_RANGE_SCALE_COORD) shows the difference
+[figure\_title](#FIG-AXES-RANGE-SCALE-COORD) shows the difference
 between the two methods:
 
 ```{r}
@@ -154,7 +154,7 @@ coordinate transform](figs/rgcb_0804.png)
 
 Finally, it's also possible to *expand* the range in one direction,
 using expand\$\$\_\$\$limits()
-([figure\_title](#FIG_AXES_RANGE_EXPAND)). You can't use this to
+([figure\_title](#FIG-AXES-RANGE-EXPAND)). You can't use this to
 shrink the range, however:
 
 ```{r}
@@ -174,7 +174,7 @@ You want to reverse the direction of a continuous axis.
 ### Solution
 
 Use scale\$\$\_\$\$y\$\$\_\$\$reverseor
-scale\$\$\_\$\$x\$\$\_\$\$reverse ([figure\_title](#FIG_AXES_REVERSE)).
+scale\$\$\_\$\$x\$\$\_\$\$reverse ([figure\_title](#FIG-AXES-REVERSE)).
 The direction of an axis can also be reversed by specifying the limits
 in reversed order, with the maximum first, then the minimum:
 
@@ -194,7 +194,7 @@ scale\$\$\_\$\$y\$\$\_\$\$reverse() does not work with ylim. (The same
 is true for the x-axis properties.) If you want to reverse an axis *and*
 set its range, you must do it within the
 scale\$\$\_\$\$y\$\$\_\$\$reverse() statement, by setting the limits in
-reversed order ([figure\_title](#FIG_AXES_REVERSE_LIMITS)):
+reversed order ([figure\_title](#FIG-AXES-REVERSE-LIMITS)):
 
 ```{r}
 ggplot(PlantGrowth, aes(x=group, y=weight)) + geom_boxplot() +
@@ -225,7 +225,7 @@ scale\$\$\_\$\$y\$\$\_\$\$discrete().
 
 To manually set the order of items on the axis, specify limits with a
 vector of the levels in the desired order. You can also omit items with
-this vector, as shown in [figure\_title](#FIG_AXES_ORDER_MANUAL):
+this vector, as shown in [figure\_title](#FIG-AXES-ORDER-MANUAL):
 
 ```{r}
 p <- ggplot(PlantGrowth, aes(x=group, y=weight)) + geom_boxplot()
@@ -240,7 +240,7 @@ with only two items](figs/rgcb_0808.png)
 
 You can also use this method to display a subset of the items on the
 axis. This will show only ctrl and trt1
-([figure\_title](#FIG_AXES_ORDER_MANUAL), right):
+([figure\_title](#FIG-AXES-ORDER-MANUAL), right):
 
 ```{r}
 p + scale_x_discrete(limits=c("ctrl","trt1"))
@@ -248,7 +248,7 @@ p + scale_x_discrete(limits=c("ctrl","trt1"))
 
 To reverse the order, set limits=rev(levels(...)), and put the factor
 inside. This will reverse the order of the PlantGrowth\$group factor, as
-shown in [figure\_title](#FIG_AXES_ORDER_REV):
+shown in [figure\_title](#FIG-AXES-ORDER-REV):
 
 ```{r}
 p + scale_x_discrete(limits=rev(levels(PlantGrowth$group)))
@@ -271,7 +271,7 @@ You want to set the ratio at which the x- and y-axes are scaled.
 ### Solution
 
 Use coord\$\$\_\$\$fixed(). Thiswill result in a 1:1 scaling between the
-x- and y-axes, as shown in [figure\_title](#FIG_AXES_SCALE_EQUAL):
+x- and y-axes, as shown in [figure\_title](#FIG-AXES-SCALE-EQUAL):
 
 ```{r}
 library(gcookbook) # For the data set
@@ -293,7 +293,7 @@ have the same scaling.
 It's also helpful to set the tick spacing to be the same, bysetting
 breaks in scale\$\$\_\$\$y\$\$\_\$\$continuous() and
 scale\$\$\_\$\$x\$\$\_\$\$continuous() (also in
-[figure\_title](#FIG_AXES_SCALE_EQUAL)):
+[figure\_title](#FIG-AXES-SCALE-EQUAL)):
 
 ```{r}
 sp + coord_fixed() +
@@ -304,7 +304,7 @@ sp + coord_fixed() +
 If, instead of an equal ratio, you want some other fixed ratio between
 the axes, set the ratio parameter. With the marathon data, we might want
 the axis with half-marathon times stretched out to twice that of the
-axis with the marathon times ([figure\_title](#FIG_AXES_SCALE_HALF)).
+axis with the marathon times ([figure\_title](#FIG-AXES-SCALE-HALF)).
 We'll also add tick marks twice as often on the x-axis:
 
 ```{r}
@@ -327,7 +327,7 @@ You want to set where the tick marks appear on the axis.
 
 Usually ggplot() does agood job of deciding where to put the tick marks,
 but if you want to change them, set breaks in the scale
-([figure\_title](#FIG_AXES_SET_TICKS)):
+([figure\_title](#FIG-AXES-SET-TICKS)):
 
 ```{r}
 ggplot(PlantGrowth, aes(x=group, y=weight)) + geom_boxplot()
@@ -358,7 +358,7 @@ a tick mark for each item. For discrete axes, you can change the order
 of items or remove them by specifying the limits (see
 [section\_title](#RECIPE_AXIS_ORDER)). Setting breaks will change which
 of the levels are labeled, but will not remove them or change their
-order. [figure\_title](#FIG_AXES_SET_TICKS_DISCRETE) shows what happens
+order. [figure\_title](#FIG-AXES-SET-TICKS-DISCRETE) shows what happens
 when you set limits and breaks:
 
 ```{r}
@@ -385,7 +385,7 @@ You want to remove tick marks and labels.
 ### Solution
 
 To remove just the tick labels, as in
-[figure\_title](#FIG_AXES_SET_TICKS_NONE) (left), use theme(axis.text.y
+[figure\_title](#FIG-AXES-SET-TICKS-NONE) (left), use theme(axis.text.y
 = element\$\$\_\$\$blank()) (or do the same for axis.text.x). This will
 work for both continuous and categorical axes:
 
@@ -402,7 +402,7 @@ To remove the tick marks, use
 theme(axis.ticks=element\$\$\_\$\$blank()). This will remove the tick
 marks on both axes. (It's not possible to hide the tick marks on
 just one axis.) In this example, we'll hide all tick marks as well
-as the *y* tick labels ([figure\_title](#FIG_AXES_SET_TICKS_NONE),
+as the *y* tick labels ([figure\_title](#FIG-AXES-SET-TICKS-NONE),
 center):
 
 ```{r}
@@ -410,7 +410,7 @@ p + theme(axis.ticks = element_blank(), axis.text.y = element_blank())
 ```
 
 To remove the tick marks, the labels, and the grid lines, set breaks to
-NULL ([figure\_title](#FIG_AXES_SET_TICKS_NONE), right):
+NULL ([figure\_title](#FIG-AXES-SET-TICKS-NONE), right):
 
 ```{r}
 p + scale_y_continuous(breaks=NULL)
@@ -441,7 +441,7 @@ You want to change the text of tick labels.
 
 ### Solution
 
-Consider the scatter plot in [figure\_title](#FIG_AXES_TICK_LABEL),
+Consider the scatter plot in [figure\_title](#FIG-AXES-TICK-LABEL),
 where height is reported in inches:
 
 ```{r}
@@ -453,7 +453,7 @@ hwp <- ggplot(heightweight, aes(x=ageYear, y=heightIn)) +
 hwp
 ```
 
-To set arbitrary labels, as in [figure\_title](#FIG_AXES_TICK_LABEL)
+To set arbitrary labels, as in [figure\_title](#FIG-AXES-TICK-LABEL)
 (right), pass values to breaks and labels in the scale. One of the
 labels has anewline (\$\$\\\$\$n) character, which tells ggplot() to put
 a line break there:
@@ -493,7 +493,7 @@ footinch\_formatter(56:64)
 "4'8\\"" "4'9\\"" "4'10\\"" "4'11\\"" "5'0\\"" "5'1\\"" "5'2\\""
 "5'3\\"" "5'4\\""
 Now we can pass our function to the scale, using the labels parameter
-([figure\_title](#FIG_AXES_TICK_LABEL_FORMATTER)):
+([figure\_title](#FIG-AXES-TICK-LABEL-FORMATTER)):
 
 ```{r}
 hwp + scale_y_continuous(labels=footinch_formatter)
@@ -502,7 +502,7 @@ hwp + scale_y_continuous(labels=footinch_formatter)
 Here, the automatic tick marks were placed every five inches, but that
 looks a little off for this data. We can instead have ggplot() set tick
 marks every four inches, by specifying breaks
-([figure\_title](#FIG_AXES_TICK_LABEL_FORMATTER), right):
+([figure\_title](#FIG-AXES-TICK-LABEL-FORMATTER), right):
 
 ```{r}
 hwp + scale_y_continuous(breaks=seq(48, 72, 4), labels=footinch_formatter)
@@ -558,7 +558,7 @@ You want to change the appearance of tick labels.
 
 ### Solution
 
-In [figure\_title](#FIG_AXES_TICK_LABEL_ROTATE) (left), we've
+In [figure\_title](#FIG-AXES-TICK-LABEL-ROTATE) (left), we've
 manually set the labels to be long—long enough that they overlap:
 
 ```{r}
@@ -569,14 +569,14 @@ bp
 ```
 
 To rotate the text 90 degrees counterclockwise
-([figure\_title](#FIG_AXES_TICK_LABEL_ROTATE), middle), use:
+([figure\_title](#FIG-AXES-TICK-LABEL-ROTATE), middle), use:
 
 ```{r}
 bp + theme(axis.text.x = element_text(angle=90, hjust=1, vjust=.5))
 ```
 
 Rotating the text 30 degrees
-([figure\_title](#FIG_AXES_TICK_LABEL_ROTATE), right) uses less vertical
+([figure\_title](#FIG-AXES-TICK-LABEL-ROTATE), right) uses less vertical
 space and makes the labels easier to read without tilting your head:
 
 ```{r}
@@ -594,7 +594,7 @@ The hjust and vjust settings specify the horizontal alignment
 Besides rotation, other text properties, such as size, style
 (bold/italic/normal), and the font family (such as Times or Helvetica)
 can be set with element\$\$\_\$\$text(), as shown in
-[figure\_title](#FIG_AXES_TICK_LABEL_FONT):
+[figure\_title](#FIG-AXES-TICK-LABEL-FONT):
 
 ```{r}
 bp + theme(axis.text.x = element_text(family="Times", face="italic",
@@ -627,7 +627,7 @@ You want to change the text of axis labels.
 ### Solution
 
 Use xlab() or ylab() to change the text of the axis labels
-([figure\_title](#FIG_AXES_AXIS_LABEL)):
+([figure\_title](#FIG-AXES-AXIS-LABEL)):
 
 ```{r}
 library(gcookbook) # For the data set
@@ -672,7 +672,7 @@ scale\$\$\_\$\$y\$\$\_\$\$continuous(),
 scale\$\$\_\$\$x\$\$\_\$\$discrete(), and so on.
 
 You can also add line breaks with \$\$\\\$\$n, as shown in
-[figure\_title](#FIG_AXES_AXIS_LABEL_NEWLINE):
+[figure\_title](#FIG-AXES-AXIS-LABEL-NEWLINE):
 
 ```{r}
 hwp + scale_x_continuous(name="Age\n(years)")
@@ -693,7 +693,7 @@ For the x-axis label, use theme(axis.title.x=element\$\$\_\$\$blank()).
 For they-axis label, do the same with axis.title.y.
 
 We'll hide the x-axis in this example
-([figure\_title](#FIG_AXES_AXIS_LABEL_REMOVE)):
+([figure\_title](#FIG-AXES-AXIS-LABEL-REMOVE)):
 
 ```{r}
 p <- ggplot(PlantGrowth, aes(x=group, y=weight)) + geom_boxplot()
@@ -715,7 +715,7 @@ label, the axis label "weight" would be unnecessary.
 Another way to remove the axis label is to set it to an empty string.
 However, if you do it this way, the resulting graph will still have
 space reserved for the text, as shown in the graph on the right in
-[figure\_title](#FIG_AXES_AXIS_LABEL_REMOVE):
+[figure\_title](#FIG-AXES-AXIS-LABEL-REMOVE):
 
 ```{r}
 p + xlab("")
@@ -736,7 +736,7 @@ You want to change the appearance of axis labels.
 ### Solution
 
 To change the appearance of the x-axis label
-([figure\_title](#FIG_AXES_AXIS_LABEL_APPEARANCE)), use axis.title.x:
+([figure\_title](#FIG-AXES-AXIS-LABEL-APPEARANCE)), use axis.title.x:
 
     library(gcookbook) # For the data set
 
@@ -747,7 +747,7 @@ To change the appearance of the x-axis label
 ### Discussion {#_discussion_70}
 
 For the y-axis label, it might also be useful to display the text
-unrotated, as shown in [figure\_title](#FIG_AXES_AXIS_LABEL_YROTATE)
+unrotated, as shown in [figure\_title](#FIG-AXES-AXIS-LABEL-YROTATE)
 (left). The \$\$\\\$\$n in the label represents a newline character:
 
     hwp + ylab("Height\n(inches)") +
@@ -758,7 +758,7 @@ set axis.title.y but don't specify the angle, it will show in this
 orientation, with the top of the text pointing up. If you change any
 other properties of axis.title.y and want it to be displayed in its
 usual orientation, rotated 90 degrees, you must manually specify the
-angle ([figure\_title](#FIG_AXES_AXIS_LABEL_YROTATE), right):
+angle ([figure\_title](#FIG-AXES-AXIS-LABEL-YROTATE), right):
 
     hwp + ylab("Height\n(inches)") +
         theme(axis.title.y=element_text(angle=90, face="italic", colour="darkred",
@@ -784,7 +784,7 @@ sides of the graph.
 
 ### Solution
 
-Using themes, use axis.line ([figure\_title](#FIG_AXES_AXIS_LINE)):
+Using themes, use axis.line ([figure\_title](#FIG-AXES-AXIS-LINE)):
 
 ```{r}
 library(gcookbook) # For the data set
@@ -801,7 +801,7 @@ panel.border must also be made blank](figs/rgcb_0824.png)
 
 If you are starting with a theme that has a border around the plotting
 area, like theme\$\$\_\$\$bw(), you will also need to unset panel.border
-([figure\_title](#FIG_AXES_AXIS_LINE), right):
+([figure\_title](#FIG-AXES-AXIS-LINE), right):
 
 ```{r}
 p + theme_bw() +
@@ -810,8 +810,8 @@ p + theme_bw() +
 ```
 
 If the lines are thick, the ends will only partially overlap
-([figure\_title](#FIG_AXES_AXIS_LINE_LINEEND), left). To make them fully
-overlap ([figure\_title](#FIG_AXES_AXIS_LINE_LINEEND), right), set
+([figure\_title](#FIG-AXES-AXIS-LINE-LINEEND), left). To make them fully
+overlap ([figure\_title](#FIG-AXES-AXIS-LINE-LINEEND), right), set
 lineend="square":
 
 ```{r}
@@ -844,7 +844,7 @@ You want to use a logarithmic axis for a graph.
 ### Solution
 
 Use scale\$\$\_\$\$x\$\$\_\$\$log10() and/or
-scale\$\$\_\$\$y\$\$\_\$\$log10() ([figure\_title](#FIG_AXES_LOG)):
+scale\$\$\_\$\$y\$\$\_\$\$log10() ([figure\_title](#FIG-AXES-LOG)):
 
 ```{r}
 library(MASS) # For the data set
@@ -877,7 +877,7 @@ kg) of various mammals, with a few dinosaurs thrown in for comparison:
 Animals
 body brain Mountain beaver 1.350 8.1 Cow 465.000 423.0 Grey wolf 36.330
 119.5 ... Brachiosaurus 87000.000 154.5 Mole 0.122 3.0 Pig 192.000 180.0
-As shown in [figure\_title](#FIG_AXES_LOG), we can make a scatter plot
+As shown in [figure\_title](#FIG-AXES-LOG), we can make a scatter plot
 to visualize the relationship between brain and body mass. With the
 default linearly scaled axes, it's hard to make much sense of this
 graph. Because of a few very large animals, the rest of the animals get
@@ -900,7 +900,7 @@ R decides to format the output with scientific notation:
 10\^(-1:5)
 1e-01 1e+00 1e+01 1e+02 1e+03 1e+04 1e+05
 And then we can use those values as the breaks, as in
-[figure\_title](#FIG_AXES_LOG_BREAKS) (left):
+[figure\_title](#FIG-AXES-LOG-BREAKS) (left):
 
 ```{r}
 p + scale_x_log10(breaks=10^(-1:5)) + scale_y_log10(breaks=10^(0:3))
@@ -911,7 +911,7 @@ specified breaks; right: with exponents for the tick
 labels](figs/rgcb_0827.png)
 
 To instead use exponential notation for the break labels
-([figure\_title](#FIG_AXES_LOG_BREAKS), right), use the
+([figure\_title](#FIG-AXES-LOG-BREAKS), right), use the
 trans\$\$\_\$\$format() function, from the scales package:
 
 ```{r}
@@ -924,7 +924,7 @@ p + scale_x_log10(breaks=10^(-1:5),
 
 Another way to use log axes is to transform the data before mapping it
 to the *x* and *y* coordinates
-([figure\_title](#FIG_AXES_LOG_BEFORE_MAPPING)). Technically, the axes
+([figure\_title](#FIG-AXES-LOG-BEFORE-MAPPING)). Technically, the axes
 are still linear—it's the quantity that is log-transformed:
 
 ```{r}
@@ -934,7 +934,7 @@ ggplot(Animals, aes(x=log10(body), y=log10(brain), label=rownames(Animals))) +
 
 The previous examples used a log~10~ transformation, but it is possible
 to use other transformations, such as log~2~ and natural log, as shown
-in [figure\_title](#FIG_AXES_LOG_2_E). It's a bit more complicated
+in [figure\_title](#FIG-AXES-LOG-2-E). It's a bit more complicated
 to use these—scale\$\$\_\$\$x\$\$\_\$\$log10() is shorthand, but for
 these other log scales, we need to spell them out:
 
@@ -952,7 +952,7 @@ p + scale_x_continuous(trans = log_trans(),
 
 It's possible to use a log axis for just one axis. It is often
 useful to represent financial data this way, because it better
-represents proportional change. [figure\_title](#FIG_AXES_LOG_Y) shows
+represents proportional change. [figure\_title](#FIG-AXES-LOG-Y) shows
 Apple's stock price with linear and log y-axes. The default tick
 marks might not be spaced well for your graph; they can be set with the
 breaks in the scale:
@@ -986,7 +986,7 @@ axis.
 ### Solution
 
 Use annotation\$\$\_\$\$logticks()
-([figure\_title](#FIG_AXES_LOG_TICKS)):
+([figure\_title](#FIG-AXES-LOG-TICKS)):
 
 ```{r}
 library(MASS)   # For the data set
@@ -1017,7 +1017,7 @@ marks on a logarithmic scale. To get them to be the same, you can
 manually set the scale's minor\$\$\_\$\$breaks. To do this, we need
 to set them to log10(5\$\$\*\$\$10\$\$\^\$\$(minpow:maxpow)), which
 reduces to log10(5) \$\$+\$\$ minpow:maxpow
-([figure\_title](#FIG_AXES_LOG_TICKS_CUSTOM)):
+([figure\_title](#FIG-AXES-LOG-TICKS-CUSTOM)):
 
 ```{r}
 ggplot(Animals, aes(x=body, y=brain, label=rownames(Animals))) +
@@ -1063,7 +1063,7 @@ TimeUTC Temp WindAvg WindMax WindDir SpeedCat DirCat 0 3.54 9.52 10.39
 255 2345 6.22 18.54 23.91 259 &gt;20 255
 We'll plot a count of the number of samples at each SpeedCat and
 DirCat using geom\$\$\_\$\$histogram()
-([figure\_title](#FIG_AXES_POLAR)). We'll set binwidth to 15 and
+([figure\_title](#FIG-AXES-POLAR)). We'll set binwidth to 15 and
 make the origin of the histogram start at –7.5, so that each bin is
 centered around 0, 15, 30, etc.:
 
@@ -1088,7 +1088,7 @@ of 10–15, but they're barely visible.
 In this example we can make the plot a little prettier by reversing the
 legend, using a different palette, adding an outline, and setting the
 breaks to some more familiar numbers
-([figure\_title](#FIG_AXES_POLAR_CUSTOM)):
+([figure\_title](#FIG-AXES-POLAR-CUSTOM)):
 
 ```{r}
 ggplot(wind, aes(x=DirCat, fill=SpeedCat)) +
@@ -1130,7 +1130,7 @@ starting angle (usually vertical).
 We'll illustrate these issues with an example. The following code
 creates a data frame from the mdeaths time series data set and produces
 the graph shown on the left in
-[figure\_title](#FIG_AXES_POLAR_CONTINUOUS):
+[figure\_title](#FIG-AXES-POLAR-CONTINUOUS):
 
 \# Put mdeaths time series data into a data frame md &lt;-
 data.frame(deaths = as.numeric(mdeaths), month =
@@ -1149,7 +1149,7 @@ The first problem is that the data values (ranging from about 1000 to
 2100) are mapped to the radius such that the smallest data value is at
 radius 0. We'll fix this by setting the *y* (or *r*) limits from 0
 to the maximum data value, as shown in the graph on the right in
-[figure\_title](#FIG_AXES_POLAR_CONTINUOUS):
+[figure\_title](#FIG-AXES-POLAR-CONTINUOUS):
 
 ```{r}
 # With coord_polar and y (r) limits going to zero
@@ -1159,7 +1159,7 @@ p + coord_polar() + ylim(0, max(md$deaths))
 The next problem is that the lowest and highest month values, 1 and 12,
 are shown at the same angle. We'll fix this by setting the *x*
 limits from 0 to 12, creating the graph on the left in
-[figure\_title](#FIG_AXES_POLAR_CONTINUOUS2) (notice that using xlim()
+[figure\_title](#FIG-AXES-POLAR-CONTINUOUS2) (notice that using xlim()
 overridesthe scale\$\$\_\$\$x\$\$\_\$\$continuous() in p, so it no
 longer displays breaks for each month; see
 [section\_title](#RECIPE_AXES_RANGE) for more information):
@@ -1172,7 +1172,7 @@ There's one last issue, which is that the beginning and end
 aren't connected. To fix that, we need to modify our data frame by
 adding one row with a month of 0 that has the same value as the row with
 month 12. This will make the starting and ending points the same, as in
-the graph on the right in [figure\_title](#FIG_AXES_POLAR_CONTINUOUS2)
+the graph on the right in [figure\_title](#FIG-AXES-POLAR-CONTINUOUS2)
 (alternatively, we could add a row with month 13, instead of month 0):
 
 ```{r}
@@ -1224,7 +1224,7 @@ psavert : num 9.8 9.8 9 9.8 9.7 9.4 9 9.5 8.9 9.6 ... \$ uempmed : num
 4.5 4.7 4.6 4.9 4.7 4.8 5.1 4.5 4.1 4.6 ... \$ unemploy: int 2944 2945
 2958 3143 3066 3018 2878 3001 2877 2709 ...
 The column date is an object of class Date, and mapping it to x will
-produce the result shown in [figure\_title](#FIG_AXES_DATE):
+produce the result shown in [figure\_title](#FIG-AXES-DATE):
 
 ```{r}
 ggplot(economics, aes(x=date, y=psavert)) + geom_line()
@@ -1244,7 +1244,7 @@ Specifying the breaks is similar to with a numeric axis—the main
 difference is in specifying the sequence of dates to use. We'll use
 a subset of the economics data, ranging from mid-1992 to mid-1993. If
 breaks aren't specified, they will be automatically selected, as
-shown in [figure\_title](#FIG_AXES_DATE_BREAKS) (top):
+shown in [figure\_title](#FIG-AXES-DATE-BREAKS) (top):
 
 ```{r}
 # Take a subset of economics
@@ -1257,7 +1257,7 @@ p
 ```
 
 The breaks can be created by using the seq() function with starting and
-ending dates, and an interval ([figure\_title](#FIG_AXES_DATE_BREAKS),
+ending dates, and an interval ([figure\_title](#FIG-AXES-DATE-BREAKS),
 bottom):
 
 ```{r}
@@ -1275,7 +1275,7 @@ specified](figs/rgcb_0838.png)
 Notice that the formatting of the breaks changed. You can specify the
 formatting by using the date\$\$\_\$\$format() function from the scales
 package. Here we'll use "%Y %b", which results in a format like
-"1992 Jun", as shown in [figure\_title](#FIG_AXES_DATE_FORMAT):
+"1992 Jun", as shown in [figure\_title](#FIG-AXES-DATE-FORMAT):
 
 ```{r}
 library(scales)
@@ -1365,7 +1365,7 @@ be stored as a number representing the hour. Time can also be stored as
 a number representing the number of minutes or seconds from some
 starting time. In these cases, you map a value to the x- or y-axis and
 use a formatter to generate the appropriate axis labels
-([figure\_title](#FIG_AXES_TIME_REL)):
+([figure\_title](#FIG-AXES-TIME-REL)):
 
 ```{r}
 # Convert WWWusage time-series object to data frame
