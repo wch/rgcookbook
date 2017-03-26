@@ -26,7 +26,7 @@ You want to make a basic line graph.
 ### Solution
 
 Use ggplot() with geom\$\$\_\$\$line(), and specify what variables you
-mapped to x and y ([figure\_title](#FIG-LINE-GRAPH-BASIC-LINE)):
+mapped to x and y (Figure \@ref(fig:FIG-LINE-GRAPH-BASIC-LINE)):
 
 ```{r}
 ggplot(BOD, aes(x=Time, y=demand)) + geom_line()
@@ -45,7 +45,7 @@ Line graphs can be made with discrete (categorical) or continuous
 (numeric) variables on the x-axis. In the example here, the variable
 demand is numeric, but it could be treated as a categorical variable by
 converting it to a factorwith factor()
-([figure\_title](#FIG-LINE-GRAPH-BASIC-LINE-FACTOR)). When the *x*
+(Figure \@ref(fig:FIG-LINE-GRAPH-BASIC-LINE-FACTOR)). When the *x*
 variable is a factor, you must also use aes(group=1) to ensure that
 ggplot() knows that the data points belong together and should be
 connected with a line (see
@@ -72,7 +72,7 @@ better to have the *y* range start from zero. You can use ylim() to set
 the range, or you can use expand\$\$\_\$\$limits() to expand the range
 to include a value. This will set the range from zero to the maximum
 value of the demand column in BOD
-([figure\_title](#FIG-LINE-GRAPH-BASIC-LINE-YLIM)):
+(Figure \@ref(fig:FIG-LINE-GRAPH-BASIC-LINE-YLIM)):
 
 ```{r}
 # These have the same result
@@ -96,7 +96,7 @@ You want to add points to a line graph.
 
 ### Solution
 
-Add geom\$\$\_\$\$point() ([figure\_title](#FIG-LINE-GRAPH-POINT)):
+Add geom\$\$\_\$\$point() (Figure \@ref(fig:FIG-LINE-GRAPH-POINT)):
 
 ```{r}
 ggplot(BOD, aes(x=Time, y=demand)) + geom_line() + geom_point()
@@ -111,14 +111,14 @@ is helpful when the density of observations is low, or when the
 observations do not happen at regular intervals. For example, in the BOD
 data set there is no entry for Time=6, but this is not apparent from
 just a bare line graph (compare
-[figure\_title](#FIG-LINE-GRAPH-BASIC-LINE-YLIM) with
-[figure\_title](#FIG-LINE-GRAPH-POINT)).
+Figure \@ref(fig:FIG-LINE-GRAPH-BASIC-LINE-YLIM) with
+Figure \@ref(fig:FIG-LINE-GRAPH-POINT)).
 
 In the worldpop data set, the intervals between each data point are not
 consistent. In the far past, the estimates were not as frequent as they
 are in the more recent past. Displaying points on the graph illustrates
 when each estimate was made
-([figure\_title](#FIG-LINE-GRAPH-POINTS-INTERVAL)):
+(Figure \@ref(fig:FIG-LINE-GRAPH-POINTS-INTERVAL)):
 
 ```{r}
 library(gcookbook) # For the data set
@@ -156,7 +156,7 @@ You want to make a line graph with more than one line.
 
 In addition to the variables mapped to the x- and y-axes, map another
 (discrete) variable to colour or linetype, as shown in
-[figure\_title](#FIG-LINE-GRAPH-MULTI-LINE-COLOR-TYPE):
+Figure \@ref(fig:FIG-LINE-GRAPH-MULTI-LINE-COLOR-TYPE):
 
 ```{r}
 # Load plyr so we can use ddply() to create the example data set
@@ -197,7 +197,7 @@ being categorical, even when it's stored as a number. In the example
 here, there are three values of dose: 0.5, 1.0, and 2.0. You may want to
 treat these as categories rather than values on a continuous scale. To
 do this, convert dose to a factor
-([figure\_title](#FIG-LINE-GRAPH-MULTI-LINE-FACTOR)):
+(Figure \@ref(fig:FIG-LINE-GRAPH-MULTI-LINE-FACTOR)):
 
 ```{r}
 ggplot(tg, aes(x=factor(dose), y=length, colour=supp, group=supp)) + geom_line()
@@ -215,7 +215,7 @@ geom\_path: Each group consists of only one observation. Do you need to
 adjust the group aesthetic?
 Another common problem when the incorrect grouping is used is that you
 will see a jagged sawtooth pattern, as in
-[figure\_title](#FIG-LINE-GRAPH-MULTI-LINE-SAWTOOTH):
+Figure \@ref(fig:FIG-LINE-GRAPH-MULTI-LINE-SAWTOOTH):
 
 ```{r}
 ggplot(tg, aes(x=dose, y=length)) + geom_line()
@@ -240,7 +240,7 @@ aren't mapped to an aesthetic), they should be used with group.
 
 If your plot has points along with the lines, you can also map variables
 to properties of the points, such as shape and fill
-([figure\_title](#FIG-LINE-GRAPH-MULTI-LINE-SHAPE-FILL)):
+(Figure \@ref(fig:FIG-LINE-GRAPH-MULTI-LINE-SHAPE-FILL)):
 
 ```{r}
 ggplot(tg, aes(x=dose, y=length, shape=supp)) + geom_line() +
@@ -255,7 +255,7 @@ colors](figs/rgcb_0409.png)
 
 Sometimes points will overlap. In these cases, you may want to *dodge*
 them, which means their positions will be adjusted left and right
-([figure\_title](#FIG-LINE-GRAPH-MULTI-LINE-DODGE)). When doing so, you
+(Figure \@ref(fig:FIG-LINE-GRAPH-MULTI-LINE-DODGE)). When doing so, you
 must also dodge the lines, or else only the points will move and they
 will be misaligned. You must also specify how far they should move
 whendodged:
@@ -281,7 +281,7 @@ The type of line (solid, dashed, dotted, etc.) is set with linetype, the
 thickness (in mm) with size, and the color of the line with colour.
 
 These properties can be set (as shown in
-[figure\_title](#FIG-BAR-GRAPH-BASIC-LINE-CUSTOMIZED)) by passing them
+Figure \@ref(fig:FIG-BAR-GRAPH-BASIC-LINE-CUSTOMIZED)) by passing them
 values in the call to geom\$\$\_\$\$line():
 
 ```{r}
@@ -297,7 +297,7 @@ properties, as we saw in
 [section\_title](#RECIPE_LINE_GRAPH_MULTIPLE_LINE), will result in each
 line looking different. The default colors aren't the most
 appealing, so you may want to use a different palette, as shown in
-[figure\_title](#FIG-LINE-GRAPH-MULTI-LINE-PALETTE), by using
+Figure \@ref(fig:FIG-LINE-GRAPH-MULTI-LINE-PALETTE), by using
 scale\$\$\_\$\$colour\$\$\_\$\$brewer() or
 scale\$\$\_\$\$colour\$\$\_\$\$manual():
 
@@ -318,7 +318,7 @@ ggplot(tg, aes(x=dose, y=length, colour=supp)) +
 
 To set a single constant color for all the lines, specify colour outside
 of aes(). The same works for size, linetype, and point shape
-([figure\_title](#FIG-LINE-GRAPH-MULTI-LINE-CONSTANT-AES)). You may also
+(Figure \@ref(fig:FIG-LINE-GRAPH-MULTI-LINE-CONSTANT-AES)). You may also
 have to specify the grouping variable:
 
 ```{r}
@@ -351,7 +351,7 @@ You want to change the appearance of the points in a line graph.
 
 In geom\$\$\_\$\$point(), setthe size, shape, colour, and/or fill
 outside of aes() (the result is shown in
-[figure\_title](#FIG-LINE-GRAPH-POINT-PROPERTIES)):
+Figure \@ref(fig:FIG-LINE-GRAPH-POINT-PROPERTIES)):
 
 ```{r}
 ggplot(BOD, aes(x=Time, y=demand)) +
@@ -369,7 +369,7 @@ some point shapes (numbered 21–25), which have separate outline and fill
 colors (see [???](#RECIPE_SCATTER_SHAPES) for a chart of shapes). The
 fill color is typically NA, or empty; you can fill it with white to get
 hollow-looking circles, as shown in
-[figure\_title](#FIG-LINE-GRAPH-POINT-WHITEFILL):
+Figure \@ref(fig:FIG-LINE-GRAPH-POINT-WHITEFILL):
 
 ```{r}
 ggplot(BOD, aes(x=Time, y=demand)) +
@@ -391,7 +391,7 @@ not very appealing, so you may want to use a different palette, using
 scale\$\$\_\$\$colour\$\$\_\$\$brewer() or
 scale\$\$\_\$\$colour\$\$\_\$\$manual(). To set a single constant shape
 or size for all the points, as in
-[figure\_title](#FIG-LINE-GRAPH-MULTI-LINE-POINT-PALETTE), specify shape
+Figure \@ref(fig:FIG-LINE-GRAPH-MULTI-LINE-POINT-PALETTE), specify shape
 or size outside of aes():
 
 ```{r}
@@ -427,7 +427,7 @@ You want to make a graph with a shaded area.
 ### Solution
 
 Use geom\$\$\_\$\$area() toget a shaded area, as in
-[figure\_title](#FIG-LINE-GRAPH-AREA):
+Figure \@ref(fig:FIG-LINE-GRAPH-AREA):
 
 ```{r}
 # Convert the sunspot.year data set into a data frame for this example
@@ -448,7 +448,7 @@ no outline. The color can be changed by setting fill. In the following
 example, we'll set it to "blue", and we'll also make it 80%
 transparent by setting alpha to 0.2. This makes it possible to see the
 grid lines through the area, as shown in
-[figure\_title](#FIG-LINE-GRAPH-AREA-OUTLINE). We'll also add an
+Figure \@ref(fig:FIG-LINE-GRAPH-AREA-OUTLINE). We'll also add an
 outline, by setting colour:
 
 ```{r}
@@ -464,7 +464,7 @@ it puts a vertical line at the beginning and end of the shaded area, as
 well as one along the bottom. To avoid this issue, we can draw the area
 without an outline (by not specifying colour), and then layer a
 geom\$\$\_\$\$line() on top, as shown in
-[figure\_title](#FIG-LINE-GRAPH-AREA-TOPLINE):
+Figure \@ref(fig:FIG-LINE-GRAPH-AREA-TOPLINE):
 
 ```{r}
 ggplot(sunspotyear, aes(x=Year, y=Sunspots)) +
@@ -489,7 +489,7 @@ You want to make a stacked area graph.
 ### Solution
 
 Use geom\$\$\_\$\$area() andmap a factor to fill
-([figure\_title](#FIG-LINE-GRAPH-STACKED-AREA)):
+(Figure \@ref(fig:FIG-LINE-GRAPH-STACKED-AREA)):
 
 ```{r}
 library(gcookbook) # For the data set
@@ -514,7 +514,7 @@ Year AgeGroup Thousands 1900 &lt;5 9181 1900 5-14 16966 1900 15-24 14951
 The default order of legend items is the opposite of the stacking order.
 The legend can be reversed by setting the breaks in the scale. This
 version of the chart
-([figure\_title](#FIG-LINE-GRAPH-STACKED-AREA-CUSTOMIZED)) reverses the
+(Figure \@ref(fig:FIG-LINE-GRAPH-STACKED-AREA-CUSTOMIZED)) reverses the
 legend order, changes the palette to a range of blues, and adds thin
 (size=.2) lines between each area. It also makes the filled areas
 semitransparent (alpha=.4), so that it is possible to see the grid lines
@@ -530,7 +530,7 @@ ggplot(uspopage, aes(x=Year, y=Thousands, fill=AgeGroup)) +
 palette](figs/rgcb_0421.png)
 
 To reverse the stacking order, we'll put order=desc(AgeGroup) inside
-of aes() ([figure\_title](#FIG-LINE-GRAPH-STACKED-AREA-REVSTACK)):
+of aes() (Figure \@ref(fig:FIG-LINE-GRAPH-STACKED-AREA-REVSTACK)):
 
 ```{r}
 library(plyr) # For the desc() function
@@ -543,7 +543,7 @@ ggplot(uspopage, aes(x=Year, y=Thousands, fill=AgeGroup, order=desc(AgeGroup))) 
 
 Since each filled area is drawn with a polygon, the outline includes the
 left and right sides. This might be distracting or misleading. To get
-rid of it ([figure\_title](#FIG-LINE-GRAPH-STACKED-AREA-NOSIDES)), first
+rid of it (Figure \@ref(fig:FIG-LINE-GRAPH-STACKED-AREA-NOSIDES)), first
 draw the stacked areas *without* an outline (by leaving colour as the
 default NA value), and then add a geom\$\$\_\$\$line() on top:
 
@@ -592,7 +592,7 @@ uspopage_prop <- ddply(uspopage, "Year", transform,
 
 Once we've calculated the proportions, plotting is the same as with
 a regular stacked area graph
-([figure\_title](#FIG-LINE-GRAPH-PROPORTIONAL-STACKED-AREA)):
+(Figure \@ref(fig:FIG-LINE-GRAPH-PROPORTIONAL-STACKED-AREA)):
 
 ```{r}
 ggplot(uspopage_prop, aes(x=Year, y=Percent, fill=AgeGroup)) +
@@ -642,7 +642,7 @@ In the climate data set, Anomaly10y is a 10-year running average of the
 deviation (in Celsius) from the average 1950–1980 temperature, and
 Unc10y is the 95% confidence interval. We'll set ymax and ymin to
 Anomaly10y plus or minus Unc10y
-([figure\_title](#FIG-LINE-GRAPH-REGION)):
+(Figure \@ref(fig:FIG-LINE-GRAPH-REGION)):
 
 library(gcookbook) \# For the data set \# Grab a subset of the climate
 data clim &lt;- subset(climate, Source == "Berkeley", select=c("Year",
@@ -674,7 +674,7 @@ were opaque.
 
 Instead of a shaded region, you can also use dotted lines to represent
 the upper and lower bounds
-([figure\_title](#FIG-LINE-GRAPH-REGION-LINES)):
+(Figure \@ref(fig:FIG-LINE-GRAPH-REGION-LINES)):
 
 ```{r}
 # With a dotted line for upper and lower bounds

@@ -17,7 +17,7 @@ You want to add a text annotation to a plot.
 
 ### Solution
 
-Use annotate() and a text geom ([figure\_title](#FIG-ANNOTATE-TEXT)):
+Use annotate() and a text geom (Figure \@ref(fig:FIG-ANNOTATE-TEXT)):
 
 ```{r}
 p <- ggplot(faithful, aes(x=eruptions, y=waiting)) + geom_point()
@@ -34,7 +34,7 @@ The annotate() function can be used to add any type of geometric object.
 In this case, we used geom="text".
 
 Other text properties can be specified, as shown in
-[figure\_title](#FIG-ANNOTATE-TEXT-PROPERTIES):
+Figure \@ref(fig:FIG-ANNOTATE-TEXT-PROPERTIES):
 
 ```{r}
 p + annotate("text", x=3, y=48, label="Group 1", family="serif",
@@ -59,7 +59,7 @@ p + annotate("text", x=3, y=48, label="Group 1", alpha=.1) +     # Normal
     geom_text(x=4.5, y=66, label="Group 2", alpha=.1)            # Overplotted
 ```
 
-In [figure\_title](#FIG-ANNOTATE-TEXT-GEOM-OVERPLOT), each text label is
+In Figure \@ref(fig:FIG-ANNOTATE-TEXT-GEOM-OVERPLOT), each text label is
 90% transparent, making it clear which one is overplotted. The
 overplotting can lead to output with aliased (jagged) edges when
 outputting to a bitmap.
@@ -69,7 +69,7 @@ transparent](figs/rgcb_0703.png)
 
 If the axes are continuous, you can use the special values Inf and -Inf
 to place text annotations at the edge of the plotting area, as shown in
-[figure\_title](#FIG-ANNOTATE-TEXT-EDGE). You will also need to adjust
+Figure \@ref(fig:FIG-ANNOTATE-TEXT-EDGE). You will also need to adjust
 the position of the text relative to the corner using hjust and vjust—if
 you leave them at their default values, the text will be centered on the
 edge. It may take a little experimentation with these values to get the
@@ -100,7 +100,7 @@ You want to add a text annotation with mathematical notation.
 ### Solution
 
 Use annotate(geom="text") and set parse=TRUE
-([figure\_title](#FIG-ANNOTATE-TEXT-MATH)):
+(Figure \@ref(fig:FIG-ANNOTATE-TEXT-MATH)):
 
 ```{r}
 # A normal curve
@@ -125,7 +125,7 @@ enclosed by the inner quotes is treated as a variable in a mathematical
 expression. Bear in mind that, in R's syntax for mathematical
 expressions, you can't simply put a variable right next to another
 without something else in between. To display two variables next to each
-other, as in [figure\_title](#FIG-ANNOTATE-TEXT-MATH-MIX), put a
+other, as in Figure \@ref(fig:FIG-ANNOTATE-TEXT-MATH-MIX), put a
 \$\$\*\$\$ operator between them; when displayed in a graphic, this is
 treated as an invisible multiplication sign (for a visible
 multiplication sign, use %\$\$\*\$\$%):
@@ -159,7 +159,7 @@ You want to add lines to a plot.
 
 For horizontal and vertical lines, use geom\$\$\_\$\$hline() and
 geom\$\$\_\$\$vline(), and for angled lines, use geom\$\$\_\$\$abline()
-([figure\_title](#FIG-ANNOTATE-LINES)). For this example, we'll use
+(Figure \@ref(fig:FIG-ANNOTATE-LINES)). For this example, we'll use
 the heightweight data set:
 
 ```{r}
@@ -187,7 +187,7 @@ on, and even draw them from another data frame.
 Here we'll take the average height for males and females and store
 it in a data frame, hw\$\$\_\$\$means. Then we'll draw a horizontal
 line for each, and set the linetype and size
-([figure\_title](#FIG-ANNOTATE-LINES-MULTI)):
+(Figure \@ref(fig:FIG-ANNOTATE-LINES-MULTI)):
 
 library(plyr) \# For the ddply() function hw\_means &lt;-
 ddply(heightweight, "sex", summarise, heightIn=mean(heightIn)) hw\_means
@@ -202,7 +202,7 @@ specified as numbers. If the axis represents a factor, the first level
 has a numeric value of 1, the second level has a value of 2, and so on.
 You can specify the numerical intercept manually, or calculate the
 numerical value using which(levels(...))
-([figure\_title](#FIG-ANNOTATE-LINES-FACTOR)):
+(Figure \@ref(fig:FIG-ANNOTATE-LINES-FACTOR)):
 
 ```{r}
 pg <- ggplot(PlantGrowth, aes(x=group, y=weight)) + geom_point()
@@ -245,7 +245,7 @@ You want to add line segments or arrows to a plot.
 
 Use annotate("segment"). In this example, we'll use the climate data
 set and use a subset of data from the Berkeley source
-([figure\_title](#FIG-ANNOTATE-SEGMENT)):
+(Figure \@ref(fig:FIG-ANNOTATE-SEGMENT)):
 
 ```{r}
 library(gcookbook) # For the data set
@@ -262,7 +262,7 @@ p + annotate("segment", x=1950, xend=1980, y=-.25, yend=-.25)
 
 It's possible to add arrowheads or flat ends to the line segments,
 using arrow() from the grid package. In this example, we'll do both
-([figure\_title](#FIG-ANNOTATE-SEGMENT-ARROWS)):
+(Figure \@ref(fig:FIG-ANNOTATE-SEGMENT-ARROWS)):
 
 ```{r}
 library(grid)
@@ -294,7 +294,7 @@ You want to add a shaded region.
 
 ### Solution
 
-Use annotate("rect") ([figure\_title](#FIG-ANNOTATE-RECT)):
+Use annotate("rect") (Figure \@ref(fig:FIG-ANNOTATE-RECT)):
 
 ```{r}
 library(gcookbook) # For the data set
@@ -340,7 +340,7 @@ pg$hl[pg$group=="trt2"] <- "yes"  # If group is "trt2", set to "yes"
 ```
 
 Then we'll plot it with manually specified colors and with no legend
-([figure\_title](#FIG-ANNOTATE-HIGHLIGHT)):
+(Figure \@ref(fig:FIG-ANNOTATE-HIGHLIGHT)):
 
 ```{r}
 ggplot(pg, aes(x=group, y=weight, fill=hl)) + geom_boxplot() +
@@ -381,7 +381,7 @@ You want to add error bars to a graph.
 
 Use geom\$\$\_\$\$errorbar andmap variables to the values for ymin and
 ymax. Adding the error bars is done the same way for bar graphs and line
-graphs, as shown in [figure\_title](#FIG-ANNOTATE-ERRORBAR-BASIC)
+graphs, as shown in Figure \@ref(fig:FIG-ANNOTATE-ERRORBAR-BASIC)
 (notice that default *y* range is different for bars and lines, though):
 
 ```{r}
@@ -439,7 +439,7 @@ The default dodge width for geom\$\$\_\$\$bar() is 0.9, and you'll
 have to tell the error bars to be dodged the same width. If you
 don't specify the dodge width, it will default to dodging by the
 width of the error bars, which is usually less than the width of the
-bars ([figure\_title](#FIG-ANNOTATE-ERRORBAR-GROUP-BAR)):
+bars (Figure \@ref(fig:FIG-ANNOTATE-ERRORBAR-GROUP-BAR)):
 
 ```{r}
 # Bad: dodge width not specified
@@ -472,7 +472,7 @@ on top of the points and lines, which won't look right.
 
 Additionally, you should dodge all the geometric elements so that they
 will align with the error bars, as shown in
-[figure\_title](#FIG-ANNOTATE-ERRORBAR-GROUP-LINE-DODGE):
+Figure \@ref(fig:FIG-ANNOTATE-ERRORBAR-GROUP-LINE-DODGE):
 
 ```{r}
 pd <- position_dodge(.3)  # Save the dodge spec because we use it repeatedly
@@ -523,7 +523,7 @@ You want to add annotations to each facet in a plot.
 
 Create a new data frame with the faceting variable(s), and a value to
 use in each facet. Then use geom\$\$\_\$\$text() with the new data frame
-([figure\_title](#FIG-ANNOTATE-FACET)):
+(Figure \@ref(fig:FIG-ANNOTATE-FACET)):
 
 ```{r}
 # The base plot
@@ -544,7 +544,7 @@ in each facet](figs/rgcb_0717.png)
 ### Discussion {#_discussion_58}
 
 This method can be used to display information about the data in each
-facet, as shown in [figure\_title](#FIG-ANNOTATE-FACET-MATH). For
+facet, as shown in Figure \@ref(fig:FIG-ANNOTATE-FACET-MATH). For
 example, in each facet we can show linear regression lines, the formula
 for each line, and the *r^2^* value (). To do this, we'll write a
 function that takes a data frame and returns another data frame

@@ -39,7 +39,7 @@ library(gcookbook) \# For the data set simpledat
 A1 A2 A3 B1 10 7 12 B2 9 11 6
 This will make a simple grouped bar graph, with the As going along the
 x-axis and the bars grouped by the Bs
-([figure\_title](#app_figure_16-1)):
+(Figure \@ref(fig:app_figure_16-1)):
 
 ```{r}
 barplot(simpledat, beside=TRUE)
@@ -54,7 +54,7 @@ restructure the data by transposing the matrix:
 t(simpledat)
 B1 B2 A1 10 9 A2 7 11 A3 12 6
 With the restructured data, we can create the graph the same way as
-before ([figure\_title](#app_figure_16-2)):
+before (Figure \@ref(fig:app_figure_16-2)):
 
 ```{r}
 barplot(t(simpledat), beside=TRUE)
@@ -63,7 +63,7 @@ barplot(t(simpledat), beside=TRUE)
 ![A bar graph with transposed data](figs/rgcb_16in02.png)
 
 Another thing we might want to do is to represent the data withlines
-instead of bars, as shown in [figure\_title](#app_figure_16-3). To do
+instead of bars, as shown in Figure \@ref(fig:app_figure_16-3). To do
 this with base graphics, we need to use a completely different set of
 commands. First we call plot(), which tells R to create a new graph and
 draw a line for one row of data. Then we tell it to draw a second row
@@ -99,7 +99,7 @@ data sets. See Recipes [???](#RECIPE_DATAPREP_WIDE_TO_LONG) and
 [???](#RECIPE_DATAPREP_LONG_TO_WIDE) for information about converting
 between wide and long data formats.
 
-To make the first grouped bar graph ([figure\_title](#app_figure_16-4)),
+To make the first grouped bar graph (Figure \@ref(fig:app_figure_16-4)),
 we first have to load the ggplot2 library. Then we tell it to map Aval
 to the *x* position with x=Aval, and Bval to the fill color with
 fill=Bval. This will make the As run along the x-axis and the Bs
@@ -117,7 +117,7 @@ ggplot(simpledat_long, aes(x=Aval, y=value, fill=Bval)) +
 ![A bar graph made with ggplot() and geom\_bar()](figs/rgcb_16in04.png)
 
 To switch things so that the Bs go along the x-axis and the As determine
-the grouping ([figure\_title](#app_figure_16-5)), we simply swap the
+the grouping (Figure \@ref(fig:app_figure_16-5)), we simply swap the
 mapping specification, with x=Bval and fill=Aval. Unlike with base
 graphics, we don't have to change the data; we just change the
 commands for making the graph:
@@ -137,7 +137,7 @@ switched](figs/rgcb_aa05.png)
 > ggplot object by adding components to it, then, when you’re all done,
 > you can tell it to print.
 
-To change it to a line graph ([figure\_title](#app_figure_16-6)), we
+To change it to a line graph (Figure \@ref(fig:app_figure_16-6)), we
 change geom\$\$\_\$\$bar() to geom\$\$\_\$\$line(). We'll also map
 Bval to the *line* color, with colour, instead of the *fill* colour
 (note the British spelling—the author of ggplot2 is a Kiwi). Again,

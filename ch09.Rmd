@@ -21,7 +21,7 @@ You want to set the title of a graph.
 ### Solution
 
 Set title with ggtitle(), as shown in
-[figure\_title](#FIG-APPEARANCE-TITLE):
+Figure \@ref(fig:FIG-APPEARANCE-TITLE):
 
 ```{r}
 library(gcookbook) # For the data set
@@ -43,7 +43,7 @@ ggtitle() is equivalent to using labs(title = "Title text").
 
 If you want to move the title inside the plotting area, you can use one
 of two methods, both of which are a little bit of a hack
-([figure\_title](#FIG-APPEARANCE-TITLE-INSIDE)). The first method is to
+(Figure \@ref(fig:FIG-APPEARANCE-TITLE-INSIDE)). The first method is to
 use ggtitle() with a negative vjust value. The drawback of this method
 is that it still reserves blank space above the plotting region for the
 title.
@@ -80,7 +80,7 @@ To set the appearance of theme items such as the title, axis labels, and
 axis tick marks, use theme() and set the item with
 element\$\$\_\$\$text(). For example, axis.title.x controls the
 appearance of the x-axis label and plot.title controls the appearance of
-the title text ([figure\_title](#FIG-APPEARANCE-TEXT-APPEARANCE), left):
+the title text (Figure \@ref(fig:FIG-APPEARANCE-TEXT-APPEARANCE), left):
 
 ```{r}
 library(gcookbook) # For the data set
@@ -102,7 +102,7 @@ p + ggtitle("Age and Height\nof Schoolchildren") +
 
 To set the appearance of text geoms (text that's in the plot itself,
 with geom\$\$\_\$\$text() or annotate()), set the text properties. For
-example ([figure\_title](#FIG-APPEARANCE-TEXT-APPEARANCE), right):
+example (Figure \@ref(fig:FIG-APPEARANCE-TEXT-APPEARANCE), right):
 
 ```{r}
 p + annotate("text", x=15, y=53, label="Some text", size = 7, family="Times",
@@ -161,7 +161,7 @@ There are differences in the parameters, as shown in
 The theme elements are listed in
 [table\_title](#TABLE_APPEARANCE_THEME_TEXT_ELEMENTS). Most of them are
 straightforward. Some are shown in
-[figure\_title](#FIG-APPEARANCE-TEXT-APPEARANCE-PROPERTIES).
+Figure \@ref(fig:FIG-APPEARANCE-TEXT-APPEARANCE-PROPERTIES).
 
 +-----------------------------------+-----------------------------------+
 | Element name                      | Description                       |
@@ -211,7 +211,7 @@ You want to use premade themes to control the overall plot appearance.
 ### Solution
 
 To use a premade theme, add theme\$\$\_\$\$bw() or theme\$\$\_\$\$grey()
-([figure\_title](#FIG-APPEARANCE-THEME)):
+(Figure \@ref(fig:FIG-APPEARANCE-THEME)):
 
 ```{r}
 library(gcookbook) # For the data set
@@ -284,7 +284,7 @@ To modify a theme, add theme() with a corresponding
 element\$\$\_\$\$*xx* object. These include element\$\$\_\$\$line,
 element\$\$\_\$\$rect, and element\$\$\_\$\$text. The following code
 shows how to modify many of the commonly used theme properties
-([figure\_title](#FIG-APPEARANCE-THEME-MODIFY)):
+(Figure \@ref(fig:FIG-APPEARANCE-THEME-MODIFY)):
 
 ```{r}
 library(gcookbook) # For the data set
@@ -456,7 +456,7 @@ You want to create your own theme.
 ### Solution
 
 You can create your own theme by adding elements to an existing theme
-([figure\_title](#FIG-APPEARANCE-THEME-SAVE)):
+(Figure \@ref(fig:FIG-APPEARANCE-THEME-SAVE)):
 
 ```{r}
 library(gcookbook) # For the data set
@@ -499,7 +499,7 @@ You want to hide the grid lines in a plot.
 The major grid lines (those that align with the tick marks) are
 controlled with panel.grid.major. The minor grid lines (the ones between
 the major lines) are controlled with panel.grid.minor. This will hide
-them both, as shown in [figure\_title](#FIG-APPEARANCE-HIDE-GRIDLINES)
+them both, as shown in Figure \@ref(fig:FIG-APPEARANCE-HIDE-GRIDLINES)
 (left):
 
 ```{r}
@@ -518,7 +518,7 @@ lines](figs/rgcb_0909.png)
 
 It's possible to hide just the vertical or horizontal grid lines, as
 shown in the middle and righthand graphs in
-[figure\_title](#FIG-APPEARANCE-HIDE-GRIDLINES), with
+Figure \@ref(fig:FIG-APPEARANCE-HIDE-GRIDLINES), with
 panel.grid.major.x, panel.grid.major.y, panel.grid.minor.x, and
 panel.grid.minor.y:
 

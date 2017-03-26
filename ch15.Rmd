@@ -405,7 +405,7 @@ of each group.
 ### Discussion {#_discussion_137}
 
 The usefulness of reorder() might not be obvious from just looking at
-the raw output. [figure\_title](#FIG-DATAPREP-FACTOR-REORDER-VALUE)
+the raw output. Figure \@ref(fig:FIG-DATAPREP-FACTOR-REORDER-VALUE)
 shows three graphs made with reorder(). In these graphs, the order in
 which the items appear is determined by their values.
 
@@ -413,14 +413,14 @@ which the items appear is determined by their values.
 right: reordered by the median of each group](figs/rgcb_1501.png)
 
 In the middle graph in
-[figure\_title](#FIG-DATAPREP-FACTOR-REORDER-VALUE), the boxes are
+Figure \@ref(fig:FIG-DATAPREP-FACTOR-REORDER-VALUE), the boxes are
 sorted by the mean. The horizontal line that runs across each box
 represents the *median* of the data. Notice that these values do not
 increase strictly from left to right. That's because with this
 particular data set, sorting by the mean gives a different order than
 sorting by the median. To make the median lines increase from left to
 right, as in the graph on the right in
-[figure\_title](#FIG-DATAPREP-FACTOR-REORDER-VALUE), we used the
+Figure \@ref(fig:FIG-DATAPREP-FACTOR-REORDER-VALUE), we used the
 median() function in reorder().
 
 ### See Also
@@ -808,7 +808,7 @@ slightly rearranged and it adds the splitting variable, in this case,
 Cult.
 
 The before and after results are shown in
-[figure\_title](#FIG-DATAPREP-TRANSFORM-GROUP):
+Figure \@ref(fig:FIG-DATAPREP-TRANSFORM-GROUP):
 
 ```{r}
 # The data before normalizing
@@ -945,7 +945,7 @@ If there are any empty combinations of the grouping variables, they will
 not appear in the summarized data frame. These missing combinations can
 cause problems when making graphs. To illustrate, we'll remove all
 entries that have levels c52 and d21. The graph on the left in
-[figure\_title](#FIG-DATAPREP-SUMMARIZE-MISSING-COMBO) shows what
+Figure \@ref(fig:FIG-DATAPREP-SUMMARIZE-MISSING-COMBO) shows what
 happens when there's a missing combination in a bar graph:
 
 \# Copy cabbages and remove all rows with both c52 and d21 c2 &lt;-
@@ -961,7 +961,7 @@ geom\_bar(position="dodge")
 combination filled](figs/rgcb_1503.png)
 
 To fill in the missing combination
-([figure\_title](#FIG-DATAPREP-SUMMARIZE-MISSING-COMBO), right), give
+(Figure \@ref(fig:FIG-DATAPREP-SUMMARIZE-MISSING-COMBO), right), give
 ddply() the .drop=FALSE flag:
 
 c2b &lt;- ddply(c2, c("Cult", "Date"), .drop=FALSE, summarise, Weight =

@@ -22,7 +22,7 @@ You want to set the color of some geoms in your graph.
 ### Solution
 
 In the call to the geom, set the values of colour or fill
-([figure\_title](#FIG-COLORS-SETTING)):
+(Figure \@ref(fig:FIG-COLORS-SETTING)):
 
 ```{r}
 ggplot(mtcars, aes(x=wt, y=mpg)) + geom_point(colour="red")
@@ -66,7 +66,7 @@ color of geoms.
 ### Solution
 
 In the call to the geom, set the value of colour or fill to the name of
-one of the columns in the data ([figure\_title](#FIG-COLORS-MAPPING)):
+one of the columns in the data (Figure \@ref(fig:FIG-COLORS-MAPPING)):
 
 ```{r}
 library(gcookbook) # For the data set
@@ -110,7 +110,7 @@ only 4, 6, and 8, the legend has entries for the intermediate values 5
 and 7. To make ggplot() treat cyl as a categorical variable, you can
 convert it to a factor in the call to ggplot(), or you can modify the
 data so that the column is a character vector or factor
-([figure\_title](#FIG-COLORS-MAPPING-FACTOR)):
+(Figure \@ref(fig:FIG-COLORS-MAPPING-FACTOR)):
 
 ```{r}
 # Convert to factor in call to ggplot()
@@ -170,7 +170,7 @@ Use one of the scales listed in
 : Discrete fill and color scales
 
 In the example here we'll use the default palette (hue), and a
-ColorBrewer palette ([figure\_title](#FIG-COLORS-PALETTE-DISCRETE)):
+ColorBrewer palette (Figure \@ref(fig:FIG-COLORS-PALETTE-DISCRETE)):
 
 ```{r}
 library(gcookbook) # For the data set
@@ -202,7 +202,7 @@ around the color wheel in the HCL (hue-chroma-lightness) color space.
 The default lightness value is 65 on a scale from 0–100. This is good
 for filled areas, but it's a bit light for points and lines. To make
 the colors darker for points and lines, as in
-[figure\_title](#FIG-COLORS-PALETTE-LIGHTNESS) (right), set the value of
+Figure \@ref(fig:FIG-COLORS-PALETTE-LIGHTNESS) (right), set the value of
 l (luminance/lightness):
 
 ```{r}
@@ -222,7 +222,7 @@ h + scale_colour_hue(l=45)
 
 The ColorBrewer package provides a number of palettes. You can generate
 a graphic showing all of them, as shown in
-[figure\_title](#FIG-COLORS-PALETTE-BREWER):
+Figure \@ref(fig:FIG-COLORS-PALETTE-BREWER):
 
 ```{r}
 library(RColorBrewer)
@@ -233,7 +233,7 @@ display.brewer.all()
 
 The ColorBrewer palettes can be selected by name. For example, this will
 use the Oranges palette
-([figure\_title](#FIG-COLORS-PALETTE-BREWER-NAME)):
+(Figure \@ref(fig:FIG-COLORS-PALETTE-BREWER-NAME)):
 
 ```{r}
 p + scale_fill_brewer(palette="Oranges")
@@ -244,7 +244,7 @@ p + scale_fill_brewer(palette="Oranges")
 You can also use a palette of greys. This is useful for print when the
 output is in black and white. The default is to start at 0.2 and end at
 0.8, on a scale from 0 (black) to 1 (white), but you can change the
-range, as shown in [figure\_title](#FIG-COLORS-PALETTE-GREY).
+range, as shown in Figure \@ref(fig:FIG-COLORS-PALETTE-GREY).
 
 ```{r}
 p + scale_fill_grey()
@@ -277,7 +277,7 @@ You want to use different colors for a discrete mapped variable.
 
 In the example here, we'll manually define colors by specifying
 values with scale\$\$\_\$\$colour\$\$\_\$\$manual()
-([figure\_title](#FIG-COLORS-PALETTE-DISCRETE-MANUAL)). The colors can
+(Figure \@ref(fig:FIG-COLORS-PALETTE-DISCRETE-MANUAL)). The colors can
 be named, or they can be specified with RGB values:
 
 ```{r}
@@ -364,7 +364,7 @@ You want to use colors that can be distinguished by colorblind viewers.
 
 Use the palette defined here (cb\$\$\_\$\$palette)with
 scale\$\$\_\$\$fill\$\$\_\$\$manual()
-([figure\_title](#FIG-COLORS-PALETTE-DISCRETE-COLORBLIND)):
+(Figure \@ref(fig:FIG-COLORS-PALETTE-DISCRETE-COLORBLIND)):
 
 ```{r}
 library(gcookbook) # For the data set
@@ -383,7 +383,7 @@ p + scale_fill_manual(values=cb_palette)
 ![A graph with the colorblind-friendly palette](figs/rgcb_1210.png)
 
 A chart of the colors is shown in
-[figure\_title](#FIG-COLORS-PALETTE-DISCRETE-COLORBLIND-CHART).
+Figure \@ref(fig:FIG-COLORS-PALETTE-DISCRETE-COLORBLIND-CHART).
 
 ![Colorblind palette with RGB values](figs/rgcb_1211.png)
 
@@ -429,7 +429,7 @@ You want to use different colors for a continuous variable.
 
 In the example here, we'll specify the colors for a continuous
 variable using various gradient scales
-([figure\_title](#FIG-COLORS-PALETTE-CONTINUOUS)). The colors can be
+(Figure \@ref(fig:FIG-COLORS-PALETTE-CONTINUOUS)). The colors can be
 named, or they can be specified with RGB values:
 
 ```{r}
@@ -519,7 +519,7 @@ NA NA -0.435 0.505 neg Berkeley 1801 NA NA -0.453 0.493 neg Berkeley
 Berkeley 2003 NA NA 0.869 0.028 pos Berkeley 2004 NA NA 0.884 0.029 pos
 Once we've categorized the values as positive or negative, we can
 make the plot, mapping valence to the fill color, as shown in
-[figure\_title](#FIG-COLORS-AREA-VALUE):
+Figure \@ref(fig:FIG-COLORS-AREA-VALUE):
 
 ```{r}
 ggplot(cb, aes(x=Year, y=Anomaly10y)) +
@@ -554,7 +554,7 @@ where the line crosses zero, but approx() works fine for the purposes
 here.
 
 Now we can plot the interpolated data
-([figure\_title](#FIG-COLORS-AREA-VALUE-INTERPOLATED)). This time
+(Figure \@ref(fig:FIG-COLORS-AREA-VALUE-INTERPOLATED)). This time
 we'll make a few adjustments—we'll make the shaded regions
 partially transparent, change the colors, remove the legend, and remove
 the padding on the left and right sides:

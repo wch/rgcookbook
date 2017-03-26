@@ -14,7 +14,7 @@ You want to remove the legend from a graph.
 ### Solution
 
 Use guides(), and specify the scale that should have its legend removed
-([figure\_title](#FIG-LEGEND-REMOVE)):
+(Figure \@ref(fig:FIG-LEGEND-REMOVE)):
 
 ```{r}
 # The base plot (with legend)
@@ -100,7 +100,7 @@ You want to move the legend from its default place on the right side.
 
 Use theme(legend.position=...). It can be put on the top, left, right,
 or bottom by using one of those strings as the position
-([figure\_title](#FIG-LEGEND-POSITION), left):
+(Figure \@ref(fig:FIG-LEGEND-POSITION), left):
 
 ```{r}
 p <- ggplot(PlantGrowth, aes(x=group, y=weight, fill=group)) + geom_boxplot() +
@@ -114,7 +114,7 @@ area](figs/rgcb_1002.png)
 
 The legend can also be placed inside the graphing area by specifying a
 coordinate position, as in legend.position=c(1,0)
-([figure\_title](#FIG-LEGEND-POSITION), right). The coordinate space
+(Figure \@ref(fig:FIG-LEGEND-POSITION), right). The coordinate space
 starts at (0, 0) in the bottom left and goes to (1, 1) in the top right.
 
 ### Discussion {#_discussion_83}
@@ -136,7 +136,7 @@ corner.](figs/rgcb_1003.png)
 
 And this will place the top-right corner of the legend in the top-right
 corner of the graphing area, as in the graph on the right in
-[figure\_title](#FIG-LEGEND-POSITION-JUSTIFICATION):
+Figure \@ref(fig:FIG-LEGEND-POSITION-JUSTIFICATION):
 
 ```{r}
 p + theme(legend.position=c(1,1), legend.justification=c(1,1))
@@ -144,7 +144,7 @@ p + theme(legend.position=c(1,1), legend.justification=c(1,1))
 
 When placing the legend inside of the graphing area, it may be helpful
 to add an opaque border to set it apart
-([figure\_title](#FIG-LEGEND-POSITION-BACKGROUND), left):
+(Figure \@ref(fig:FIG-LEGEND-POSITION-BACKGROUND), left):
 
 ```{r}
 p + theme(legend.position=c(.85,.2)) +
@@ -155,7 +155,7 @@ p + theme(legend.position=c(.85,.2)) +
 background or outlines](figs/rgcb_1004.png)
 
 You can also remove the border around its elements so that itblends in
-([figure\_title](#FIG-LEGEND-POSITION-BACKGROUND), right):
+(Figure \@ref(fig:FIG-LEGEND-POSITION-BACKGROUND), right):
 
 ```{r}
 p + theme(legend.position=c(.85,.2)) +
@@ -173,7 +173,7 @@ You want to change the order of the items in a legend.
 ### Solution
 
 Set the limits in the scale to the desired order
-([figure\_title](#FIG-LEGEND-ORDER)):
+(Figure \@ref(fig:FIG-LEGEND-ORDER)):
 
 ```{r}
 # The base plot
@@ -201,14 +201,14 @@ sameas scale\$\$\_\$\$fill\$\$\_\$\$hue()), which maps the factor levels
 to colors that are equally spaced around the color wheel. We could have
 used a different scale\$\$\_\$\$fill\$\$\_\$\$*xxx*(), though. For
 example, we could use a grey palette
-([figure\_title](#FIG-LEGEND-ORDER2), left):
+(Figure \@ref(fig:FIG-LEGEND-ORDER2), left):
 
 ```{r}
 p + scale_fill_grey(start=.5, end=1, limits=c("trt1", "trt2", "ctrl"))
 ```
 
 Or we could use a palette from RColorBrewer
-([figure\_title](#FIG-LEGEND-ORDER2), right):
+(Figure \@ref(fig:FIG-LEGEND-ORDER2), right):
 
 ```{r}
 p + scale_fill_brewer(palette="Pastel2", limits=c("trt1", "trt2", "ctrl"))
@@ -269,7 +269,7 @@ You want to reverse the order of items in a legend.
 ### Solution
 
 Add guides(fill=guide\$\$\_\$\$legend(reverse=TRUE)) toreverse the order
-of the legend, as in [figure\_title](#FIG-LEGEND-TITLE-REVERSE) (for
+of the legend, as in Figure \@ref(fig:FIG-LEGEND-TITLE-REVERSE) (for
 other aesthetics, replace fill with the name of the aesthetic, such as
 colour or size):
 
@@ -305,7 +305,7 @@ You want to change the text of a legend title.
 
 Use labs() and setthe value of fill, colour, shape, or whatever
 aesthetic is appropriate for the legend
-([figure\_title](#FIG-LEGEND-TITLE)):
+(Figure \@ref(fig:FIG-LEGEND-TITLE)):
 
 ```{r}
 # The base plot
@@ -333,7 +333,7 @@ p + scale_fill_discrete(name="Condition")
 If there are multiple variables mapped to aesthetics with a legend
 (those other than x and y), you can set the title of each individually.
 In the example here we'll use \$\$\\\$\$n to add a line break in one
-of the titles ([figure\_title](#FIG-LEGEND-TITLE-MULTI)):
+of the titles (Figure \@ref(fig:FIG-LEGEND-TITLE-MULTI)):
 
 ```{r}
 library(gcookbook) # For the data set
@@ -354,7 +354,7 @@ titles](figs/rgcb_1009.png)
 If you have one variable mapped to two separate aesthetics, the default
 is to have a single legend that combines both. For example, if we map
 sex to both shape and weight, there will be just one legend
-([figure\_title](#FIG-LEGEND-TITLE-MULTI-SAME), left):
+(Figure \@ref(fig:FIG-LEGEND-TITLE-MULTI-SAME), left):
 
 ```{r}
 hw1 <- ggplot(heightweight, aes(x=ageYear, y=heightIn, shape=sex, colour=sex)) +
@@ -367,10 +367,10 @@ hw1
 middle: with shape renamed; right: with both shape and colour
 renamed](figs/rgcb_1010.png)
 
-To change the title ([figure\_title](#FIG-LEGEND-TITLE-MULTI-SAME),
+To change the title (Figure \@ref(fig:FIG-LEGEND-TITLE-MULTI-SAME),
 right), you need to set the name for both of them. If you change the
 name for just one, it will result in two separate legends
-([figure\_title](#FIG-LEGEND-TITLE-MULTI-SAME), middle):
+(Figure \@ref(fig:FIG-LEGEND-TITLE-MULTI-SAME), middle):
 
 ```{r}
 # Change just shape
@@ -398,7 +398,7 @@ You want to change the appearance of a legend title's text.
 ### Solution
 
 Use theme(legend.title=element\$\$\_\$\$text())
-([figure\_title](#FIG-LEGEND-TITLE-APPEARANCE)):
+(Figure \@ref(fig:FIG-LEGEND-TITLE-APPEARANCE)):
 
 ```{r}
 p <- ggplot(PlantGrowth, aes(x=group, y=weight, fill=group)) + geom_boxplot()
@@ -435,7 +435,7 @@ You want to remove a legend title.
 ### Solution
 
 Add guides(fill=guide\$\$\_\$\$legend(title=NULL)) to remove the title
-from a legend, as in [figure\_title](#FIG-LEGEND-TITLE-REMOVE) (for
+from a legend, as in Figure \@ref(fig:FIG-LEGEND-TITLE-REMOVE) (for
 other aesthetics, replace fill with the name of the aesthetic, such as
 colour or size):
 
@@ -464,7 +464,7 @@ You want to change the text of labels in a legend.
 
 ### Solution
 
-Set the labels in the scale ([figure\_title](#FIG-LEGEND-LABEL), left):
+Set the labels in the scale (Figure \@ref(fig:FIG-LEGEND-LABEL), left):
 
 ```{r}
 library(gcookbook) # For the data set
@@ -493,7 +493,7 @@ the factor levels to colors that are equally spaced around the color
 wheel (the same as scale\$\$\_\$\$fill\$\$\_\$\$hue()). There are other
 fill scales we could use, and setting the labels works the same way. For
 example, to produce the graph on the right in
-[figure\_title](#FIG-LEGEND-LABEL):
+Figure \@ref(fig:FIG-LEGEND-LABEL):
 
 ```{r}
 p + scale_fill_grey(start=.5, end=1,
@@ -503,7 +503,7 @@ p + scale_fill_grey(start=.5, end=1,
 If you are also changing the order of items in the legend, the labels
 are matched to the items by position. In this example we'll change
 the item order, and make sure to set the labels in the same order
-([figure\_title](#FIG-LEGEND-LABEL-ORDER)):
+(Figure \@ref(fig:FIG-LEGEND-LABEL-ORDER)):
 
 ```{r}
 p + scale_fill_discrete(limits=c("trt1", "trt2", "ctrl"),
@@ -517,7 +517,7 @@ If you have one variable mapped to two separate aesthetics, the default
 is to have a single legend that combines both. If you want to change the
 legend labels, you must change them for both scales; otherwise you will
 end up with two separate legends, as shown in
-[figure\_title](#FIG-LEGEND-LABEL-MULTI-SAME):
+Figure \@ref(fig:FIG-LEGEND-LABEL-MULTI-SAME):
 
 ```{r}
 # The base plot
@@ -577,7 +577,7 @@ You want to change the appearance of labels in a legend.
 ### Solution
 
 Use theme(legend.text=element\$\$\_\$\$text())
-([figure\_title](#FIG-LEGEND-LABEL-APPEARANCE)):
+(Figure \@ref(fig:FIG-LEGEND-LABEL-APPEARANCE)):
 
 ```{r}
 # The base plot
@@ -619,7 +619,7 @@ You want to use legend labels that have more than one line of text.
 Set the labels in the scale, using \$\$\\\$\$n to represent a newline.
 In this example, we'll use scale\$\$\_\$\$fill\$\$\_\$\$discrete()
 to control the legend for the fill scale
-([figure\_title](#FIG-LEGEND-LABEL-MULTILINE), left):
+(Figure \@ref(fig:FIG-LEGEND-LABEL-MULTILINE), left):
 
 ```{r}
 p <- ggplot(PlantGrowth, aes(x=group, y=weight, fill=group)) + geom_boxplot()
@@ -635,11 +635,11 @@ reduced line spacing](figs/rgcb_1017.png)
 ### Discussion {#_discussion_91}
 
 As you can see in the version on the left in
-[figure\_title](#FIG-LEGEND-LABEL-MULTILINE), with the default settings
+Figure \@ref(fig:FIG-LEGEND-LABEL-MULTILINE), with the default settings
 the lines of text will run into each other when you use labels that have
 more than one line. To deal with this problem, you can increase the
 height of the legend keys and decrease the spacing between lines, using
-theme() ([figure\_title](#FIG-LEGEND-LABEL-MULTILINE), right). To do
+theme() (Figure \@ref(fig:FIG-LEGEND-LABEL-MULTILINE), right). To do
 this, you will need to specify the height using the unit() function from
 the grid package:
 
