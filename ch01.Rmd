@@ -42,7 +42,7 @@ You want to install a package from CRAN.
 
 Use install.packages() and give it the name of the package you want to install. To install ggplot2, run:
 
-```{r}
+```{r, eval=FALSE}
 install.packages("ggplot2")
 ```
 
