@@ -1,3 +1,12 @@
+---
+output:
+  bookdown::html_document2:
+    fig_caption: yes
+editor_options:
+  chunk_output_type: console
+---
+
+
 R Basics
 ========
 
@@ -56,7 +65,7 @@ You want to load an installed package.
 
 Use `library()` and give it the name of the package you want to install. To load ggplot2, run:
 
-```{r}
+```{r, eval=FALSE}
 library(ggplot2)
 ```
 
@@ -81,7 +90,7 @@ You want to load data from a delimited text file.
 
 The most common way to read in a file is to use comma-separated values (CSV) data:
 
-```{r}
+```{r, eval=FALSE}
 data <- read.csv("datafile.csv")
 ```
 
@@ -89,20 +98,20 @@ data <- read.csv("datafile.csv")
 
 Since data files have many different formats, there are many options for loading them. For example, if the data file does *not* have headers in the first row:
 
-```{r}
+```{r, eval=FALSE}
 data <- read.csv("datafile.csv", header = FALSE)
 ```
 
 The resulting data frame will have columns named `V1`, `V2`, and so on, and you will probably want to rename them manually:
 
-```{r}
+```{r, eval=FALSE}
 # Manually assign the header names
 names(data) <- c("Column1", "Column2", "Column3")
 ```
 
 You can set the delimiter with sep. If it is space-delimited, use `sep = " "`. If it is tab-delimited, use `\t`, as in:
 
-```{r}
+```{r, eval=FALSE}
 data <- read.csv("datafile.csv", sep = "\t")
 ```
 
@@ -117,17 +126,16 @@ By default, strings in the data are treated as factors. Suppose this is your dat
 
 The resulting data frame will store `First` and `Last` as *factors*, though it makes more sense in this case to treat them as strings (or *character vectors* in R terminology). To differentiate this, use `stringsAsFactors=FALSE`. If there are any columns that should be treated as factors, you can then convert them individually:
 
-```{r}
+```{r, eval=FALSE}
 data <- read.csv("datafile.csv", stringsAsFactors = FALSE)
 # Convert to factor
 data$Sex <- factor(data$Sex)
 str(data)
-
-'data.frame': 3 obs. of 4 variables:
-$ First : chr "Currer" "Dr." ""
-$ Last : chr "Bell" "Seuss" "Student"
-$ Sex : Factor w/ 2 levels "F","M": 1 2 NA
-$ Number: int 2 49 21
+#> 'data.frame': 3 obs. of 4 variables:
+#> $ First : chr "Currer" "Dr." ""
+#> $ Last : chr "Bell" "Seuss" "Student"
+#> $ Sex : Factor w/ 2 levels "F","M": 1 2 NA
+#> $ Number: int 2 49 21
 ```
 
 **TODO: Fix text output formatting**
@@ -150,7 +158,7 @@ You want to load data from an Excel file.
 
 The readxl package has the function `read_excel()` for reading .xls and .xlsx files from Excel. This will read the first sheet of an Excel spreadsheet:
 
-```{r}
+```{r, eval=FALSE}
 # Only need to install once
 install.packages("readxl")
 
@@ -162,7 +170,7 @@ data <- read_excel("datafile.xlsx", 1)
 
 With `read_excel()`, you can load from other sheets by specifying a number for sheetIndex or a name for sheetName:
 
-```{r}
+```{r, eval=FALSE}
 data <- read_excel("datafile.xls", sheet = 2)
 
 data <- read_excel("datafile.xls", sheet = "Revenues")
@@ -172,7 +180,7 @@ data <- read_excel("datafile.xls", sheet = "Revenues")
 
 By default, `read_excel()` will infer the type of each column, but if you want to specify the type of each column, you can use the `col_types` argument. You can also drop columns if you specify the type as `"blank"`.
 
-```{r}
+```{r, eval=FALSE}
 # Drop the first column, and specify the types of the next three columns
 data <- read_excel("datafile.xls", col_types = c("blank", "text", "date", "numeric"))
 ```
@@ -196,7 +204,7 @@ You want to load data from a SPSS file, or from other programs like SAS or Stata
 
 The haven package has the function `read_sav()` for reading SPSS files. To load data from an SPSS file:
 
-```{r}
+```{r, eval=FALSE}
 # Only need to install the first time
 install.packages("haven")
 
@@ -225,4 +233,4 @@ The foreign package does support some other formats, including:
 
 ### See Also
 
-Run ls("package:foreign") for a full list of functions in the foreign package.
+Run `ls("package:foreign")` for a full list of functions in the foreign package.
