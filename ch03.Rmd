@@ -1,106 +1,85 @@
+---
+output:
+  bookdown::html_document2:
+    fig_caption: yes
+editor_options:
+  chunk_output_type: console
+---
+
+```{r echo = FALSE}
+knitr::opts_chunk$set(collapse = TRUE, comment = "#>")
+library(ggplot2)
+```
+
+
 Bar Graphs {#CHAPTER_BAR_GRAPH}
 ==========
 
-Bar graphs are perhaps the most commonly used kind of data
-visualization. They're typically used to display numeric values (on
-the y-axis), for different categories (on the x-axis). For example, a
-bar graph would be good for showing the prices of four different kinds
-of items. A bar graph generally wouldn't be as good for showing
-prices over time, where time is a continuous variable—though it can be
-done, as we'll see in this chapter.
+Bar graphs are perhaps the most commonly used kind of data visualization. They're typically used to display numeric values (on the y-axis), for different categories (on the x-axis). For example, a bar graph would be good for showing the prices of four different kinds of items. A bar graph generally wouldn't be as good for showing prices over time, where time is a continuous variable -- though it can be done, as we'll see in this chapter.
 
-There's an important distinction you should be aware of when making
-bar graphs: sometimes the bar heights represent *counts* of cases in the
-data set, and sometimes they represent *values* in the data set. Keep
-this distinction in mind—it can be a source of confusion since they have
-very different relationships to the data, but the same term is used for
-both of them. In this chapter I'll discuss this more, and present
-recipes for both types of bar graphs.
+There's an important distinction you should be aware of when making bar graphs: sometimes the bar heights represent *counts* of cases in the data set, and sometimes they represent *values* in the data set. Keep this distinction in mind -- it can be a source of confusion since they have very different relationships to the data, but the same term is used for both of them. In this chapter I'll discuss this more, and present recipes for both types of bar graphs.
+
 
 Making a Basic Bar Graph {#RECIPE_BAR_GRAPH_BASIC_BAR}
 ------------------------
 
 ### Problem
 
-You have a data frame where one column represents the *x* position of
-each bar, and another column represents the vertical (y) height of each
-bar.
+You have a data frame where one column represents the *x* position of each bar, and another column represents the vertical (y) height of each bar.
 
 ### Solution
 
-Use ggplot() with geom\$\$\_\$\$bar(stat="identity") and specify what
-variables you want on the x- and y-axes
-(Figure \@ref(fig:FIG-BAR-GRAPH-BASIC-BAR)):
+Use `ggplot()` with `geom_bar(stat="identity")` and specify what variables you want on the x- and y-axes (Figure \@ref(fig:FIG-BAR-GRAPH-BASIC-BAR)):
 
-```{r}
+```{r FIG-BAR-GRAPH-BASIC-BAR, fig.cap='Bar graph of values (with stat="identity") with a discrete x-axis'}
 library(gcookbook) # For the data set
-ggplot(pg_mean, aes(x=group, y=weight)) + geom_bar(stat="identity")
+ggplot(pg_mean, aes(x = group, y = weight)) + geom_bar(stat = "identity")
 ```
 
-![Bar graph of values (with stat="identity") with a discrete
-x-axis](figs/rgcb_0301.png)
 
 ### Discussion
 
-When x is a continuous (or numeric) variable, the bars behave a little
-differently. Instead of having one bar at each actual x value, there is
-one bar at each possible x value between the minimum and the maximum, as
-in Figure \@ref(fig:FIG-BAR-GRAPH-BASIC-BAR-CONT). You can convert the
-continuous variable to a discrete variable by using factor():
+When x is a continuous (or numeric) variable, the bars behave a little differently. Instead of having one bar at each actual x value, there is one bar at each possible x value between the minimum and the maximum, as in Figure \@ref(fig:FIG-BAR-GRAPH-BASIC-BAR-CONT). You can convert the continuous variable to a discrete variable by using `factor()`:
 
-\# There's no entry for Time == 6 BOD
-Time demand 1 8.3 2 10.3 3 19.0 4 16.0 5 15.6 7 19.8
-\# Time is numeric (continuous) str(BOD)
-'data.frame': 6 obs. of 2 variables: \$ Time : num 1 2 3 4 5 7 \$
-demand: num 8.3 10.3 19 16 15.6 19.8 - attr(\*, "reference")= chr "A1.4,
-p. 270"
-```{r}
-ggplot(BOD, aes(x=Time, y=demand)) + geom_bar(stat="identity")
+
+```{r FIG-BAR-GRAPH-BASIC-BAR-CONT, fig.show="hold", fig.cap='Left: bar graph of values (with stat="identity") with a continuous x-axis; right: with x variable converted to a factor (notice that the space for 6 is gone)', fig.width=3.5, fig.height=3.5}
+# There's no entry for Time == 6
+BOD
+
+# Time is numeric (continuous)
+str(BOD)
+
+ggplot(BOD, aes(x = Time, y = demand)) + geom_bar(stat = "identity")
 
 # Convert Time to a discrete (categorical) variable with factor()
-ggplot(BOD, aes(x=factor(Time), y=demand)) + geom_bar(stat="identity")
+ggplot(BOD, aes(x = factor(Time), y = demand)) + geom_bar(stat = "identity")
 ```
 
-![Left: bar graph of values (with stat="identity") with a continuous
-x-axis; right: with x variable converted to a factor (notice that the
-space for 6 is gone)](figs/rgcb_0302.png)
-
-In these examples, the data has a column for x values and another for y
-values. If you instead want the height of the bars to represent the
-*count* of cases in each group, see
+In these examples, the data has a column for x values and another for y values. If you instead want the height of the bars to represent the *count* of cases in each group, see
 [section\_title](#RECIPE_BAR_GRAPH_COUNTS).
 
-By default, bar graphs use a very dark grey for the bars. To use a color
-fill, use fill. Also, by default, there is no outline around the fill.
-To add an outline, use colour. For
+By default, bar graphs use a dark grey for the bars. To use a color fill, use `fill`. Also, by default, there is no outline around the fill. To add an outline, use `colour`. For
 Figure \@ref(fig:FIG-BAR-GRAPH-BASIC-BAR-SINGLE-FILL), we use a light
 blue fill and a black outline:
 
-```{r}
-ggplot(pg_mean, aes(x=group, y=weight)) +
-    geom_bar(stat="identity", fill="lightblue", colour="black")
+```{r FIG-BAR-GRAPH-BASIC-BAR-SINGLE-FILL, fig.cap="A single fill and outline color for all bars"}
+ggplot(pg_mean, aes(x = group, y = weight)) +
+    geom_bar(stat = "identity", fill = "lightblue", colour = "black")
 ```
-
-![A single fill and outline color for all bars](figs/rgcb_0303.png)
 
 > **Note**
 >
-> In ggplot2, the default is to use the British spelling, colour,
-> instead of the American spelling, color. Internally, American
-> spellings are remapped to the British ones, so if you use the American
-> spelling it will still work.
+> In ggplot2, the default is to use the British spelling, colour, instead of the American spelling, color. Internally, American spellings are remapped to the British ones, so if you use the American spelling it will still work.
 
 ### See Also
 
-If you want the height of the bars to represent the count of cases in
-each group, see [section\_title](#RECIPE_BAR_GRAPH_COUNTS).
+If you want the height of the bars to represent the count of cases in each group, see [section\_title](#RECIPE_BAR_GRAPH_COUNTS).
 
-To reorder the levels of a factor based on the values of another
-variable, see [???](#RECIPE_DATAPREP_FACTOR_REORDER_VALUE). To manually
-change the order of factor levels, see
+To reorder the levels of a factor based on the values of another variable, see [???](#RECIPE_DATAPREP_FACTOR_REORDER_VALUE). To manually change the order of factor levels, see
 [???](#RECIPE_DATAPREP_FACTOR_REORDER).
 
 For more information about using colors, see [???](#CHAPTER_COLORS).
+
 
 Grouping Bars Together {#RECIPE_BAR_GRAPH_GROUPED_BAR}
 ----------------------
@@ -111,84 +90,59 @@ You want to group bars together by a second variable.
 
 ### Solution
 
-Map a variable to fill, anduse geom_bar(position="dodge").
+Map a variable to fill, and use `geom_bar(position="dodge")`.
 
-In this example we'll use the cabbage_exp data set, which
-has two categorical variables, Cultivar and Date, and one continuous
-variable, Weight:
-
-library(gcookbook) \# For the data set cabbage\_exp
-Cultivar Date Weight c39 d16 3.18 c39 d20 2.80 c39 d21 2.74 c52 d16 2.26
-c52 d20 3.11 c52 d21 1.47
-We'll map Date to the *x* position and map Cultivar to the fill
-color (Figure \@ref(fig:FIG-BAR-GRAPH-GROUPED-BAR)):
+In this example we'll use the `cabbage_exp` data set, which has two categorical variables, `Cultivar` and `Date`, and one continuous variable, `Weight`:
 
 ```{r}
-ggplot(cabbage_exp, aes(x=Date, y=Weight, fill=Cultivar)) +
-    geom_bar(position="dodge", stat="identity")
+library(gcookbook) # For the data set
+cabbage_exp
 ```
 
-![Graph with grouped bars](figs/rgcb_0304.png)
+We'll map `Date` to the *x* position and map `Cultivar` to the fill color (Figure \@ref(fig:FIG-BAR-GRAPH-GROUPED-BAR)):
+
+```{r FIG-BAR-GRAPH-GROUPED-BAR, fig.cap="Graph with grouped bars"}
+ggplot(cabbage_exp, aes(x = Date, y = Weight, fill = Cultivar)) +
+    geom_bar(position = "dodge", stat = "identity")
+```
 
 ### Discussion
 
-The most basic bar graphs have one categorical variable on the x-axis
-and one continuous variable on the y-axis. Sometimes you'll want to
-use another categorical variable to divide up the data, in addition to
-the variable on the x-axis. You can produce a grouped bar plot by
-mapping that variable to fill, which represents the fill color of the
-bars. You must also use position="dodge", which tells the bars to
-"dodge" each other horizontally; if you don't, you'll
-end up with a stacked bar plot
-([section\_title](#RECIPE_BAR_GRAPH_STACKED_BAR)).
+The most basic bar graphs have one categorical variable on the x-axis and one continuous variable on the y-axis. Sometimes you'll want to use another categorical variable to divide up the data, in addition to the variable on the x-axis. You can produce a grouped bar plot by mapping that variable to fill, which represents the fill color of the bars. You must also use `position="dodge"`, which tells the bars to "dodge" each other horizontally; if you don't, you'll end up with a stacked bar plot ([section\_title](#RECIPE_BAR_GRAPH_STACKED_BAR)).
 
-As with variables mapped to the x-axis of a bar graph, variables that
-are mapped to the fill color of bars must be categorical rather than
-continuous variables.
+As with variables mapped to the x-axis of a bar graph, variables that are mapped to the fill color of bars must be categorical rather than continuous variables.
 
-To add a black outline, use colour="black" inside geom_bar().
-To set the colors, you can use scale_fill\$\$\_\$\$brewer() or
-scale_fill\$\$\_\$\$manual(). In
-Figure \@ref(fig:FIG-BAR-GRAPH-GROUPED-BAR-OUTLINE) we'll use the
-Pastel1 palette from RColorBrewer:
+To add a black outline, use `colour="black"` inside `geom_bar()`. To set the colors, you can use `scale_fill_brewer()` or `scale_fill_manual()`. In Figure \@ref(fig:FIG-BAR-GRAPH-GROUPED-BAR-OUTLINE) we'll use the `Pastel1` palette from `RColorBrewer`:
 
-```{r}
-ggplot(cabbage_exp, aes(x=Date, y=Weight, fill=Cultivar)) +
-    geom_bar(position="dodge", colour="black", stat="identity") +
-    scale_fill_brewer(palette="Pastel1")
+```{r FIG-BAR-GRAPH-GROUPED-BAR-OUTLINE, fig.cap="Grouped bars with black outline and a different color palette"}
+ggplot(cabbage_exp, aes(x = Date, y = Weight, fill = Cultivar)) +
+    geom_bar(position = "dodge", colour = "black", stat = "identity") +
+    scale_fill_brewer(palette = "Pastel1")
 ```
 
-Other aesthetics, such as colour (the color of the outlines of the bars)
-or linestyle, can also be used for grouping variables, but fill is
-probably what you'll want to use.
+Other aesthetics, such as `colour` (the color of the outlines of the bars) or `linestyle`, can also be used for grouping variables, but `fill` is probably what you'll want to use.
 
-Note that if there are any missing combinations of the categorical
-variables, that bar will be missing, and the neighboring bars will
-expand to fill that space. If we remove the last row from our example
-data frame, we get Figure \@ref(fig:FIG-BAR-GRAPH-GROUPED-BAR-MISSING):
+Note that if there are any missing combinations of the categorical variables, that bar will be missing, and the neighboring bars will expand to fill that space. If we remove the last row from our example data frame, we get Figure \@ref(fig:FIG-BAR-GRAPH-GROUPED-BAR-MISSING):
 
-ce &lt;- cabbage\_exp\[1:5, \] \# Copy the data without last row ce
-Cultivar Date Weight c39 d16 3.18 c39 d20 2.80 c39 d21 2.74 c52 d16 2.26
-c52 d20 3.11
-ggplot(ce, aes(x=Date, y=Weight, fill=Cultivar)) +
-geom\_bar(position="dodge", colour="black", stat="identity") +
-scale\_fill\_brewer(palette="Pastel1")
-![Grouped bars with black outline and a different color
-palette](figs/rgcb_0305.png)
+```{r FIG-BAR-GRAPH-GROUPED-BAR-MISSING, fig.cap="Graph with a missing bar—the other bar fills the space"}
+ce <- cabbage_exp[1:5, ]
+ce
 
-![Graph with a missing bar—the other bar fills the
-space](figs/rgcb_0306.png)
+ggplot(ce, aes(x = Date, y = Weight, fill = Cultivar)) +
+    geom_bar(position = "dodge", colour = "black", stat = "identity") +
+    scale_fill_brewer(palette = "Pastel1")
+```
 
-If your data has this issue, you can manually make an entry for the
-missing factor level combination with an NA for the *y* variable.
+
+
+If your data has this issue, you can manually make an entry for the missing factor level combination with an `NA` for the *y* variable.
 
 ### See Also
 
-For more on using colors in bar graphs, see
-[section\_title](#RECIPE_BAR_GRAPH_COLORS).
+For more on using colors in bar graphs, see [section\_title](#RECIPE_BAR_GRAPH_COLORS).
 
-To reorder the levels of a factor based on the values of another
-variable, see [???](#RECIPE_DATAPREP_FACTOR_REORDER_VALUE).
+To reorder the levels of a factor based on the values of another variable, see [???](#RECIPE_DATAPREP_FACTOR_REORDER_VALUE).
+
 
 Making a Bar Graph of Counts {#RECIPE_BAR_GRAPH_COUNTS}
 ----------------------------
