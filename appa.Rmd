@@ -105,7 +105,7 @@ to the *x* position with x=Aval, and Bval to the fill color with
 fill=Bval. This will make the As run along the x-axis and the Bs
 determine the grouping. We also tell it to map value to the *y*
 position, or height, of the bars, with y=value. Finally, we tell it to
-draw bars with geom\$\$\_\$\$bar() don't worry about the other
+draw bars with geom_bar() don't worry about the other
 details yet; we'll get to those later):
 
 ```{r}
@@ -138,7 +138,7 @@ switched](figs/rgcb_aa05.png)
 > you can tell it to print.
 
 To change it to a line graph (Figure \@ref(fig:app_figure_16-6)), we
-change geom\$\$\_\$\$bar() to geom\$\$\_\$\$line(). We'll also map
+change geom_bar() to geom_line(). We'll also map
 Bval to the *line* color, with colour, instead of the *fill* colour
 (note the British spelling—the author of ggplot2 is a Kiwi). Again,
 don't worry about the other details yet:
@@ -261,7 +261,7 @@ After we've given ggplot() the data frame and the aesthetic
 mappings, there's one more critical component: we need to tell it
 what *geometric objects* to put there. At this point, ggplot2
 doesn't know if we want bars, lines, points, or something else to be
-drawn on the graph. We'll add geom\$\$\_\$\$point() to draw points,
+drawn on the graph. We'll add geom_point() to draw points,
 resulting in a scatter plot:
 
 ```{r}
@@ -272,7 +272,7 @@ ggplot(dat, aes(x=xval, y=yval)) + geom_point()
 
 If you're going to reuse some of these components, you canstore them
 in variables. We can save the ggplot object in p, and then add
-geom\$\$\_\$\$point() to it. This has the same effect as the preceding
+geom_point() to it. This has the same effect as the preceding
 code:
 
 ```{r}
@@ -281,7 +281,7 @@ p + geom_point()
 ```
 
 We can also map the variable group to the color of the points, by
-putting aes() inside the call to geom\$\$\_\$\$point(), and specifying
+putting aes() inside the call to geom_point(), and specifying
 colour=group:
 
 ```{r}
@@ -292,7 +292,7 @@ p + geom_point(aes(colour=group))
 
 This doesn't alter the *default* aesthetic mappings that we defined
 previously, inside of ggplot(...). What it does is add an aesthetic
-mapping for this particular geom, geom\$\$\_\$\$point(). If we added
+mapping for this particular geom, geom_point(). If we added
 other geoms, this mapping would not apply to them.
 
 Contrast this aesthetic *mapping* with aesthetic *setting*. This time,
@@ -374,7 +374,7 @@ Sometimes your data must be transformed or summarized before it is
 mapped to an aesthetic. This is true, for example, with a histogram,
 where the samples are grouped into bins and counted. The counts for each
 bin are then used to specify the height of a bar. Some geoms, like
-geom\$\$\_\$\$histogram(), automatically do this for you, but sometimes
+geom_histogram(), automatically do this for you, but sometimes
 you'll want to do this yourself, using various stat\$\$\_\$\$*xx*
 functions.
 

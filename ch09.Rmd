@@ -78,7 +78,7 @@ You want to change the appearance of text in a plot.
 
 To set the appearance of theme items such as the title, axis labels, and
 axis tick marks, use theme() and set the item with
-element\$\$\_\$\$text(). For example, axis.title.x controls the
+element_text(). For example, axis.title.x controls the
 appearance of the x-axis label and plot.title controls the appearance of
 the title text (Figure \@ref(fig:FIG-APPEARANCE-TEXT-APPEARANCE), left):
 
@@ -101,7 +101,7 @@ p + ggtitle("Age and Height\nof Schoolchildren") +
 ```
 
 To set the appearance of text geoms (text that's in the plot itself,
-with geom\$\$\_\$\$text() or annotate()), set the text properties. For
+with geom_text() or annotate()), set the text properties. For
 example (Figure \@ref(fig:FIG-APPEARANCE-TEXT-APPEARANCE), right):
 
 ```{r}
@@ -210,7 +210,7 @@ You want to use premade themes to control the overall plot appearance.
 
 ### Solution
 
-To use a premade theme, add theme\$\$\_\$\$bw() or theme\$\$\_\$\$grey()
+To use a premade theme, add theme_bw() or theme_grey()
 (Figure \@ref(fig:FIG-APPEARANCE-THEME)):
 
 ```{r}
@@ -236,8 +236,8 @@ things that are controlled by theme(). Most of these things, like the
 title, legend, and axes, are outside the plot area, but some of them are
 inside the plot area, such as grid lines and the background coloring.
 
-The two included themes are theme\$\$\_\$\$grey() and
-theme\$\$\_\$\$bw(), but it is also possible to create your own.
+The two included themes are theme_grey() and
+theme_bw(), but it is also possible to create your own.
 
 You can set the base font family and size with either of the included
 themes (the default base font family is Helvetica, and the default size
@@ -248,7 +248,7 @@ p + theme_grey(base_size=16, base_family="Times")
 ```
 
 You can set the default theme for the current R sessionwith
-theme\$\$\_\$\$set():
+theme_set():
 
 ```{r}
 # Set default theme for current session
@@ -281,8 +281,8 @@ You want to change the appearance of theme elements.
 ### Solution
 
 To modify a theme, add theme() with a corresponding
-element\$\$\_\$\$*xx* object. These include element\$\$\_\$\$line,
-element\$\$\_\$\$rect, and element\$\$\_\$\$text. The following code
+element\$\$\_\$\$*xx* object. These include element_line,
+element_rect, and element_text. The following code
 shows how to modify many of the commonly used theme properties
 (Figure \@ref(fig:FIG-APPEARANCE-THEME-MODIFY)):
 
@@ -345,43 +345,43 @@ Many of the commonly used theme properties are shown in
 +----------------------+----------------------+-----------------------+
 | Name                 | Description          | Element type          |
 +======================+======================+=======================+
-| text                 | All text elements    | element\$\$\_\$\$text |
+| text                 | All text elements    | element_text |
 |                      |                      | ()                    |
 +----------------------+----------------------+-----------------------+
-| rect                 | All rectangular      | element\$\$\_\$\$rect |
+| rect                 | All rectangular      | element_rect |
 |                      | elements             | ()                    |
 +----------------------+----------------------+-----------------------+
-| line                 | All line elements    | element\$\$\_\$\$line |
+| line                 | All line elements    | element_line |
 |                      |                      | ()                    |
 +----------------------+----------------------+-----------------------+
-| axis.line            | Lines along axes     | element\$\$\_\$\$line |
+| axis.line            | Lines along axes     | element_line |
 |                      |                      | ()                    |
 +----------------------+----------------------+-----------------------+
-| axis.title           | Appearance of both   | element\$\$\_\$\$text |
+| axis.title           | Appearance of both   | element_text |
 |                      | axis labels          | ()                    |
 +----------------------+----------------------+-----------------------+
-| axis.title.x         | X-axis label         | element\$\$\_\$\$text |
+| axis.title.x         | X-axis label         | element_text |
 |                      | appearance           | ()                    |
 +----------------------+----------------------+-----------------------+
-| axis.title.y         | Y-axis label         | element\$\$\_\$\$text |
+| axis.title.y         | Y-axis label         | element_text |
 |                      | appearance           | ()                    |
 +----------------------+----------------------+-----------------------+
-| axis.text            | Appearance of tick   | element\$\$\_\$\$text |
+| axis.text            | Appearance of tick   | element_text |
 |                      | labels on both axes  | ()                    |
 +----------------------+----------------------+-----------------------+
-| axis.text.x          | X-axis tick label    | element\$\$\_\$\$text |
+| axis.text.x          | X-axis tick label    | element_text |
 |                      | appearance           | ()                    |
 +----------------------+----------------------+-----------------------+
-| axis.text.y          | Y-axis tick label    | element\$\$\_\$\$text |
+| axis.text.y          | Y-axis tick label    | element_text |
 |                      | appearance           | ()                    |
 +----------------------+----------------------+-----------------------+
-| legend.background    | Background of legend | element\$\$\_\$\$rect |
+| legend.background    | Background of legend | element_rect |
 |                      |                      | ()                    |
 +----------------------+----------------------+-----------------------+
-| legend.text          | Legend item          | element\$\$\_\$\$text |
+| legend.text          | Legend item          | element_text |
 |                      | appearance           | ()                    |
 +----------------------+----------------------+-----------------------+
-| legend.title         | Legend title         | element\$\$\_\$\$text |
+| legend.title         | Legend title         | element_text |
 |                      | appearance           | ()                    |
 +----------------------+----------------------+-----------------------+
 | legend.position      | Position of the      | "left", "right",      |
@@ -395,51 +395,51 @@ Many of the commonly used theme properties are shown in
 |                      |                      | [???](#RECIPE_LEGEND_ |
 |                      |                      | POSITION))            |
 +----------------------+----------------------+-----------------------+
-| panel.background     | Background of        | element\$\$\_\$\$rect |
+| panel.background     | Background of        | element_rect |
 |                      | plotting area        | ()                    |
 +----------------------+----------------------+-----------------------+
-| panel.border         | Border around        | element\$\$\_\$\$rect |
+| panel.border         | Border around        | element_rect |
 |                      | plotting area        | (linetype="dashed")   |
 +----------------------+----------------------+-----------------------+
-| panel.grid.major     | Major grid lines     | element\$\$\_\$\$line |
+| panel.grid.major     | Major grid lines     | element_line |
 |                      |                      | ()                    |
 +----------------------+----------------------+-----------------------+
-| panel.grid.major.x   | Major grid lines,    | element\$\$\_\$\$line |
+| panel.grid.major.x   | Major grid lines,    | element_line |
 |                      | vertical             | ()                    |
 +----------------------+----------------------+-----------------------+
-| panel.grid.major.y   | Major grid lines,    | element\$\$\_\$\$line |
+| panel.grid.major.y   | Major grid lines,    | element_line |
 |                      | horizontal           | ()                    |
 +----------------------+----------------------+-----------------------+
-| panel.grid.minor     | Minor grid lines     | element\$\$\_\$\$line |
+| panel.grid.minor     | Minor grid lines     | element_line |
 |                      |                      | ()                    |
 +----------------------+----------------------+-----------------------+
-| panel.grid.minor.x   | Minor grid lines,    | element\$\$\_\$\$line |
+| panel.grid.minor.x   | Minor grid lines,    | element_line |
 |                      | vertical             | ()                    |
 +----------------------+----------------------+-----------------------+
-| panel.grid.minor.y   | Minor grid lines,    | element\$\$\_\$\$line |
+| panel.grid.minor.y   | Minor grid lines,    | element_line |
 |                      | horizontal           | ()                    |
 +----------------------+----------------------+-----------------------+
-| plot.background      | Background of the    | element\$\$\_\$\$rect |
+| plot.background      | Background of the    | element_rect |
 |                      | entire plot          | (fill                 |
 |                      |                      | = "white", colour =   |
 |                      |                      | NA)                   |
 +----------------------+----------------------+-----------------------+
-| plot.title           | Title text           | element\$\$\_\$\$text |
+| plot.title           | Title text           | element_text |
 |                      | appearance           | ()                    |
 +----------------------+----------------------+-----------------------+
-| strip.background     | Background of facet  | element\$\$\_\$\$rect |
+| strip.background     | Background of facet  | element_rect |
 |                      | labels               | ()                    |
 +----------------------+----------------------+-----------------------+
-| strip.text           | Text appearance for  | element\$\$\_\$\$text |
+| strip.text           | Text appearance for  | element_text |
 |                      | vertical and         | ()                    |
 |                      | horizontal facet     |                       |
 |                      | labels               |                       |
 +----------------------+----------------------+-----------------------+
-| strip.text.x         | Text appearance for  | element\$\$\_\$\$text |
+| strip.text.x         | Text appearance for  | element_text |
 |                      | horizontal facet     | ()                    |
 |                      | labels               |                       |
 +----------------------+----------------------+-----------------------+
-| strip.text.y         | Text appearance for  | element\$\$\_\$\$text |
+| strip.text.y         | Text appearance for  | element_text |
 |                      | vertical facet       | ()                    |
 |                      | labels               |                       |
 +----------------------+----------------------+-----------------------+

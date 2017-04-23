@@ -57,37 +57,37 @@ want to achieve the same proportions in the graphing area, you will need
 to adjust the overall dimensions of the graph.
 
 When a variable is mapped to fill, the default scale used is
-scale\$\$\_\$\$fill\$\$\_\$\$discrete() (equivalent to
-scale\$\$\_\$\$fill\$\$\_\$\$hue()), which maps the factor levels to
+scale_fill\$\$\_\$\$discrete() (equivalent to
+scale_fill\$\$\_\$\$hue()), which maps the factor levels to
 colors that are equally spaced around the color wheel. There are other
-scales for fill, such as scale\$\$\_\$\$fill\$\$\_\$\$manual(). If you
+scales for fill, such as scale_fill\$\$\_\$\$manual(). If you
 use scales for other aesthetics, such as colour (for lines and points)
 or shape (for points), you must use the appropriate scale. Commonly used
 scales include:
 
--   scale\$\$\_\$\$fill\$\$\_\$\$discrete()
+-   scale_fill\$\$\_\$\$discrete()
 
--   scale\$\$\_\$\$fill\$\$\_\$\$hue()
+-   scale_fill\$\$\_\$\$hue()
 
--   scale\$\$\_\$\$fill\$\$\_\$\$manual()
+-   scale_fill\$\$\_\$\$manual()
 
--   scale\$\$\_\$\$fill\$\$\_\$\$grey()
+-   scale_fill\$\$\_\$\$grey()
 
--   scale\$\$\_\$\$fill\$\$\_\$\$brewer()
+-   scale_fill\$\$\_\$\$brewer()
 
--   scale\$\$\_\$\$colour\$\$\_\$\$discrete()
+-   scale_colour\$\$\_\$\$discrete()
 
--   scale\$\$\_\$\$colour\$\$\_\$\$hue()
+-   scale_colour\$\$\_\$\$hue()
 
--   scale\$\$\_\$\$colour\$\$\_\$\$manual()
+-   scale_colour\$\$\_\$\$manual()
 
--   scale\$\$\_\$\$colour\$\$\_\$\$grey()
+-   scale_colour\$\$\_\$\$grey()
 
--   scale\$\$\_\$\$colour\$\$\_\$\$brewer()
+-   scale_colour\$\$\_\$\$brewer()
 
--   scale\$\$\_\$\$shape\$\$\_\$\$manual()
+-   scale_shape\$\$\_\$\$manual()
 
--   scale\$\$\_\$\$linetype()
+-   scale_linetype()
 
 Changing the Position of a Legend {#RECIPE_LEGEND_POSITION}
 ---------------------------------
@@ -191,15 +191,15 @@ order](figs/rgcb_1005.png)
 
 Note that the order of the items on the x-axis did not change. To do
 that, you would have to set the limits of
-scale\$\$\_\$\$x\$\$\_\$\$discrete() ([???](#RECIPE_AXIS_ORDER)), or
+scale_x\$\$\_\$\$discrete() ([???](#RECIPE_AXIS_ORDER)), or
 change the data to have a different factor level order
 ([???](#RECIPE_DATAPREP_FACTOR_REORDER)).
 
 In the preceding example, group was mapped to the fill aesthetic. By
-default this uses scale\$\$\_\$\$fill\$\$\_\$\$discrete() (which is the
-sameas scale\$\$\_\$\$fill\$\$\_\$\$hue()), which maps the factor levels
+default this uses scale_fill\$\$\_\$\$discrete() (which is the
+sameas scale_fill\$\$\_\$\$hue()), which maps the factor levels
 to colors that are equally spaced around the color wheel. We could have
-used a different scale\$\$\_\$\$fill\$\$\_\$\$*xxx*(), though. For
+used a different scale_fill\$\$\_\$\$*xxx*(), though. For
 example, we could use a grey palette
 (Figure \@ref(fig:FIG-LEGEND-ORDER2), left):
 
@@ -221,32 +221,32 @@ All the previous examples were for fill. If you use scales for other
 aesthetics, such as colour (for lines and points) or shape (for points),
 you must use the appropriate scale. Commonly used scales include:
 
--   scale\$\$\_\$\$fill\$\$\_\$\$discrete()
+-   scale_fill\$\$\_\$\$discrete()
 
--   scale\$\$\_\$\$fill\$\$\_\$\$hue()
+-   scale_fill\$\$\_\$\$hue()
 
--   scale\$\$\_\$\$fill\$\$\_\$\$manual()
+-   scale_fill\$\$\_\$\$manual()
 
--   scale\$\$\_\$\$fill\$\$\_\$\$grey()
+-   scale_fill\$\$\_\$\$grey()
 
--   scale\$\$\_\$\$fill\$\$\_\$\$brewer()
+-   scale_fill\$\$\_\$\$brewer()
 
--   scale\$\$\_\$\$colour\$\$\_\$\$discrete()
+-   scale_colour\$\$\_\$\$discrete()
 
--   scale\$\$\_\$\$colour\$\$\_\$\$hue()
+-   scale_colour\$\$\_\$\$hue()
 
--   scale\$\$\_\$\$colour\$\$\_\$\$manual()
+-   scale_colour\$\$\_\$\$manual()
 
--   scale\$\$\_\$\$colour\$\$\_\$\$grey()
+-   scale_colour\$\$\_\$\$grey()
 
--   scale\$\$\_\$\$colour\$\$\_\$\$brewer()
+-   scale_colour\$\$\_\$\$brewer()
 
--   scale\$\$\_\$\$shape\$\$\_\$\$manual()
+-   scale_shape\$\$\_\$\$manual()
 
--   scale\$\$\_\$\$linetype()
+-   scale_linetype()
 
-By default, using scale\$\$\_\$\$fill\$\$\_\$\$discrete() is equivalent
-to using scale\$\$\_\$\$fill\$\$\_\$\$hue(); the same is true for color
+By default, using scale_fill\$\$\_\$\$discrete() is equivalent
+to using scale_fill\$\$\_\$\$hue(); the same is true for color
 scales.
 
 ### See Also
@@ -268,7 +268,7 @@ You want to reverse the order of items in a legend.
 
 ### Solution
 
-Add guides(fill=guide\$\$\_\$\$legend(reverse=TRUE)) toreverse the order
+Add guides(fill=guide_legend(reverse=TRUE)) toreverse the order
 of the legend, as in Figure \@ref(fig:FIG-LEGEND-TITLE-REVERSE) (for
 other aesthetics, replace fill with the name of the aesthetic, such as
 colour or size):
@@ -397,7 +397,7 @@ You want to change the appearance of a legend title's text.
 
 ### Solution
 
-Use theme(legend.title=element\$\$\_\$\$text())
+Use theme(legend.title=element_text())
 (Figure \@ref(fig:FIG-LEGEND-TITLE-APPEARANCE)):
 
 ```{r}
@@ -434,7 +434,7 @@ You want to remove a legend title.
 
 ### Solution
 
-Add guides(fill=guide\$\$\_\$\$legend(title=NULL)) to remove the title
+Add guides(fill=guide_legend(title=NULL)) to remove the title
 from a legend, as in Figure \@ref(fig:FIG-LEGEND-TITLE-REMOVE) (for
 other aesthetics, replace fill with the name of the aesthetic, such as
 colour or size):
@@ -483,14 +483,14 @@ scale](figs/rgcb_1013.png)
 ### Discussion
 
 Note that the labels on the x-axis did not change. To do that, you would
-have to set the labels of scale\$\$\_\$\$x\$\$\_\$\$discrete()
+have to set the labels of scale_x\$\$\_\$\$discrete()
 ([???](#RECIPE_AXES_AXIS_LABEL)), or change the data to have different
 factor level names ([???](#RECIPE_DATAPREP_FACTOR_RENAME)).
 
 In the preceding example, group was mapped to the fill aesthetic. By
-default this uses scale\$\$\_\$\$fill\$\$\_\$\$discrete(), which maps
+default this uses scale_fill\$\$\_\$\$discrete(), which maps
 the factor levels to colors that are equally spaced around the color
-wheel (the same as scale\$\$\_\$\$fill\$\$\_\$\$hue()). There are other
+wheel (the same as scale_fill\$\$\_\$\$hue()). There are other
 fill scales we could use, and setting the labels works the same way. For
 example, to produce the graph on the right in
 Figure \@ref(fig:FIG-LEGEND-LABEL):
@@ -539,32 +539,32 @@ colour](figs/rgcb_1015.png)
 
 Other commonly used scales with legends include:
 
--   scale\$\$\_\$\$fill\$\$\_\$\$discrete()
+-   scale_fill\$\$\_\$\$discrete()
 
--   scale\$\$\_\$\$fill\$\$\_\$\$hue()
+-   scale_fill\$\$\_\$\$hue()
 
--   scale\$\$\_\$\$fill\$\$\_\$\$manual()
+-   scale_fill\$\$\_\$\$manual()
 
--   scale\$\$\_\$\$fill\$\$\_\$\$grey()
+-   scale_fill\$\$\_\$\$grey()
 
--   scale\$\$\_\$\$fill\$\$\_\$\$brewer()
+-   scale_fill\$\$\_\$\$brewer()
 
--   scale\$\$\_\$\$colour\$\$\_\$\$discrete()
+-   scale_colour\$\$\_\$\$discrete()
 
--   scale\$\$\_\$\$colour\$\$\_\$\$hue()
+-   scale_colour\$\$\_\$\$hue()
 
--   scale\$\$\_\$\$colour\$\$\_\$\$manual()
+-   scale_colour\$\$\_\$\$manual()
 
--   scale\$\$\_\$\$colour\$\$\_\$\$grey()
+-   scale_colour\$\$\_\$\$grey()
 
--   scale\$\$\_\$\$colour\$\$\_\$\$brewer()
+-   scale_colour\$\$\_\$\$brewer()
 
--   scale\$\$\_\$\$shape\$\$\_\$\$manual()
+-   scale_shape\$\$\_\$\$manual()
 
--   scale\$\$\_\$\$linetype()
+-   scale_linetype()
 
-By default, using scale\$\$\_\$\$fill\$\$\_\$\$discrete() is equivalent
-to using scale\$\$\_\$\$fill\$\$\_\$\$hue(); the same is true for color
+By default, using scale_fill\$\$\_\$\$discrete() is equivalent
+to using scale_fill\$\$\_\$\$hue(); the same is true for color
 scales.
 
 Changing the Appearance of Legend Labels {#RECIPE_LEGEND_LABEL_APPEARANCE}
@@ -576,7 +576,7 @@ You want to change the appearance of labels in a legend.
 
 ### Solution
 
-Use theme(legend.text=element\$\$\_\$\$text())
+Use theme(legend.text=element_text())
 (Figure \@ref(fig:FIG-LEGEND-LABEL-APPEARANCE)):
 
 ```{r}
@@ -617,7 +617,7 @@ You want to use legend labels that have more than one line of text.
 ### Solution
 
 Set the labels in the scale, using \$\$\\\$\$n to represent a newline.
-In this example, we'll use scale\$\$\_\$\$fill\$\$\_\$\$discrete()
+In this example, we'll use scale_fill\$\$\_\$\$discrete()
 to control the legend for the fill scale
 (Figure \@ref(fig:FIG-LEGEND-LABEL-MULTILINE), left):
 

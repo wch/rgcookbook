@@ -12,7 +12,7 @@ You want to make a histogram.
 
 ### Solution
 
-Use geom\$\$\_\$\$histogram() andmap a continuous variable to x
+Use geom_histogram() andmap a continuous variable to x
 (Figure \@ref(fig:FIG-DISTRIBUTION-HIST-BASIC)):
 
 ```{r}
@@ -23,7 +23,7 @@ ggplot(faithful, aes(x=waiting)) + geom_histogram()
 
 ### Discussion
 
-All geom\$\$\_\$\$histogram() requires is one column from a data frame
+All geom_histogram() requires is one column from a data frame
 or a single vector of data. For this example we'll use the faithful
 data set, which contains data about the Old Faithful geyser in two
 columns: eruptions, which is the length of each eruption, and waiting,
@@ -97,9 +97,9 @@ on the upper bound. If you have bin boundaries at 1, 2, 3, etc., then
 the bins will be \[1, 2), \[2, 3), and so on. In other words, the first
 bin contains 1 but not 2, and the second bin contains 2 but not 3.
 
-It is also possible to use geom\$\$\_\$\$bar(stat="bin") for the same
+It is also possible to use geom_bar(stat="bin") for the same
 effect, although I find it easier to interpret the code if it uses
-geom\$\$\_\$\$histogram().
+geom_histogram().
 
 ### See Also
 
@@ -116,7 +116,7 @@ You want to make histograms of multiple groups of data.
 
 ### Solution
 
-Use geom\$\$\_\$\$histogram() anduse facets for each group, as shown in
+Use geom_histogram() anduse facets for each group, as shown in
 Figure \@ref(fig:FIG-DISTRIBUTION-MULTI-HISTOGRAM-FACET):
 
 ```{r}
@@ -225,7 +225,7 @@ You want to make a kernel density curve.
 
 ### Solution
 
-Use geom\$\$\_\$\$density()and map a continuous variable to x
+Use geom_density()and map a continuous variable to x
 (Figure \@ref(fig:FIG-DISTRIBUTION-DENSITY-BASIC)):
 
 ```{r}
@@ -233,7 +233,7 @@ ggplot(faithful, aes(x=waiting)) + geom_density()
 ```
 
 If you don't like the lines along the side and bottom,you can use
-geom\$\$\_\$\$line(stat="density") (see
+geom_line(stat="density") (see
 Figure \@ref(fig:FIG-DISTRIBUTION-DENSITY-BASIC), right):
 
 ```{r}
@@ -247,7 +247,7 @@ with geom\_line()](figs/rgcb_0608.png)
 
 ### Discussion
 
-Like geom\$\$\_\$\$histogram(), geom\$\$\_\$\$density() requires just
+Like geom_histogram(), geom_density() requires just
 one column from a data frame. For this example, we’ll use the faithful
 data set, which contains data about the Old Faithful geyser in two
 columns: eruptions, which is the length of each eruption, and waiting,
@@ -256,12 +256,12 @@ waiting column in this example:
 
 faithful
 eruptions waiting 3.600 79 1.800 54 3.333 74 ...
-The second method mentioned earlier uses geom\$\$\_\$\$line() and tells
+The second method mentioned earlier uses geom_line() and tells
 it to use the "density" statistical transformation. This is essentially
-the same as the first method, using geom\$\$\_\$\$density(), except the
+the same as the first method, using geom_density(), except the
 former draws it with a closed polygon.
 
-As with geom\$\$\_\$\$histogram(), if you just want to get a quick look
+As with geom_histogram(), if you just want to get a quick look
 at data that isn't in a data frame, you can get the same result by
 passing in NULL for the data frame and giving ggplot() a vector of
 values. This would have the same result as the first solution:
@@ -323,8 +323,8 @@ density curve are small (the area under the curve always sums to 1), it
 would be barely visible if you overlaid it on a histogram without any
 transformation. To solve this problem, you can scale down the histogram
 to match the density curve with the mapping y=..density... Here
-we'll add geom\$\$\_\$\$histogram() first, and then layer
-geom\$\$\_\$\$density() on top
+we'll add geom_histogram() first, and then layer
+geom_density() on top
 (Figure \@ref(fig:FIG-DISTRIBUTION-DENSITY-HIST)):
 
 ```{r}
@@ -351,7 +351,7 @@ You want to make density curves of multiple groups of data.
 
 ### Solution
 
-Use geom\$\$\_\$\$density(), andmap the grouping variable to an
+Use geom_density(), andmap the grouping variable to an
 aesthetic like colour or fill, as shown in
 Figure \@ref(fig:FIG-DISTRIBUTION-MULTI-DENSITY). The grouping variable
 must be a factor or character vector. In the birthwt data set, the
@@ -451,7 +451,7 @@ You want to make a frequency polygon.
 
 ### Solution
 
-Use geom\$\$\_\$\$freqpoly()
+Use geom_freqpoly()
 (Figure \@ref(fig:FIG-DISTRIBUTION-FREQPOLY)):
 
 ```{r}
@@ -498,7 +498,7 @@ You want to make a box (or box-and-whiskers) plot.
 
 ### Solution
 
-Use geom\$\$\_\$\$boxplot(),mapping a continuous variable to y and a
+Use geom_boxplot(),mapping a continuous variable to y and a
 discrete variable to x
 (Figure \@ref(fig:FIG-DISTRIBUTION-BOXPLOT-BASIC)):
 
@@ -581,7 +581,7 @@ ggplot(birthwt, aes(x=1, y=bwt)) + geom_boxplot() +
 >
 > The calculation of quantiles works slightly differently from the
 > boxplot() function in base R. This can sometimes be noticeable for
-> small sample sizes. See ?geom\$\$\_\$\$boxplot for detailed
+> small sample sizes. See ?geom_boxplot for detailed
 > information about how the calculations differ.
 
 Adding Notches to a Box Plot {#RECIPE_DISTRIBUTION_BOXPLOT_NOTCH}
@@ -594,7 +594,7 @@ different.
 
 ### Solution
 
-Use geom\$\$\_\$\$boxplot() and set notch=TRUE
+Use geom_boxplot() and set notch=TRUE
 (Figure \@ref(fig:FIG-DISTRIBUTION-BOXPLOT-NOTCH)):
 
 ```{r}
@@ -631,7 +631,7 @@ You want to add markers for the mean to a box plot.
 
 ### Solution
 
-Use stat\$\$\_\$\$summary(). Themean is often shown with a diamond, so
+Use stat_summary(). Themean is often shown with a diamond, so
 we'll use shape 23 with a white fill. We'll also make the
 diamond slightly larger by setting size=3
 (Figure \@ref(fig:FIG-DISTRIBUTION-BOXPLOT-MEAN)):
@@ -661,7 +661,7 @@ groups.
 
 ### Solution
 
-Use geom\$\$\_\$\$violin()
+Use geom_violin()
 (Figure \@ref(fig:FIG-DISTRIBUTION-VIOLIN-BASIC)):
 
 ```{r}
@@ -699,7 +699,7 @@ p + geom_violin() + geom_boxplot(width=.1, fill="black", outlier.colour=NA) +
 
 In this example we layered the objects from the bottom up, starting with
 the violin, then the box plot, then the white dot at the median, which
-is calculated using stat\$\$\_\$\$summary().
+is calculated using stat_summary().
 
 The default range goes from the minimum to maximum data values; the flat
 ends of the violins are at the extremes of the data. It's possible
@@ -762,7 +762,7 @@ You want to make a Wilkinson dot plot, which shows each data point.
 
 ### Solution
 
-Use geom\$\$\_\$\$dotplot(). Forthis example
+Use geom_dotplot(). Forthis example
 (Figure \@ref(fig:FIG-DISTRIBUTION-DOTPLOT-BASIC)), we'll use a
 subset of the countries data set:
 
@@ -786,12 +786,12 @@ the bins depends on the data, and the width of each dot corresponds to
 the maximum width of each bin. The maximum bin size defaults to 1/30 of
 the range of the data, but it can be changed with binwidth.
 
-By default, geom\$\$\_\$\$dotplot() bins the data along the x-axis and
+By default, geom_dotplot() bins the data along the x-axis and
 stacks on the y-axis. The dots are stacked visually, and for reasons
 related to technical limitations of ggplot2, the resulting graph has
 y-axis tick marks that aren't meaningful. The y-axis labels can be
-removed by using scale\$\$\_\$\$y\$\$\_\$\$continuous(). In this
-example, we'll also use geom\$\$\_\$\$rug() to show exactly where
+removed by using scale_y\$\$\_\$\$continuous(). In this
+example, we'll also use geom_rug() to show exactly where
 each data point is
 (Figure \@ref(fig:FIG-DISTRIBUTION-DOTPLOT-NO-Y-RUG)):
 
@@ -889,7 +889,7 @@ as numeric you must also specify the group, or else the data will be
 treated as a single group, with just one box plot and dot plot. Finally,
 since the x-axis is treated as numeric, it will by default show numbers
 for the x-axis tick labels; they must be modified with
-scale\$\$\_\$\$x\$\$\_\$\$continuous() to show *x* tick labels as text
+scale_x\$\$\_\$\$continuous() to show *x* tick labels as text
 corresponding to the factor levels:
 
 ```{r}
@@ -912,7 +912,7 @@ You want to plot the density of two-dimensional (2D) data.
 
 ### Solution
 
-Use stat\$\$\_\$\$density2d(). Thismakes a 2D kernel density estimate
+Use stat_density2d(). Thismakes a 2D kernel density estimate
 from the data. First we'll plot the density contour along with the
 data points (Figure \@ref(fig:FIG-DISTRIBUTION-DENSITY2D), left):
 
@@ -938,7 +938,7 @@ color](figs/rgcb_0634.png)
 ### Discussion
 
 The two-dimensional kernel density estimate is analogous to the
-one-dimensional density estimate generated by stat\$\$\_\$\$density(),
+one-dimensional density estimate generated by stat_density(),
 but of course, it needs to be viewed in a different way. The default is
 to use contour lines, but it's also possible to use tiles and map
 the density estimate to the fill color, or to the transparency of the
@@ -985,8 +985,8 @@ directions](figs/rgcb_0636.png)
 
 ### See Also
 
-The relationship between stat\$\$\_\$\$density2d() and
-stat\$\$\_\$\$bin2d() is the same as the relationship between their
+The relationship between stat_density2d() and
+stat_bin2d() is the same as the relationship between their
 one-dimensional counterparts, the density curve and the histogram. The
 density curve is an *estimate* of the distribution under certain
 assumptions, while the binned visualization represents the observed data
@@ -996,5 +996,5 @@ data.
 If you want to use a different color palette, see
 [???](#RECIPE_COLORS_PALETTE_CONTINUOUS).
 
-stat\$\$\_\$\$density2d() passes options to kde2d(); see ?kde2d for
+stat_density2d() passes options to kde2d(); see ?kde2d for
 information on the availableoptions.

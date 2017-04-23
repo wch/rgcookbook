@@ -17,7 +17,7 @@ You want to swap the x- and y-axes on a graph.
 
 ### Solution
 
-Use coord\$\$\_\$\$flip() to flip the axes
+Use coord_flip() to flip the axes
 (Figure \@ref(fig:FIG-AXES-SWAP-AXES)):
 
 ```{r}
@@ -38,7 +38,7 @@ y-axes equally. For example, box plots summarize the data along the
 y-axis, the lines in line graphs move in only one direction along the
 x-axis, error bars have a single *x* value and a range of *y* values,
 and so on. If you're using these geoms and want them to behave as
-though the axes are swapped, coord\$\$\_\$\$flip() is what you need.
+though the axes are swapped, coord_flip() is what you need.
 
 Sometimes when the axes are swapped, the order of items will be the
 reverse of what you want. On a graph with standard x- and y-axes, the
@@ -48,7 +48,7 @@ the items still go from the origin outward, which in this case will be
 from bottom to top—but this conflicts with the normal way of reading,
 from top to bottom. Sometimes this is a problem, and sometimes it
 isn't. If the *x* variable is a factor, the order can be reversed by
-using scale\$\$\_\$\$x\$\$\_\$\$discrete() with limits=rev(levels(...)),
+using scale_x\$\$\_\$\$discrete() with limits=rev(levels(...)),
 as in Figure \@ref(fig:FIG-AXES-SWAP-AXES-REVLEVELS):
 
 ```{r}
@@ -95,8 +95,8 @@ as the maximum.
 ### Discussion
 
 ylim() is shorthand for setting the limits with
-scale\$\$\_\$\$y\$\$\_\$\$continuous(). (The same is true for xlim() and
-scale\$\$\_\$\$x\$\$\_\$\$continuous().) The following are equivalent:
+scale_y\$\$\_\$\$continuous(). (The same is true for xlim() and
+scale_x\$\$\_\$\$continuous().) The following are equivalent:
 
 ```{r}
 ylim(0, 10)
@@ -104,11 +104,11 @@ scale_y_continuous(limits=c(0, 10))
 ```
 
 Sometimes you will need to set other properties of
-scale\$\$\_\$\$y\$\$\_\$\$continuous(), and in these cases using xlim()
-and scale\$\$\_\$\$y\$\$\_\$\$continuous() together may result in some
+scale_y\$\$\_\$\$continuous(), and in these cases using xlim()
+and scale_y\$\$\_\$\$continuous() together may result in some
 unexpected behavior, because only the first of the directives will have
 an effect. In these two examples, ylim(0, 10) should set the *y* range
-from 0 to 10, and scale\$\$\_\$\$y\$\$\_\$\$continuous(breaks=c(0, 5,
+from 0 to 10, and scale_y\$\$\_\$\$continuous(breaks=c(0, 5,
 10)) should put tick marks at 0, 5, and 10. However, in both cases, only
 the second directive has any effect:
 
@@ -119,7 +119,7 @@ p + scale_y_continuous(breaks=NULL) + ylim(0, 10)
 ```
 
 To make both changes work, get rid of ylim() and set both limits and
-breaks in scale\$\$\_\$\$y\$\$\_\$\$continuous():
+breaks in scale_y\$\$\_\$\$continuous():
 
 ```{r}
 p + scale_y_continuous(limits=c(0, 10), breaks=NULL)
@@ -153,7 +153,7 @@ plots have changed shape); right: "zooming in" using a
 coordinate transform](figs/rgcb_0804.png)
 
 Finally, it's also possible to *expand* the range in one direction,
-using expand\$\$\_\$\$limits()
+using expand_limits()
 (Figure \@ref(fig:FIG-AXES-RANGE-EXPAND)). You can't use this to
 shrink the range, however:
 
@@ -173,8 +173,8 @@ You want to reverse the direction of a continuous axis.
 
 ### Solution
 
-Use scale\$\$\_\$\$y\$\$\_\$\$reverseor
-scale\$\$\_\$\$x\$\$\_\$\$reverse (Figure \@ref(fig:FIG-AXES-REVERSE)).
+Use scale_y\$\$\_\$\$reverseor
+scale_x\$\$\_\$\$reverse (Figure \@ref(fig:FIG-AXES-REVERSE)).
 The direction of an axis can also be reversed by specifying the limits
 in reversed order, with the maximum first, then the minimum:
 
@@ -189,11 +189,11 @@ ggplot(PlantGrowth, aes(x=group, y=weight)) + geom_boxplot() + ylim(6.5, 3.5)
 
 ### Discussion
 
-Like scale\$\$\_\$\$y\$\$\_\$\$continuous(),
-scale\$\$\_\$\$y\$\$\_\$\$reverse() does not work with ylim. (The same
+Like scale_y\$\$\_\$\$continuous(),
+scale_y\$\$\_\$\$reverse() does not work with ylim. (The same
 is true for the x-axis properties.) If you want to reverse an axis *and*
 set its range, you must do it within the
-scale\$\$\_\$\$y\$\$\_\$\$reverse() statement, by setting the limits in
+scale_y\$\$\_\$\$reverse() statement, by setting the limits in
 reversed order (Figure \@ref(fig:FIG-AXES-REVERSE-LIMITS)):
 
 ```{r}
@@ -220,8 +220,8 @@ You want to change the order of items on a categorical axis.
 
 For a categorical (or discrete) axis—one with a factor mapped to it—the
 order of items can be changed by setting limits in
-scale\$\$\_\$\$x\$\$\_\$\$discrete() or
-scale\$\$\_\$\$y\$\$\_\$\$discrete().
+scale_x\$\$\_\$\$discrete() or
+scale_y\$\$\_\$\$discrete().
 
 To manually set the order of items on the axis, specify limits with a
 vector of the levels in the desired order. You can also omit items with
@@ -270,7 +270,7 @@ You want to set the ratio at which the x- and y-axes are scaled.
 
 ### Solution
 
-Use coord\$\$\_\$\$fixed(). Thiswill result in a 1:1 scaling between the
+Use coord_fixed(). Thiswill result in a 1:1 scaling between the
 x- and y-axes, as shown in Figure \@ref(fig:FIG-AXES-SCALE-EQUAL):
 
 ```{r}
@@ -291,8 +291,8 @@ times. In this case it might be useful to force the x- and y-axes to
 have the same scaling.
 
 It's also helpful to set the tick spacing to be the same, bysetting
-breaks in scale\$\$\_\$\$y\$\$\_\$\$continuous() and
-scale\$\$\_\$\$x\$\$\_\$\$continuous() (also in
+breaks in scale_y\$\$\_\$\$continuous() and
+scale_x\$\$\_\$\$continuous() (also in
 Figure \@ref(fig:FIG-AXES-SCALE-EQUAL)):
 
 ```{r}
@@ -386,7 +386,7 @@ You want to remove tick marks and labels.
 
 To remove just the tick labels, as in
 Figure \@ref(fig:FIG-AXES-SET-TICKS-NONE) (left), use theme(axis.text.y
-= element\$\$\_\$\$blank()) (or do the same for axis.text.x). This will
+= element_blank()) (or do the same for axis.text.x). This will
 work for both continuous and categorical axes:
 
 ```{r}
@@ -399,7 +399,7 @@ p + theme(axis.text.y = element_blank())
 labels on y-axis; right: with breaks=NULL](figs/rgcb_0814.png)
 
 To remove the tick marks, use
-theme(axis.ticks=element\$\$\_\$\$blank()). This will remove the tick
+theme(axis.ticks=element_blank()). This will remove the tick
 marks on both axes. (It's not possible to hide the tick marks on
 just one axis.) In this example, we'll hide all tick marks as well
 as the *y* tick labels (Figure \@ref(fig:FIG-AXES-SET-TICKS-NONE),
@@ -593,7 +593,7 @@ The hjust and vjust settings specify the horizontal alignment
 
 Besides rotation, other text properties, such as size, style
 (bold/italic/normal), and the font family (such as Times or Helvetica)
-can be set with element\$\$\_\$\$text(), as shown in
+can be set with element_text(), as shown in
 Figure \@ref(fig:FIG-AXES-TICK-LABEL-FONT):
 
 ```{r}
@@ -668,8 +668,8 @@ setting other properties of the scale, such as the tick mark placement,
 range, and so on.
 
 This also applies, of course, to other axis scales, suchas
-scale\$\$\_\$\$y\$\$\_\$\$continuous(),
-scale\$\$\_\$\$x\$\$\_\$\$discrete(), and so on.
+scale_y\$\$\_\$\$continuous(),
+scale_x\$\$\_\$\$discrete(), and so on.
 
 You can also add line breaks with \$\$\\\$\$n, as shown in
 Figure \@ref(fig:FIG-AXES-AXIS-LABEL-NEWLINE):
@@ -689,7 +689,7 @@ You want to remove the label on an axis.
 
 ### Solution
 
-For the x-axis label, use theme(axis.title.x=element\$\$\_\$\$blank()).
+For the x-axis label, use theme(axis.title.x=element_blank()).
 For they-axis label, do the same with axis.title.y.
 
 We'll hide the x-axis in this example
@@ -721,7 +721,7 @@ Figure \@ref(fig:FIG-AXES-AXIS-LABEL-REMOVE):
 p + xlab("")
 ```
 
-When you use theme() to set axis.title.x=element\$\$\_\$\$blank(), the
+When you use theme() to set axis.title.x=element_blank(), the
 name of the *x* or *y* scale is unchanged, but the text is not displayed
 and no space is reserved for it. When you set the label to "", the name
 of the scale is changed and the (empty) text does display.
@@ -753,7 +753,7 @@ unrotated, as shown in Figure \@ref(fig:FIG-AXES-AXIS-LABEL-YROTATE)
     hwp + ylab("Height\n(inches)") +
         theme(axis.title.y=element_text(angle=0, face="italic", size=14))
 
-When you call element\$\$\_\$\$text(), the default angle is 0, so if you
+When you call element_text(), the default angle is 0, so if you
 set axis.title.y but don't specify the angle, it will show in this
 orientation, with the top of the text pointing up. If you change any
 other properties of axis.title.y and want it to be displayed in its
@@ -800,7 +800,7 @@ panel.border must also be made blank](figs/rgcb_0824.png)
 ### Discussion
 
 If you are starting with a theme that has a border around the plotting
-area, like theme\$\$\_\$\$bw(), you will also need to unset panel.border
+area, like theme_bw(), you will also need to unset panel.border
 (Figure \@ref(fig:FIG-AXES-AXIS-LINE), right):
 
 ```{r}
@@ -843,8 +843,8 @@ You want to use a logarithmic axis for a graph.
 
 ### Solution
 
-Use scale\$\$\_\$\$x\$\$\_\$\$log10() and/or
-scale\$\$\_\$\$y\$\$\_\$\$log10() (Figure \@ref(fig:FIG-AXES-LOG)):
+Use scale_x\$\$\_\$\$log10() and/or
+scale_y\$\$\_\$\$log10() (Figure \@ref(fig:FIG-AXES-LOG)):
 
 ```{r}
 library(MASS) # For the data set
@@ -912,7 +912,7 @@ labels](figs/rgcb_0827.png)
 
 To instead use exponential notation for the break labels
 (Figure \@ref(fig:FIG-AXES-LOG-BREAKS), right), use the
-trans\$\$\_\$\$format() function, from the scales package:
+trans_format() function, from the scales package:
 
 ```{r}
 library(scales)
@@ -935,7 +935,7 @@ ggplot(Animals, aes(x=log10(body), y=log10(brain), label=rownames(Animals))) +
 The previous examples used a log~10~ transformation, but it is possible
 to use other transformations, such as log~2~ and natural log, as shown
 in Figure \@ref(fig:FIG-AXES-LOG-2-E). It's a bit more complicated
-to use these—scale\$\$\_\$\$x\$\$\_\$\$log10() is shorthand, but for
+to use these—scale_x\$\$\_\$\$log10() is shorthand, but for
 these other log scales, we need to spell them out:
 
 ```{r}
@@ -985,7 +985,7 @@ axis.
 
 ### Solution
 
-Use annotation\$\$\_\$\$logticks()
+Use annotation_logticks()
 (Figure \@ref(fig:FIG-AXES-LOG-TICKS)):
 
 ```{r}
@@ -1004,17 +1004,17 @@ ggplot(Animals, aes(x=body, y=brain, label=rownames(Animals))) +
 
 ### Discussion
 
-The tick marks created by annotation\$\$\_\$\$logticks() are actually
+The tick marks created by annotation_logticks() are actually
 geoms inside the plotting area. There is a long tick mark at each power
 of 10, and a mid-length tick mark at each 5.
 
 To get the colors of the tick marks and the grid lines to match up a bit
-better, you can use theme\$\$\_\$\$bw().
+better, you can use theme_bw().
 
 By default, the minor grid lines appear visually halfway between the
 major grid lines, but this is not the same place as the "5" tick
 marks on a logarithmic scale. To get them to be the same, you can
-manually set the scale's minor\$\$\_\$\$breaks. To do this, we need
+manually set the scale's minor_breaks. To do this, we need
 to set them to log10(5\$\$\*\$\$10\$\$\^\$\$(minpow:maxpow)), which
 reduces to log10(5) \$\$+\$\$ minpow:maxpow
 (Figure \@ref(fig:FIG-AXES-LOG-TICKS-CUSTOM)):
@@ -1050,7 +1050,7 @@ You want to make a circular graph.
 
 ### Solution
 
-Use coord\$\$\_\$\$polar().For this example we'll use the wind data
+Use coord_polar().For this example we'll use the wind data
 set from gcookbook. It contains samples of wind speed and direction for
 every 5 minutes throughout a day. The direction of the wind is
 categorized into 15-degree bins, and the speed is categorized into 5 m/s
@@ -1062,7 +1062,7 @@ TimeUTC Temp WindAvg WindMax WindDir SpeedCat DirCat 0 3.54 9.52 10.39
 2335 6.74 18.98 23.81 250 &gt;20 255 2340 6.62 17.68 22.05 252 &gt;20
 255 2345 6.22 18.54 23.91 259 &gt;20 255
 We'll plot a count of the number of samples at each SpeedCat and
-DirCat using geom\$\$\_\$\$histogram()
+DirCat using geom_histogram()
 (Figure \@ref(fig:FIG-AXES-POLAR)). We'll set binwidth to 15 and
 make the origin of the histogram start at –7.5, so that each bin is
 centered around 0, 15, 30, etc.:
@@ -1160,7 +1160,7 @@ The next problem is that the lowest and highest month values, 1 and 12,
 are shown at the same angle. We'll fix this by setting the *x*
 limits from 0 to 12, creating the graph on the left in
 Figure \@ref(fig:FIG-AXES-POLAR-CONTINUOUS2) (notice that using xlim()
-overridesthe scale\$\$\_\$\$x\$\$\_\$\$continuous() in p, so it no
+overridesthe scale_x\$\$\_\$\$continuous() in p, so it no
 longer displays breaks for each month; see
 [section\_title](#RECIPE_AXES_RANGE) for more information):
 
@@ -1273,7 +1273,7 @@ p + scale_x_date(breaks=datebreaks) +
 specified](figs/rgcb_0838.png)
 
 Notice that the formatting of the breaks changed. You can specify the
-formatting by using the date\$\$\_\$\$format() function from the scales
+formatting by using the date_format() function from the scales
 package. Here we'll use "%Y %b", which results in a format like
 "1992 Jun", as shown in Figure \@ref(fig:FIG-AXES-DATE-FORMAT):
 
@@ -1287,7 +1287,7 @@ p + scale_x_date(breaks=datebreaks, labels=date_format("%Y %b")) +
 
 Common date format options are shown in
 [table\_title](#TABLE_AXES_DATE_FORMATS). They are to be put in a string
-that is passed to date\$\$\_\$\$format(), and the format specifiers will
+that is passed to date_format(), and the format specifiers will
 be replaced with the appropriate values. For example, if you use "%B %d,
 %Y", it will result in labels like "June 01, 1992".
 
@@ -1402,7 +1402,7 @@ scale_x_continuous(breaks=c(0, 20, 40, 60, 80, 100),
     labels=c("0:00", "0:20", "0:40", "1:00", "1:20", "1:40"))
 ```
 
-In the preceding example, we used the timeHM\$\$\_\$\$formatter()
+In the preceding example, we used the timeHM_formatter()
 function to convert the numeric time (in minutes) to a string like
 "1:10":
 

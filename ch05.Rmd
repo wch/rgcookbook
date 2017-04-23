@@ -23,7 +23,7 @@ You want to make a scatter plot.
 
 ### Solution
 
-Use geom\$\$\_\$\$point(), andmap one variable to x and one to y.
+Use geom_point(), andmap one variable to x and one to y.
 
 In the heightweight data set, there are a number of columns, but
 we'll only use two in this example
@@ -120,9 +120,9 @@ ggplot(heightweight, aes(x=ageYear, y=heightIn, shape=sex, colour=sex)) +
 ```
 
 The default shapes and colors may not be very appealing. Other shapes
-can be used with scale\$\$\_\$\$shape\$\$\_\$\$manual(), and other
-colors can be used with scale\$\$\_\$\$colour\$\$\_\$\$brewer() or
-scale\$\$\_\$\$colour\$\$\_\$\$manual().
+can be used with scale_shape\$\$\_\$\$manual(), and other
+colors can be used with scale_colour\$\$\_\$\$brewer() or
+scale_colour\$\$\_\$\$manual().
 
 This will set different shapes and colors for the groupingvariables
 (Figure \@ref(fig:FIG-SCATTER-SHAPE-COLOR-BOTH), right):
@@ -154,7 +154,7 @@ You want to use point shapes that are different from the defaults.
 
 If you want to set the shape of all the points
 (Figure \@ref(fig:FIG-SCATTER-SHAPES)), specify the shape in
-geom\$\$\_\$\$point():
+geom_point():
 
 ```{r}
 library(gcookbook) # For the data set
@@ -167,7 +167,7 @@ right: with a variable mapped to shape, using a custom shape
 palette](figs/rgcb_0506.png)
 
 If you have mapped a variable to shape, use
-scale\$\$\_\$\$shape\$\$\_\$\$manual() to change the shapes:
+scale_shape\$\$\_\$\$manual() to change the shapes:
 
 ```{r}
 # Use slightly larger points and use a shape scale with custom values
@@ -278,7 +278,7 @@ the area of the smallest ones, but they represent only about 3.5 times
 the weight. If it is important for the sizes to proportionally represent
 the quantities, you can change the range of sizes. By default the sizes
 of points go from 1 to 6 mm. You could reduce the range to, say, 2 to 5
-mm, with scale\$\$\_\$\$size\$\$\_\$\$continuous(range=c(2, 5)).
+mm, with scale_size\$\$\_\$\$continuous(range=c(2, 5)).
 However, the point size numbers don't map linearly to diameter or
 area, so this still won't give a very accurate representation of the
 values. (See [section\_title](#RECIPE_SCATTER_BALLOON) for details on
@@ -316,7 +316,7 @@ Figure \@ref(fig:FIG-SCATTER-CONTINUOUS-SIZE-CATEGORICAL-COLOR),
 we'll map weightLb to size, and also map sex to colour. Because
 there is a fair amount of overplotting, we'll make the points 50%
 transparent by setting alpha=.5. We'll also use
-scale\$\$\_\$\$size\$\$\_\$\$area() to make the area of the points
+scale_size\$\$\_\$\$area() to make the area of the points
 proportional to the value (see
 [section\_title](#RECIPE_SCATTER_BALLOON)), and change the color palette
 to one that is a little more appealing:
@@ -428,13 +428,13 @@ visualization, the vertical bands are barely visible. The density of
 points in the lower-left corner is much greater, which tells us that the
 vast majority of diamonds are small and inexpensive.
 
-By default, stat\$\$\_\$\$bin\$\$\_\$\$2d() divides the space into 30
+By default, stat_bin\$\$\_\$\$2d() divides the space into 30
 groups in the *x* and *y* directions, for a total of 900 bins. In the
 second version, we increase the number of bins with bins=50.
 
 The default colors are somewhat difficult to distinguish because they
 don't vary much in luminosity. In the second version we set the
-colors by using scale\$\$\_\$\$fill\$\$\_\$\$gradient() and specifying
+colors by using scale_fill\$\$\_\$\$gradient() and specifying
 the low and high colors. By default, the legend doesn't show an
 entry for the lowest values. This is because the range of the color
 scale starts not from zero, but from the smallest nonzero quantity in a
@@ -454,9 +454,9 @@ sp + stat_bin2d(bins=50) +
 specified colors, and legend breaks](figs/rgcb_0514.png)
 
 Another alternative is to bin the data into hexagons instead of
-rectangles, with stat\$\$\_\$\$binhex()
+rectangles, with stat_binhex()
 (Figure \@ref(fig:FIG-SCATTER-OVERPLOT-BINHEX)). It works just like
-stat\$\$\_\$\$bin2d(). To use it, you must first install the hexbin
+stat_bin2d(). To use it, you must first install the hexbin
 package, with install.packages("hexbin"):
 
 ```{r}
@@ -484,7 +484,7 @@ range shown in grey](figs/rgcb_0515.png)
 Overplotting can also occur when the data is *discrete* on one or both
 axes, as shown in Figure \@ref(fig:FIG-SCATTER-OVERPLOT-JITTER). In
 these cases, you can randomly *jitter* the points with
-position\$\$\_\$\$jitter(). By default the amount of jitter is 40% of
+position_jitter(). By default the amount of jitter is 40% of
 the resolution of the data in each direction, but these amounts can be
 controlled with width and height:
 
@@ -539,7 +539,7 @@ You want to add lines from a fitted regression model to a scatter plot.
 ### Solution
 
 To add a linear regression line to a scatter plot, add
-stat\$\$\_\$\$smooth() and tell it to use method=lm. This instructs it
+stat_smooth() and tell it to use method=lm. This instructs it
 to fit the data with the lm() (linear model) function. First we'll
 save the base plot object in sp, then we'll add different components
 to it:
@@ -553,7 +553,7 @@ sp <- ggplot(heightweight, aes(x=ageYear, y=heightIn))
 sp + geom_point() + stat_smooth(method=lm)
 ```
 
-By default, stat\$\$\_\$\$smooth() also adds a 95% confidence region for
+By default, stat_smooth() also adds a 95% confidence region for
 the regression fit. The confidence interval can be changed by setting
 level, or it can be disabled with se=FALSE
 (Figure \@ref(fig:FIG-SCATTER-FIT-LM)):
@@ -584,7 +584,7 @@ right: in black with grey points](figs/rgcb_0518.png)
 
 The linear regression line is not the only way of fitting a model to the
 data—in fact, it's not even the default. If you add
-stat\$\$\_\$\$smooth() without specifying the method, it will use a
+stat_smooth() without specifying the method, it will use a
 loess (locally weighted polynomial) curve, as shown in
 Figure \@ref(fig:FIG-SCATTER-FIT-LOESS). Both of these will have the
 same result:
@@ -597,7 +597,7 @@ sp + geom_point(colour="grey60") + stat_smooth(method=loess)
 ![A LOESS fit](figs/rgcb_0519.png)
 
 Additional parameters can be passed along to the loess() function by
-just passing them to stat\$\$\_\$\$smooth().
+just passing them to stat_smooth().
 
 Another common type of model fit is a logistic regression. Logistic
 regression isn't appropriate for the heightweight data set, but
@@ -623,7 +623,7 @@ we'll jitter the points and make them semitransparent (alpha=0.4),
 hollow (shape=21), and slightly smaller (size=1.5). Then we'll add a
 fitted logistic regression line
 (Figure \@ref(fig:FIG-SCATTER-FIT-LOGISTIC)) by telling
-stat\$\$\_\$\$smooth() to use the glm() function with the option
+stat_smooth() to use the glm() function with the option
 family=binomial:
 
 ```{r}
@@ -655,7 +655,7 @@ lines](figs/rgcb_0521.png)
 
 Notice that the blue line, for males, doesn't run all the way to the
 right side of the graph. There are two reasons for this. The first is
-that, by default, stat\$\$\_\$\$smooth() limits the prediction to within
+that, by default, stat_smooth() limits the prediction to within
 the range of the predictor data (on the x-axis). The second is that even
 if it extrapolates, the loess() function only offers prediction within
 the *x* range of the data.
@@ -663,14 +663,14 @@ the *x* range of the data.
 If you want the lines to extrapolate from the data, as shown in the
 right-hand image of Figure \@ref(fig:FIG-SCATTER-FIT-GROUP), you must
 use a model method that allows extrapolation, like lm(), and pass
-stat\$\$\_\$\$smooth() the option fullrange=TRUE:
+stat_smooth() the option fullrange=TRUE:
 
 ```{r}
 sps + geom_smooth(method=lm, se=FALSE, fullrange=TRUE)
 ```
 
 In this example with the heightweight data set, the default settings for
-stat\$\$\_\$\$smooth() (with LOESS and no extrapolation) make more sense
+stat_smooth() (with LOESS and no extrapolation) make more sense
 than the extrapolated linear predictions, because we don't grow
 linearly and we don't grow forever.
 
@@ -685,7 +685,7 @@ set, and you want to plot the lines for that model.
 ### Solution
 
 Usually the easiest way to overlay a fitted model is to simply ask
-stat\$\$\_\$\$smooth() to do it for you, as described in
+stat_smooth() to do it for you, as described in
 [section\_title](#RECIPE_SCATTER_FITLINES). Sometimes, however, you may
 want to create the model yourself and then add it to your graph. This
 allows you to be sure that the model you're using for other
@@ -728,7 +728,7 @@ Adding lines from a model can be simplified by using thefunction
 predictvals(), defined next. If you simply pass in a model, it will do
 the work of finding the variable names and range of the predictor, and
 will return a data frame with predictor and predicted values. That data
-frame can then be passed to geom\$\$\_\$\$line() to draw the fitted
+frame can then be passed to geom_line() to draw the fitted
 line, as we did earlier:
 
 ```{r}
@@ -767,7 +767,7 @@ modloess  <- loess(heightIn ~ ageYear, heightweight)
 ```
 
 Then we can call predictvals() on each model, and pass the resulting
-data frames to geom\$\$\_\$\$line():
+data frames to geom_line():
 
 ```{r}
 lm_predicted    <- predictvals(modlinear, "ageYear", "heightIn")
@@ -838,7 +838,7 @@ dlply() and ldply() from the plyr package.
 
 With the heightweight data set, we'll make a linear model with lm()
 for each of the levels of sex, and put those model objects in a list.
-The model building is done with a function, make\$\$\_\$\$model(),
+The model building is done with a function, make_model(),
 defined here. If you pass it a data frame, it simply returns an lm
 object. The model can be customized for your data:
 
@@ -850,9 +850,9 @@ make_model <- function(data) {
 
 With this function, we can use the dlply() function to build a model for
 each subset of data. This will split the data frame into subsets by the
-grouping variable sex, and apply make\$\$\_\$\$model() to each subset.
+grouping variable sex, and apply make_model() to each subset.
 In this case, the heightweight data will be split into two data frames,
-one for males and one for females, and make\$\$\_\$\$model() will be run
+one for males and one for females, and make_model() will be run
 on each subset. With dlply(), the models are put into a list and the
 list is returned:
 
@@ -1016,7 +1016,7 @@ You want to add marginal rugs to a scatter plot.
 
 ### Solution
 
-Use geom\$\$\_\$\$rug(). Forthis example
+Use geom_rug(). Forthis example
 (Figure \@ref(fig:FIG-SCATTER-RUG)), we'll use the faithful data
 set, which contains data about the Old Faithful geyser in two
 columns—eruptions, which is the length of each eruption, and waiting,
@@ -1063,7 +1063,7 @@ You want to add labels to points in a scatter plot.
 ### Solution
 
 For annotating just one or a few points, you canuse annotate() or
-geom\$\$\_\$\$text(). For this example, we'll use the countries data
+geom_text(). For this example, we'll use the countries data
 set and visualize the relationship between health expenditures and
 infant mortality rate per 1,000 live births. To keep things manageable,
 we'll just take the subset of countries that spent more than \$2000
@@ -1094,7 +1094,7 @@ sp + annotate("text", x=4350, y=5.4, label="Canada") +
 automatically labeled points and a smaller font](figs/rgcb_0530.png)
 
 To automatically add the labels from your data
-(Figure \@ref(fig:FIG-SCATTER-LABEL), right), use geom\$\$\_\$\$text()
+(Figure \@ref(fig:FIG-SCATTER-LABEL), right), use geom_text()
 and map a column that is a factor or character vector to the label
 aesthetic. In this case, we'll use Name, and we'll make the font
 slightly smaller to reduce crowding. The default value for size is 5,
@@ -1233,7 +1233,7 @@ proportional to their numerical value.
 
 ### Solution
 
-Use geom\$\$\_\$\$point() with scale\$\$\_\$\$size\$\$\_\$\$area(). For
+Use geom_point() with scale_size\$\$\_\$\$area(). For
 this example, we'll use a subset of the countries data set:
 
 library(gcookbook) \# For the data set cdat &lt;- subset(countries,
@@ -1253,7 +1253,7 @@ of the dots (Figure \@ref(fig:FIG-SCATTER-BALLOON), left), which is not
 what we want; a doubling of value results in a quadrupling of area, and
 this will distort the interpretation of the data. We instead want to map
 it to the *area*, and we can do this using
-scale\$\$\_\$\$size\$\$\_\$\$area()
+scale_size\$\$\_\$\$area()
 (Figure \@ref(fig:FIG-SCATTER-BALLOON), right):
 
 ```{r}

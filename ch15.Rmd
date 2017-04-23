@@ -978,7 +978,7 @@ If you want to calculate standard errors and confidence intervals, see
 [section\_title](#RECIPE_DATAPREP_SUMMARIZE_SE).
 
 See [???](#RECIPE_DISTRIBUTION_BOXPLOT_MEAN) for an example of using
-stat\$\$\_\$\$summary() to calculate means and overlay them on a graph.
+stat_summary() to calculate means and overlay them on a graph.
 
 To perform transformations on data by groups, see
 [section\_title](#RECIPE_DATAPREP_TRANSFORM_GROUP).

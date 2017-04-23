@@ -45,13 +45,13 @@ p + annotate("text", x=3, y=48, label="Group 1", family="serif",
 
 ![Modified text properties](figs/rgcb_0702.png)
 
-Be careful not to use geom\$\$\_\$\$text() when you want to add
+Be careful not to use geom_text() when you want to add
 individual text objects. While annotate(geom="text") will add a single
-text object to the plot, geom\$\$\_\$\$text() will create many text
+text object to the plot, geom_text() will create many text
 objects based on the data, as discussed in
 [???](#RECIPE_SCATTER_LABELS).
 
-If you use geom\$\$\_\$\$text(), the text will be heavily overplotted on
+If you use geom_text(), the text will be heavily overplotted on
 the same location, with one copy per data point:
 
 ```{r}
@@ -157,8 +157,8 @@ You want to add lines to a plot.
 
 ### Solution
 
-For horizontal and vertical lines, use geom\$\$\_\$\$hline() and
-geom\$\$\_\$\$vline(), and for angled lines, use geom\$\$\_\$\$abline()
+For horizontal and vertical lines, use geom_hline() and
+geom_vline(), and for angled lines, use geom_abline()
 (Figure \@ref(fig:FIG-ANNOTATE-LINES)). For this example, we'll use
 the heightweight data set:
 
@@ -185,7 +185,7 @@ possible to *map* values from the data to xintercept, yintercept, and so
 on, and even draw them from another data frame.
 
 Here we'll take the average height for males and females and store
-it in a data frame, hw\$\$\_\$\$means. Then we'll draw a horizontal
+it in a data frame, hw_means. Then we'll draw a horizontal
 line for each, and set the linetype and size
 (Figure \@ref(fig:FIG-ANNOTATE-LINES-MULTI)):
 
@@ -218,7 +218,7 @@ pg + geom_vline(xintercept = which(levels(PlantGrowth$group)=="ctrl"))
 >
 > You may have noticed that adding lines differs from adding other
 > annotations. Instead of using the annotate() function, we've used
-> geom\$\$\_\$\$hline() and friends. This is because previous versions
+> geom_hline() and friends. This is because previous versions
 > of ggplot2 didn't have the annotate() function. The line geoms had
 > code to handle the special cases where they were used to add a single
 > line, and changing it would break backward compatibility. In a future
@@ -317,7 +317,7 @@ have the line above the rectangle, add the rectangle first, and then the
 line.
 
 Any geom can be used with annotate(), as long as you pass in the proper
-parameters. In this case, geom\$\$\_\$\$rect() requires min and max
+parameters. In this case, geom_rect() requires min and max
 values for x and y.
 
 Highlighting an Item {#RECIPE_ANNOTATE_HIGHLIGHT}
@@ -379,7 +379,7 @@ You want to add error bars to a graph.
 
 ### Solution
 
-Use geom\$\$\_\$\$errorbar andmap variables to the values for ymin and
+Use geom_errorbar andmap variables to the values for ymin and
 ymax. Adding the error bars is done the same way for bar graphs and line
 graphs, as shown in Figure \@ref(fig:FIG-ANNOTATE-ERRORBAR-BASIC)
 (notice that default *y* range is different for bars and lines, though):
@@ -428,14 +428,14 @@ won't line up with the bars. (See
 [???](#RECIPE_BAR_GRAPH_GROUPED_BAR) for more information about grouped
 bars and dodging.)
 
-We'll work with the full cabbage\$\$\_\$\$exp data set this time:
+We'll work with the full cabbage_exp data set this time:
 
 cabbage\_exp
 Cultivar Date Weight sd n se c39 d16 3.18 0.9566144 10 0.30250803 c39
 d20 2.80 0.2788867 10 0.08819171 c39 d21 2.74 0.9834181 10 0.31098410
 c52 d16 2.26 0.4452215 10 0.14079141 c52 d20 3.11 0.7908505 10
 0.25008887 c52 d21 1.47 0.2110819 10 0.06674995
-The default dodge width for geom\$\$\_\$\$bar() is 0.9, and you'll
+The default dodge width for geom_bar() is 0.9, and you'll
 have to tell the error bars to be dodged the same width. If you
 don't specify the dodge width, it will default to dodging by the
 width of the error bars, which is usually less than the width of the
@@ -461,9 +461,9 @@ specified; right: with dodging width specified](figs/rgcb_0715.png)
 > **Note**
 >
 > Notice that we used position="dodge", which is shorthand for
-> position=position\$\$\_\$\$dodge(), in the first version. But to pass
+> position=position_dodge(), in the first version. But to pass
 > a specific value, we have to spell it out, as in
-> position\$\$\_\$\$dodge(0.9).
+> position_dodge(0.9).
 
 For line graphs, if the error bars are a different color than the lines
 and points, you should draw the error bars first, so that they are
@@ -522,7 +522,7 @@ You want to add annotations to each facet in a plot.
 ### Solution
 
 Create a new data frame with the faceting variable(s), and a value to
-use in each facet. Then use geom\$\$\_\$\$text() with the new data frame
+use in each facet. Then use geom_text() with the new data frame
 (Figure \@ref(fig:FIG-ANNOTATE-FACET)):
 
 ```{r}
@@ -594,5 +594,5 @@ See [section\_title](#RECIPE_ANNOTATE_TEXT_MATH) for more about using
 math expressions in plots.
 
 If you want to make prediction lines from your own model objects,
-instead of having ggplot2 do it for you with stat\$\$\_\$\$smooth(), see
+instead of having ggplot2 do it for you with stat_smooth(), see
 [???](#RECIPE_SCATTER_FITLINES_MODEL_MULTI).

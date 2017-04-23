@@ -111,9 +111,9 @@ You want to group bars together by a second variable.
 
 ### Solution
 
-Map a variable to fill, anduse geom\$\$\_\$\$bar(position="dodge").
+Map a variable to fill, anduse geom_bar(position="dodge").
 
-In this example we'll use the cabbage\$\$\_\$\$exp data set, which
+In this example we'll use the cabbage_exp data set, which
 has two categorical variables, Cultivar and Date, and one continuous
 variable, Weight:
 
@@ -146,9 +146,9 @@ As with variables mapped to the x-axis of a bar graph, variables that
 are mapped to the fill color of bars must be categorical rather than
 continuous variables.
 
-To add a black outline, use colour="black" inside geom\$\$\_\$\$bar().
-To set the colors, you can use scale\$\$\_\$\$fill\$\$\_\$\$brewer() or
-scale\$\$\_\$\$fill\$\$\_\$\$manual(). In
+To add a black outline, use colour="black" inside geom_bar().
+To set the colors, you can use scale_fill\$\$\_\$\$brewer() or
+scale_fill\$\$\_\$\$manual(). In
 Figure \@ref(fig:FIG-BAR-GRAPH-GROUPED-BAR-OUTLINE) we'll use the
 Pastel1 palette from RColorBrewer:
 
@@ -200,7 +200,7 @@ of the cases.
 
 ### Solution
 
-Use geom\$\$\_\$\$bar() withoutmapping anything to y
+Use geom_bar() withoutmapping anything to y
 (Figure \@ref(fig:FIG-BAR-GRAPH-COUNT)):
 
 ```{r}
@@ -221,7 +221,7 @@ carat cut color clarity depth table price x y z 1 0.23 Ideal E SI2 61.5
 0.23 Good E VS1 56.9 65 327 4.05 4.07 2.31 ... 53939 0.86 Premium H SI2
 61.0 58 2757 6.15 6.12 3.74 53940 0.75 Ideal D SI2 62.2 55 2757 5.83
 5.87 3.64
-With geom\$\$\_\$\$bar(), the default behavior is to use stat="bin",
+With geom_bar(), the default behavior is to use stat="bin",
 which counts up the number of cases for each group (each *x* position,
 in this example). In the graph we can see that there are about 23,000
 cases with an ideal cut.
@@ -238,7 +238,7 @@ ggplot(diamonds, aes(x=carat)) + geom_bar()
 histogram](figs/rgcb_0308.png)
 
 It turns out that in this case, the result is the same as if we had used
-geom\$\$\_\$\$histogram() instead of geom\$\$\_\$\$bar().
+geom_histogram() instead of geom_bar().
 
 ### See Also
 
@@ -289,8 +289,8 @@ ggplot(upc, aes(x=Abb, y=Change, fill=Region)) + geom_bar(stat="identity")
 ### Discussion
 
 The default colors aren't very appealing, so you may want to set
-them, using scale\$\$\_\$\$fill\$\$\_\$\$brewer() or
-scale\$\$\_\$\$fill\$\$\_\$\$manual(). With this example, we'll use
+them, using scale_fill_brewer() or
+scale_fill_manual(). With this example, we'll use
 the latter, and we'll set the outline color of the bars to black,
 with colour="black" (Figure \@ref(fig:FIG-BAR-GRAPH-FILL-MANUAL)). Note
 that *setting* occurs outside of aes(), while *mapping* occurs within
@@ -356,7 +356,7 @@ There are a few problems with the first attempt. First, the colors are
 probably the reverse of what we want: usually, blue means cold and red
 means hot. Second, the legend is redundant and distracting.
 
-We can change the colors with scale\$\$\_\$\$fill\$\$\_\$\$manual() and
+We can change the colors with scale_fill_manual() and
 remove the legend with guide=FALSE, as shown in
 Figure \@ref(fig:FIG-BAR-GRAPH-COLOR-NEG2). We'll also add a thin
 black outline around each of the bars by setting colour and specifying
@@ -387,7 +387,7 @@ You want to adjust the width of bars and the spacing between them.
 
 ### Solution
 
-To make the bars narrower or wider, set width in geom\$\$\_\$\$bar().
+To make the bars narrower or wider, set width in geom_bar().
 The default value is 0.9; larger values make the bars wider, and smaller
 values make the bars narrower (Figure \@ref(fig:FIG-BAR-WIDTH)).
 
@@ -415,7 +415,7 @@ ggplot(pg_mean, aes(x=group, y=weight)) + geom_bar(stat="identity", width=1)
 
 For grouped bars, the default is to have no space between bars within
 each group. To add space between bars within a group, make width smaller
-and set the value for position\$\$\_\$\$dodge to be larger than width
+and set the value for position_dodge to be larger than width
 (Figure \@ref(fig:FIG-BAR-WIDTH-DODGE)).
 
 For a grouped bar graph with narrow bars:
@@ -436,17 +436,17 @@ ggplot(cabbage_exp, aes(x=Date, y=Weight, fill=Cultivar)) +
 the bars](figs/rgcb_0314.png)
 
 The first graph used position="dodge", and the second graph used
-position=position\$\$\_\$\$dodge(). This is because position="dodge" is
-simply shorthand for position=position\$\$\_\$\$dodge() with the default
+position=position_dodge(). This is because position="dodge" is
+simply shorthand for position=position_dodge() with the default
 value of 0.9, but when we want to set a specific value, we need to use
 the more verbose command.
 
 ### Discussion
 
 The default value of width is 0.9, and the default value used for
-position\$\$\_\$\$dodge() is the same. To be more precise, the value of
-width in position\$\$\_\$\$dodge() is NULL, which tells ggplot2 to use
-the same value as the width from geom\$\$\_\$\$bar().
+position_dodge() is the same. To be more precise, the value of
+width in position_dodge() is NULL, which tells ggplot2 to use
+the same value as the width from geom_bar().
 
 All of these will have the same result:
 
@@ -459,9 +459,9 @@ geom_bar(width=0.9, position=position_dodge(width=0.9))
 
 The items on the x-axis have x values of 1, 2, 3, and so on, though you
 typically don't refer to them by these numerical values. When you
-use geom\$\$\_\$\$bar(width=0.9), it makes each group take up a total
+use geom_bar(width=0.9), it makes each group take up a total
 width of 0.9 on the x-axis. When you use
-position\$\$\_\$\$dodge(width=0.9), it spaces the bars so that the
+position_dodge(width=0.9), it spaces the bars so that the
 *middle* of each bar is right where it would be if the bar width were
 0.9 and the bars were touching. This is illustrated in
 Figure \@ref(fig:FIG-BAR-WIDTH-DODGE-EXPLANATION). The two graphs both
@@ -486,7 +486,7 @@ You want to make a stacked bar graph.
 
 ### Solution
 
-Use geom\$\$\_\$\$bar() and map a variable fill. This will put Date on
+Use geom_bar() and map a variable fill. This will put Date on
 the x-axis and use Cultivar for the fill color, as shown in
 Figure \@ref(fig:FIG-BAR-GRAPH-STACKED-BAR):
 
@@ -542,7 +542,7 @@ the factor levels are in a different order (see
 modified data could change the results of other analyses.
 
 For a more polished graph, we'll keep the reversed legend order, use
-scale\$\$\_\$\$fill\$\$\_\$\$brewer() to get a different color palette,
+scale_fill_brewer() to get a different color palette,
 and use colour="black" to get a black outline
 (Figure \@ref(fig:FIG-BAR-GRAPH-STACKED-BAR-COLORS)):
 
@@ -598,12 +598,12 @@ ggplot(ce, aes(x=Date, y=percent_weight, fill=Cultivar)) +
 
 To calculate the percentages within each Weight group, we used the
 ddply() function. In the example here, the ddply() function splits the
-input data frame, cabbage\$\$\_\$\$exp, by the specified variable,
+input data frame, cabbage_exp, by the specified variable,
 Weight, and applies a function, transform(), to each piece. (Any
 remaining arguments in the ddply() call are passed along to the
 function.)
 
-This is what cabbage\$\$\_\$\$exp looks like, and what the ddply() call
+This is what cabbage_exp looks like, and what the ddply() call
 does to it:
 
 cabbage\_exp
@@ -649,7 +649,7 @@ You want to add labels to the bars in a bar graph.
 
 ### Solution
 
-Add geom\$\$\_\$\$text() toyour graph. It requires a mapping for x, y,
+Add geom_text() toyour graph. It requires a mapping for x, y,
 and the text itself. By setting vjust (the vertical justification), it
 is possible to move the text above or below the tops of the bars, as
 shown in Figure \@ref(fig:FIG-BAR-GRAPH-LABEL):
@@ -703,7 +703,7 @@ ggplot(cabbage_exp, aes(x=interaction(Date, Cultivar), y=Weight)) +
 ```
 
 For grouped bar graphs, you also need to specify
-position=position\$\$\_\$\$dodge() and give it a value for the dodging
+position=position_dodge() and give it a value for the dodging
 width. The default dodge width is 0.9. Because the bars are narrower,
 you might need to use size to specify a smaller font to make the labels
 fit. The default value of size is 5, so we'll make it smaller by
@@ -758,7 +758,7 @@ sum won't be the same as the stacking order.
 To put the labels in the middle of each bar
 (Figure \@ref(fig:FIG-BAR-LABEL-STACKED-MIDDLE)), there must be an
 adjustment to the cumulative sum, and the *y* offset in
-geom\$\$\_\$\$bar() can be removed:
+geom_bar() can be removed:
 
 ```{r}
 ce <- arrange(cabbage_exp, Date, Cultivar)
@@ -812,7 +812,7 @@ they reduce visual clutter and are easier to read.
 
 The simplest way to create a dot plot (as shown in
 Figure \@ref(fig:FIG-BAR-GRAPH-DOTPLOT)) is to use
-geom\$\$\_\$\$point():
+geom_point():
 
 ```{r}
 library(gcookbook) # For the data set
@@ -899,7 +899,7 @@ To make the graph (Figure \@ref(fig:FIG-BAR-GRAPH-DOTPLOT-ORDERED2)),
 we'll also add a mapping of lg to the color of the points. Instead
 of using grid lines that run all the way across, this time we'll
 make the lines go only up to the points, by using
-geom\$\$\_\$\$segment(). Note that geom\$\$\_\$\$segment() needs values
+geom_segment(). Note that geom_segment() needs values
 for x, y, xend, and yend:
 
 ```{r}

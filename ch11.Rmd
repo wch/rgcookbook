@@ -22,10 +22,10 @@ You want to plot subsets of your data in separate panels.
 
 ### Solution
 
-Use facet\$\$\_\$\$grid() or facet\$\$\_\$\$wrap(), and specify the
+Use facet_grid() or facet_wrap(), and specify the
 variables on which to split.
 
-With facet\$\$\_\$\$grid(), you can specify a variable to split the data
+With facet_grid(), you can specify a variable to split the data
 into vertical subpanels, and another variable to split it into
 horizontal subpanels (Figure \@ref(fig:FIG-FACET-FACET-GRID)):
 
@@ -47,7 +47,7 @@ p + facet_grid(drv ~ cyl)
 cyl; bottom right: faceting in both directions, with both
 variables](figs/rgcb_1101.png)
 
-With facet\$\$\_\$\$wrap(), the subplots are laid out horizontally and
+With facet_wrap(), the subplots are laid out horizontally and
 wrap around, like words on a page, as in
 Figure \@ref(fig:FIG-FACET-FACET-WRAP):
 
@@ -61,7 +61,7 @@ p + facet_wrap( ~ class)
 
 ### Discussion
 
-With facet\$\$\_\$\$wrap(), the default is to use the same number of
+With facet_wrap(), the default is to use the same number of
 rows and columns. In Figure \@ref(fig:FIG-FACET-FACET-WRAP), there were
 seven facets, and they fit into a 3 ×3 "square." To change this,
 you can pass a value for nrow or ncol:
@@ -93,7 +93,7 @@ You want subplots with different ranges or items on their axes.
 
 ### Solution
 
-Set the scales to "free\$\$\_\$\$x", "free\$\$\_\$\$y", or "free"
+Set the scales to "free_x", "free_y", or "free"
 (Figure \@ref(fig:FIG-FACET-FACET-FREE)):
 
 ```{r}
@@ -117,7 +117,7 @@ used; the same applies to columns when free *x* scales are used.
 
 It's not possible to directly set the range of each row or column,
 but you can control the ranges by dropping unwanted data (to reduce the
-ranges), or by adding geom\$\$\_\$\$blank() (to expand the ranges).
+ranges), or by adding geom_blank() (to expand the ranges).
 
 ### See Also
 
@@ -158,9 +158,9 @@ must change the data values. Also, at the time of this writing, there is
 no way to show the name of the faceting variable as a header for the
 facets, so it can be useful to use descriptive facet labels.
 
-With facet\$\$\_\$\$grid() but not facet\$\$\_\$\$wrap(), at this time),
+With facet_grid() but not facet_wrap(), at this time),
 it's possible to use a labeller function to set the labels. The
-labeller function label\$\$\_\$\$both() will print out both the name of
+labeller function label_both() will print out both the name of
 the variable and the value of the variable in each facet
 (Figure \@ref(fig:FIG-FACET-LABEL-TEXT-LABELLER), left):
 
@@ -169,7 +169,7 @@ ggplot(mpg2, aes(x=displ, y=hwy)) + geom_point() +
     facet_grid(drv ~ ., labeller = label_both)
 ```
 
-Another useful labeller is label\$\$\_\$\$parsed(), which takes strings
+Another useful labeller is label_parsed(), which takes strings
 and treats them as R math expressions
 (Figure \@ref(fig:FIG-FACET-LABEL-TEXT-LABELLER), right):
 

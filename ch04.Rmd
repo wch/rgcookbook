@@ -25,7 +25,7 @@ You want to make a basic line graph.
 
 ### Solution
 
-Use ggplot() with geom\$\$\_\$\$line(), and specify what variables you
+Use ggplot() with geom_line(), and specify what variables you
 mapped to x and y (Figure \@ref(fig:FIG-LINE-GRAPH-BASIC-LINE)):
 
 ```{r}
@@ -69,7 +69,7 @@ data set, so there's no space for it on the x-axis.
 With ggplot2, the default *y* range of a line graph is just enough to
 include the *y* values in the data. For some kinds of data, it's
 better to have the *y* range start from zero. You can use ylim() to set
-the range, or you can use expand\$\$\_\$\$limits() to expand the range
+the range, or you can use expand_limits() to expand the range
 to include a value. This will set the range from zero to the maximum
 value of the demand column in BOD
 (Figure \@ref(fig:FIG-LINE-GRAPH-BASIC-LINE-YLIM)):
@@ -96,7 +96,7 @@ You want to add points to a line graph.
 
 ### Solution
 
-Add geom\$\$\_\$\$point() (Figure \@ref(fig:FIG-LINE-GRAPH-POINT)):
+Add geom_point() (Figure \@ref(fig:FIG-LINE-GRAPH-POINT)):
 
 ```{r}
 ggplot(BOD, aes(x=Time, y=demand)) + geom_line() + geom_point()
@@ -282,7 +282,7 @@ thickness (in mm) with size, and the color of the line with colour.
 
 These properties can be set (as shown in
 Figure \@ref(fig:FIG-BAR-GRAPH-BASIC-LINE-CUSTOMIZED)) by passing them
-values in the call to geom\$\$\_\$\$line():
+values in the call to geom_line():
 
 ```{r}
 ggplot(BOD, aes(x=Time, y=demand)) +
@@ -298,8 +298,8 @@ properties, as we saw in
 line looking different. The default colors aren't the most
 appealing, so you may want to use a different palette, as shown in
 Figure \@ref(fig:FIG-LINE-GRAPH-MULTI-LINE-PALETTE), by using
-scale\$\$\_\$\$colour\$\$\_\$\$brewer() or
-scale\$\$\_\$\$colour\$\$\_\$\$manual():
+scale_colour\$\$\_\$\$brewer() or
+scale_colour\$\$\_\$\$manual():
 
 ```{r}
 # Load plyr so we can use ddply() to create the example data set
@@ -349,7 +349,7 @@ You want to change the appearance of the points in a line graph.
 
 ### Solution
 
-In geom\$\$\_\$\$point(), setthe size, shape, colour, and/or fill
+In geom_point(), setthe size, shape, colour, and/or fill
 outside of aes() (the result is shown in
 Figure \@ref(fig:FIG-LINE-GRAPH-POINT-PROPERTIES)):
 
@@ -388,8 +388,8 @@ For multiple lines, we saw in
 differently colored points for each group by mapping variables to
 aesthetic properties of points, inside of aes(). The default colors are
 not very appealing, so you may want to use a different palette, using
-scale\$\$\_\$\$colour\$\$\_\$\$brewer() or
-scale\$\$\_\$\$colour\$\$\_\$\$manual(). To set a single constant shape
+scale_colour\$\$\_\$\$brewer() or
+scale_colour\$\$\_\$\$manual(). To set a single constant shape
 or size for all the points, as in
 Figure \@ref(fig:FIG-LINE-GRAPH-MULTI-LINE-POINT-PALETTE), specify shape
 or size outside of aes():
@@ -426,7 +426,7 @@ You want to make a graph with a shaded area.
 
 ### Solution
 
-Use geom\$\$\_\$\$area() toget a shaded area, as in
+Use geom_area() toget a shaded area, as in
 Figure \@ref(fig:FIG-LINE-GRAPH-AREA):
 
 ```{r}
@@ -463,7 +463,7 @@ Having an outline around the entire area might not be desirable, because
 it puts a vertical line at the beginning and end of the shaded area, as
 well as one along the bottom. To avoid this issue, we can draw the area
 without an outline (by not specifying colour), and then layer a
-geom\$\$\_\$\$line() on top, as shown in
+geom_line() on top, as shown in
 Figure \@ref(fig:FIG-LINE-GRAPH-AREA-TOPLINE):
 
 ```{r}
@@ -488,7 +488,7 @@ You want to make a stacked area graph.
 
 ### Solution
 
-Use geom\$\$\_\$\$area() andmap a factor to fill
+Use geom_area() andmap a factor to fill
 (Figure \@ref(fig:FIG-LINE-GRAPH-STACKED-AREA)):
 
 ```{r}
@@ -545,7 +545,7 @@ Since each filled area is drawn with a polygon, the outline includes the
 left and right sides. This might be distracting or misleading. To get
 rid of it (Figure \@ref(fig:FIG-LINE-GRAPH-STACKED-AREA-NOSIDES)), first
 draw the stacked areas *without* an outline (by leaving colour as the
-default NA value), and then add a geom\$\$\_\$\$line() on top:
+default NA value), and then add a geom_line() on top:
 
 ```{r}
 ggplot(uspopage, aes(x=Year, y=Thousands, fill=AgeGroup, order=desc(AgeGroup))) +
@@ -636,7 +636,7 @@ You want to add a confidence region to a graph.
 
 ### Solution
 
-Use geom\$\$\_\$\$ribbon() and map values to ymin and ymax.
+Use geom_ribbon() and map values to ymin and ymax.
 
 In the climate data set, Anomaly10y is a 10-year running average of the
 deviation (in Celsius) from the average 1950–1980 temperature, and
@@ -665,7 +665,7 @@ transparent.
 
 ### Discussion
 
-Notice that the geom\$\$\_\$\$ribbon() is before geom\$\$\_\$\$line(),
+Notice that the geom_ribbon() is before geom_line(),
 so that the line is drawn on top of the shaded region. If the reverse
 order were used, the shaded region could obscure the line. In this
 particular case that wouldn't be a problem since the shaded region

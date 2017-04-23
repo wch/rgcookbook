@@ -93,8 +93,8 @@ overridden by specifying mappings within a geom.
 
 ### Discussion
 
-In the cabbage\$\$\_\$\$exp example, the variable Cultivar is mapped to
-fill. The Cultivar column in cabbage\$\$\_\$\$exp is a factor, so
+In the cabbage_exp example, the variable Cultivar is mapped to
+fill. The Cultivar column in cabbage_exp is a factor, so
 ggplot2 treats it as a discrete variable. You can check the type using
 str():
 
@@ -148,23 +148,23 @@ Use one of the scales listed in
 +----------------------+----------------------+-----------------------+
 | Fill scale           | Color scale          | Description           |
 +======================+======================+=======================+
-| scale\$\$\_\$\$fill\ | scale\$\$\_\$\$colou | Colors evenly spaced  |
-| $\$\_\$\$discrete()  | r\$\$\_\$\$discrete( | around the color      |
+| scale_fill\ | scale_colou | Colors evenly spaced  |
+| $\$\_\$\$discrete()  | r_discrete( | around the color      |
 |                      | )                    | wheel (same as hue)   |
 +----------------------+----------------------+-----------------------+
-| scale\$\$\_\$\$fill\ | scale\$\$\_\$\$colou | Colors evenly spaced  |
-| $\$\_\$\$hue()       | r\$\$\_\$\$hue()     | around the color      |
+| scale_fill\ | scale_colou | Colors evenly spaced  |
+| $\$\_\$\$hue()       | r_hue()     | around the color      |
 |                      |                      | wheel (same as        |
 |                      |                      | discrete)             |
 +----------------------+----------------------+-----------------------+
-| scale\$\$\_\$\$fill\ | scale\$\$\_\$\$colou | Greyscale palette     |
-| $\$\_\$\$grey()      | r\$\$\_\$\$grey()    |                       |
+| scale_fill\ | scale_colou | Greyscale palette     |
+| $\$\_\$\$grey()      | r_grey()    |                       |
 +----------------------+----------------------+-----------------------+
-| scale\$\$\_\$\$fill\ | scale\$\$\_\$\$colou | ColorBrewer palettes  |
-| $\$\_\$\$brewer()    | r\$\$\_\$\$brewer()  |                       |
+| scale_fill\ | scale_colou | ColorBrewer palettes  |
+| $\$\_\$\$brewer()    | r_brewer()  |                       |
 +----------------------+----------------------+-----------------------+
-| scale\$\$\_\$\$fill\ | scale\$\$\_\$\$colou | Manually specified    |
-| $\$\_\$\$manual()    | r\$\$\_\$\$manual()  | colors                |
+| scale_fill\ | scale_colou | Manually specified    |
+| $\$\_\$\$manual()    | r_manual()  | colors                |
 +----------------------+----------------------+-----------------------+
 
 : Discrete fill and color scales
@@ -197,7 +197,7 @@ involves a change in the mapping from numeric or categorical values to
 aesthetic attributes. There are two types of scales that use colors:
 *fill* scales and *color* scales.
 
-With scale\$\$\_\$\$fill\$\$\_\$\$hue(), the colors are taken from
+With scale_fill\$\$\_\$\$hue(), the colors are taken from
 around the color wheel in the HCL (hue-chroma-lightness) color space.
 The default lightness value is 65 on a scale from 0–100. This is good
 for filled areas, but it's a bit light for points and lines. To make
@@ -276,7 +276,7 @@ You want to use different colors for a discrete mapped variable.
 ### Solution
 
 In the example here, we'll manually define colors by specifying
-values with scale\$\$\_\$\$colour\$\$\_\$\$manual()
+values with scale_colour\$\$\_\$\$manual()
 (Figure \@ref(fig:FIG-COLORS-PALETTE-DISCRETE-MANUAL)). The colors can
 be named, or they can be specified with RGB values:
 
@@ -296,7 +296,7 @@ h + scale_colour_manual(values=c("#CC6666", "#7777DD"))
 ![Left: scatter plot with named colors; right: with slightly different
 RGB colors](figs/rgcb_1209.png)
 
-For fill scales, use scale\$\$\_\$\$fill\$\$\_\$\$manual() instead.
+For fill scales, use scale_fill\$\$\_\$\$manual() instead.
 
 ### Discussion
 
@@ -362,8 +362,8 @@ You want to use colors that can be distinguished by colorblind viewers.
 
 ### Solution
 
-Use the palette defined here (cb\$\$\_\$\$palette)with
-scale\$\$\_\$\$fill\$\$\_\$\$manual()
+Use the palette defined here (cb_palette)with
+scale_fill\$\$\_\$\$manual()
 (Figure \@ref(fig:FIG-COLORS-PALETTE-DISCRETE-COLORBLIND)):
 
 ```{r}
@@ -458,7 +458,7 @@ scale\_colour\_gradient(), three-color gradient with midpoint with
 scale\_colour\_gradient2(), four-color gradient with
 scale\_colour\_gradientn()](figs/rgcb_1212.png)
 
-For fill scales, use scale\$\$\_\$\$fill\$\$\_\$\$xxx() versions
+For fill scales, use scale_fill\$\$\_\$\$xxx() versions
 instead, where xxx is one of gradient, gradient2, or gradientn.
 
 ### Discussion
@@ -471,17 +471,17 @@ continuous color and fill scales.
 +----------------------+----------------------+-----------------------+
 | Fill scale           | Color scale          | Description           |
 +======================+======================+=======================+
-| scale\$\$\_\$\$fill\ | scale\$\$\_\$\$colou | Two-color gradient    |
-| $\$\_\$\$gradient()  | r\$\$\_\$\$gradient( |                       |
+| scale_fill\ | scale_colou | Two-color gradient    |
+| $\$\_\$\$gradient()  | r_gradient( |                       |
 |                      | )                    |                       |
 +----------------------+----------------------+-----------------------+
-| scale\$\$\_\$\$fill\ | scale\$\$\_\$\$colou | Gradient with a       |
-| $\$\_\$\$gradient2() | r\$\$\_\$\$gradient2 | middle color and two  |
+| scale_fill\ | scale_colou | Gradient with a       |
+| $\$\_\$\$gradient2() | r_gradient2 | middle color and two  |
 |                      | ()                   | colors that diverge   |
 |                      |                      | from it               |
 +----------------------+----------------------+-----------------------+
-| scale\$\$\_\$\$fill\ | scale\$\$\_\$\$colou | Gradient with *n*     |
-| $\$\_\$\$gradientn() | r\$\$\_\$\$gradientn | colors, equally       |
+| scale_fill\ | scale_colou | Gradient with *n*     |
+| $\$\_\$\$gradientn() | r_gradientn | colors, equally       |
 |                      | ()                   | spaced                |
 +----------------------+----------------------+-----------------------+
 

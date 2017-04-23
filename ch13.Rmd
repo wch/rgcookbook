@@ -144,7 +144,7 @@ You want to plot a function.
 
 ### Solution
 
-Use stat\$\$\_\$\$function(). It's also necessary to give ggplot() a
+Use stat_function(). It's also necessary to give ggplot() a
 dummy data frame so that it will get the proper *x* range. In this
 example we'll use dnorm(), which gives the density of the normal
 distribution (Figure \@ref(fig:FIG-MISCGRAPH-FUNCTION), left):
@@ -189,8 +189,8 @@ ggplot(data.frame(x=c(0, 20)), aes(x=x)) + stat_function(fun=myfun)
 By default, the function is calculated at 101 points along the *x*
 range. If you have a rapidly fluctuating function, you may be able to
 see the individual segments. To smooth out the curve, pass a larger
-value of n to stat\$\$\_\$\$function(), as in
-stat\$\$\_\$\$function(fun=myfun, n=200).
+value of n to stat_function(), as in
+stat_function(fun=myfun, n=200).
 
 ### See Also
 
@@ -254,7 +254,7 @@ limitRange <- function(fun, min, max) {
 ```
 
 Now we can call this function to create another function—one that is
-effectively the same as the dnorm\$\$\_\$\$limit() function used
+effectively the same as the dnorm_limit() function used
 earlier:
 
 \# This returns a function dlimit &lt;- limitRange(dnorm, 0, 2) \# Now
@@ -262,7 +262,7 @@ we'll try out the new function -- it only returns values for inputs \#
 between 0 and 2 dlimit(-2:4)
 \[1\] NA NA 0.39894228 0.24197072 0.05399097 NA NA
 We can use limitRange() to create a function that is passed to
-stat\$\$\_\$\$function():
+stat_function():
 
 ```{r}
 p + stat_function(fun = dnorm) +
@@ -284,7 +284,7 @@ is because ggplot2 does a numeric approximation by calculating values at
 fixed intervals, and these intervals may not fall exactly within the
 specified range. As in [section\_title](#RECIPE_MISCGRAPH_FUNCTION), we
 can improve the approximation by increasing the number of
-interpolatedvalues with stat\$\$\_\$\$function(n=200).
+interpolatedvalues with stat_function(n=200).
 
 Creating a Network Graph {#RECIPE_MISCGRAPH_GRAPH}
 ------------------------
@@ -460,7 +460,7 @@ You want to make a heat map.
 
 ### Solution
 
-Use geom\$\$\_\$\$tile() or geom\$\$\_\$\$raster() and map a continuous
+Use geom_tile() or geom_raster() and map a continuous
 variable to fill. We'll use the presidents data set, which is a time
 series object rather than a data frame:
 
@@ -478,8 +478,8 @@ as.numeric(floor(time(presidents))), quarter =
 as.numeric(cycle(presidents)) ) pres\_rating
 rating year quarter NA 1945 1 87 1945 2 82 1945 3 ... 25 1974 2 24 1974
 3 24 1974 4
-Now we can make the plot using geom\$\$\_\$\$tile() or
-geom\$\$\_\$\$raster() (Figure \@ref(fig:FIG-MISCGRAPH-HEATMAP)). Simply
+Now we can make the plot using geom_tile() or
+geom_raster() (Figure \@ref(fig:FIG-MISCGRAPH-HEATMAP)). Simply
 map one variable to x, one to y, and one to fill:
 
 ```{r}
@@ -498,7 +498,7 @@ data](figs/rgcb_1312.png)
 
 > **Note**
 >
-> The results with geom\$\$\_\$\$tile() and geom\$\$\_\$\$raster()
+> The results with geom_tile() and geom_raster()
 > *should* look the same, but in practice they might appear different.
 > See [???](#RECIPE_DISTRIBUTION_DENSITY2D) for more information about
 > this issue.
@@ -510,7 +510,7 @@ appearance of the heat map. With this example, we'll reverse the
 y-axis so that it progresses from top to bottom, and we'll add tick
 marks every four years along the x-axis, to correspond with each
 presidential term. We'll also change the color scale using
-scale\$\$\_\$\$fill\$\$\_\$\$gradient2(), which lets you specify a
+scale_fill\$\$\_\$\$gradient2(), which lets you specify a
 midpoint color and the two colors at the low and high ends
 (Figure \@ref(fig:FIG-MISCGRAPH-HEATMAP-CUSTOM)):
 
@@ -1001,7 +1001,7 @@ You want to make a vector field.
 
 ### Solution
 
-Use geom\$\$\_\$\$segment(). For this example, we'll use the isabel
+Use geom_segment(). For this example, we'll use the isabel
 data set:
 
 library(gcookbook) \# For the data set isabel
@@ -1020,7 +1020,7 @@ The height (z) ranges from 0.035 km to 18.035 km. For this example,
 we'll just use the lowest slice of data.
 
 To draw the vectors (Figure \@ref(fig:FIG-MISCGRAPH-VECTOR)), we'll
-use geom\$\$\_\$\$segment(). Each segment has a starting point and an
+use geom_segment(). Each segment has a starting point and an
 ending point. We'll use the x and y values as the starting points
 for each segment, then add a fraction of the vx and vy values to get the
 end points for each segment. If we didn't scale down these values,
@@ -1041,7 +1041,7 @@ graphs with a lower data resolution](figs/rgcb_1321.png)
 This vector field has two problems: the data is at too high a resolution
 to read, and the segments do not have arrows indicating the direction of
 the flow. To reduce the resolution of the data, we'll define a
-function every\$\$\_\$\$n() that keeps one out of every n values in the
+function every_n() that keeps one out of every n values in the
 data and drops the rest:
 
 ```{r}
@@ -1101,7 +1101,7 @@ ggplot(islicesub, aes(x=x, y=y)) +
 Next, we'll map speed to colour. We'll also add a map of the
 United States and zoom in on the area of interest, as shown in the graph
 on the right in Figure \@ref(fig:FIG-MISCGRAPH-VECTORFIELD-AES),using
-coord\$\$\_\$\$cartesian() (without this, the entire USA will be
+coord_cartesian() (without this, the entire USA will be
 displayed):
 
 ```{r}
@@ -1193,7 +1193,7 @@ the data is distributed.
 See ?qqplot for information on comparing data to theoretical
 distributions other than the normal distribution.
 
-ggplot2 has a stat\$\$\_\$\$qq() function, but it doesn't provide an
+ggplot2 has a stat_qq() function, but it doesn't provide an
 easy way to draw the QQ line.
 
 Creating a Graph of an Empirical Cumulative Distribution Function {#RECIPE_MISCGRAPH_ECDF}
@@ -1206,7 +1206,7 @@ of a data set.
 
 ### Solution
 
-Use stat\$\$\_\$\$ecdf() (Figure \@ref(fig:FIG-MISCGRAPH-ECDF)):
+Use stat_ecdf() (Figure \@ref(fig:FIG-MISCGRAPH-ECDF)):
 
 ```{r}
 library(gcookbook) # For the data set
@@ -1404,10 +1404,10 @@ You want to create a geographical map.
 ### Solution
 
 Retrieve map data from the maps package and draw it with
-geom\$\$\_\$\$polygon() (which can have a color fill) or
-geom\$\$\_\$\$path() (which can't have a fill). By default, the
+geom_polygon() (which can have a color fill) or
+geom_path() (which can't have a fill). By default, the
 latitude and longitude will be drawn on a Cartesian coordinate plane,
-but you can use coord\$\$\_\$\$map() and specify a projection. The
+but you can use coord_map() and specify a projection. The
 default projection is "mercator", which, unlike the Cartesian plane, has
 a progressively changing spacing for latitude lines
 (Figure \@ref(fig:FIG-MISCGRAPH-MAP)):
@@ -1430,7 +1430,7 @@ projection](figs/rgcb_1332.png)
 
 ### Discussion
 
-The map\$\$\_\$\$data() functionreturns a data frame with the following
+The map_data() functionreturns a data frame with the following
 columns:
 
 long
@@ -1579,7 +1579,7 @@ ggplot(crime_map, aes(x=long, y=lat, group=group, fill=Assault)) +
 
 The preceding example used the default color scale, which goes from dark
 to light blue. If you want to show how the values diverge from some
-middle value, you can use scale\$\$\_\$\$fill\$\$\_\$\$gradient2(), as
+middle value, you can use scale_fill\$\$\_\$\$gradient2(), as
 shown in Figure \@ref(fig:FIG-MISCGRAPH-CHOROPLETH-MIDPOINT):
 
 ```{r}
@@ -1618,13 +1618,13 @@ coord\_map("polyconic") + labs(fill="Assault Rate\\nPercentile")
 ![Choropleth map with discretized data](figs/rgcb_1337.png)
 
 Another way to make a choropleth, but without needing to merge the map
-data with the value data, is to use geom\$\$\_\$\$map(). As of this
+data with the value data, is to use geom_map(). As of this
 writing, this will render maps faster than the method just described.
 
 For this method, the map data frame must have columns named lat, long,
 and region. In the value data frame, there must be a column that is
 matched to the region column in the map data frame, and this column is
-specified by mapping it to the map\$\$\_\$\$id aesthetic. For example,
+specified by mapping it to the map_id aesthetic. For example,
 this code will have the same output as the first example
 (Figure \@ref(fig:FIG-MISCGRAPH-CHOROPLETH)):
 
@@ -1637,9 +1637,9 @@ ggplot(crimes, aes(map_id = state, fill=Assault)) +
     coord_map("polyconic")
 ```
 
-Notice that we also needed to use expand\$\$\_\$\$limits(). This is
-because unlike most geoms, geom\$\$\_\$\$map() doesn't automatically
-set the x and y limits; the use of expand\$\$\_\$\$limits() makes it
+Notice that we also needed to use expand_limits(). This is
+because unlike most geoms, geom_map() doesn't automatically
+set the x and y limits; the use of expand_limits() makes it
 include those x and y values. (Another way to accomplish the same result
 is to use ylim() and xlim().)
 
