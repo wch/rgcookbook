@@ -58,7 +58,7 @@ corrplot(mcor)
 
 ![A correlation matrix](figs/rgcb_1301.png)
 
-### Discussion {#_discussion_102}
+### Discussion
 
 The corrplot() function hasmany, many options. Here is an example of how
 to make a correlation matrix with colored squares and black labels,
@@ -159,7 +159,7 @@ p + stat_function(fun = dnorm)
 ![Left: the normal distribution; right: the t-distribution with
 df=2](figs/rgcb_1304.png)
 
-### Discussion {#_discussion_103}
+### Discussion
 
 Some functions take additional arguments. For example, dt(), the
 function for the density of the *t*-distribution, takes a parameter for
@@ -233,7 +233,7 @@ time, it might make sense to use an if\$\$/\$\$else statement to decide
 what to return, conditional on the value of x. But that won't work
 here, since x is a vector with many values.
 
-### Discussion {#_discussion_104}
+### Discussion
 
 R has first-class functions, and we can write a function that returns a
 *closure*—that is, we can program a function to program another
@@ -323,7 +323,7 @@ IGRAPH D--- 6 6 -- + edges: \[1\] 1-&gt;2 2-&gt;3 2-&gt;4 1-&gt;4
 5-&gt;5 3-&gt;6
 str(gu)
 IGRAPH U--- 6 6 -- + edges: \[1\] 1--2 2--3 2--4 1--4 5--5 3--6
-### Discussion {#_discussion_105}
+### Discussion
 
 In a network graph, the position of the nodes is unspecified by the
 data, and they're placed randomly. To make the output repeatable,
@@ -407,7 +407,7 @@ nodes vertex.label = V(g)\$name, \# Set the labels vertex.label.cex =
 labels vertex.label.color = "black")
 ![A network graph with labels](figs/rgcb_1310.png)
 
-### Discussion {#_discussion_106}
+### Discussion
 
 Another way to achieve the same effect is to modify the plot object,
 instead of passing in the values as arguments to plot(). To do this, use
@@ -503,7 +503,7 @@ data](figs/rgcb_1312.png)
 > See [???](#RECIPE_DISTRIBUTION_DENSITY2D) for more information about
 > this issue.
 
-### Discussion {#_discussion_107}
+### Discussion
 
 To better convey useful information, you may want to customize the
 appearance of the heat map. With this example, we'll reverse the
@@ -562,7 +562,7 @@ and zoom in and out with the scroll wheel.
 > spherical points, made them smaller with size=0.75, and turned off the
 > 3D lighting with lit=FALSE (otherwise they look like shiny spheres).
 
-### Discussion {#_discussion_108}
+### Discussion
 
 Three-dimensional scatter plots can be difficult to interpret, so
 it's often better to use a two-dimensional representation of the
@@ -724,7 +724,7 @@ surface3d(mpgrid_list$wt, mpgrid_list$disp, mpgrid_list$mpg,
 
 ![A 3D scatter plot with a prediction surface](figs/rgcb_1317.png)
 
-### Discussion {#_discussion_109}
+### Discussion
 
 We can tweak the appearance of the graph, as shown in
 Figure \@ref(fig:FIG-MISCGRAPH-3D-SCATTER-MODEL2). We'll add each of
@@ -807,7 +807,7 @@ library on which rgl is based. For example, it does not support
 transparency, and the sizes of objects such as points and lines may not
 be the same as what appears on the screen.
 
-### Discussion {#_discussion_110}
+### Discussion
 
 To make the output more repeatable, you can save your current viewpoint
 and restore it later:
@@ -860,7 +860,7 @@ plot3d(mtcars$wt, mtcars$disp, mtcars$mpg, type="s", size=0.75, lit=FALSE)
 play3d(spin3d())
 ```
 
-### Discussion {#_discussion_111}
+### Discussion
 
 By default, the graph will be rotated on the z (vertical) axis, until
 you send a break command to R.
@@ -960,7 +960,7 @@ plot(hc, hang = -1)
 
 ![Left: a dendrogram; right: with text aligned](figs/rgcb_1319.png)
 
-### Discussion {#_discussion_112}
+### Discussion
 
 A cluster analysis is simply a way of assigning points to groups in an
 *n*-dimensional space (four dimensions, in this example). A hierarchical
@@ -1078,7 +1078,7 @@ ggplot(islicesub, aes(x=x, y=y)) +
 
 ![Vector field with arrowheads](figs/rgcb_1322.png)
 
-### Discussion {#_discussion_113}
+### Discussion
 
 One effect of arrowheads is that short vectors appear with more ink than
 is proportional to their length. This could somewhat distort the
@@ -1180,7 +1180,7 @@ qqline(heightweight$ageYear)
 right: QQ plot of age, which is not normally
 distributed](figs/rgcb_1325.png)
 
-### Discussion {#_discussion_114}
+### Discussion
 
 The points for heightIn are close to the line, which means that the
 distribution is close to normal. In contrast, the points for ageYear
@@ -1220,7 +1220,7 @@ ggplot(heightweight, aes(x=ageYear)) + stat_ecdf()
 
 ![Left: ECDF of height; right: ECDF of age](figs/rgcb_1326.png)
 
-### Discussion {#_discussion_115}
+### Discussion
 
 The ECDF shows what proportion of observations are at or below the given
 *x* value. Because it is *empirical*, the line takes a step up at each
@@ -1294,7 +1294,7 @@ department, then gender, then admission status](figs/rgcb_1328.png)
 We also specified a variable to highlight (Admit), and which colors to
 use in the highlighting.
 
-### Discussion {#_discussion_116}
+### Discussion
 
 In the preceding example we also specified the *direction* in which each
 variable will be split. The first variable, Dept, is split vertically;
@@ -1386,7 +1386,7 @@ a named vector, or a vector of values and a vector of labels, like this:
 pie(c(99, 18, 120), labels=c("L on R", "Neither", "R on L"))
 ```
 
-### Discussion {#_discussion_117}
+### Discussion
 
 The lowly pie chart is the subject of frequent abuse from data
 visualization experts. If you're thinking of using a pie chart,
@@ -1428,7 +1428,7 @@ ggplot(states_map, aes(x=long, y=lat, group=group)) +
 ![Top: a basic map with fill; bottom: with no fill, and Mercator
 projection](figs/rgcb_1332.png)
 
-### Discussion {#_discussion_118}
+### Discussion
 
 The map\$\$\_\$\$data() functionreturns a data frame with the following
 columns:
@@ -1575,7 +1575,7 @@ ggplot(crime_map, aes(x=long, y=lat, group=group, fill=Assault)) +
 
 ![A map with a variable mapped to fill](figs/rgcb_1335.png)
 
-### Discussion {#_discussion_119}
+### Discussion
 
 The preceding example used the default color scale, which goes from dark
 to light blue. If you want to show how the values diverge from some
@@ -1707,7 +1707,7 @@ ggplot(crimes, aes(map_id = state, fill=Assault_q)) +
 >
 >     This happens because some dimensions add up to having zero length, and the grid graphics engine has trouble handling this. This bug was fixed as of R 3.0. If you&rsquo;re using a version of R where this happens, you can work around it by changing the theme to use ++axis.ticks.margin = unit(0.01, "cm")++ instead of ++axis.ticks.margin = unit(0, "cm")++.
 
-### Discussion {#_discussion_120}
+### Discussion
 
 In some maps, it's important to include contextual information such
 as the latitude and longitude. In others, this information is
@@ -1743,7 +1743,7 @@ ggplot(taiwan_map, aes(x = long, y = lat, group=group)) + geom_path()
 
 ![A map created from a shapefile](figs/rgcb_1339.png)
 
-### Discussion {#_discussion_121}
+### Discussion
 
 Esri shapefiles are a common format for map data. The readShapePoly()
 function reads a shape file and returns a SpatialPolygonsDataFrame

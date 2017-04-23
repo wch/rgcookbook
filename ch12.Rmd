@@ -34,7 +34,7 @@ ggplot(birthwt, aes(x=bwt)) + geom_histogram(fill="red", colour="black")
 ![Left: setting fill and colour; right: setting colour for
 points](figs/rgcb_1201.png)
 
-### Discussion {#_discussion_95}
+### Discussion
 
 In ggplot2, there's an important difference between *setting* and
 *mapping* aesthetic properties. In the preceding example, we set the
@@ -91,7 +91,7 @@ When the mapping is specified in ggplot() it sets the default mapping,
 which is inherited by all the geoms. The default mappings can be
 overridden by specifying mappings within a geom.
 
-### Discussion {#_discussion_96}
+### Discussion
 
 In the cabbage\$\$\_\$\$exp example, the variable Cultivar is mapped to
 fill. The Cultivar column in cabbage\$\$\_\$\$exp is a factor, so
@@ -190,7 +190,7 @@ p + scale_fill_brewer()
 ![Left: default palette (using hue); right: a ColorBrewer
 palette](figs/rgcb_1204.png)
 
-### Discussion {#_discussion_97}
+### Discussion
 
 Changing a palette is a modification of the color (or fill) scale: it
 involves a change in the mapping from numeric or categorical values to
@@ -298,7 +298,7 @@ RGB colors](figs/rgcb_1209.png)
 
 For fill scales, use scale\$\$\_\$\$fill\$\$\_\$\$manual() instead.
 
-### Discussion {#_discussion_98}
+### Discussion
 
 The order of the items in the values vector matches the order of the
 factor levels for the discrete scale. In the preceding example, the
@@ -395,7 +395,7 @@ c("#000000", "#E69F00", "#56B4E9", "#009E73", "#F0E442", "#0072B2", "#D55E00",
   "#CC79A7")
 ```
 
-### Discussion {#_discussion_99}
+### Discussion
 
 About 8 percent of males and 0.5 percent of females have some form of
 color-vision deficiency, so there's a good chance that someone in
@@ -461,7 +461,7 @@ scale\_colour\_gradientn()](figs/rgcb_1212.png)
 For fill scales, use scale\$\$\_\$\$fill\$\$\_\$\$xxx() versions
 instead, where xxx is one of gradient, gradient2, or gradientn.
 
-### Discussion {#_discussion_100}
+### Discussion
 
 Mapping continuous values to a color scale requires a continuously
 changing palette of colors.
@@ -531,7 +531,7 @@ ggplot(cb, aes(x=Year, y=Anomaly10y)) +
 ![Mapping valence to fill color—notice the red area under the zero line
 around 1950](figs/rgcb_1213.png)
 
-### Discussion {#_discussion_101}
+### Discussion
 
 If you look closely at the figure, you'll notice that there are some
 stray shaded areas near the zero line. This is because each of the two

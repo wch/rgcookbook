@@ -37,7 +37,7 @@ p + ggtitle("Age and Height\nof Schoolchildren")
 ![Left: scatter plot with a title added; right: with a /n for a
 newline](figs/rgcb_0901.png)
 
-### Discussion {#_discussion_77}
+### Discussion
 
 ggtitle() is equivalent to using labs(title = "Title text").
 
@@ -116,7 +116,7 @@ p + geom_text(aes(label=weightLb), size=4, family="Times", colour="red")
 ![Counterclockwise from top left: axis.title.x, plot.title,
 geom\_text(), and annotate("text")](figs/rgcb_0904.png)
 
-### Discussion {#_discussion_78}
+### Discussion
 
 There are two kinds of text items in ggplot2: theme elements and text
 geoms. Theme elements are all the non-data elements in the plot: the
@@ -229,7 +229,7 @@ p + theme_bw()
 ![Left: scatter plot with theme\_grey() (the default); right: with
 theme\_bw()](figs/rgcb_0906.png)
 
-### Discussion {#_discussion_79}
+### Discussion
 
 Some commonly used properties of theme elements in ggplot2 are those
 things that are controlled by theme(). Most of these things, like the
@@ -325,7 +325,7 @@ p + facet_grid(sex ~ .) + theme(
 ![Clockwise from top left: modifying theme properties for the plotting
 area, the legend, the facets, and the text items](figs/rgcb_0907.png)
 
-### Discussion {#_discussion_80}
+### Discussion
 
 If you want to use a saved theme and tweak a few parts of it with
 theme(), the theme() must come after the theme specification. Otherwise,
@@ -514,7 +514,7 @@ p + theme(panel.grid.major = element_blank(),
 ![Left: no grid lines; middle: no vertical lines; right: no horizontal
 lines](figs/rgcb_0909.png)
 
-### Discussion {#_discussion_81}
+### Discussion
 
 It's possible to hide just the vertical or horizontal grid lines, as
 shown in the middle and righthand graphs in

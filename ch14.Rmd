@@ -69,7 +69,7 @@ there is an error while creating or saving the plot, there's no need
 to manually close the graphic device. ggsave() can't be used to make
 multipage plots, though.
 
-### Discussion {#_discussion_122}
+### Discussion
 
 PDF files are usually the best option when your goal is to output to
 printed documents. They work easily with LaTeX and can be used in
@@ -114,7 +114,7 @@ dev.off()
 ggsave("myplot.svg", width=8, height=8, units="cm")
 ```
 
-### Discussion {#_discussion_123}
+### Discussion
 
 When it comes to importing images, some programs may handle SVG files
 better than PDFs, and vice versa. For example, web browsers tend to have
@@ -142,7 +142,7 @@ dev.off()
 ggsave("myplot.wmf", width=8, height=8, units="cm")
 ```
 
-### Discussion {#_discussion_124}
+### Discussion
 
 Windows programs such as Microsoft Word and PowerPoint have poor support
 for importing PDF files, but they natively support WMF. One drawback is
@@ -161,7 +161,7 @@ Sometimes you need to make final tweaks to the appearance of a graph for
 presentation. You can open PDF and SVG files with the excellent free
 program Inkscape, or with the commercial program Adobe Illustrator.
 
-### Discussion {#_discussion_125}
+### Discussion
 
 Font support can be a problem when you open a PDF file with Inkscape.
 Normally, point objects drawn with the PDF device will be written as
@@ -289,7 +289,7 @@ to manually close the graphic device.
 > print, it is output with many smaller dots of black ink—and so print
 > output has more dots per inch than pixels per inch.
 
-### Discussion {#_discussion_126}
+### Discussion
 
 R supports other bitmap formats, like BMP, TIFF, and JPEG, but
 there's really not much reason to use them instead of PNG.
@@ -386,7 +386,7 @@ embed_fonts("myplot.pdf")
 
 ![PDF output with embedded font Impact](figs/rgcb_1404.png)
 
-### Discussion {#_discussion_127}
+### Discussion
 
 Fonts can be difficult to work with in R. Some output devices, such as
 the on-screen quartz device on Mac OS X, can display any font installed
@@ -474,7 +474,7 @@ ggsave("myplot.png", width=4, height=4, dpi=300)
 
 ![PNG output with font Georgia Italic](figs/rgcb_1405.png)
 
-### Discussion {#_discussion_128}
+### Discussion
 
 Fonts are handled in a completely different way for bitmaps than they
 are for PDF files.

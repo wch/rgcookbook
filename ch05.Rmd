@@ -39,7 +39,7 @@ ggplot(heightweight, aes(x=ageYear, y=heightIn)) + geom_point()
 
 ![A basic scatter plot](figs/rgcb_0501.png)
 
-### Discussion {#_discussion_27}
+### Discussion
 
 To use different shapes in a scatter plot, set shape. A common
 alternative to the default solid circles (shape \#16) is hollow ones
@@ -102,7 +102,7 @@ ggplot(heightweight, aes(x=ageYear, y=heightIn, shape=sex)) + geom_point()
 ![Grouping points by a variable mapped to colour (left), and to shape
 (right)](figs/rgcb_0504.png)
 
-### Discussion {#_discussion_28}
+### Discussion
 
 The grouping variable must be categorical—in other words, a factor or
 character vector. If it is stored as a vector of numeric values, it
@@ -175,7 +175,7 @@ ggplot(heightweight, aes(x=ageYear, y=heightIn, shape=sex)) +
     geom_point(size=3) + scale_shape_manual(values=c(1, 4))
 ```
 
-### Discussion {#_discussion_29}
+### Discussion
 
 Figure \@ref(fig:FIG-SCATTER-SHAPES-CHART) shows the shapes that are
 available in R graphics. Some of the point shapes (1–14) have just an
@@ -256,7 +256,7 @@ ggplot(heightweight, aes(x=ageYear, y=heightIn, size=weightLb)) + geom_point()
 ![Left: a continuous variable mapped to colour; right: mapped to
 size](figs/rgcb_0509.png)
 
-### Discussion {#_discussion_30}
+### Discussion
 
 A basic scatter plot shows the relationship between two continuous
 variables: one mapped to the x-axis, and one to the y-axis. When there
@@ -580,7 +580,7 @@ sp + geom_point(colour="grey60") +
 left: a 99% confidence region; top right: no confidence region; bottom
 right: in black with grey points](figs/rgcb_0518.png)
 
-### Discussion {#_discussion_31}
+### Discussion
 
 The linear regression line is not the only way of fitting a model to the
 data—in fact, it's not even the default. If you add
@@ -718,7 +718,7 @@ sp <- ggplot(heightweight, aes(x=ageYear, y=heightIn)) +
 sp + geom_line(data=predicted, size=1)
 ```
 
-### Discussion {#_discussion_32}
+### Discussion
 
 Any model object can be used, so long as it has a corresponding
 predict() method. For example, lm has predict.lm(), loess has
@@ -882,7 +882,7 @@ ggplot(heightweight, aes(x=ageYear, y=heightIn, colour=sex)) +
 ![Left: predictions from two separate lm objects, one for each subset of
 data; right: with facets](figs/rgcb_0524.png)
 
-### Discussion {#_discussion_33}
+### Discussion
 
 The dlply() and ldply() calls are used for splitting the data into
 parts, running functions on those parts, and then reassembling the
@@ -960,7 +960,7 @@ formulas using R's math expression syntax, by setting parse=TRUE:
 sp + annotate("text", label="r^2 == 0.42", parse = TRUE, x=16.5, y=52)
 ```
 
-### Discussion {#_discussion_34}
+### Discussion
 
 Text geoms in ggplot2 do not take expression objects directly; instead,
 they take character strings that are turned into expressions with
@@ -1028,7 +1028,7 @@ ggplot(faithful, aes(x=eruptions, y=waiting)) + geom_point() + geom_rug()
 
 ![Marginal rug added to a scatter plot](figs/rgcb_0528.png)
 
-### Discussion {#_discussion_35}
+### Discussion
 
 A marginal rug plot is essentially a one-dimensional scatter plot that
 can be used to visualize the distribution of data on each axis.
@@ -1104,7 +1104,7 @@ which doesn't correspond directly to a point size:
 sp + geom_text(aes(label=Name), size=4)
 ```
 
-### Discussion {#_discussion_36}
+### Discussion
 
 The automatic method for placing annotations centers each annotation on
 the *x* and *y* coordinates. You'll probably want to shift the text
@@ -1270,7 +1270,7 @@ p + scale_size_area(max_size=15)
 ![Left: balloon plot with value mapped to radius; right: with value
 mapped to area](figs/rgcb_0534.png)
 
-### Discussion {#_discussion_37}
+### Discussion
 
 The example here is a scatter plot, but that is not the only way to use
 balloon plots. It may also be useful to use them to represent values on
@@ -1354,7 +1354,7 @@ pairs(c2009[,2:5])
 
 ![A scatter plot matrix](figs/rgcb_0536.png)
 
-### Discussion {#_discussion_38}
+### Discussion
 
 We didn't use ggplot2 here because it doesn't make scatter plot
 matrices (at least, not well).

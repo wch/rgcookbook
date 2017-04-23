@@ -29,7 +29,7 @@ ggplot(PlantGrowth, aes(x=group, y=weight)) + geom_boxplot() + coord_flip()
 ![Left: a box plot with regular axes; right: with swapped
 axes](figs/rgcb_0801.png)
 
-### Discussion {#_discussion_59}
+### Discussion
 
 For a scatter plot, it is trivial to change what goes on the vertical
 axis and what goes on the horizontal axis: just exchange the variables
@@ -92,7 +92,7 @@ The latter example sets the *y* range from 0 to the maximum value of the
 weight column, though a constant value (like 10) could instead be used
 as the maximum.
 
-### Discussion {#_discussion_60}
+### Discussion
 
 ylim() is shorthand for setting the limits with
 scale\$\$\_\$\$y\$\$\_\$\$continuous(). (The same is true for xlim() and
@@ -187,7 +187,7 @@ ggplot(PlantGrowth, aes(x=group, y=weight)) + geom_boxplot() + ylim(6.5, 3.5)
 
 ![Box plot with reversed y-axis](figs/rgcb_0806.png)
 
-### Discussion {#_discussion_61}
+### Discussion
 
 Like scale\$\$\_\$\$y\$\$\_\$\$continuous(),
 scale\$\$\_\$\$y\$\$\_\$\$reverse() does not work with ylim. (The same
@@ -236,7 +236,7 @@ p + scale_x_discrete(limits=c("trt1","ctrl","trt2"))
 ![Left: box plot with manually specified items on the x-axis; right:
 with only two items](figs/rgcb_0808.png)
 
-### Discussion {#_discussion_62}
+### Discussion
 
 You can also use this method to display a subset of the items on the
 axis. This will show only ctrl and trt1
@@ -284,7 +284,7 @@ sp + coord_fixed()
 ![Left: scatter plot with equal scaling of axes; right: with tick marks
 at specified positions](figs/rgcb_0810.png)
 
-### Discussion {#_discussion_63}
+### Discussion
 
 The marathon data set contains runners' marathon and half-marathon
 times. In this case it might be useful to force the x- and y-axes to
@@ -339,7 +339,7 @@ ggplot(PlantGrowth, aes(x=group, y=weight)) + geom_boxplot() +
 ![Left: box plot with automatic tick marks; right: with manually set
 tick marks](figs/rgcb_0812.png)
 
-### Discussion {#_discussion_64}
+### Discussion
 
 The location of the tick marks defines where *major* grid lines are
 drawn. If the axis represents a continuous variable, *minor* grid lines,
@@ -421,7 +421,7 @@ categorical axis using limits, as in
 [section\_title](#RECIPE_AXIS_ORDER), the data with that value won't
 be shown at all.
 
-### Discussion {#_discussion_65}
+### Discussion
 
 There are actually three related items that can be controlled: tick
 labels, tick marks, and the grid lines. For continuous axes, ggplot()
@@ -467,7 +467,7 @@ hwp + scale_y_continuous(breaks=c(50, 56, 60, 66, 72),
 ![Left: scatter plot with automatic tick labels; right: with manually
 specified labels on the y-axis](figs/rgcb_0815.png)
 
-### Discussion {#_discussion_66}
+### Discussion
 
 Instead of setting completely arbitrary labels, it is more common to
 have your data stored in one format, while wanting the labels to be
@@ -589,7 +589,7 @@ bp + theme(axis.text.x = element_text(angle=30, hjust=1, vjust=1))
 The hjust and vjust settings specify the horizontal alignment
 (left/center/right) and vertical alignment (top/middle/bottom).
 
-### Discussion {#_discussion_67}
+### Discussion
 
 Besides rotation, other text properties, such as size, style
 (bold/italic/normal), and the font family (such as Times or Helvetica)
@@ -644,7 +644,7 @@ hwp + xlab("Age in years") + ylab("Height in inches")
 ![Left: scatter plot with the default axis labels; right: manually
 specified labels for the x- and y-axes](figs/rgcb_0819.png)
 
-### Discussion {#_discussion_68}
+### Discussion
 
 By default the graphs will just use the column names from the data frame
 as axis labels. This might be fine for exploring data, but for
@@ -704,7 +704,7 @@ p + theme(axis.title.x=element_blank())
 ![Left: x-axis label with element\_blank(); right: with the label set to
 ""](figs/rgcb_0821.png)
 
-### Discussion {#_discussion_69}
+### Discussion
 
 Sometimes axis labels are redundant or obvious from the context, and
 don't need to be displayed. In the example here, the x-axis
@@ -744,7 +744,7 @@ To change the appearance of the x-axis label
 
     hwp + theme(axis.title.x=element_text(face="italic", colour="darkred", size=14))
 
-### Discussion {#_discussion_70}
+### Discussion
 
 For the y-axis label, it might also be useful to display the text
 unrotated, as shown in Figure \@ref(fig:FIG-AXES-AXIS-LABEL-YROTATE)
@@ -797,7 +797,7 @@ p + theme(axis.line = element_line(colour="black"))
 ![Left: scatter plot with axis lines; right: with theme\_bw(),
 panel.border must also be made blank](figs/rgcb_0824.png)
 
-### Discussion {#_discussion_71}
+### Discussion
 
 If you are starting with a theme that has a border around the plotting
 area, like theme\$\$\_\$\$bw(), you will also need to unset panel.border
@@ -861,7 +861,7 @@ p + scale_x_log10() + scale_y_log10()
 ![Left: exponentially distributed data with linear-scaled axes; right:
 with logarithmic axes](figs/rgcb_0826.png)
 
-### Discussion {#_discussion_72}
+### Discussion
 
 With a log axis, a given visual distance represents a constant
 *proportional* change; for example, each centimeter on the y-axis might
@@ -1002,7 +1002,7 @@ ggplot(Animals, aes(x=body, y=brain, label=rownames(Animals))) +
 
 ![Log axes with diminishing tick marks](figs/rgcb_0831.png)
 
-### Discussion {#_discussion_73}
+### Discussion
 
 The tick marks created by annotation\$\$\_\$\$logticks() are actually
 geoms inside the plotting area. There is a long tick mark at each power
@@ -1076,7 +1076,7 @@ ggplot(wind, aes(x=DirCat, fill=SpeedCat)) +
 
 ![Polar plot](figs/rgcb_0833.png)
 
-### Discussion {#_discussion_74}
+### Discussion
 
 Be cautious when using polar plots, since they can perceptually distort
 the data. In the example here, at 210 degrees there are 15 observations
@@ -1232,7 +1232,7 @@ ggplot(economics, aes(x=date, y=psavert)) + geom_line()
 
 ![Dates on the x-axis](figs/rgcb_0837.png)
 
-### Discussion {#_discussion_75}
+### Discussion
 
 ggplot2 handles two kinds of time-related objects: dates (objects of
 class Date) and date-times (objects of class POSIXt). The difference
@@ -1392,7 +1392,7 @@ ggplot(www, aes(x=minute, y=users)) + geom_line() +
 ![Top: relative times on x-axis; bottom: with formatted
 times](figs/rgcb_0840.png)
 
-### Discussion {#_discussion_76}
+### Discussion
 
 In some cases it might be simpler to specify the breaks and labels
 manually, with something like this:

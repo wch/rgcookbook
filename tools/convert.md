@@ -48,6 +48,6 @@ mreplace -e "FIG([^ \n]*?)_" "FIG\\1-" *.Rmd
 # Change figure references to knitr format
 mreplace -e "\\[figure\\\\_title\\]\\(#" "Figure \\@ref(fig:" *.Rmd
 
-# Remove Problem/Solution/See Also labels
-mreplace " +{#_(problem|solution|see_also)_\\d+}" "" *.Rmd
+# Remove Problem/Solution/See Also/Discussion labels
+mreplace " +{#_(problem|solution|see_also|discussion)_\\d+}" "" *.Rmd
 ```

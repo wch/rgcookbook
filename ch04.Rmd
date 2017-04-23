@@ -34,7 +34,7 @@ ggplot(BOD, aes(x=Time, y=demand)) + geom_line()
 
 ![Basic line graph](figs/rgcb_0401.png)
 
-### Discussion {#_discussion_18}
+### Discussion
 
 In this sample data set, the *x* variable, Time, is in one column and
 the *y* variable, demand, is in another:
@@ -104,7 +104,7 @@ ggplot(BOD, aes(x=Time, y=demand)) + geom_line() + geom_point()
 
 ![Line graph with points](figs/rgcb_0404.png)
 
-### Discussion {#_discussion_19}
+### Discussion
 
 Sometimes it is useful to indicate each data point on a line graph. This
 is helpful when the density of observations is low, or when the
@@ -174,7 +174,7 @@ ggplot(tg, aes(x=dose, y=length, linetype=supp)) + geom_line()
 ![Left: a variable mapped to colour; right: a variable mapped to
 linetype](figs/rgcb_0406.png)
 
-### Discussion {#_discussion_20}
+### Discussion
 
 The tg data has three columns, including the factor supp, which we
 mapped to colour and linetype:
@@ -314,7 +314,7 @@ ggplot(tg, aes(x=dose, y=length, colour=supp)) +
 
 ![Using a palette from RColorBrewer](figs/rgcb_0412.png)
 
-### Discussion {#_discussion_21}
+### Discussion
 
 To set a single constant color for all the lines, specify colour outside
 of aes(). The same works for size, linetype, and point shape
@@ -361,7 +361,7 @@ ggplot(BOD, aes(x=Time, y=demand)) +
 
 ![Points with custom size, shape, color, and fill](figs/rgcb_0414.png)
 
-### Discussion {#_discussion_22}
+### Discussion
 
 The default shape for points is a solid circle, the default size is 2,
 and the default colour is "black". The fill color is relevant only for
@@ -441,7 +441,7 @@ ggplot(sunspotyear, aes(x=Year, y=Sunspots)) + geom_area()
 
 ![Graph with a shaded area](figs/rgcb_0417.png)
 
-### Discussion {#_discussion_23}
+### Discussion
 
 By default, the area will be filled with a very dark grey and will have
 no outline. The color can be changed by setting fill. In the following
@@ -499,7 +499,7 @@ ggplot(uspopage, aes(x=Year, y=Thousands, fill=AgeGroup)) + geom_area()
 
 ![Stacked area graph](figs/rgcb_0420.png)
 
-### Discussion {#_discussion_24}
+### Discussion
 
 The sort of data that is plotted with a stacked area chart is often
 provided in a wide format, but ggplot2() requires data to be in long
@@ -602,7 +602,7 @@ ggplot(uspopage_prop, aes(x=Year, y=Percent, fill=AgeGroup)) +
 
 ![A proportional stacked area graph](figs/rgcb_0424.png)
 
-### Discussion {#_discussion_25}
+### Discussion
 
 Let's take a closer look at the data and how it was summarized:
 
@@ -663,7 +663,7 @@ The shaded region is actually a very dark grey, but it is mostly
 transparent. The transparency is set with alpha=0.2, which makes it 80%
 transparent.
 
-### Discussion {#_discussion_26}
+### Discussion
 
 Notice that the geom\$\$\_\$\$ribbon() is before geom\$\$\_\$\$line(),
 so that the line is drawn on top of the shaded region. If the reverse

@@ -28,7 +28,7 @@ p + guides(fill=FALSE)
 ![Left: default appearance; right: with legend
 removed](figs/rgcb_1001.png)
 
-### Discussion {#_discussion_82}
+### Discussion
 
 Another way to remove a legend is to set guide=FALSE in the scale. This
 will result in the exact same output as the preceding code:
@@ -117,7 +117,7 @@ coordinate position, as in legend.position=c(1,0)
 (Figure \@ref(fig:FIG-LEGEND-POSITION), right). The coordinate space
 starts at (0, 0) in the bottom left and goes to (1, 1) in the top right.
 
-### Discussion {#_discussion_83}
+### Discussion
 
 You can also use legend.justification to set which *part* of the legend
 box is set to the position at legend.position. By default, the center of
@@ -187,7 +187,7 @@ p + scale_fill_discrete(limits=c("trt1", "trt2", "ctrl"))
 ![Left: default order for legend; right: modified
 order](figs/rgcb_1005.png)
 
-### Discussion {#_discussion_84}
+### Discussion
 
 Note that the order of the items on the x-axis did not change. To do
 that, you would have to set the limits of
@@ -285,7 +285,7 @@ p + guides(fill=guide_legend(reverse=TRUE))
 ![Left: default order for legend; right: reversed
 order](figs/rgcb_1007.png)
 
-### Discussion {#_discussion_85}
+### Discussion
 
 It is also possible to control the legend when specifying the scale, as
 in the following:
@@ -318,7 +318,7 @@ p + labs(fill="Condition")
 
 ![With the legend title set to "Condition"](figs/rgcb_1008.png)
 
-### Discussion {#_discussion_86}
+### Discussion
 
 It's also possible to set the title of the legend in the scale
 specification. Since legends and axes are both guides, this works the
@@ -409,7 +409,7 @@ p + theme(legend.title=element_text(face="italic", family="Times", colour="red",
 
 ![Customized legend title appearance](figs/rgcb_1011.png)
 
-### Discussion {#_discussion_87}
+### Discussion
 
 It's also possible to specify the legend title's appearance via
 guides(), but this method can be a bit verbose. This has the same effect
@@ -446,7 +446,7 @@ ggplot(PlantGrowth, aes(x=group, y=weight, fill=group)) + geom_boxplot() +
 
 ![Box plot with no legend title](figs/rgcb_1012.png)
 
-### Discussion {#_discussion_88}
+### Discussion
 
 It is also possible to control the legend title when specifying the
 scale. This has the same effect as the preceding code:
@@ -480,7 +480,7 @@ p + scale_fill_discrete(labels=c("Control", "Treatment 1", "Treatment 2"))
 scale; right: manually specified labels with a different
 scale](figs/rgcb_1013.png)
 
-### Discussion {#_discussion_89}
+### Discussion
 
 Note that the labels on the x-axis did not change. To do that, you would
 have to set the labels of scale\$\$\_\$\$x\$\$\_\$\$discrete()
@@ -590,7 +590,7 @@ p + theme(legend.text=element_text(face="italic", family="Times", colour="red",
 
 ![Customized legend label appearance](figs/rgcb_1016.png)
 
-### Discussion {#_discussion_90}
+### Discussion
 
 It's also possible to specify the legend label appearance via
 guides(), although this method is a bit unwieldy. This has the same
@@ -632,7 +632,7 @@ p + scale_fill_discrete(labels=c("Control", "Type 1\ntreatment",
 ![Left: multiline legend labels; right: with increased key height and
 reduced line spacing](figs/rgcb_1017.png)
 
-### Discussion {#_discussion_91}
+### Discussion
 
 As you can see in the version on the left in
 Figure \@ref(fig:FIG-LEGEND-LABEL-MULTILINE), with the default settings

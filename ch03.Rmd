@@ -40,7 +40,7 @@ ggplot(pg_mean, aes(x=group, y=weight)) + geom_bar(stat="identity")
 ![Bar graph of values (with stat="identity") with a discrete
 x-axis](figs/rgcb_0301.png)
 
-### Discussion {#_discussion_7}
+### Discussion
 
 When x is a continuous (or numeric) variable, the bars behave a little
 differently. Instead of having one bar at each actual x value, there is
@@ -130,7 +130,7 @@ ggplot(cabbage_exp, aes(x=Date, y=Weight, fill=Cultivar)) +
 
 ![Graph with grouped bars](figs/rgcb_0304.png)
 
-### Discussion {#_discussion_8}
+### Discussion
 
 The most basic bar graphs have one categorical variable on the x-axis
 and one continuous variable on the y-axis. Sometimes you'll want to
@@ -210,7 +210,7 @@ ggplot(diamonds, aes(x=cut)) + geom_bar()
 
 ![Bar graph of counts](figs/rgcb_0307.png)
 
-### Discussion {#_discussion_9}
+### Discussion
 
 The diamonds data set has 53,940 rows, each of which represents
 information about one diamond:
@@ -286,7 +286,7 @@ ggplot(upc, aes(x=Abb, y=Change, fill=Region)) + geom_bar(stat="identity")
 
 ![A variable mapped to fill](figs/rgcb_0309.png)
 
-### Discussion {#_discussion_10}
+### Discussion
 
 The default colors aren't very appealing, so you may want to set
 them, using scale\$\$\_\$\$fill\$\$\_\$\$brewer() or
@@ -350,7 +350,7 @@ ggplot(csub, aes(x=Year, y=Anomaly10y, fill=pos)) +
 
 ![Different colors for positive and negative values](figs/rgcb_0311.png)
 
-### Discussion {#_discussion_11}
+### Discussion
 
 There are a few problems with the first attempt. First, the colors are
 probably the reverse of what we want: usually, blue means cold and red
@@ -441,7 +441,7 @@ simply shorthand for position=position\$\$\_\$\$dodge() with the default
 value of 0.9, but when we want to set a specific value, we need to use
 the more verbose command.
 
-### Discussion {#_discussion_12}
+### Discussion
 
 The default value of width is 0.9, and the default value used for
 position\$\$\_\$\$dodge() is the same. To be more precise, the value of
@@ -498,7 +498,7 @@ ggplot(cabbage_exp, aes(x=Date, y=Weight, fill=Cultivar)) +
 
 ![Stacked bar graph](figs/rgcb_0316.png)
 
-### Discussion {#_discussion_13}
+### Discussion
 
 To understand how the graph is made, it's useful to see how the data
 is structured. There are three levels of Date and two levels of
@@ -594,7 +594,7 @@ ggplot(ce, aes(x=Date, y=percent_weight, fill=Cultivar)) +
 
 ![Proportional stacked bar graph](figs/rgcb_0320.png)
 
-### Discussion {#_discussion_14}
+### Discussion
 
 To calculate the percentages within each Weight group, we used the
 ddply() function. In the example here, the ddply() function splits the
@@ -674,7 +674,7 @@ bars](figs/rgcb_0322.png)
 Notice that when the labels are placed atop the bars, they may be
 clipped. To remedy this, see [???](#RECIPE_AXES_RANGE).
 
-### Discussion {#_discussion_16}
+### Discussion
 
 In Figure \@ref(fig:FIG-BAR-GRAPH-LABEL), the *y* coordinates of the
 labels are centered at the top of each bar; by setting the vertical
@@ -823,7 +823,7 @@ ggplot(tophit, aes(x=avg, y=name)) + geom_point()
 
 ![Basic dot plot](figs/rgcb_0327.png)
 
-### Discussion {#_discussion_17}
+### Discussion
 
 The tophitters2001 data set contains many columns, but we'll focus
 on just three of them for this example:

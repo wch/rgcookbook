@@ -59,7 +59,7 @@ p + facet_wrap( ~ class)
 
 ![A scatter plot with facet\_wrap() on class](figs/rgcb_1102.png)
 
-### Discussion {#_discussion_92}
+### Discussion
 
 With facet\$\$\_\$\$wrap(), the default is to use the same number of
 rows and columns. In Figure \@ref(fig:FIG-FACET-FACET-WRAP), there were
@@ -110,7 +110,7 @@ p + facet_grid(drv ~ cyl, scales="free")
 ![Top: with free y scales; bottom: with free x and y
 scales](figs/rgcb_1103.png)
 
-### Discussion {#_discussion_93}
+### Discussion
 
 Each row of subplots has its own *y* range when free *y* scales are
 used; the same applies to columns when free *x* scales are used.
@@ -151,7 +151,7 @@ ggplot(mpg2, aes(x=displ, y=hwy)) + geom_point() + facet_grid(drv ~ .)
 ![Left: default facet labels; right: modified facet
 labels](figs/rgcb_1104.png)
 
-### Discussion {#_discussion_94}
+### Discussion
 
 Unlike with scales where you can set the labels, to set facet labels you
 must change the data values. Also, at the time of this writing, there is

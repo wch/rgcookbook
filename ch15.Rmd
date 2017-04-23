@@ -53,7 +53,7 @@ You can put vectors together in a data frame with data.frame():
 \# Two starting vectors g &lt;- c("A", "B", "C") x &lt;- 1:3 dat &lt;-
 data.frame(g, x) dat
 g x A 1 B 2 C 3
-### Discussion {#_discussion_129}
+### Discussion
 
 A data frame is essentially a list of vectors and factors. Each vector
 or factor can be thought of as a column in the data frame.
@@ -86,7 +86,7 @@ This tells us that ToothGrowth is a data frame with three columns, len,
 supp, and dose. len and dose contain numeric values, while supp is a
 factor with two levels.
 
-### Discussion {#_discussion_130}
+### Discussion
 
 The str() functionis very useful for finding out more about data
 structures. One common source of problems is a data frame where one of
@@ -141,7 +141,7 @@ data$newcol <- vec
 If the length of the vector is less than the number of rows in the data
 frame, then the vector is repeated to fill all the rows.
 
-### Discussion {#_discussion_131}
+### Discussion
 
 Each "column" of a data frame is a vector or factor. R handles
 them slightly differently from standalone vectors, because all the
@@ -162,7 +162,7 @@ Assign NULL to that column:
 data$badcol <- NULL
 ```
 
-### Discussion {#_discussion_132}
+### Discussion
 
 You can also use the subset() function and put a - (minus sign) in front
 of the column(s) to drop:
@@ -195,7 +195,7 @@ Use the names(dat) &lt;- function:
 names(dat) <- c("name1", "name2", "name3")
 ```
 
-### Discussion {#_discussion_133}
+### Discussion
 
 If you want to rename the columns by name:
 
@@ -231,7 +231,7 @@ To reorder by column name:
 dat <- dat[c("col1", "col3", "col2")]
 ```
 
-### Discussion {#_discussion_134}
+### Discussion
 
 The previous examples use list-style indexing. A data frame is
 essentially a list of vectors, and indexing into it as a list will
@@ -281,7 +281,7 @@ only the columns named Year and Anomaly10y:
 subset(climate, Source == "Berkeley", select = c(Year, Anomaly10y))
 Year Anomaly10y 1800 -0.435 1801 -0.453 1802 -0.460 ... 2002 0.856 2003
 0.869 2004 0.884
-### Discussion {#_discussion_135}
+### Discussion
 
 It is possible to use multiple selection criteria, by using the | (OR)
 and &amp; (AND) operators. For example, this will pull out only those
@@ -346,7 +346,7 @@ small large large small medium Levels: small medium large
 The order can also be specified with levels when the factor is first
 created.
 
-### Discussion {#_discussion_136}
+### Discussion
 
 There are two kinds of factors in R: ordered factors and regular
 factors. In both types, the levels are arranged in *some* order; the
@@ -402,7 +402,7 @@ are CEDABF. The new order is determined by splitting iss\$count into
 pieces according to the values in iss\$spray, and then taking the mean
 of each group.
 
-### Discussion {#_discussion_137}
+### Discussion
 
 The usefulness of reorder() might not be obvious from just looking at
 the raw output. Figure \@ref(fig:FIG-DATAPREP-FACTOR-REORDER-VALUE)
@@ -452,7 +452,7 @@ S L L S M Levels: L M S
 characters revalue(sizes, c("small"="S", "medium"="M", "large"="L")) \#
 mapvalues() lets you use two separate vectors instead of a named vector
 mapvalues(sizes, c("small", "medium", "large"), c("S", "M", "L"))
-### Discussion {#_discussion_138}
+### Discussion
 
 The revalue() and mapvalues() functions are convenient, but for a more
 traditional (and clunky) R method for renaming factor levels, use the
@@ -514,7 +514,7 @@ To remove them, use droplevels():
 
 sizes &lt;- droplevels(sizes) sizes
 small large large Levels: large small
-### Discussion {#_discussion_139}
+### Discussion
 
 The droplevels() function preserves the order of factor levels.
 
@@ -540,7 +540,7 @@ revalue(sizes, c(small="S", medium="M", large="L")) sizes1
 characters revalue(sizes, c("small"="S", "medium"="M", "large"="L")) \#
 mapvalues() lets you use two separate vectors instead of a named vector
 mapvalues(sizes, c("small", "medium", "large"), c("S", "M", "L"))
-### Discussion {#_discussion_140}
+### Discussion
 
 A more traditional R method is to use square-bracket indexing to select
 the items and rename them:
@@ -597,7 +597,7 @@ Here, we combined two of the factor levels and put the result into a new
 column. If you simply want to rename the levels of a factor, see
 [section\_title](#RECIPE_DATAPREP_FACTOR_RENAME).
 
-### Discussion {#_discussion_141}
+### Discussion
 
 The coding criteria can also be based on values in multiple columns, by
 using the &amp; and | operators:
@@ -648,7 +648,7 @@ categorical variable, wtclass, using the cut() function:
 pg\$wtclass &lt;- cut(pg\$weight, breaks = c(0, 5, 6, Inf)) pg
 weight group wtclass 4.17 ctrl (0,5\] 5.58 ctrl (5,6\] 4.81 trt1 (0,5\]
 4.17 trt1 (0,5\] 6.31 trt2 (6,Inf\] 5.12 trt2 (5,6\]
-### Discussion {#_discussion_142}
+### Discussion
 
 For three categories we specify four bounds, which can include Inf and
 -Inf. If a data value falls outside of the specified bounds, it's
@@ -704,7 +704,7 @@ hw\$heightCm &lt;- hw\$heightIn \* 2.54 hw
 sex ageYear ageMonth heightIn weightLb heightCm f 11.92 143 56.3 85.0
 143.002 f 12.92 155 62.3 105.0 158.242 ... m 13.92 167 62.0 107.5
 157.480 m 12.58 151 59.3 87.0 150.622
-### Discussion {#_discussion_143}
+### Discussion
 
 For slightly easier-to-read code, you can use transform() or mutate()
 from the plyr package. You only need to specify the data frame once, as
@@ -769,7 +769,7 @@ library(MASS) \# For the data set library(plyr) cb &lt;- ddply(cabbages,
 "Cult", transform, DevWt = HeadWt - mean(HeadWt))
 Cult Date HeadWt VitC DevWt c39 d16 2.5 51 -0.40666667 c39 d16 2.2 55
 -0.70666667 ... c52 d21 1.5 66 -0.78000000 c52 d21 1.6 72 -0.68000000
-### Discussion {#_discussion_144}
+### Discussion
 
 Let's take a closer look at the cabbages data set. It has two
 grouping variables (factors): Cult, which has levels c39 and c52, and
@@ -853,7 +853,7 @@ library(MASS) \# For the data set library(plyr) ddply(cabbages,
 c("Cult", "Date"), summarise, Weight = mean(HeadWt), VitC = mean(VitC))
 Cult Date Weight VitC c39 d16 3.18 50.3 c39 d20 2.80 49.4 c39 d21 2.74
 54.8 c52 d16 2.26 62.5 c52 d20 3.11 58.9 c52 d21 1.47 71.8
-### Discussion {#_discussion_145}
+### Discussion
 
 Let's take a closer look at the cabbages data set. It has two
 factors that can be used as grouping variables: Cult, which has levels
@@ -1011,7 +1011,7 @@ c52 d21 1.47 0.2110819 10 0.06674995
 > columns simultaneously, so you would have to create the se column
 > separately, after creating the sd and n columns.
 
-### Discussion {#_discussion_146}
+### Discussion
 
 Another method is to calculate the standard error in the call ddply.
 It's not possible to refer to the sd and n columns inside of the
@@ -1166,7 +1166,7 @@ angle condition count -20 expt 1 -10 expt 7 0 expt 2 10 expt 0 20 expt 0
 This data frame represents the same information as the original one, but
 it is structured in a way that is more conducive to some analyses.
 
-### Discussion {#_discussion_147}
+### Discussion
 
 In the source data, there are *ID* variables and *measure* variables.
 The ID variables are those that specify which values go together. In the
@@ -1255,7 +1255,7 @@ library(reshape2) dcast(plum, length + time \~ survival,
 value.var="count")
 length time dead alive long at\_once 84 156 long in\_spring 156 84 short
 at\_once 133 107 short in\_spring 209 31
-### Discussion {#_discussion_148}
+### Discussion
 
 The dcast() function requires you to specify the *ID* variables (those
 that remain in columns) and the *variable* variables (those that get
@@ -1314,7 +1314,7 @@ Time Series: Start = 1912 End = 1971 Frequency = 1 \[1\] 49.9 52.3 49.4
 \# Put them in a data frame nht &lt;-
 data.frame(year=as.numeric(time(nhtemp)), temp=as.numeric(nhtemp)) nht
 year temp 1912 49.9 1913 52.3 ... 1970 51.9 1971 53.0
-### Discussion {#_discussion_149}
+### Discussion
 
 Time series objects efficiently store information when there are
 observations at regular time intervals, but for use with ggplot2, they

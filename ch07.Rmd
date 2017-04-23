@@ -28,7 +28,7 @@ p + annotate("text", x=3, y=48, label="Group 1") +
 
 ![Text annotations](figs/rgcb_0701.png)
 
-### Discussion {#_discussion_51}
+### Discussion
 
 The annotate() function can be used to add any type of geometric object.
 In this case, we used geom="text".
@@ -112,7 +112,7 @@ p + annotate("text", x=2, y=0.3, parse=TRUE,
 
 ![Annotation with mathematical expressions](figs/rgcb_0705.png)
 
-### Discussion {#_discussion_52}
+### Discussion
 
 Mathematical expressions made with text geoms usingparse=TRUE in ggplot2
 have a format similar to those made with plotmathand expression in
@@ -177,7 +177,7 @@ p + geom_abline(intercept=37.4, slope=1.75)
 ![Left: horizontal and vertical lines; right: angled
 line](figs/rgcb_0707.png)
 
-### Discussion {#_discussion_53}
+### Discussion
 
 The previous examples demonstrate setting the positions of the lines
 manually, resulting in one line drawn for each geom added. It is also
@@ -258,7 +258,7 @@ p + annotate("segment", x=1950, xend=1980, y=-.25, yend=-.25)
 
 ![Line segment annotation](figs/rgcb_0710.png)
 
-### Discussion {#_discussion_54}
+### Discussion
 
 It's possible to add arrowheads or flat ends to the line segments,
 using arrow() from the grid package. In this example, we'll do both
@@ -308,7 +308,7 @@ p + annotate("rect", xmin=1950, xmax=1980, ymin=-1, ymax=1, alpha=.1,
 
 ![A shaded rectangle](figs/rgcb_0712.png)
 
-### Discussion {#_discussion_55}
+### Discussion
 
 Each layer is drawn in the order that it's added to the ggplot
 object, so in the preceding example, the rectangle is drawn on top of
@@ -349,7 +349,7 @@ ggplot(pg, aes(x=group, y=weight, fill=hl)) + geom_boxplot() +
 
 ![Highlighting one item](figs/rgcb_0713.png)
 
-### Discussion {#_discussion_56}
+### Discussion
 
 If you have a small number of items, as in this example, instead of
 creating a new column you could use the original one and specify the
@@ -404,7 +404,7 @@ ggplot(ce, aes(x=Date, y=Weight)) +
 ![Left: error bars on a bar graph; right: on a line
 graph](figs/rgcb_0714.png)
 
-### Discussion {#_discussion_57}
+### Discussion
 
 In this example, the data already has values for the standard error of
 the mean (se), which we'll use for the error bars (it also has
@@ -541,7 +541,7 @@ p + annotate("text", x=6, y=42, label="label text")
 ![Top: different annotations in each facet; bottom: the same annotation
 in each facet](figs/rgcb_0717.png)
 
-### Discussion {#_discussion_58}
+### Discussion
 
 This method can be used to display information about the data in each
 facet, as shown in Figure \@ref(fig:FIG-ANNOTATE-FACET-MATH). For
