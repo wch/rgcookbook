@@ -52,5 +52,5 @@ mreplace -e "\\[figure\\\\_title\\]\\(#" "Figure \\@ref(fig:" *.Rmd
 mreplace " +{#_(problem|solution|see_also|discussion)_\\d+}" "" *.Rmd
 
 # Replace "\$\$\_\$\$" with "_"
-mreplace "(\w+)\\\\\\$\\\\\\$\\\_\\\\\\$\\\\\\\$(\w+)" "\1_\\2" *.Rmd
+mreplace "(\w+)\\\\\\$\\\\\\$\\\_\\\\\\$\\\\\\\$(\w+)" "\1_\2" *.Rmd
 ```
