@@ -8,6 +8,7 @@ editor_options:
 
 ```{r echo = FALSE}
 knitr::opts_chunk$set(collapse = TRUE, comment = "#>")
+source("utils.R", local = TRUE)
 library(ggplot2)
 ```
 
@@ -149,62 +150,51 @@ Making a Bar Graph of Counts {#RECIPE_BAR_GRAPH_COUNTS}
 
 ### Problem
 
-Your data has one row representing each case, and you want plot counts
-of the cases.
+Your data has one row representing each case, and you want plot counts of the cases.
 
 ### Solution
 
-Use geom_bar() withoutmapping anything to y
-(Figure \@ref(fig:FIG-BAR-GRAPH-COUNT)):
+Use `geom_bar()` without mapping anything to `y` (Figure \@ref(fig:FIG-BAR-GRAPH-COUNT)):
 
-```{r}
-ggplot(diamonds, aes(x=cut)) + geom_bar()
-# Equivalent to using geom_bar(stat="bin")
+```{r FIG-BAR-GRAPH-COUNT, fig.cap="Bar graph of counts"}
+ggplot(diamonds, aes(x = cut)) + geom_bar()
+# Equivalent to using geom_bar(stat = "bin")
 ```
-
-![Bar graph of counts](figs/rgcb_0307.png)
 
 ### Discussion
 
-The diamonds data set has 53,940 rows, each of which represents
-information about one diamond:
-
-diamonds
-carat cut color clarity depth table price x y z 1 0.23 Ideal E SI2 61.5
-55 326 3.95 3.98 2.43 2 0.21 Premium E SI1 59.8 61 326 3.89 3.84 2.31 3
-0.23 Good E VS1 56.9 65 327 4.05 4.07 2.31 ... 53939 0.86 Premium H SI2
-61.0 58 2757 6.15 6.12 3.74 53940 0.75 Ideal D SI2 62.2 55 2757 5.83
-5.87 3.64
-With geom_bar(), the default behavior is to use stat="bin",
-which counts up the number of cases for each group (each *x* position,
-in this example). In the graph we can see that there are about 23,000
-cases with an ideal cut.
-
-In this example, the variable on the x-axis is discrete. If we use a
-continuous variable on the x-axis, we'll get a histogram, as shown
-in Figure \@ref(fig:FIG-BAR-GRAPH-COUNT-CONTINUOUS):
+The `diamonds` data set has 53,940 rows, each of which represents information about a single diamond:
 
 ```{r}
-ggplot(diamonds, aes(x=carat)) + geom_bar()
+diamonds
 ```
 
-![Bar graph of counts on a continuous axis, also known as a
-histogram](figs/rgcb_0308.png)
+With `geom_bar()`, the default behavior is to use `stat="bin"`, which counts up the number of cases for each group (each *x* position, in this example). In the graph we can see that there are about 23,000 cases with an `ideal` cut.
 
-It turns out that in this case, the result is the same as if we had used
-geom_histogram() instead of geom_bar().
+In this example, the variable on the x-axis is discrete. If we use a continuous variable on the x-axis, we'll get a bar at each unique *x* value in the data, as shown in Figure \@ref(fig:FIG-BAR-GRAPH-COUNT-CONTINUOUS):
+
+```{r, fig.cap="Left: bar graph of counts on a continuous axis"}
+ggplot(diamonds, aes(x = carat)) + geom_bar()
+```
+
+
+```{r FIG-BAR-GRAPH-COUNT-CONTINUOUS, echo=FALSE, fig.show="hold", fig.cap='Left: bar graph of counts on a continuous axis; right: a histogram', fig.width=3.5, fig.height=3.5}
+ggplot(diamonds, aes(x = carat)) + geom_bar()
+
+ggplot(diamonds, aes(x = carat)) + geom_histogram()
+```
+
+The bar graph with a continuous x-axis is similar to a histogram, but not the same. A histogram is shown on the right side of Figure \@ref(fig:FIG-BAR-GRAPH-COUNT-CONTINUOUS). In this kind of bar graph, each bar represents a unique *x* value, whereas in a histogram, each bar represents a *range* of *x* values.
+
 
 ### See Also
 
-If, instead of having ggplot() count up the number of rows in each
-group, you have a column in your data frame representing the y values,
-see [section\_title](#RECIPE_BAR_GRAPH_BASIC_BAR).
+If, instead of having `ggplot()` count up the number of rows in each group, you have a column in your data frame representing the y values, see [section\_title](#RECIPE_BAR_GRAPH_BASIC_BAR).
 
-You could also get the same graphical output by calculating the counts
-before sending the data to ggplot(). See
-[???](#RECIPE_DATAPREP_SUMMARIZE) for more on summarizing data.
+You could also get the same graphical output by calculating the counts before sending the data to `ggplot()`. See [???](#RECIPE_DATAPREP_SUMMARIZE) for more on summarizing data.
 
 For more about histograms, see [???](#RECIPE_DISTRIBUTION_BASIC_HIST).
+
 
 Using Colors in a Bar Graph {#RECIPE_BAR_GRAPH_COLORS}
 ---------------------------
@@ -217,60 +207,44 @@ You want to use different colors for the bars in your graph.
 
 Map the appropriate variable to the fill aesthetic.
 
-We'll use the uspopchange data set for this example. It contains the
-percentage change in population for the US states from 2000 to 2010.
-We'll take the top 10 fastest-growing states and graph their
-percentage change. We'll also color the bars by region (Northeast,
-South, North Central, or West).
+We'll use the `uspopchange` data set for this example. It contains the percentage change in population for the US states from 2000 to 2010. We'll take the top 10 fastest-growing states and graph their percentage change. We'll also color the bars by region (Northeast, South, North Central, or West).
 
-First, we'll take the top 10 states:
+First, take the top 10 states:
 
-library(gcookbook) \# For the data set upc &lt;- subset(uspopchange,
-rank(Change)&gt;40) upc
-State Abb Region Change Arizona AZ West 24.6 Colorado CO West 16.9
-Florida FL South 17.6 Georgia GA South 18.3 Idaho ID West 21.1 Nevada NV
-West 35.1 North Carolina NC South 18.5 South Carolina SC South 15.3
-Texas TX South 20.6 Utah UT West 23.8
+```{r}
+library(gcookbook) # For the data set
+upc <- subset(uspopchange, rank(Change) > 40)
+upc
+```
+
 Now we can make the graph, mapping Region to fill
 (Figure \@ref(fig:FIG-BAR-GRAPH-FILL)):
 
-```{r}
-ggplot(upc, aes(x=Abb, y=Change, fill=Region)) + geom_bar(stat="identity")
+```{r FIG-BAR-GRAPH-FILL, fig.cap="A variable mapped to fill"}
+ggplot(upc, aes(x = Abb, y = Change, fill = Region)) +
+    geom_bar(stat = "identity")
 ```
 
-![A variable mapped to fill](figs/rgcb_0309.png)
 
 ### Discussion
 
-The default colors aren't very appealing, so you may want to set
-them, using scale_fill_brewer() or
-scale_fill_manual(). With this example, we'll use
-the latter, and we'll set the outline color of the bars to black,
-with colour="black" (Figure \@ref(fig:FIG-BAR-GRAPH-FILL-MANUAL)). Note
-that *setting* occurs outside of aes(), while *mapping* occurs within
-aes():
+The default colors aren't the most appealing, so you may want to set them using `scale_fill_brewer()` or `scale_fill_manual()`. With this example, we'll use the latter, and we'll set the outline color of the bars to black, with `colour="black"` (Figure \@ref(fig:FIG-BAR-GRAPH-FILL-MANUAL)). Note that *setting* occurs outside of `aes()`, while *mapping* occurs within `aes()`:
 
-```{r}
-ggplot(upc, aes(x=reorder(Abb, Change), y=Change, fill=Region)) +
-    geom_bar(stat="identity", colour="black") +
-    scale_fill_manual(values=c("#669933", "#FFCC66")) +
+```{r FIG-BAR-GRAPH-FILL-MANUAL, fig.cap="Graph with different colors, black outlines, and sorted by percentage change"}
+ggplot(upc, aes(x = reorder(Abb, Change), y = Change, fill = Region)) +
+    geom_bar(stat = "identity", colour = "black") +
+    scale_fill_manual(values = c("#669933", "#FFCC66")) +
     xlab("State")
 ```
 
-![Graph with different colors, black outlines, and sorted by percentage
-change](figs/rgcb_0310.png)
-
-This example also uses the reorder() function, as in this particular
-case it makes sense to sort the bars by their height, instead of in
-alphabetical order.
+This example also uses the `reorder()` function, as in this particular case it makes sense to sort the bars by their height, instead of in alphabetical order.
 
 ### See Also
 
-For more about using the reorder() function to reorder the levels of a
-factor based on the values of another variable, see
-[???](#RECIPE_DATAPREP_FACTOR_REORDER_VALUE).
+For more about using the `reorder()` function to reorder the levels of a factor based on the values of another variable, see [???](#RECIPE_DATAPREP_FACTOR_REORDER_VALUE).
 
 For more information about using colors, see [???](#CHAPTER_COLORS).
+
 
 Coloring Negative and Positive Bars Differently {#RECIPE_BAR_GRAPH_COLOR_NEG}
 -----------------------------------------------
@@ -281,56 +255,42 @@ You want to use different colors for negative and positive-valued bars.
 
 ### Solution
 
-We'll use a subset of the climate data and create a new column
-called pos, which indicates whether the value is positive or negative:
+We'll use a subset of the climate data and create a new column called pos, which indicates whether the value is positive or negative:
 
-library(gcookbook) \# For the data set csub &lt;- subset(climate,
-Source=="Berkeley" & Year &gt;= 1900) csub\$pos &lt;- csub\$Anomaly10y
-&gt;= 0 csub
-Source Year Anomaly1y Anomaly5y Anomaly10y Unc10y Berkeley 1900 NA NA
--0.171 0.108 FALSE Berkeley 1901 NA NA -0.162 0.109 FALSE Berkeley 1902
-NA NA -0.177 0.108 FALSE ... Berkeley 2002 NA NA 0.856 0.028 TRUE
-Berkeley 2003 NA NA 0.869 0.028 TRUE Berkeley 2004 NA NA 0.884 0.029
-TRUE
-Once we have the data, we can make the graph and map pos to the fill
-color, as in Figure \@ref(fig:FIG-BAR-GRAPH-COLOR-NEG). Notice that we
-use position="identity" with the bars. This will prevent a warning
-message about stacking not being well defined for negative numbers:
 
 ```{r}
-ggplot(csub, aes(x=Year, y=Anomaly10y, fill=pos)) +
-  geom_bar(stat="identity", position="identity")
+library(gcookbook) # For the data set
+csub <- subset(climate, Source == "Berkeley" & Year >= 1900)
+csub$pos <- csub$Anomaly10y >= 0
+
+csub
 ```
 
-![Different colors for positive and negative values](figs/rgcb_0311.png)
+Once we have the data, we can make the graph and map pos to the fill color, as in Figure \@ref(fig:FIG-BAR-GRAPH-COLOR-NEG). Notice that we use position="identity" with the bars. This will prevent a warning message about stacking not being well defined for negative numbers:
+
+```{r FIG-BAR-GRAPH-COLOR-NEG, fig.cap="Different colors for positive and negative values"}
+ggplot(csub, aes(x = Year, y = Anomaly10y, fill = pos)) +
+  geom_bar(stat = "identity", position = "identity")
+```
 
 ### Discussion
 
-There are a few problems with the first attempt. First, the colors are
-probably the reverse of what we want: usually, blue means cold and red
-means hot. Second, the legend is redundant and distracting.
+There are a few problems with the first attempt. First, the colors are probably the reverse of what we want: usually, blue means cold and red means hot. Second, the legend is redundant and distracting.
 
-We can change the colors with scale_fill_manual() and
-remove the legend with guide=FALSE, as shown in
-Figure \@ref(fig:FIG-BAR-GRAPH-COLOR-NEG2). We'll also add a thin
-black outline around each of the bars by setting colour and specifying
-size, which is the thickness of the outline, in millimeters:
+We can change the colors with `scale_fill_manual()` and remove the legend with `guide=FALSE`, as shown in Figure \@ref(fig:FIG-BAR-GRAPH-COLOR-NEG2). We'll also add a thin black outline around each of the bars by setting `colour` and specifying `size`, which is the thickness of the outline (in millimeters):
 
-```{r}
-ggplot(csub, aes(x=Year, y=Anomaly10y, fill=pos)) +
-    geom_bar(stat="identity", position="identity", colour="black", size=0.25) +
-    scale_fill_manual(values=c("#CCEEFF", "#FFDDDD"), guide=FALSE)
+```{r FIG-BAR-GRAPH-COLOR-NEG2, fig.cap="Graph with customized colors and no legend"}
+ggplot(csub, aes(x = Year, y = Anomaly10y, fill = pos)) +
+    geom_bar(stat = "identity", position = "identity", colour = "black", size = 0.25) +
+    scale_fill_manual(values = c("#CCEEFF", "#FFDDDD"), guide = FALSE)
 ```
-
-![Graph with customized colors and no legend](figs/rgcb_0312.png)
 
 ### See Also
 
-To change the colors used, see Recipes
-[???](#RECIPE_COLORS_PALETTE_DISCRETE) and
-[???](#RECIPE_COLORS_PALETTE_DISCRETE_MANUAL).
+To change the colors used, see Recipes [???](#RECIPE_COLORS_PALETTE_DISCRETE) and [???](#RECIPE_COLORS_PALETTE_DISCRETE_MANUAL).
 
 To hide the legend, see [???](#RECIPE_LEGEND_REMOVE).
+
 
 Adjusting Bar Width and Spacing {#RECIPE_BAR_GRAPH_ADJUST_WIDTH}
 -------------------------------
@@ -341,95 +301,91 @@ You want to adjust the width of bars and the spacing between them.
 
 ### Solution
 
-To make the bars narrower or wider, set width in geom_bar().
-The default value is 0.9; larger values make the bars wider, and smaller
-values make the bars narrower (Figure \@ref(fig:FIG-BAR-WIDTH)).
+To make the bars narrower or wider, set `width` in `geom_bar()`. The default value is 0.9; larger values make the bars wider, and smaller values make the bars narrower (Figure \@ref(fig:FIG-BAR-WIDTH)).
 
 For example, for standard-width bars:
 
-```{r}
+```{r eval=FALSE}
 library(gcookbook) # For the data set
 
-ggplot(pg_mean, aes(x=group, y=weight)) + geom_bar(stat="identity")
+ggplot(pg_mean, aes(x = group, y = weight)) +
+    geom_bar(stat = "identity")
 ```
 
 For narrower bars:
 
-```{r}
-ggplot(pg_mean, aes(x=group, y=weight)) + geom_bar(stat="identity", width=0.5)
+```{r eval=FALSE}
+ggplot(pg_mean, aes(x = group, y = weight)) +
+    geom_bar(stat = "identity", width = 0.5)
 ```
 
 And for wider bars (these have the maximum width of 1):
 
-```{r}
-ggplot(pg_mean, aes(x=group, y=weight)) + geom_bar(stat="identity", width=1)
+```{r eval=FALSE}
+ggplot(pg_mean, aes(x = group, y = weight)) +
+    geom_bar(stat = "identity", width = 1)
 ```
 
-![Different bar widths](figs/rgcb_0313.png)
+```{r FIG-BAR-WIDTH, echo=FALSE, fig.show="hold", fig.cap="Different bar widths"}
+ggplot(pg_mean, aes(x = group, y = weight)) +
+    geom_bar(stat = "identity")
+ggplot(pg_mean, aes(x = group, y = weight)) +
+    geom_bar(stat = "identity", width = 0.5)
+ggplot(pg_mean, aes(x = group, y = weight)) +
+    geom_bar(stat = "identity", width = 1)
+```
 
-For grouped bars, the default is to have no space between bars within
-each group. To add space between bars within a group, make width smaller
-and set the value for position_dodge to be larger than width
-(Figure \@ref(fig:FIG-BAR-WIDTH-DODGE)).
+For grouped bars, the default is to have no space between bars within each group. To add space between bars within a group, make width smaller and set the value for `position_dodge` to be larger than `width` (Figure \@ref(fig:FIG-BAR-WIDTH-DODGE)).
 
 For a grouped bar graph with narrow bars:
 
-```{r}
-ggplot(cabbage_exp, aes(x=Date, y=Weight, fill=Cultivar)) +
-    geom_bar(stat="identity", width=0.5, position="dodge")
+```{r eval=FALSE}
+ggplot(cabbage_exp, aes(x = Date, y = Weight, fill = Cultivar)) +
+    geom_bar(stat = "identity", width = 0.5, position = "dodge")
 ```
 
 And with some space between the bars:
 
-```{r}
-ggplot(cabbage_exp, aes(x=Date, y=Weight, fill=Cultivar)) +
-    geom_bar(stat="identity", width=0.5, position=position_dodge(0.7))
+```{r eval=FALSE}
+ggplot(cabbage_exp, aes(x = Date, y = Weight, fill = Cultivar)) +
+    geom_bar(stat = "identity", width = 0.5, position = position_dodge(0.7))
 ```
 
-![Left: bar graph with narrow grouped bars; right: with space between
-the bars](figs/rgcb_0314.png)
 
-The first graph used position="dodge", and the second graph used
-position=position_dodge(). This is because position="dodge" is
-simply shorthand for position=position_dodge() with the default
-value of 0.9, but when we want to set a specific value, we need to use
-the more verbose command.
+```{r FIG-BAR-WIDTH-DODGE, echo=FALSE, fig.show="hold", fig.cap="Left: bar graph with narrow grouped bars; right: with space between the bars"}
+ggplot(cabbage_exp, aes(x = Date, y = Weight, fill = Cultivar)) +
+    geom_bar(stat = "identity", width = 0.5, position = "dodge")
+ggplot(cabbage_exp, aes(x = Date, y = Weight, fill = Cultivar)) +
+    geom_bar(stat = "identity", width = 0.5, position = position_dodge(0.7))
+```
+
+The first graph used `position="dodge"`, and the second graph used `position=position_dodge()`. This is because `position="dodge"` is simply shorthand for `position=position_dodge()` with the default value of 0.9, but when we want to set a specific value, we need to use the more verbose form.
 
 ### Discussion
 
-The default value of width is 0.9, and the default value used for
-position_dodge() is the same. To be more precise, the value of
-width in position_dodge() is NULL, which tells ggplot2 to use
-the same value as the width from geom_bar().
+The default `width` for bars is 0.9, and the default value used for `position_dodge()` is the same. To be more precise, the value of `width` in `position_dodge()` is `NULL`, which tells ggplot2 to use the same value as the width from `geom_bar()`.
 
 All of these will have the same result:
 
-```{r}
-geom_bar(position="dodge")
-geom_bar(width=0.9, position=position_dodge())
-geom_bar(position=position_dodge(0.9))
-geom_bar(width=0.9, position=position_dodge(width=0.9))
+```{r eval=FALSE}
+geom_bar(position = "dodge")
+geom_bar(width = 0.9, position = position_dodge())
+geom_bar(position = position_dodge(0.9))
+geom_bar(width = 0.9, position = position_dodge(width=0.9))
 ```
 
-The items on the x-axis have x values of 1, 2, 3, and so on, though you
-typically don't refer to them by these numerical values. When you
-use geom_bar(width=0.9), it makes each group take up a total
-width of 0.9 on the x-axis. When you use
-position_dodge(width=0.9), it spaces the bars so that the
-*middle* of each bar is right where it would be if the bar width were
-0.9 and the bars were touching. This is illustrated in
-Figure \@ref(fig:FIG-BAR-WIDTH-DODGE-EXPLANATION). The two graphs both
-have the same dodge width of 0.9, but while the top has a bar width of
-0.9, the bottom has a bar width of 0.2. Despite the different bar
-widths, the middles of the bars stay aligned.
+The items on the x-axis have x values of 1, 2, 3, and so on, though you typically don't refer to them by these numerical values. When you use `geom_bar(width=0.9)`, it makes each group take up a total width of 0.9 on the x-axis. When you use `position_dodge(width=0.9)`, it spaces the bars so that the *middle* of each bar is right where it would be if the bar width were 0.9 and the bars were touching. This is illustrated in Figure \@ref(fig:FIG-BAR-WIDTH-DODGE-EXPLANATION). The two graphs both have the same dodge width of 0.9, but while the top has a bar width of 0.9, the bottom has a bar width of 0.2. Despite the different bar widths, the middles of the bars stay aligned.
 
-![Same dodge width of 0.9, but different bar widths of 0.9 (top) and 0.2
-(bottom)](figs/rgcb_0315.png)
+```{r FIG-BAR-WIDTH-DODGE-EXPLANATION, echo=FALSE, fig.show="hold", fig.cap="Same dodge width of 0.9, but different bar widths of 0.9 (top) and 0.2 (bottom)", fig.height=3.5}
+ggplot(cabbage_exp, aes(x = Date, y = Weight, fill = Cultivar)) +
+    geom_bar(stat = "identity", position = "dodge")
 
-If you make the entire graph wider or narrower, the bar dimensions will
-scale proportionally. To see how this works, you can just resize the
-window in which the graphs appear. For information about controlling
-this when writing to a file, see [???](#CHAPTER_OUTPUT).
+ggplot(cabbage_exp, aes(x = Date, y = Weight, fill = Cultivar)) +
+    geom_bar(stat = "identity", width = 0.2, position = position_dodge(width=0.9))
+```
+
+If you make the entire graph wider or narrower, the bar dimensions will scale proportionally. To see how this works, you can just resize the window in which the graphs appear. For information about controlling this when writing to a file, see [???](#CHAPTER_OUTPUT).
+
 
 Making a Stacked Bar Graph {#RECIPE_BAR_GRAPH_STACKED_BAR}
 --------------------------
@@ -440,159 +396,112 @@ You want to make a stacked bar graph.
 
 ### Solution
 
-Use geom_bar() and map a variable fill. This will put Date on
-the x-axis and use Cultivar for the fill color, as shown in
-Figure \@ref(fig:FIG-BAR-GRAPH-STACKED-BAR):
+Use `geom_bar()` and map a variable `fill`. This will put `Date` on the x-axis and use `Cultivar` for the fill color, as shown in Figure \@ref(fig:FIG-BAR-GRAPH-STACKED-BAR):
 
-```{r}
+```{r FIG-BAR-GRAPH-STACKED-BAR, fig.cap="Stacked bar graph"}
 library(gcookbook) # For the data set
-ggplot(cabbage_exp, aes(x=Date, y=Weight, fill=Cultivar)) +
-    geom_bar(stat="identity")
+ggplot(cabbage_exp, aes(x = Date, y = Weight, fill = Cultivar)) +
+    geom_bar(stat = "identity")
 ```
-
-![Stacked bar graph](figs/rgcb_0316.png)
 
 ### Discussion
 
-To understand how the graph is made, it's useful to see how the data
-is structured. There are three levels of Date and two levels of
-Cultivar, and for each combination there is a value for Weight:
+To understand how the graph is made, it's useful to see how the data is structured. There are three levels of `Date` and two levels of `Cultivar`, and for each combination there is a value for `Weight`:
 
-cabbage\_exp
-Cultivar Date Weight sd n se c39 d16 3.18 0.9566144 10 0.30250803 c39
-d20 2.80 0.2788867 10 0.08819171 c39 d21 2.74 0.9834181 10 0.31098410
-c52 d16 2.26 0.4452215 10 0.14079141 c52 d20 3.11 0.7908505 10
-0.25008887 c52 d21 1.47 0.2110819 10 0.06674995
-One problem with the default output is that the stacking order is the
-opposite of the order of items in the legend. As shown in
-Figure \@ref(fig:FIG-BAR-GRAPH-STACKED-BAR-REVLEVELS), you can reverse
-the order of items in the legend by using guides() and specifying the
-aesthetic for which the legend should be reversed. In this case,
-it's the fill aesthetic:
 
 ```{r}
-ggplot(cabbage_exp, aes(x=Date, y=Weight, fill=Cultivar)) +
-    geom_bar(stat="identity") +
-    guides(fill=guide_legend(reverse=TRUE))
+cabbage_exp
 ```
 
-![Stacked bar graph with reversed legend order](figs/rgcb_0317.png)
+By default, the stacking order of the bars is the same as the order of items in the legend. For some data sets it might make sense to reverse the order of the legend. To do this, you can use the `guides` function and specify which aesthetic for which the legend should be reversed. In this case, it's `fill`:
 
-If you'd like to reverse the stacking order, as in
-Figure \@ref(fig:FIG-BAR-GRAPH-STACKED-BAR-REVSTACK), specify
-order=desc() in the aesthetic mapping:
-
-```{r}
-library(plyr) # Needed for desc()
-ggplot(cabbage_exp, aes(x=Date, y=Weight, fill=Cultivar, order=desc(Cultivar))) +
-    geom_bar(stat="identity")
+```{r FIG-BAR-GRAPH-STACKED-BAR-REVLEVELS, fig.cap="Stacked bar graph with reversed legend order"}
+ggplot(cabbage_exp, aes(x = Date, y = Weight, fill = Cultivar)) +
+    geom_bar(stat = "identity") +
+    guides(fill = guide_legend(reverse = TRUE))
 ```
 
-![Stacked bar graph with reversed stacking order](figs/rgcb_0318.png)
+If you'd like to reverse the stacking order of the bars, as in Figure \@ref(fig:FIG-BAR-GRAPH-STACKED-BAR-REVSTACK), use `position_stack(reverse=TRUE)`. You'll also need to reverse the order of the legend for it to match the order of the bars:
 
-It's also possible to modify the column of the data frame so that
-the factor levels are in a different order (see
-[???](#RECIPE_DATAPREP_FACTOR_REORDER)). Do this with care, since the
-modified data could change the results of other analyses.
-
-For a more polished graph, we'll keep the reversed legend order, use
-scale_fill_brewer() to get a different color palette,
-and use colour="black" to get a black outline
-(Figure \@ref(fig:FIG-BAR-GRAPH-STACKED-BAR-COLORS)):
-
-```{r}
-ggplot(cabbage_exp, aes(x=Date, y=Weight, fill=Cultivar)) +
-    geom_bar(stat="identity", colour="black") +
-    guides(fill=guide_legend(reverse=TRUE)) +
-    scale_fill_brewer(palette="Pastel1")
+```{r FIG-BAR-GRAPH-STACKED-BAR-REVSTACK, fig.cap="Stacked bar graph with reversed stacking order"}
+ggplot(cabbage_exp, aes(x = Date, y = Weight, fill = Cultivar)) +
+    geom_bar(stat = "identity", position = position_stack(reverse = TRUE)) +
+    guides(fill = guide_legend(reverse = TRUE))
 ```
 
-![Stacked bar graph with reversed legend, new palette, and black
-outline](figs/rgcb_0319.png)
+It's also possible to modify the column of the data frame so that the factor levels are in a different order (see [???](#RECIPE_DATAPREP_FACTOR_REORDER)). Do this with care, since the modified data could change the results of other analyses.
+
+For a more polished graph, we'll use `scale_fill_brewer()` to get a different color palette, and use `colour="black"` to get a black outline (Figure \@ref(fig:FIG-BAR-GRAPH-STACKED-BAR-COLORS)):
+
+```{r FIG-BAR-GRAPH-STACKED-BAR-COLORS, fig.cap="Stacked bar graph with reversed legend, new palette, and black outline"}
+ggplot(cabbage_exp, aes(x = Date, y = Weight, fill = Cultivar)) +
+    geom_bar(stat = "identity", colour = "black") +
+    scale_fill_brewer(palette = "Pastel1")
+```
 
 ### See Also
 
-For more on using colors in bar graphs, see
-[section\_title](#RECIPE_BAR_GRAPH_COLORS).
+For more on using colors in bar graphs, see [section\_title](#RECIPE_BAR_GRAPH_COLORS).
 
-To reorder the levels of a factor based on the values of another
-variable, see [???](#RECIPE_DATAPREP_FACTOR_REORDER_VALUE). To manually
-change the order of factor levels, see
-[???](#RECIPE_DATAPREP_FACTOR_REORDER).
+To reorder the levels of a factor based on the values of another variable, see [???](#RECIPE_DATAPREP_FACTOR_REORDER_VALUE). To manually change the order of factor levels, see [???](#RECIPE_DATAPREP_FACTOR_REORDER).
+
 
 Making a Proportional Stacked Bar Graph {#RECIPE_BAR_GRAPH_PROPORTIONAL_STACKED_BAR}
 ---------------------------------------
 
 ### Problem
 
-You want to make a stacked bar graph that shows proportions (also called
-a 100% stacked bar graph).
+You want to make a stacked bar graph that shows proportions (also called a 100% stacked bar graph).
 
 ### Solution
 
-First, scale the data to 100% within each stack. This can be done by
-using ddply() from the plyr package, with transform(). Then plot the
-resulting data, as shown in
-Figure \@ref(fig:FIG-BAR-GRAPH-PROP-STACKED-BAR):
+First, scale the data to 100% within each stack. This can be done by using `group_by()` together with `mutate()` from the dplyr package. Then plot the resulting data, as shown in Figure \@ref(fig:FIG-BAR-GRAPH-PROP-STACKED-BAR):
 
-```{r}
+```{r FIG-BAR-GRAPH-PROP-STACKED-BAR, fig.cap="Proportional stacked bar graph"}
 library(gcookbook) # For the data set
-library(plyr)
+library(dplyr)
+
 # Do a group-wise transform(), splitting on "Date"
-ce <- ddply(cabbage_exp, "Date", transform,
-            percent_weight = Weight / sum(Weight) * 100)
+ce <- cabbage_exp %>%
+    group_by(Date) %>%
+    mutate(percent_weight = Weight / sum(Weight) * 100)
 
-ggplot(ce, aes(x=Date, y=percent_weight, fill=Cultivar)) +
-    geom_bar(stat="identity")
+ggplot(ce, aes(x = Date, y = percent_weight, fill = Cultivar)) +
+    geom_bar(stat = "identity")
 ```
-
-![Proportional stacked bar graph](figs/rgcb_0320.png)
 
 ### Discussion
 
-To calculate the percentages within each Weight group, we used the
-ddply() function. In the example here, the ddply() function splits the
-input data frame, cabbage_exp, by the specified variable,
-Weight, and applies a function, transform(), to each piece. (Any
-remaining arguments in the ddply() call are passed along to the
-function.)
+To calculate the percentages within each `Weight` group, we used dplyr's `group_by()` and `mutate()` functions. In the example here, the `group_by()` function tells dplyr that future operations should operate on the data frame as though it were split up into groups, on the `Date` column. The `mutate()` function tells it to calculate a new column, dividing each row's `Weight` value by the sum of the `Weight` column *within each group*.
 
-This is what cabbage_exp looks like, and what the ddply() call
-does to it:
-
-cabbage\_exp
-Cultivar Date Weight sd n se c39 d16 3.18 0.9566144 10 0.30250803 c39
-d20 2.80 0.2788867 10 0.08819171 c39 d21 2.74 0.9834181 10 0.31098410
-c52 d16 2.26 0.4452215 10 0.14079141 c52 d20 3.11 0.7908505 10
-0.25008887 c52 d21 1.47 0.2110819 10 0.06674995
-ce &lt;- ddply(cabbage\_exp, "Date", transform, percent\_weight = Weight
-/ sum(Weight) \* 100)
-Cultivar Date Weight sd n se percent\_weight c39 d16 3.18 0.9566144 10
-0.30250803 58.45588 c52 d16 2.26 0.4452215 10 0.14079141 41.54412 c39
-d20 2.80 0.2788867 10 0.08819171 47.37733 c52 d20 3.11 0.7908505 10
-0.25008887 52.62267 c39 d21 2.74 0.9834181 10 0.31098410 65.08314 c52
-d21 1.47 0.2110819 10 0.06674995 34.91686
-Once the percentages are computed, making the graph is the same as with
-a regular stacked bar graph.
-
-As with regular stacked bar graphs, it makes sense to reverse the legend
-order, change the color palette, and add an outline. This is shown in
-(Figure \@ref(fig:FIG-BAR-GRAPH-PROP-STACKED-BAR-FINAL)):
+This is what `cabbage_exp` looks like, and what modifcation does to it.
 
 ```{r}
-ggplot(ce, aes(x=Date, y=percent_weight, fill=Cultivar)) +
-    geom_bar(stat="identity", colour="black") +
-    guides(fill=guide_legend(reverse=TRUE)) +
-    scale_fill_brewer(palette="Pastel1")
+cabbage_exp
+
+ce <- cabbage_exp %>%
+    group_by(Date) %>%
+    mutate(percent_weight = Weight / sum(Weight) * 100)
+ce
 ```
 
-![Proportional stacked bar graph with reversed legend, new palette, and
-black outline](figs/rgcb_0321.png)
+You may have noticed that `cabbage_exp` and `ce` print out differently. This is because `cabbage_exp` is a regular data frame, while `ce` is a *tibble*, which is a data frame with some extra properties. The dplyr package creates tibbles. For more information, see [TODO: tibble reference]().
+
+Now that we've computed the percentages for `ce`, making the graph is the same as with a regular stacked bar graph.
+
+As with regular stacked bar graphs, it makes sense to reverse change the color palette and add an outline. This is shown in (Figure \@ref(fig:FIG-BAR-GRAPH-PROP-STACKED-BAR-FINAL)):
+
+```{r FIG-BAR-GRAPH-PROP-STACKED-BAR-FINAL, fig.cap="Proportional stacked bar graph with reversed legend, new palette, and black outline"}
+ggplot(ce, aes(x = Date, y = percent_weight, fill = Cultivar)) +
+    geom_bar(stat = "identity", colour = "black") +
+    scale_fill_brewer(palette = "Pastel1")
+```
+
 
 ### See Also
 
-For more on transforming data by groups, see
-[???](#RECIPE_DATAPREP_TRANSFORM_GROUP).
+For more on transforming data by groups, see [???](#RECIPE_DATAPREP_TRANSFORM_GROUP).
+
 
 Adding Labels to a Bar Graph {#RECIPE_BAR_GRAPH_LABELS}
 ----------------------------
@@ -603,154 +512,107 @@ You want to add labels to the bars in a bar graph.
 
 ### Solution
 
-Add geom_text() toyour graph. It requires a mapping for x, y,
-and the text itself. By setting vjust (the vertical justification), it
-is possible to move the text above or below the tops of the bars, as
-shown in Figure \@ref(fig:FIG-BAR-GRAPH-LABEL):
+Add `geom_text()` to your graph. It requires a mapping for x, y, and the text itself. By setting `vjust` (the vertical justification), it is possible to move the text above or below the tops of the bars, as shown in Figure \@ref(fig:FIG-BAR-GRAPH-LABEL):
 
-```{r}
+```{r FIG-BAR-GRAPH-LABEL, fig.show="hold", fig.cap="Left: labels under the tops of bars; right: labels above bars", fig.width=3.5, fig.height=3.5}
 library(gcookbook) # For the data set
 
 # Below the top
-ggplot(cabbage_exp, aes(x=interaction(Date, Cultivar), y=Weight)) +
-    geom_bar(stat="identity") +
-    geom_text(aes(label=Weight), vjust=1.5, colour="white")
+ggplot(cabbage_exp, aes(x = interaction(Date, Cultivar), y = Weight)) +
+    geom_bar(stat = "identity") +
+    geom_text(aes(label = Weight), vjust = 1.5, colour = "white")
 
 # Above the top
-ggplot(cabbage_exp, aes(x=interaction(Date, Cultivar), y=Weight)) +
-    geom_bar(stat="identity") +
-    geom_text(aes(label=Weight), vjust=-0.2)
+ggplot(cabbage_exp, aes(x = interaction(Date, Cultivar), y = Weight)) +
+    geom_bar(stat = "identity") +
+    geom_text(aes(label = Weight), vjust=-0.2)
 ```
 
-![Left: labels under the tops of bars; right: labels above
-bars](figs/rgcb_0322.png)
-
-Notice that when the labels are placed atop the bars, they may be
-clipped. To remedy this, see [???](#RECIPE_AXES_RANGE).
+Notice that when the labels are placed atop the bars, they may be clipped. To remedy this, see [???](#RECIPE_AXES_RANGE).
 
 ### Discussion
 
-In Figure \@ref(fig:FIG-BAR-GRAPH-LABEL), the *y* coordinates of the
-labels are centered at the top of each bar; by setting the vertical
-justification (vjust), they appear below or above the bar tops. One
-drawback of this is that when the label is above the top of the bar, it
-can go off the top of the plotting area. To fix this, you can manually
-set the *y* limits, or you can set the *y* positions of the text *above*
-the bars and not change the vertical justification. One drawback to
-changing the text's *y* position is that if you want to place the
-text fully above or below the bar top, the value to add will depend on
-the *y* range of the data; in contrast, changing vjust to a different
-value will always move the text the same distance relative to the height
-of the bar:
+In Figure \@ref(fig:FIG-BAR-GRAPH-LABEL), the *y* coordinates of the labels are centered at the top of each bar; by setting the vertical justification (`vjust`), they appear below or above the bar tops. One drawback of this is that when the label is above the top of the bar, it can go off the top of the plotting area. To fix this, you can manually set the *y* limits, or you can set the *y* positions of the text *above* the bars and not change the vertical justification. One drawback to changing the text's *y* position is that if you want to place the text fully above or below the bar top, the value to add will depend on the *y* range of the data; in contrast, changing `vjust` to a different value will always move the text the same distance relative to the height of the bar:
 
 ```{r}
 # Adjust y limits to be a little higher
-ggplot(cabbage_exp, aes(x=interaction(Date, Cultivar), y=Weight)) +
-    geom_bar(stat="identity") +
-    geom_text(aes(label=Weight), vjust=-0.2) +
+ggplot(cabbage_exp, aes(x = interaction(Date, Cultivar), y = Weight)) +
+    geom_bar(stat = "identity") +
+    geom_text(aes(label = Weight), vjust = -0.2) +
     ylim(0, max(cabbage_exp$Weight) * 1.05)
 
 # Map y positions slightly above bar top - y range of plot will auto-adjust
-ggplot(cabbage_exp, aes(x=interaction(Date, Cultivar), y=Weight)) +
-    geom_bar(stat="identity") +
-    geom_text(aes(y=Weight+0.1, label=Weight))
+ggplot(cabbage_exp, aes(x = interaction(Date, Cultivar), y = Weight)) +
+    geom_bar(stat = "identity") +
+    geom_text(aes(y = Weight+0.1, label = Weight))
 ```
 
-For grouped bar graphs, you also need to specify
-position=position_dodge() and give it a value for the dodging
-width. The default dodge width is 0.9. Because the bars are narrower,
-you might need to use size to specify a smaller font to make the labels
-fit. The default value of size is 5, so we'll make it smaller by
-using 3 (Figure \@ref(fig:FIG-BAR-LABEL-GROUPED)):
+For grouped bar graphs, you also need to specify position=position_dodge() and give it a value for the dodging width. The default dodge width is 0.9. Because the bars are narrower, you might need to use size to specify a smaller font to make the labels fit. The default value of size is 5, so we'll make it smaller by using 3 (Figure \@ref(fig:FIG-BAR-LABEL-GROUPED)):
+
+```{r FIG-BAR-LABEL-GROUPED, fig.cap="Labels on grouped bars"}
+ggplot(cabbage_exp, aes(x = Date, y = Weight, fill = Cultivar)) +
+    geom_bar(stat = "identity", position = "dodge") +
+    geom_text(aes(label = Weight), vjust = 1.5, colour = "white",
+              position = position_dodge(.9), size = 3)
+```
+
+Putting labels on stacked bar graphs requires finding the cumulative sum for each stack. To do this, first make sure the data is sorted properly-—if it isn't, the cumulative sum might be calculated in the wrong order. We'll use the `arrange()` function from the dplyr package. Note that we have to use the `rev()` function to reverse the order of `Cultivar` 
 
 ```{r}
-ggplot(cabbage_exp, aes(x=Date, y=Weight, fill=Cultivar)) +
-    geom_bar(stat="identity", position="dodge") +
-    geom_text(aes(label=Weight), vjust=1.5, colour="white",
-              position=position_dodge(.9), size=3)
+library(dplyr)
+# Sort by the Date and Cultivar columns
+ce <- arrange(cabbage_exp, Date, rev(Cultivar))
 ```
 
-![Labels on grouped bars](figs/rgcb_0323.png)
+Once we make sure the data is sorted properly, we'll use `group_by()` to chunk it into groups by `Date`, then calculate a cumulative sum of `Weight` within each chunk:
 
-Putting labels on stacked bar graphs requires finding the cumulative sum
-for each stack. To do this, first make sure the data is sorted
-properly—if it isn't, the cumulative sum might be calculated in the
-wrong order. We'll use the arrange() function from the plyr package,
-which automatically gets loaded with ggplot2:
+```{r FIG-BAR-LABEL-STACKED, fig.cap="Labels on stacked bars"}
+# Get the cumulative sum
+ce <- ce %>%
+    group_by(Date) %>%
+    mutate(label_y = cumsum(Weight))
+ce
 
-```{r}
-library(plyr)
-# Sort by the day and sex columns
-ce <- arrange(cabbage_exp, Date, Cultivar)
+ggplot(ce, aes(x = Date, y = Weight, fill = Cultivar)) +
+    geom_bar(stat = "identity") +
+    geom_text(aes(y = label_y, label = Weight), vjust = 1.5, colour = "white")
 ```
 
-Once we make sure the data is sorted properly, we'll use ddply() to
-chunk it into groups by Date, then calculate a cumulative sum of Weight
-within each chunk:
-
-\# Get the cumulative sum ce &lt;- ddply(ce, "Date", transform,
-label\_y=cumsum(Weight)) ce
-Cultivar Date Weight sd n se label\_y c39 d16 3.18 0.9566144 10
-0.30250803 3.18 c52 d16 2.26 0.4452215 10 0.14079141 5.44 c39 d20 2.80
-0.2788867 10 0.08819171 2.80 c52 d20 3.11 0.7908505 10 0.25008887 5.91
-c39 d21 2.74 0.9834181 10 0.31098410 2.74 c52 d21 1.47 0.2110819 10
-0.06674995 4.21
-ggplot(ce, aes(x=Date, y=Weight, fill=Cultivar)) +
-geom\_bar(stat="identity") + geom\_text(aes(y=label\_y, label=Weight),
-vjust=1.5, colour="white")
 The result is shown in Figure \@ref(fig:FIG-BAR-LABEL-STACKED).
 
-![Labels on stacked bars](figs/rgcb_0324.png)
+When using labels, changes to the stacking order are best done by modifying the order of levels in the factor (see [???](#RECIPE_DATAPREP_FACTOR_REORDER)) before taking the cumulative sum. The other method of changing stacking order, by specifying breaks in a scale, won't work properly, because the order of the cumulative sum won't be the same as the stacking order.
 
-When using labels, changes to the stacking order are best done by
-modifying the order of levels in the factor (see
-[???](#RECIPE_DATAPREP_FACTOR_REORDER)) before taking the cumulative
-sum. The other method of changing stacking order, by specifying breaks
-in a scale, won't work properly, because the order of the cumulative
-sum won't be the same as the stacking order.
+To put the labels in the middle of each bar (Figure \@ref(fig:FIG-BAR-LABEL-STACKED-MIDDLE)), there must be an adjustment to the cumulative sum, and the *y* offset in `geom_bar()` can be removed:
 
-To put the labels in the middle of each bar
-(Figure \@ref(fig:FIG-BAR-LABEL-STACKED-MIDDLE)), there must be an
-adjustment to the cumulative sum, and the *y* offset in
-geom_bar() can be removed:
-
-```{r}
-ce <- arrange(cabbage_exp, Date, Cultivar)
+```{r FIG-BAR-LABEL-STACKED-MIDDLE, fig.cap="Labels in the middle of stacked bars"}
+ce <- arrange(cabbage_exp, Date, rev(Cultivar))
 
 # Calculate y position, placing it in the middle
-ce <- ddply(ce, "Date", transform, label_y=cumsum(Weight)-0.5*Weight)
+ce <- ce %>%
+    group_by(Date) %>%
+    mutate(label_y = cumsum(Weight) - 0.5 * Weight)
 
-ggplot(ce, aes(x=Date, y=Weight, fill=Cultivar)) +
-    geom_bar(stat="identity") +
-    geom_text(aes(y=label_y, label=Weight), colour="white")
+ggplot(ce, aes(x = Date, y = Weight, fill = Cultivar)) +
+    geom_bar(stat = "identity") +
+    geom_text(aes(y = label_y, label = Weight), colour = "white")
 ```
 
-![Labels in the middle of stacked bars](figs/rgcb_0325.png)
+For a more polished graph (Figure \@ref(fig:FIG-BAR-LABEL-STACKED-FINAL)), we'll change the colors, add labels in the middle with a smaller font using `size`, add a "kg" suffix using `paste`, and make sure there are always two digits after the decimal point by using `format()`:
 
-For a more polished graph
-(Figure \@ref(fig:FIG-BAR-LABEL-STACKED-FINAL)), we'll change the
-legend order and colors, add labels in the middle with a smaller font
-using size, add a "kg" using paste, and make sure there are
-always two digits after the decimal point by using format:
-
-```{r}
-ggplot(ce, aes(x=Date, y=Weight, fill=Cultivar)) +
-    geom_bar(stat="identity", colour="black") +
-    geom_text(aes(y=label_y, label=paste(format(Weight, nsmall=2), "kg")),
-              size=4) +
-    guides(fill=guide_legend(reverse=TRUE)) +
-    scale_fill_brewer(palette="Pastel1")
+```{r FIG-BAR-LABEL-STACKED-FINAL, fig.cap="Customized stacked bar graph with labels"}
+ggplot(ce, aes(x = Date, y = Weight, fill = Cultivar)) +
+    geom_bar(stat = "identity", colour = "black") +
+    geom_text(aes(y = label_y, label = paste(format(Weight, nsmall = 2), "kg")),
+              size = 4) +
+    scale_fill_brewer(palette = "Pastel1")
 ```
-
-![Customized stacked bar graph with labels](figs/rgcb_0326.png)
 
 ### See Also
 
-To control the appearance of the text, see
-[???](#RECIPE_APPEARANCE_TEXT_APPEARANCE).
+To control the appearance of the text, see [???](#RECIPE_APPEARANCE_TEXT_APPEARANCE).
 
-For more on transforming data by groups, see
-[???](#RECIPE_DATAPREP_TRANSFORM_GROUP).
+For more on transforming data by groups, see [???](#RECIPE_DATAPREP_TRANSFORM_GROUP).
+
 
 Making a Cleveland Dot Plot {#RECIPE_BAR_GRAPH_DOT_PLOT}
 ---------------------------
@@ -761,139 +623,90 @@ You want to make a Cleveland dot plot.
 
 ### Solution
 
-Cleveland dot plots are sometimes used instead of bar graphs because
-they reduce visual clutter and are easier to read.
+Cleveland dot plots are an alternative to bar graphs that reduce visual clutter and can be easier to read.
 
-The simplest way to create a dot plot (as shown in
-Figure \@ref(fig:FIG-BAR-GRAPH-DOTPLOT)) is to use
-geom_point():
+The simplest way to create a dot plot (as shown in Figure \@ref(fig:FIG-BAR-GRAPH-DOTPLOT)) is to use `geom_point()`:
 
-```{r}
+```{r FIG-BAR-GRAPH-DOTPLOT, fig.cap="Basic dot plot"}
 library(gcookbook) # For the data set
 tophit <- tophitters2001[1:25, ] # Take the top 25 from the tophitters data set
 
-ggplot(tophit, aes(x=avg, y=name)) + geom_point()
+ggplot(tophit, aes(x = avg, y = name)) + geom_point()
 ```
-
-![Basic dot plot](figs/rgcb_0327.png)
 
 ### Discussion
 
-The tophitters2001 data set contains many columns, but we'll focus
-on just three of them for this example:
-
-tophit\[, c("name", "lg", "avg")\]
-name lg avg Larry Walker NL 0.3501 Ichiro Suzuki AL 0.3497 Jason Giambi
-AL 0.3423 ... Jeff Conine AL 0.3111 Derek Jeter AL 0.3111
-In Figure \@ref(fig:FIG-BAR-GRAPH-DOTPLOT) the names are sorted
-alphabetically, which isn't very useful in this graph. Dot plots are
-often sorted by the value of the continuous variable on the horizontal
-axis.
-
-Although the rows of tophit happen to be sorted by avg, that doesn't
-mean that the items will be ordered that way in the graph. By default,
-the items on the given axis will be ordered however is appropriate for
-the data type. name is a character vector, so it's ordered
-alphabetically. If it were a factor, it would use the order defined in
-the factor levels. In this case, we want name to be sorted by a
-different variable, avg.
-
-To do this, we can use reorder(name, avg), which takes the name column,
-turns it into a factor, and sorts the factor levels by avg. To further
-improve the appearance, we'll make the vertical grid lines go away
-by using the theming system, and turn the horizontal grid lines into
-dashed lines (Figure \@ref(fig:FIG-BAR-GRAPH-DOTPLOT-ORDERED)):
+The `tophitters2001` data set contains many columns, but we'll focus on just three of them for this example:
 
 ```{r}
-ggplot(tophit, aes(x=avg, y=reorder(name, avg))) +
-    geom_point(size=3) +                        # Use a larger dot
+tophit[, c("name", "lg", "avg")]
+```
+
+In Figure \@ref(fig:FIG-BAR-GRAPH-DOTPLOT) the names are sorted alphabetically, which isn't very useful in this graph. Dot plots are often sorted by the value of the continuous variable on the horizontal axis.
+
+Although the rows of `tophit` happen to be sorted by `avg`, that doesn't mean that the items will be ordered that way in the graph. By default, the items on the given axis will be ordered however is appropriate for the data type. `name` is a character vector, so it's ordered alphabetically. If it were a factor, it would use the order defined in the factor levels. In this case, we want `name` to be sorted by a different variable, `avg`.
+
+To do this, we can use `reorder(name, avg)`, which takes the name column, turns it into a factor, and sorts the factor levels by `avg`. To further improve the appearance, we'll make the vertical grid lines go away by using the theming system, and turn the horizontal grid lines into dashed lines (Figure \@ref(fig:FIG-BAR-GRAPH-DOTPLOT-ORDERED)):
+
+```{r FIG-BAR-GRAPH-DOTPLOT-ORDERED, fig.cap="Dot plot, ordered by batting average"}
+ggplot(tophit, aes(x = avg, y = reorder(name, avg))) +
+    geom_point(size = 3) +                        # Use a larger dot
     theme_bw() +
     theme(panel.grid.major.x = element_blank(),
           panel.grid.minor.x = element_blank(),
-          panel.grid.major.y = element_line(colour="grey60", linetype="dashed"))
+          panel.grid.major.y = element_line(colour = "grey60", linetype = "dashed"))
 ```
 
-![Dot plot, ordered by batting average](figs/rgcb_0328.png)
+It's also possible to swap the axes so that the names go along the x-axis and the values go along the y-axis, as shown in Figure \@ref(fig:FIG-BAR-GRAPH-DOTPLOT-ORDERED-SWAP). We'll also rotate the text labels by 60 degrees:
 
-It's also possible to swap the axes so that the names go along the
-x-axis and the values go along the y-axis, as shown in
-Figure \@ref(fig:FIG-BAR-GRAPH-DOTPLOT-ORDERED-SWAP). We'll also
-rotate the text labels by 60 degrees:
-
-```{r}
-ggplot(tophit, aes(x=reorder(name, avg), y=avg)) +
-    geom_point(size=3) +                        # Use a larger dot
+```{r FIG-BAR-GRAPH-DOTPLOT-ORDERED-SWAP, fig.cap="Dot plot with names on x-axis and values on y-axis"}
+ggplot(tophit, aes(x = reorder(name, avg), y = avg)) +
+    geom_point(size = 3) +                        # Use a larger dot
     theme_bw() +
-    theme(axis.text.x = element_text(angle=60, hjust=1),
+    theme(axis.text.x = element_text(angle = 60, hjust = 1),
           panel.grid.major.y = element_blank(),
           panel.grid.minor.y = element_blank(),
-          panel.grid.major.x = element_line(colour="grey60", linetype="dashed"))
+          panel.grid.major.x = element_line(colour = "grey60", linetype = "dashed"))
 ```
 
-![Dot plot with names on x-axis and values on
-y-axis](figs/rgcb_0329.png)
 
-It's also sometimes desirable to group the items by another
-variable. In this case we'll use the factor lg, which has the levels
-NL and AL, representing the National League and the American League.
-This time we want to sort first by lg and then by avg. Unfortunately,
-the reorder() function will only order factor levels by one other
-variable; to order the factor levels by two variables, we must do it
-manually:
+It's also sometimes desirable to group the items by another variable. In this case we'll use the factor `lg`, which has the levels `NL` and `AL`, representing the National League and the American League. This time we want to sort first by `lg` and then by `avg`. Unfortunately, the `reorder()` function will only order factor levels by one other variable; to order the factor levels by two variables, we must do it manually:
 
 ```{r}
 # Get the names, sorted first by lg, then by avg
 nameorder <- tophit$name[order(tophit$lg, tophit$avg)]
 
 # Turn name into a factor, with levels in the order of nameorder
-tophit$name <- factor(tophit$name, levels=nameorder)
+tophit$name <- factor(tophit$name, levels = nameorder)
 ```
 
-To make the graph (Figure \@ref(fig:FIG-BAR-GRAPH-DOTPLOT-ORDERED2)),
-we'll also add a mapping of lg to the color of the points. Instead
-of using grid lines that run all the way across, this time we'll
-make the lines go only up to the points, by using
-geom_segment(). Note that geom_segment() needs values
-for x, y, xend, and yend:
+To make the graph (Figure \@ref(fig:FIG-BAR-GRAPH-DOTPLOT-ORDERED2)), we'll also add a mapping of `lg` to the color of the points. Instead of using grid lines that run all the way across, this time we'll make the lines go only up to the points, by using `geom_segment()`. Note that `geom_segment()` needs values for `x`, `y`, `xend`, and `yend`:
 
-```{r}
-ggplot(tophit, aes(x=avg, y=name)) +
-    geom_segment(aes(yend=name), xend=0, colour="grey50") +
-    geom_point(size=3, aes(colour=lg)) +
-    scale_colour_brewer(palette="Set1", limits=c("NL","AL")) +
+```{r FIG-BAR-GRAPH-DOTPLOT-ORDERED2, fig.cap="Grouped by league, with lines that stop at the point"}
+ggplot(tophit, aes(x = avg, y = name)) +
+    geom_segment(aes(yend = name), xend = 0, colour = "grey50") +
+    geom_point(size = 3, aes(colour = lg)) +
+    scale_colour_brewer(palette = "Set1", limits = c("NL", "AL")) +
     theme_bw() +
     theme(panel.grid.major.y = element_blank(),   # No horizontal grid lines
-          legend.position=c(1, 0.55),             # Put legend inside plot area
-          legend.justification=c(1, 0.5))
+          legend.position = c(1, 0.55),           # Put legend inside plot area
+          legend.justification = c(1, 0.5))
 ```
 
-Another way to separate the two groups is to use facets, as shown in
-Figure \@ref(fig:FIG-BAR-GRAPH-DOTPLOT-ORDERED2-FACET). The order in
-which the facets are displayed is different from the sorting order in
-Figure \@ref(fig:FIG-BAR-GRAPH-DOTPLOT-ORDERED2); to change the display
-order, you must change the order of factor levels in the lg variable:
+Another way to separate the two groups is to use facets, as shown in Figure \@ref(fig:FIG-BAR-GRAPH-DOTPLOT-ORDERED2-FACET). The order in which the facets are displayed is different from the sorting order in Figure \@ref(fig:FIG-BAR-GRAPH-DOTPLOT-ORDERED2); to change the display order, you must change the order of factor levels in the `lg` variable:
 
-```{r}
-ggplot(tophit, aes(x=avg, y=name)) +
-    geom_segment(aes(yend=name), xend=0, colour="grey50") +
-    geom_point(size=3, aes(colour=lg)) +
-    scale_colour_brewer(palette="Set1", limits=c("NL","AL"), guide=FALSE) +
+```{r FIG-BAR-GRAPH-DOTPLOT-ORDERED2-FACET, fig.cap="Faceted by league"}
+ggplot(tophit, aes(x = avg, y = name)) +
+    geom_segment(aes(yend = name), xend = 0, colour = "grey50") +
+    geom_point(size = 3, aes(colour = lg)) +
+    scale_colour_brewer(palette = "Set1", limits = c("NL", "AL"), guide = FALSE) +
     theme_bw() +
     theme(panel.grid.major.y = element_blank()) +
-    facet_grid(lg ~ ., scales="free_y", space="free_y")
+    facet_grid(lg ~ ., scales = "free_y", space = "free_y")
 ```
-
-![Grouped by league, with lines that stop at the
-point](figs/rgcb_0330.png)
-
-![Faceted by league](figs/rgcb_0331.png)
 
 ### See Also
 
-For more on changing the order of factor levels, see
-[???](#RECIPE_DATAPREP_FACTOR_REORDER). Also see
-[???](#RECIPE_DATAPREP_FACTOR_REORDER_VALUE) for details on changing the
-order of factor levels based on some other values.
+For more on changing the order of factor levels, see [???](#RECIPE_DATAPREP_FACTOR_REORDER). Also see [???](#RECIPE_DATAPREP_FACTOR_REORDER_VALUE) for details on changing the order of factor levels based on some other values.
 
-For more on moving the legend, see [???](#RECIPE_LEGEND_POSITION). To
-hide grid lines, see [???](#RECIPE_APPEARANCE_HIDE_GRIDLINES).
+For more on moving the legend, see [???](#RECIPE_LEGEND_POSITION). To hide grid lines, see [???](#RECIPE_APPEARANCE_HIDE_GRIDLINES).
