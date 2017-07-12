@@ -336,7 +336,7 @@ If there's a high degree of overplotting, there are a number of possible solutio
 
 The scatter plot in Figure \@ref(fig:FIG-SCATTER-OVERPLOT) contains about 54,000 points. They are heavily overplotted, making it impossible to get a sense of the relative density of points in different areas of the graph:
 
-```{r FIG-SCATTER-OVERPLOT, fig.cap="Overplotting, with about 54,000 points"}
+```{r FIG-SCATTER-OVERPLOT, dev="png", dpi=300, fig.cap="Overplotting, with about 54,000 points"}
 sp <- ggplot(diamonds, aes(x = carat, y = price))
 
 sp + geom_point()
@@ -344,7 +344,7 @@ sp + geom_point()
 
 We can make the points semitransparent using alpha, as in Figure \@ref(fig:FIG-SCATTER-OVERPLOT-ALPHA). Here, we'll make them 90% transparent and then 99% transparent, by setting `alpha=.1` and `alpha=.01`:
 
-```{r FIG-SCATTER-OVERPLOT-ALPHA, fig.show="hold", fig.cap="Left: semitransparent points with alpha=.1; right: with alpha=.01", fig.width=3.5, fig.height=3.5}
+```{r FIG-SCATTER-OVERPLOT-ALPHA, dev="png", dpi=300, fig.show="hold", fig.cap="Left: semitransparent points with alpha=.1; right: with alpha=.01", fig.width=3.5, fig.height=3.5}
 sp + geom_point(alpha = .1)
 
 sp + geom_point(alpha = .01)
