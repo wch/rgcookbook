@@ -45,7 +45,7 @@ reverse of what you want. On a graph with standard x- and y-axes, the
 *x* items start at the left and go to the right, which corresponds to
 the normal way of reading, from left to right. When you swap the axes,
 the items still go from the origin outward, which in this case will be
-from bottom to top—but this conflicts with the normal way of reading,
+from bottom to top-but this conflicts with the normal way of reading,
 from top to bottom. Sometimes this is a problem, and sometimes it
 isn't. If the *x* variable is a factor, the order can be reversed by
 using scale_x\$\$\_\$\$discrete() with limits=rev(levels(...)),
@@ -128,7 +128,7 @@ p + scale_y_continuous(limits=c(0, 10), breaks=NULL)
 In ggplot2, there are two ways of setting the range of the axes. The
 first way is to modify the *scale*, and the second is to apply a
 *coordinate transform*. Whenyou modify the limits of the *x* or *y*
-scale, any data outside of the limits is removed—that is, the
+scale, any data outside of the limits is removed-that is, the
 out-of-range data is not only not displayed, it is removed from
 consideration entirely.
 
@@ -218,7 +218,7 @@ You want to change the order of items on a categorical axis.
 
 ### Solution
 
-For a categorical (or discrete) axis—one with a factor mapped to it—the
+For a categorical (or discrete) axis-one with a factor mapped to it-the
 order of items can be changed by setting limits in
 scale_x\$\$\_\$\$discrete() or
 scale_y\$\$\_\$\$discrete().
@@ -559,7 +559,7 @@ You want to change the appearance of tick labels.
 ### Solution
 
 In Figure \@ref(fig:FIG-AXES-TICK-LABEL-ROTATE) (left), we've
-manually set the labels to be long—long enough that they overlap:
+manually set the labels to be long-long enough that they overlap:
 
 ```{r}
 bp <- ggplot(PlantGrowth, aes(x=group, y=weight)) + geom_boxplot() +
@@ -881,7 +881,7 @@ As shown in Figure \@ref(fig:FIG-AXES-LOG), we can make a scatter plot
 to visualize the relationship between brain and body mass. With the
 default linearly scaled axes, it's hard to make much sense of this
 graph. Because of a few very large animals, the rest of the animals get
-squished into the lower-left corner—a mouse barely looks different from
+squished into the lower-left corner-a mouse barely looks different from
 a triceratops! This is a case where the data is distributed
 exponentially on both axes.
 
@@ -925,7 +925,7 @@ p + scale_x_log10(breaks=10^(-1:5),
 Another way to use log axes is to transform the data before mapping it
 to the *x* and *y* coordinates
 (Figure \@ref(fig:FIG-AXES-LOG-BEFORE-MAPPING)). Technically, the axes
-are still linear—it's the quantity that is log-transformed:
+are still linear-it's the quantity that is log-transformed:
 
 ```{r}
 ggplot(Animals, aes(x=log10(body), y=log10(brain), label=rownames(Animals))) +
@@ -935,7 +935,7 @@ ggplot(Animals, aes(x=log10(body), y=log10(brain), label=rownames(Animals))) +
 The previous examples used a log~10~ transformation, but it is possible
 to use other transformations, such as log~2~ and natural log, as shown
 in Figure \@ref(fig:FIG-AXES-LOG-2-E). It's a bit more complicated
-to use these—scale_x\$\$\_\$\$log10() is shorthand, but for
+to use these-scale_x\$\$\_\$\$log10() is shorthand, but for
 these other log scales, we need to spell them out:
 
 ```{r}
@@ -1124,7 +1124,7 @@ data values are merged. Sometimes this is desirable, sometimes not. To
 change this behavior, you'll need to set the limits.
 
 Finally, the *theta* values of the polar coordinates do not wrap
-around—it is presently not possible to have a geom that crosses over the
+around-it is presently not possible to have a geom that crosses over the
 starting angle (usually vertical).
 
 We'll illustrate these issues with an example. The following code
@@ -1240,7 +1240,7 @@ between these is that Date objects represent dates and have a resolution
 of one day, while POSIXt objects represent moments in time and have a
 resolution of a fraction of a second.
 
-Specifying the breaks is similar to with a numeric axis—the main
+Specifying the breaks is similar to with a numeric axis-the main
 difference is in specifying the sequence of dates to use. We'll use
 a subset of the economics data, ranging from mid-1992 to mid-1993. If
 breaks aren't specified, they will be automatically selected, as

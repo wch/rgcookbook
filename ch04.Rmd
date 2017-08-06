@@ -102,7 +102,7 @@ ggplot(worldpop, aes(x=Year, y=Population)) + geom_line() + geom_point() +
     scale_y_log10()
 ```
 
-With the log y-axis, you can see that the rate of proportional change has increased in the last thousand years. The estimates for the years before 0 have a roughly constant rate of change of 10 times per 5,000 years. In the most recent 1,000 years, the population has increased at a much faster rate. We can also see that the population estimates are much more frequent in recent times—-and probably more accurate!
+With the log y-axis, you can see that the rate of proportional change has increased in the last thousand years. The estimates for the years before 0 have a roughly constant rate of change of 10 times per 5,000 years. In the most recent 1,000 years, the population has increased at a much faster rate. We can also see that the population estimates are much more frequent in recent times--and probably more accurate!
 
 ### See Also
 

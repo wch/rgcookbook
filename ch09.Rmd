@@ -4,7 +4,7 @@ Controlling the Overall Appearance of Graphs {#CHAPTER_APPEARANCE}
 In this chapter I'll discuss how to control the overall appearance
 of graphics made by ggplot2. The grammar of graphics that
 underliesggplot2 is concerned with how data is processed and
-displayed—it's not concerned with things like fonts, background
+displayed-it's not concerned with things like fonts, background
 colors, and so on. When it comes to presenting your data, there's a
 good chance that you'll want to tune the appearance of these things.
 ggplot2's theming system provides control over the appearance of

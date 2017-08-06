@@ -415,7 +415,7 @@ The [Color Oracle program](http://colororacle.org) can simulate how
 things on your screen appear to someone with color vision deficiency,
 but keep in mind that the simulation isn't perfect. In my informal
 testing, I viewed an image with simulated red-green deficiency, and I
-could distinguish the colors just fine—but others with actual red-green
+could distinguish the colors just fine-but others with actual red-green
 deficiency viewed the same image and couldn't tell the colors apart!
 
 Using a Manually Defined Palette for a Continuous Variable {#RECIPE_COLORS_PALETTE_CONTINUOUS}
@@ -528,7 +528,7 @@ ggplot(cb, aes(x=Year, y=Anomaly10y)) +
     geom_hline(yintercept=0)
 ```
 
-![Mapping valence to fill color—notice the red area under the zero line
+![Mapping valence to fill color-notice the red area under the zero line
 around 1950](figs/rgcb_1213.png)
 
 ### Discussion
@@ -555,7 +555,7 @@ here.
 
 Now we can plot the interpolated data
 (Figure \@ref(fig:FIG-COLORS-AREA-VALUE-INTERPOLATED)). This time
-we'll make a few adjustments—we'll make the shaded regions
+we'll make a few adjustments-we'll make the shaded regions
 partially transparent, change the colors, remove the legend, and remove
 the padding on the left and right sides:
 

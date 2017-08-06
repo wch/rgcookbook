@@ -137,7 +137,7 @@ ggplot(birthwt, aes(x = bwt)) + geom_histogram(fill = "white", colour = "black")
     facet_grid(race ~ .)
 ```
 
-To allow the *y* scales to be resized independently (Figure \@ref(fig:FIG-DISTRIBUTION-MULTI-HISTOGRAM-FACET-SCALESFREE), right), use `scales="free"`. Note that this will only allow the *y* scales to be free—the *x* scales will still be fixed because the histograms are aligned with respect to that axis:
+To allow the *y* scales to be resized independently (Figure \@ref(fig:FIG-DISTRIBUTION-MULTI-HISTOGRAM-FACET-SCALESFREE), right), use `scales="free"`. Note that this will only allow the *y* scales to be free-the *x* scales will still be fixed because the histograms are aligned with respect to that axis:
 
 ```{r FIG-DISTRIBUTION-MULTI-HISTOGRAM-FACET-SCALESFREE-2, eval=FALSE}
 ggplot(birthwt, aes(x = bwt)) + geom_histogram(fill = "white", colour = "black") +
@@ -336,7 +336,7 @@ ggplot(faithful, aes(x=waiting)) + geom_freqpoly()
 
 ### Discussion
 
-A frequency polygon appears similar to a kernel density estimate curve, but it shows the same information as a histogram. That is, like a histogram, it shows what is in the data, whereas a kernel density estimate is just that—an estimate—and requires you to pick some value for the bandwidth.
+A frequency polygon appears similar to a kernel density estimate curve, but it shows the same information as a histogram. That is, like a histogram, it shows what is in the data, whereas a kernel density estimate is just that-an estimate-and requires you to pick some value for the bandwidth.
 
 Also like a histogram, you can control the bin width for the frequency polygon (Figure \@ref(fig:FIG-DISTRIBUTION-FREQPOLY), right):
 

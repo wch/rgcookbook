@@ -236,7 +236,7 @@ here, since x is a vector with many values.
 ### Discussion
 
 R has first-class functions, and we can write a function that returns a
-*closure*—that is, we can program a function to program another
+*closure*-that is, we can program a function to program another
 function.
 
 This function will allow you to pass in a function, a minimum value, and
@@ -253,7 +253,7 @@ limitRange <- function(fun, min, max) {
 }
 ```
 
-Now we can call this function to create another function—one that is
+Now we can call this function to create another function-one that is
 effectively the same as the dnorm_limit() function used
 earlier:
 
@@ -470,7 +470,7 @@ Qtr1 Qtr2 Qtr3 Qtr4 1945 NA 87 82 75 1946 63 50 43 32 ... 1973 68 44 40
 str(presidents)
 Time-Series \[1:120\] from 1945 to 1975: NA 87 82 75 63 50 43 32 35 60
 ...
-We'll first convert it to a format that is usable by ggplot()—a data
+We'll first convert it to a format that is usable by ggplot()-a data
 frame with columns that are numeric:
 
 pres\_rating &lt;- data.frame( rating = as.numeric(presidents), year =
@@ -493,7 +493,7 @@ p + geom_tile()
 p + geom_raster()
 ```
 
-![A heat map—the grey squares represent NAs in the
+![A heat map-the grey squares represent NAs in the
 data](figs/rgcb_1312.png)
 
 > **Note**
@@ -918,7 +918,7 @@ Name Code Year GDP laborrate healthexp infmortality 6731 Mongolia MNG
 Notice that the row names (the first column) are essentially random
 numbers, since the rows were selected randomly. We need to do a few more
 things to the data before making a dendrogram from it. First, we need to
-set the *row names*—right now there's a column called Name, but the
+set the *row names*-right now there's a column called Name, but the
 row names are those random numbers (we don't often use row names,
 but for the hclust() function they're essential). Next, we'll
 need to drop all the columns that aren't values used for clustering.
@@ -976,7 +976,7 @@ You can scale your data differently, or not at all. (With this data set,
 variables, as shown in
 Figure \@ref(fig:FIG-MISCGRAPH-DENDROGRAM-UNSCALED).)
 
-![Dendrogram with unscaled data—notice the much larger Height values,
+![Dendrogram with unscaled data-notice the much larger Height values,
 which are largely due to the unscaled GDP values](figs/rgcb_1320.png)
 
 For the distance calculation, we used the default method, "euclidean",
@@ -1034,7 +1034,7 @@ ggplot(islice, aes(x=x, y=y)) +
                     size = 0.25)   # Make the line segments 0.25 mm thick
 ```
 
-![First attempt at a vector field—the resolution of the data is too
+![First attempt at a vector field-the resolution of the data is too
 high, but it does hint at some interesting patterns not visible in
 graphs with a lower data resolution](figs/rgcb_1321.png)
 
@@ -1263,7 +1263,7 @@ library(vcd)
 mosaic( ~ Admit + Gender + Dept, data=UCBAdmissions)
 ```
 
-![Mosaic plot of UC-Berkeley admissions data—the area of each rectangle
+![Mosaic plot of UC-Berkeley admissions data-the area of each rectangle
 is proportional to the number of cases in that cell](figs/rgcb_1327.png)
 
 Notice that mosaic() splits the data in the order in which the variables

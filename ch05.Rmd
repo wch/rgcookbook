@@ -164,7 +164,7 @@ ggplot(heightweight, aes(x = ageYear, y = heightIn, shape = sex)) +
 
 Figure \@ref(fig:FIG-SCATTER-SHAPES-CHART) shows the shapes that are available in R graphics. Some of the point shapes (1–14) have just an outline, some (15–20) have just a solid fill, and some (21–25) have an outline and fill that can be controlled separately. (You can also use characters for points.)
 
-For shapes 1–20, the color of the entire point -— even the points that are solid -— is controlled by the `colour` aesthetic. For shapes 21–25, the outline is controlled by `colour` and the fill is controlled by `fill`.
+For shapes 1–20, the color of the entire point -- even the points that are solid -- is controlled by the `colour` aesthetic. For shapes 21–25, the outline is controlled by `colour` and the fill is controlled by `fill`.
 
 
 ```{r FIG-SCATTER-SHAPES-CHART, echo=FALSE, fig.cap="Shapes in R graphics"}
@@ -354,13 +354,13 @@ Now we can see that there are vertical bands at nice round values of carats, ind
 
 > **Note**
 >
-> For most graphs, vector formats (such as PDF, EPS, and SVG) result in smaller output files than bitmap formats (such as TIFF and PNG). But in cases where there are tens of thousands of points, vector output files can be very large and slow to render—the scatter plot here with 99% transparent points is 1.5 MB! In these cases, high-resolution bitmaps will be smaller and faster to display on computer screens. See [???](#CHAPTER_OUTPUT) for more information.
+> For most graphs, vector formats (such as PDF, EPS, and SVG) result in smaller output files than bitmap formats (such as TIFF and PNG). But in cases where there are tens of thousands of points, vector output files can be very large and slow to render-the scatter plot here with 99% transparent points is 1.5 MB! In these cases, high-resolution bitmaps will be smaller and faster to display on computer screens. See [???](#CHAPTER_OUTPUT) for more information.
 
 Another solution is to *bin* the points into rectangles and map the density of the points to the fill color of the rectangles, as shown in Figure \@ref(fig:FIG-SCATTER-OVERPLOT-BIN2D). With the binned visualization, the vertical bands are barely visible. The density of points in the lower-left corner is much greater, which tells us that the vast majority of diamonds are small and inexpensive.
 
 By default, `stat_bin_2d()` divides the space into 30 groups in the *x* and *y* directions, for a total of 900 bins. In the second version, we increase the number of bins with bins=50.
 
-The default colors are somewhat difficult to distinguish because they don't vary much in luminosity. In the second version we set the colors by using `scale_fill_gradient()` and specifying the low and high colors. By default, the legend doesn't show an entry for the lowest values. This is because the range of the color scale starts not from zero, but from the smallest nonzero quantity in a bin—probably 1, in this case. To make the legend show a zero (as in Figure \@ref(fig:FIG-SCATTER-OVERPLOT-BIN2D), right), we can manually set the range from 0 to the maximum, 6000, using limits (Figure \@ref(fig:FIG-SCATTER-OVERPLOT-BIN2D), left):
+The default colors are somewhat difficult to distinguish because they don't vary much in luminosity. In the second version we set the colors by using `scale_fill_gradient()` and specifying the low and high colors. By default, the legend doesn't show an entry for the lowest values. This is because the range of the color scale starts not from zero, but from the smallest nonzero quantity in a bin-probably 1, in this case. To make the legend show a zero (as in Figure \@ref(fig:FIG-SCATTER-OVERPLOT-BIN2D), right), we can manually set the range from 0 to the maximum, 6000, using limits (Figure \@ref(fig:FIG-SCATTER-OVERPLOT-BIN2D), left):
 
 ```{r FIG-SCATTER-OVERPLOT-BIN2D, fig.show="hold", fig.cap="Left: binning data with stat_bin2d(); right: with more bins, manually specified colors, and legend breaks", fig.width=3.5, fig.height=3.5}
 sp + stat_bin2d()
@@ -471,7 +471,7 @@ sp + geom_point(colour = "grey60") +
 
 ### Discussion
 
-The linear regression line is not the only way of fitting a model to the data—-in fact, it's not even the default. If you add `stat_smooth()` without specifying the method, it will use a LOESS (locally weighted polynomial) curve, as shown in Figure \@ref(fig:FIG-SCATTER-FIT-LOESS):
+The linear regression line is not the only way of fitting a model to the data--in fact, it's not even the default. If you add `stat_smooth()` without specifying the method, it will use a LOESS (locally weighted polynomial) curve, as shown in Figure \@ref(fig:FIG-SCATTER-FIT-LOESS):
 
 ```{r, eval=FALSE}
 sp + geom_point(colour = "grey60") + stat_smooth()
@@ -923,7 +923,7 @@ sp + geom_text(aes(label = Name), size = 4)
 
 The automatic method for placing annotations centers each annotation on the *x* and *y* coordinates. You'll probably want to shift the text vertically, horizontally, or both.
 
-Setting `vjust=0` will make the baseline of the text on the same level as the point (Figure \@ref(fig:FIG-SCATTER-LABEL-VJUST), left), and setting vjust=1 will make the top of the text level with the point. This usually isn't enough, though —- you can increase or decrease `vjust` to shift the labels higher or lower, or you can add or subtract a bit to or from the y mapping to get the same effect (Figure \@ref(fig:FIG-SCATTER-LABEL-VJUST), right):
+Setting `vjust=0` will make the baseline of the text on the same level as the point (Figure \@ref(fig:FIG-SCATTER-LABEL-VJUST), left), and setting vjust=1 will make the top of the text level with the point. This usually isn't enough, though -- you can increase or decrease `vjust` to shift the labels higher or lower, or you can add or subtract a bit to or from the y mapping to get the same effect (Figure \@ref(fig:FIG-SCATTER-LABEL-VJUST), right):
 
 ```{r FIG-SCATTER-LABEL-VJUST, fig.show="hold", fig.cap="Left: a scatter plot with vjust=0; right: with a little extra added to y", fig.width=4.5, fig.height=4.5}
 sp + geom_text(aes(label = Name), size = 4, vjust = 0)
@@ -1087,7 +1087,7 @@ c2009 <- subset(countries, Year==2009,
 c2009
 ```
 
-To make the scatter plot matrix (Figure \@ref(fig:FIG-SCATTER-SPLOM)), we'll use columns 2 through 5 —- using the `Name` column wouldn't make sense, and it would produce strange-looking results:
+To make the scatter plot matrix (Figure \@ref(fig:FIG-SCATTER-SPLOM)), we'll use columns 2 through 5 -- using the `Name` column wouldn't make sense, and it would produce strange-looking results:
 
 ```{r FIG-SCATTER-SPLOM, fig.cap="A scatter plot matrix", fig.width=7, fig.height=7}
 pairs(c2009[,2:5])
@@ -1099,7 +1099,7 @@ We didn't use ggplot here because it doesn't make scatter plot matrices (at leas
 
 > TODO: look more into ggally?
 
-You can also use customized functions for the panels. To show the correlation coefficient of each pair of variables instead of a scatter plot, we'll define the function `panel.cor`. This will also show higher correlations in a larger font. Don't worry about the details for now -— just paste this code into your R session or script:
+You can also use customized functions for the panels. To show the correlation coefficient of each pair of variables instead of a scatter plot, we'll define the function `panel.cor`. This will also show higher correlations in a larger font. Don't worry about the details for now -- just paste this code into your R session or script:
 
 ```{r}
 panel.cor <- function(x, y, digits = 2, prefix = "", cex.cor, ...) {

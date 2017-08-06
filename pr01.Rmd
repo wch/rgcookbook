@@ -6,7 +6,7 @@ my research in graduate school. My motivation at first was to escape
 from the restrictive environments and canned analyses offered by
 statistical programs like SPSS. And even better, because it's freely
 available, I didn't need to convince someone to buy me a copy of the
-software—very important for a poor graduate student! As I delved deeper
+software-very important for a poor graduate student! As I delved deeper
 into R, I discovered that it could also create excellent data graphics.
 
 Each recipe in this book lists a problem and a solution. In most cases,
@@ -219,4 +219,4 @@ with many last-minute edits, and for handling the unusual features of
 this book.
 
 Finally, I would like to thank my wife, Sylia, for her support and
-understanding—and not just with regard to the book.
+understanding-and not just with regard to the book.

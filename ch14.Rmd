@@ -84,7 +84,7 @@ instructions, such as "Draw a line from here to there," instead
 of information about the color of each pixel. However, there are cases
 where bitmap files are smaller. For example, if you have a scatter plot
 that is heavily overplotted, a PDF file can end up much larger than a
-PNG—even though most of the points are obscured, the PDF file will still
+PNG-even though most of the points are obscured, the PDF file will still
 contain instructions for drawing each and every point, whereas a bitmap
 file will not contain the redundant information. See
 [???](#RECIPE_SCATTER_OVERPLOT) for an example.
@@ -130,7 +130,7 @@ You want to create a Windows metafile (WMF) image of your plot.
 
 ### Solution
 
-WMF files can be created and used in much the same way as PDF files—but
+WMF files can be created and used in much the same way as PDF files-but
 they can only be created on Windows:
 
 ```{r}
@@ -171,7 +171,7 @@ points may appear as the letter *q*, as in
 Figure \@ref(fig:FIG-OUTPUT-EDIT-VECTOR-DINGBATS), because that is the
 corresponding letter for a solid bullet in Zapf Dingbats.
 
-![Bad conversion of point symbols after opening in Inkscape—also notice
+![Bad conversion of point symbols after opening in Inkscape-also notice
 that the spacing of the fonts is slightly off](figs/rgcb_1401.png)
 
 To avoid this problem, set useDingbats=FALSE. This will make the circles
@@ -286,7 +286,7 @@ to manually close the graphic device.
 >
 > Although the argument name is dpi, it really controls the *pixels* per
 > inch (ppi), not the *dots* per inch. When a grey pixel is rendered in
-> print, it is output with many smaller dots of black ink—and so print
+> print, it is output with many smaller dots of black ink-and so print
 > output has more dots per inch than pixels per inch.
 
 ### Discussion

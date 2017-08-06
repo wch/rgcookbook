@@ -78,7 +78,7 @@ bars, it's useful to make the facets go horizontally. If, on the
 other hand, you want to compare the horizontal distribution of
 histograms, it makes sense to make the facets go vertically.
 
-Sometimes both kinds of comparisons are important—there may not be a
+Sometimes both kinds of comparisons are important-there may not be a
 clear answer as to which faceting direction is best. It may turn out
 that displaying the groups in a single plot by mapping the grouping
 variable to an aesthetic like color works better than using facets. In

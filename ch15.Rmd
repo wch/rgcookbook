@@ -34,7 +34,7 @@ other four columns are vectors of numbers (one of them, ageMonth, is
 specifically a vector of integers, but for the purposes here, it behaves
 the same as any other numeric vector).
 
-Factors and character vectors behave similarly in ggplot2—the main
+Factors and character vectors behave similarly in ggplot2-the main
 difference is that with character vectors, items will be displayed in
 lexicographical order, but with factors, items will be displayed in the
 same order as the factor levels, which you can control.
@@ -351,7 +351,7 @@ created.
 There are two kinds of factors in R: ordered factors and regular
 factors. In both types, the levels are arranged in *some* order; the
 difference is that the order is meaningful for an ordered factor, but it
-is arbitrary for a regular factor—it simply reflects how the data is
+is arbitrary for a regular factor-it simply reflects how the data is
 stored. For graphing data, the distinction between ordered and regular
 factors is generally unimportant, and they can be treated the same.
 

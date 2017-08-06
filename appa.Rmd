@@ -140,7 +140,7 @@ switched](figs/rgcb_aa05.png)
 To change it to a line graph (Figure \@ref(fig:app_figure_16-6)), we
 change geom_bar() to geom_line(). We'll also map
 Bval to the *line* color, with colour, instead of the *fill* colour
-(note the British spelling—the author of ggplot2 is a Kiwi). Again,
+(note the British spelling-the author of ggplot2 is a Kiwi). Again,
 don't worry about the other details yet:
 
 ```{r}
@@ -212,7 +212,7 @@ what it means for a line to be blue or red.
 Some aesthetics can only work with categorical variables, such as the
 shape of a point: triangles, circles, squares, etc. Some aesthetics work
 with categorical or continuous variables, such as *x* (horizontal)
-position. For a bar graph, the variable must be categorical—it would
+position. For a bar graph, the variable must be categorical-it would
 make no sense for there to be a continuous variable on the x-axis. For a
 scatter plot, the variable must be numeric. Both of these types of data
 (categorical and numeric) can be mapped to the aesthetic space of *x*

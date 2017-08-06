@@ -197,7 +197,7 @@ linetype="dashed", size=1)
 ![Multiple lines, drawn at the mean of each group](figs/rgcb_0708.png)
 
 If one of the axes is discrete rather than continuous, you can't
-specify the intercepts as just a character string—they must still be
+specify the intercepts as just a character string-they must still be
 specified as numbers. If the axis represents a factor, the first level
 has a numeric value of 1, the second level has a value of 2, and so on.
 You can specify the numerical intercept manually, or calculate the

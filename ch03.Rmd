@@ -125,7 +125,7 @@ Other aesthetics, such as `colour` (the color of the outlines of the bars) or `l
 
 Note that if there are any missing combinations of the categorical variables, that bar will be missing, and the neighboring bars will expand to fill that space. If we remove the last row from our example data frame, we get Figure \@ref(fig:FIG-BAR-GRAPH-GROUPED-BAR-MISSING):
 
-```{r FIG-BAR-GRAPH-GROUPED-BAR-MISSING, fig.cap="Graph with a missing bar—the other bar fills the space"}
+```{r FIG-BAR-GRAPH-GROUPED-BAR-MISSING, fig.cap="Graph with a missing bar-the other bar fills the space"}
 ce <- cabbage_exp[1:5, ]
 ce
 
@@ -556,7 +556,7 @@ ggplot(cabbage_exp, aes(x = Date, y = Weight, fill = Cultivar)) +
               position = position_dodge(.9), size = 3)
 ```
 
-Putting labels on stacked bar graphs requires finding the cumulative sum for each stack. To do this, first make sure the data is sorted properly-—if it isn't, the cumulative sum might be calculated in the wrong order. We'll use the `arrange()` function from the dplyr package. Note that we have to use the `rev()` function to reverse the order of `Cultivar` 
+Putting labels on stacked bar graphs requires finding the cumulative sum for each stack. To do this, first make sure the data is sorted properly--if it isn't, the cumulative sum might be calculated in the wrong order. We'll use the `arrange()` function from the dplyr package. Note that we have to use the `rev()` function to reverse the order of `Cultivar`:
 
 ```{r}
 library(dplyr)
