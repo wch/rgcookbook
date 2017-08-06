@@ -26,7 +26,7 @@ You want to make a histogram.
 
 ### Solution
 
-Use geom_histogram() andmap a continuous variable to x (Figure \@ref(fig:FIG-DISTRIBUTION-HIST-BASIC)):
+Use `geom_histogram()` and map a continuous variable to x (Figure \@ref(fig:FIG-DISTRIBUTION-HIST-BASIC)):
 
 ```{r FIG-DISTRIBUTION-HIST-BASIC, fig.cap="A basic histogram"}
 ggplot(faithful, aes(x=waiting)) + geom_histogram()
