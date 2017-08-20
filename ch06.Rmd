@@ -7,9 +7,7 @@ editor_options:
 ---
 
 ```{r echo = FALSE}
-knitr::opts_chunk$set(collapse = TRUE, comment = "#>")
 source("utils.R", local = TRUE)
-library(ggplot2)
 ```
 
 Summarized Data Distributions {#CHAPTER_DISTRIBUTION}

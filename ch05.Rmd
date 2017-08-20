@@ -7,9 +7,7 @@ editor_options:
 ---
 
 ```{r echo = FALSE}
-knitr::opts_chunk$set(collapse = TRUE, comment = "#>")
 source("utils.R", local = TRUE)
-library(ggplot2)
 ```
 
 Scatter Plots {#CHAPTER_SCATTER}
@@ -679,8 +677,6 @@ You have already created a fitted regression model object for a data set, and yo
 
 ### Solution
 
-TODO: Replace plyr with dplyr
-
 Use the `predictvals()` function from the previous recipe along with `dlply()` and `ldply()` from the plyr package.
 
 With the `heightweight` data set, we'll make a linear model for each of the levels of `sex`, and put those model objects in a list. The model building is done with a function, `make_model()`, defined here. If you pass it a data frame, it simply returns an lm object. The model can be customized for your data.
@@ -695,17 +691,27 @@ With this function, we can use the `dlply()` function to build a model for each 
 
 ```{r}
 library(gcookbook) # For the data set
-library(plyr)
-models <- dlply(heightweight, "sex", .fun = make_model) 
-# Print out the list of two lm objects, f and m
+library(dplyr)
+
+# Create a lm for each value of sex; this returns a data frame
+models <- heightweight %>%
+    group_by(sex) %>%
+    do(model = lm(heightIn ~ ageYear, .)) %>%
+    ungroup()
+
+# Print the data frame
 models
+
+# Print out the model column of the data frame
+models$model
 ```
 
 Now that we have the list of model objects, we can run `predictvals()` to get predicted values from each model, using the `ldply()` function:
 
 ```{r}
-predvals <- ldply(models, .fun = predictvals, xvar = "ageYear", yvar = "heightIn")
-predvals
+predvals <- models %>%
+    group_by(sex) %>%
+    do(predictvals(.$model[[1]], xvar = "ageYear", yvar = "heightIn"))
 ```
 
 Finally, we can plot the data with the predicted values (Figure \@ref(fig:FIG-SCATTER-FIT-MODEL-MULTI)):
@@ -736,8 +742,10 @@ The `dlply()` and `ldply()` calls are used for splitting the data into parts, ru
 With the preceding code, the *x* range of the predicted values for each group spans the *x* range of each group, and no further; for the males, the prediction line stops at the oldest male, while for females, the prediction line continues further right, to the oldest female. To form prediction lines that have the same *x* range across all groups, we can simply pass in `xrange`, like this:
 
 ```{r}
-predvals <- ldply(models, .fun = predictvals, xvar = "ageYear", yvar = "heightIn",
-                  xrange = range(heightweight$ageYear))
+predvals <- models %>%
+    group_by(sex) %>%
+    do(predictvals(.$model[[1]], xvar = "ageYear", yvar = "heightIn",
+                   xrange = range(heightweight$ageYear)))
 ```
 
 Then we can plot it, the same as we did before:
@@ -760,7 +768,7 @@ You want to add numerical information about a model to a plot.
 
 ### Solution
 
-To add simple text to a plot, simply add an annotation. In this example, we'll create a linear model and use the predictvals() function defined in [section\_title](#RECIPE_SCATTER_FITLINES_MODEL) to create a prediction line from the model. Then we'll add an annotation:
+To add simple text to a plot, simply add an annotation. In this example, we'll create a linear model and use the `predictvals()` function defined in [section\_title](#RECIPE_SCATTER_FITLINES_MODEL) to create a prediction line from the model. Then we'll add an annotation:
 
 ```{r}
 library(gcookbook) # For the data set

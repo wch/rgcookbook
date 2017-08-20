@@ -6,6 +6,9 @@ editor_options:
   chunk_output_type: console
 ---
 
+```{r echo = FALSE}
+source("utils.R", local = TRUE)
+```
 
 R Basics
 ========

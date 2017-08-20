@@ -7,9 +7,7 @@ editor_options:
 ---
 
 ```{r echo = FALSE}
-knitr::opts_chunk$set(collapse = TRUE, comment = "#>")
 source("utils.R", local = TRUE)
-library(ggplot2)
 ```
 
 
@@ -31,7 +29,7 @@ You want to make a basic line graph.
 
 Use `ggplot()` with `geom_line()`, and specify which variables you mapped to x and y (Figure \@ref(fig:FIG-LINE-GRAPH-BASIC-LINE)):
 
-```{r FIG-LINE-GRAPH-BASIC-LINE}
+```{r FIG-LINE-GRAPH-BASIC-LINE, fig.cap="Basic line graph"}
 ggplot(BOD, aes(x = Time, y = demand)) + geom_line()
 ```
 
@@ -206,7 +204,7 @@ The type of line (solid, dashed, dotted, etc.) is set with `linetype`, the thick
 
 These properties can be set (as shown in Figure \@ref(fig:FIG-BAR-GRAPH-BASIC-LINE-CUSTOMIZED)) by passing them values in the call to `geom_line()`:
 
-```{r, fig.cap="Line graph with custom linetype, size, and colour"}
+```{r FIG-BAR-GRAPH-BASIC-LINE-CUSTOMIZED, fig.cap="Line graph with custom linetype, size, and colour"}
 ggplot(BOD, aes(x = Time, y = demand)) +
     geom_line(linetype = "dashed", size = 1, colour = "blue")
 ```
@@ -495,7 +493,7 @@ Notice that the `geom_ribbon()` comes before `geom_line()`, so that the line is 
 
 Instead of a shaded region, you can also use dotted lines to represent the upper and lower bounds (Figure \@ref(fig:FIG-LINE-GRAPH-REGION-LINES)):
 
-```{r A line graph with a shaded confidence region, fig.cap="A line graph with dotted lines representing a confidence region"}
+```{r FIG-LINE-GRAPH-REGION-LINES, fig.cap="A line graph with dotted lines representing a confidence region"}
 # With a dotted line for upper and lower bounds
 ggplot(clim, aes(x = Year, y = Anomaly10y)) +
     geom_line(aes(y = Anomaly10y-Unc10y), colour = "grey50", linetype = "dotted") +
