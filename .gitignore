@@ -2,7 +2,5 @@
 .Rhistory
 .RData
 .Ruserdata
-*.html
-*.pdf
 _book
 _bookdown_files
