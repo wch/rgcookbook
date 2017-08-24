@@ -37,7 +37,7 @@ through a package repository. The primary repository for distributing R
 packages is called CRAN (the Comprehensive R Archive Network), but there
 are others, such as Bioconductor and Omegahat.
 
-\[\[RECIPE\_BASIC\_INSTALL\_PACKAGE\]\] === Installing a Package
+\[\[RECIPE\-BASIC\-INSTALL\-PACKAGE\]\] === Installing a Package
 
 \[\[\_problem\]\] ==== Problem
 
@@ -69,7 +69,7 @@ around the globe. It’s the default repository system used by R. There
 are other package repositories; Bioconductor, for example, is a
 repository of packages related to analyzing genomic data.
 
-\[\[RECIPE\_BASIC\_LOAD\_PACKAGE\]\] === Loading a Package
+\[\[RECIPE\-BASIC\-LOAD\-PACKAGE\]\] === Loading a Package
 
 \[\[\_problem\_2\]\] ==== Problem
 
@@ -103,7 +103,7 @@ A **library** is a directory that contains a set of packages. You might,
 for example, have a system-wide library as well as a library for each
 user.
 
-\[\[RECIPE\_BASIC\_LOAD\_DELIM\]\] === Loading a Delimited Text Data
+\[\[RECIPE\-BASIC\-LOAD\-DELIM\]\] === Loading a Delimited Text Data
 File
 
 \[\[\_problem\_3\]\] ==== Problem
@@ -195,7 +195,7 @@ convert individual columns from factors to characters.
 ++read.table()++. If you need more control over the input, see
 ++?read.table++.
 
-\[\[RECIPE\_BASIC\_LOAD\_EXCEL\]\] === Loading Data from an Excel File
+\[\[RECIPE\-BASIC\-LOAD\-EXCEL\]\] === Loading Data from an Excel File
 
 \[\[\_problem\_4\]\] ==== Problem
 
@@ -268,7 +268,7 @@ format, such as CSV.
 See ++?read.xls++ and ++?read.xlsx++ for more options controlling the
 reading of these files.
 
-\[\[RECIPE\_BASIC\_SPSS\]\] === Loading Data from an SPSS File
+\[\[RECIPE\-BASIC\-SPSS\]\] === Loading Data from an SPSS File
 
 \[\[\_problem\_5\]\] ==== Problem
 

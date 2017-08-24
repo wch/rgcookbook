@@ -18,7 +18,7 @@ Line graphs are typically used for visualizing how one continuous variable, on t
 
 As with bar graphs, there are exceptions. Line graphs can also be used with a discrete variable on the x-axis. This is appropriate when the variable is ordered (e.g., "small", "medium", "large"), but not when the variable is unordered (e.g., "cow", "goose", "pig"). Most of the examples in this chapter use a continuous *x* variable, but we'll see one example where the variable is converted to a factor and thus treated as a discrete variable.
 
-Making a Basic Line Graph {#RECIPE_LINE_GRAPH_BASIC_LINE}
+Making a Basic Line Graph {#RECIPE-LINE-GRAPH-BASIC-LINE}
 -------------------------
 
 ### Problem
@@ -41,7 +41,7 @@ In this sample data set, the *x* variable, Time, is in one column and the *y* va
 BOD
 ```
 
-Line graphs can be made with discrete (categorical) or continuous (numeric) variables on the x-axis. In the example here, the variable demand is numeric, but it could be treated as a categorical variable by converting it to a factor with `factor()` (Figure \@ref(fig:FIG-LINE-GRAPH-BASIC-LINE-FACTOR)). When the *x* variable is a factor, you must also use `aes(group=1)` to ensure that ggplot knows that the data points belong together and should be connected with a line (see [section\_title](#RECIPE_LINE_GRAPH_MULTIPLE_LINE) for an explanation of why group is needed with factors):
+Line graphs can be made with discrete (categorical) or continuous (numeric) variables on the x-axis. In the example here, the variable demand is numeric, but it could be treated as a categorical variable by converting it to a factor with `factor()` (Figure \@ref(fig:FIG-LINE-GRAPH-BASIC-LINE-FACTOR)). When the *x* variable is a factor, you must also use `aes(group=1)` to ensure that ggplot knows that the data points belong together and should be connected with a line (see Recipe \@ref(RECIPE-LINE-GRAPH-MULTIPLE-LINE) for an explanation of why group is needed with factors):
 
 ```{r FIG-LINE-GRAPH-BASIC-LINE-FACTOR, fig.cap="Basic line graph with a factor on the x-axis (notice that no space is allocated on the x-axis for 6)"}
 BOD1 <- BOD  # Make a copy of the data
@@ -66,10 +66,10 @@ ggplot(BOD, aes(x = Time, y = demand)) + geom_line() + expand_limits(y = 0)
 
 ### See Also
 
-See [???](#RECIPE_AXES_RANGE) for more on controlling the range of the axes.
+See Recipe \@ref(RECIPE-AXES-RANGE) for more on controlling the range of the axes.
 
 
-Adding Points to a Line Graph {#RECIPE_LINE_GRAPH_POINTS}
+Adding Points to a Line Graph {#RECIPE-LINE-GRAPH-POINTS}
 -----------------------------
 
 ### Problem
@@ -104,10 +104,10 @@ With the log y-axis, you can see that the rate of proportional change has increa
 
 ### See Also
 
-To change the appearance of the points, see [section\_title](#RECIPE_LINE_GRAPH_POINT_APPEARANCE).
+To change the appearance of the points, see Recipe \@ref(RECIPE-LINE-GRAPH-POINT-APPEARANCE).
 
 
-Making a Line Graph with Multiple Lines {#RECIPE_LINE_GRAPH_MULTIPLE_LINE}
+Making a Line Graph with Multiple Lines {#RECIPE-LINE-GRAPH-MULTIPLE-LINE}
 ---------------------------------------
 
 ### Problem
@@ -191,7 +191,7 @@ ggplot(tg, aes(x = dose, y = length, shape = supp)) +
 ```
 
 
-Changing the Appearance of Lines {#RECIPE_LINE_GRAPH_LINE_APPEARANCE}
+Changing the Appearance of Lines {#RECIPE-LINE-GRAPH-LINE-APPEARANCE}
 --------------------------------
 
 ### Problem
@@ -209,7 +209,7 @@ ggplot(BOD, aes(x = Time, y = demand)) +
     geom_line(linetype = "dashed", size = 1, colour = "blue")
 ```
 
-If there is more than one line, setting the aesthetic properties will affect all of the lines. On the other hand, *mapping* variables to the properties, as we saw in [section_title](#RECIPE_LINE_GRAPH_MULTIPLE_LINE), will result in each line looking different. The default colors aren't the most appealing, so you may want to use a different palette, as shown in Figure \@ref(fig:FIG-LINE-GRAPH-MULTI-LINE-PALETTE), by using `scale_colour_brewer()` or `scale_colour_manual()`:
+If there is more than one line, setting the aesthetic properties will affect all of the lines. On the other hand, *mapping* variables to the properties, as we saw in Recipe \@ref(RECIPE-LINE-GRAPH-MULTIPLE-LINE), will result in each line looking different. The default colors aren't the most appealing, so you may want to use a different palette, as shown in Figure \@ref(fig:FIG-LINE-GRAPH-MULTI-LINE-PALETTE), by using `scale_colour_brewer()` or `scale_colour_manual()`:
 
 ```{r FIG-LINE-GRAPH-MULTI-LINE-PALETTE, fig.cap="Using a palette from RColorBrewer"}
 # Use dplyr to create the example data set
@@ -245,7 +245,7 @@ ggplot(tg, aes(x = dose, y = length, colour = supp)) +
 For more information about using colors, see [???](#CHAPTER_COLORS).
 
 
-Changing the Appearance of Points {#RECIPE_LINE_GRAPH_POINT_APPEARANCE}
+Changing the Appearance of Points {#RECIPE-LINE-GRAPH-POINT-APPEARANCE}
 ---------------------------------
 
 ### Problem
@@ -264,7 +264,7 @@ ggplot(BOD, aes(x = Time, y = demand)) +
 
 ### Discussion
 
-The default shape for points is a solid circle, the default size is 2, and the default colour is black. The fill color is relevant only for some point shapes (numbered 21–25), which have separate outline and fill colors (see [???](#RECIPE_SCATTER_SHAPES) for a chart of shapes). The fill color is typically `NA`, or empty; you can fill it with white to get hollow-looking circles, as shown in Figure \@ref(fig:FIG-LINE-GRAPH-POINT-WHITEFILL):
+The default shape for points is a solid circle, the default size is 2, and the default colour is black. The fill color is relevant only for some point shapes (numbered 21–25), which have separate outline and fill colors (see Recipe \@ref(RECIPE-SCATTER-SHAPES) for a chart of shapes). The fill color is typically `NA`, or empty; you can fill it with white to get hollow-looking circles, as shown in Figure \@ref(fig:FIG-LINE-GRAPH-POINT-WHITEFILL):
 
 ```{r FIG-LINE-GRAPH-POINT-WHITEFILL, fig.cap="Points with a white fill"}
 ggplot(BOD, aes(x = Time, y = demand)) +
@@ -274,7 +274,7 @@ ggplot(BOD, aes(x = Time, y = demand)) +
 
 If the points and lines have different colors, you should specify the points after the lines, so that they are drawn on top. Otherwise, the lines will be drawn on top of the points.
 
-For multiple lines, we saw in [section\_title](#RECIPE_LINE_GRAPH_MULTIPLE_LINE) how to draw differently colored points for each group by mapping variables to aesthetic properties of points, inside of `aes()`. The default colors are not very appealing, so you may want to use a different palette, using `scale_colour_brewer()` or `scale_colour_manual()`. To set a single constant shape or size for all the points, as in Figure \@ref(fig:FIG-LINE-GRAPH-MULTI-LINE-POINT-PALETTE), specify shape or size outside of `aes()`:
+For multiple lines, we saw in Recipe \@ref(RECIPE-LINE-GRAPH-MULTIPLE-LINE) how to draw differently colored points for each group by mapping variables to aesthetic properties of points, inside of `aes()`. The default colors are not very appealing, so you may want to use a different palette, using `scale_colour_brewer()` or `scale_colour_manual()`. To set a single constant shape or size for all the points, as in Figure \@ref(fig:FIG-LINE-GRAPH-MULTI-LINE-POINT-PALETTE), specify shape or size outside of `aes()`:
 
 ```{r FIG-LINE-GRAPH-MULTI-LINE-POINT-PALETTE, fig.cap="Line graph with manually specified fills of black and white, and a slight dodge"}
 # Use dplyr to create the example data set
@@ -296,7 +296,7 @@ ggplot(tg, aes(x = dose, y = length, fill = supp)) +
 
 ### See Also
 
-See [???](#RECIPE_SCATTER_SHAPES) for more on using different shapes, and [???](#CHAPTER_COLORS) for more about colors.
+See Recipe \@ref(RECIPE-SCATTER-SHAPES) for more on using different shapes, and [???](#CHAPTER_COLORS) for more about colors.
 
 
 ---
@@ -314,7 +314,7 @@ library(ggplot2)
 ```
 
 
-Making a Graph with a Shaded Area {#RECIPE_LINE_GRAPH_AREA}
+Making a Graph with a Shaded Area {#RECIPE-LINE-GRAPH-AREA}
 ---------------------------------
 
 ### Problem
@@ -357,7 +357,7 @@ ggplot(sunspotyear, aes(x = Year, y = Sunspots)) +
 See [???](#CHAPTER_COLORS) for more on choosing colors.
 
 
-Making a Stacked Area Graph {#RECIPE_LINE_GRAPH_STACKED_AREA}
+Making a Stacked Area Graph {#RECIPE-LINE-GRAPH-STACKED-AREA}
 ---------------------------
 
 ### Problem
@@ -376,7 +376,7 @@ ggplot(uspopage, aes(x = Year, y = Thousands, fill = AgeGroup)) + geom_area()
 
 ### Discussion
 
-The sort of data that is plotted with a stacked area chart is often provided in a wide format, but ggplot requires data to be in long format. To convert it, see [???](#RECIPE_DATAPREP_WIDE_TO_LONG).
+The sort of data that is plotted with a stacked area chart is often provided in a wide format, but ggplot requires data to be in long format. To convert it, see Recipe \@ref(RECIPE-DATAPREP-WIDE-TO-LONG).
 
 In the example here, we used the `uspopage` data set:
 
@@ -403,12 +403,12 @@ ggplot(uspopage, aes(x = Year, y = Thousands, fill = AgeGroup, order = desc(AgeG
 
 ### See Also
 
-See [???](#RECIPE_DATAPREP_WIDE_TO_LONG) for more on converting data from wide to long format.
+See Recipe \@ref(RECIPE-DATAPREP-WIDE-TO-LONG) for more on converting data from wide to long format.
 
 See [???](#CHAPTER_COLORS) for more on choosing colors.
 
 
-Making a Proportional Stacked Area Graph {#RECIPE_LINE_GRAPH_PROPORTIONAL_STACKED_AREA}
+Making a Proportional Stacked Area Graph {#RECIPE-LINE-GRAPH-PROPORTIONAL-STACKED-AREA}
 ----------------------------------------
 
 ### Problem
@@ -456,10 +456,10 @@ uspopage %>%
 
 ### See Also
 
-For more on summarizing data by groups, see [???](#RECIPE_DATAPREP_SUMMARIZE).
+For more on summarizing data by groups, see Recipe \@ref(RECIPE-DATAPREP-SUMMARIZE).
 
 
-Adding a Confidence Region {#RECIPE_LINE_GRAPH_REGION}
+Adding a Confidence Region {#RECIPE-LINE-GRAPH-REGION}
 --------------------------
 
 ### Problem
@@ -503,4 +503,4 @@ ggplot(clim, aes(x = Year, y = Anomaly10y)) +
 
 Shaded regions can represent things other than confidence regions, such as the difference between two values, for example.
 
-In the area graphs in [section\_title](#RECIPE_LINE_GRAPH_STACKED_AREA), the *y* range of the shaded area goes from 0 to y. Here, it goes from `ymin` to `ymax`.
+In the area graphs in Recipe \@ref(RECIPE-LINE-GRAPH-STACKED-AREA), the *y* range of the shaded area goes from 0 to y. Here, it goes from `ymin` to `ymax`.

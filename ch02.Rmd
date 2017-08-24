@@ -21,7 +21,7 @@ Each recipe in this section shows how to make a graph with base graphics. Each r
 
 If you already know how to use base graphics, having these examples side by side will help you transition to using ggplot2 for when you want to make more sophisticated graphics.
 
-Creating a Scatter Plot {#RECIPE_QUICK_SCATTER}
+Creating a Scatter Plot {#RECIPE-QUICK-SCATTER}
 -----------------------
 
 ### Problem
@@ -56,7 +56,7 @@ ggplot(data = NULL, aes(x = mtcars$wt, y = mtcars$mpg)) + geom_point()
 See [???](#CHAPTER_SCATTER) for more in-depth information about creating scatter plots.
 
 
-Creating a Line Graph {#RECIPE_QUICK_LINE}
+Creating a Line Graph {#RECIPE-QUICK-LINE}
 ---------------------
 
 ### Problem
@@ -122,7 +122,7 @@ ggplot(data = NULL, aes(x = pressure$temperature, y=pressure$pressure)) +
 See [???](#CHAPTER_LINE_GRAPH) for more in-depth information about creating line graphs.
 
 
-Creating a Bar Graph {#RECIPE_QUICK_BAR}
+Creating a Bar Graph {#RECIPE-QUICK-BAR}
 --------------------
 
 ### Problem
@@ -192,7 +192,7 @@ ggplot(mtcars, aes(x = factor(cyl))) + geom_bar()
 See [???](#CHAPTER_BAR_GRAPH) for more in-depth information about creating bar graphs.
 
 
-Creating a Histogram {#RECIPE_QUICK_HISTOGRAM}
+Creating a Histogram {#RECIPE-QUICK-HISTOGRAM}
 --------------------
 
 ### Problem
@@ -225,10 +225,10 @@ When you create a histogram without specifying the bin width, `ggplot()` prints 
 ### See Also
 
 For more in-depth information about creating histograms, see Recipes
-[???](#RECIPE_DISTRIBUTION_BASIC_HIST) and
-[???](#RECIPE_DISTRIBUTION_MULTI_HIST).
+Recipe \@ref(RECIPE-DISTRIBUTION-BASIC-HIST) and
+Recipe \@ref(RECIPE-DISTRIBUTION-MULTI-HIST).
 
-Creating a Box Plot {#RECIPE_QUICK_BOXPLOT}
+Creating a Box Plot {#RECIPE-QUICK-BOXPLOT}
 -------------------
 
 ### Problem
@@ -287,9 +287,9 @@ ggplot(ToothGrowth, aes(x = interaction(supp, dose), y = len)) + geom_boxplot()
 
 ### See Also
 
-For more on making basic box plots, see [???](#RECIPE_DISTRIBUTION_BASIC_BOXPLOT).
+For more on making basic box plots, see Recipe \@ref(RECIPE-DISTRIBUTION-BASIC-BOXPLOT).
 
-Plotting a Function Curve {#RECIPE_QUICK_FUNCTION}
+Plotting a Function Curve {#RECIPE-QUICK-FUNCTION}
 -------------------------
 
 ### Problem
@@ -344,4 +344,4 @@ ggplot(data.frame(x = c(0, 20)), aes(x = x)) +
 
 ### See Also
 
-See [???](#RECIPE_MISCGRAPH_FUNCTION) for more in-depth information about plotting function curves.
+See Recipe \@ref(RECIPE-MISCGRAPH-FUNCTION) for more in-depth information about plotting function curves.

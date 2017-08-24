@@ -13,7 +13,7 @@ implemented in the lattice package as well as in the ggplot2 package. In
 ggplot2, they're called *facets*. In this chapter I'll explain
 how to use them.
 
-Splitting Data into Subplots with Facets {#RECIPE_FACET_BASIC}
+Splitting Data into Subplots with Facets {#RECIPE-FACET-BASIC}
 ----------------------------------------
 
 ### Problem
@@ -84,7 +84,7 @@ that displaying the groups in a single plot by mapping the grouping
 variable to an aesthetic like color works better than using facets. In
 these situations, you'll have to rely on your judgment.
 
-Using Facets with Different Axes {#RECIPE_FACET_FREE}
+Using Facets with Different Axes {#RECIPE-FACET-FREE}
 --------------------------------
 
 ### Problem
@@ -121,10 +121,10 @@ ranges), or by adding geom_blank() (to expand the ranges).
 
 ### See Also
 
-See [???](#RECIPE_BAR_GRAPH_DOT_PLOT) for an example of faceting with
+See Recipe \@ref(RECIPE-BAR-GRAPH-DOT-PLOT) for an example of faceting with
 free scales and a discrete axis.
 
-Changing the Text of Facet Labels {#RECIPE_FACET_LABEL_TEXT}
+Changing the Text of Facet Labels {#RECIPE-FACET-LABEL-TEXT}
 ---------------------------------
 
 ### Problem
@@ -189,13 +189,13 @@ expressions](figs/rgcb_1105.png)
 
 ### See Also
 
-See [???](#RECIPE_DATAPREP_FACTOR_RENAME) for more on renaming factor
+See Recipe \@ref(RECIPE-DATAPREP-FACTOR-RENAME) for more on renaming factor
 levels. If the faceting variable is not a factor but a character vector,
 changing the values is somewhat different. See
-[???](#RECIPE_DATAPREP_CHARACTER_RENAME) for information on renaming
+Recipe \@ref(RECIPE-DATAPREP-CHARACTER-RENAME) for information on renaming
 items in character vectors.
 
-Changing the Appearance of Facet Labels and Headers {#RECIPE_FACET_LABEL_APPEARANCE}
+Changing the Appearance of Facet Labels and Headers {#RECIPE-FACET-LABEL-APPEARANCE}
 ---------------------------------------------------
 
 ### Problem
@@ -229,5 +229,5 @@ the facets 1 mm thick.
 ### See Also
 
 For more on how the theme system works, see Recipes
-[???](#RECIPE_APPEARANCE_THEME) and
-[???](#RECIPE_APPEARANCE_THEME_MODIFY).
+Recipe \@ref(RECIPE-APPEARANCE-THEME) and
+Recipe \@ref(RECIPE-APPEARANCE-THEME-MODIFY).

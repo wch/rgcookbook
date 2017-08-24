@@ -18,7 +18,7 @@ Scatter plots are used to display the relationship between two continuous variab
 With large data sets, it can be problematic to plot every single observation because the points will be overplotted, obscuring one another. When this happens, you'll probably want to summarize the data before displaying it. We'll also see how to do that in this chapter.
 
 
-Making a Basic Scatter Plot {#RECIPE_SCATTER_BASIC_SCATTER}
+Making a Basic Scatter Plot {#RECIPE-SCATTER-BASIC-SCATTER}
 ---------------------------
 
 ### Problem
@@ -59,7 +59,7 @@ ggplot(heightweight, aes(x = ageYear, y = heightIn)) + geom_point(size = 1.5)
 ```
 
 
-Grouping Data Points by a Variable Using Shape or Color {#RECIPE_SCATTER_GROUPED_SCATTER}
+Grouping Data Points by a Variable Using Shape or Color {#RECIPE-SCATTER-GROUPED-SCATTER}
 -------------------------------------------------------
 
 ### Problem
@@ -118,12 +118,12 @@ ggplot(heightweight, aes(x = ageYear, y = heightIn, shape = sex, colour = sex)) 
 
 ### See Also
 
-To use different shapes, see [section\_title](#RECIPE_SCATTER_SHAPES).
+To use different shapes, see Recipe \@ref(RECIPE-SCATTER-SHAPES).
 
 For more on using different colors, see [???](#CHAPTER_COLORS).
 
 
-Using Different Point Shapes {#RECIPE_SCATTER_SHAPES}
+Using Different Point Shapes {#RECIPE-SCATTER-SHAPES}
 ----------------------------
 
 ### Problem
@@ -219,10 +219,10 @@ ggplot(hw, aes(x = ageYear, y = heightIn, shape = sex, fill = weightGroup)) +
 
 For more on using different colors, see [???](#CHAPTER_COLORS).
 
-For more information about recoding a continuous variable to a categorical one, see [???](#RECIPE_DATAPREP_RECODE_CONTINUOUS).
+For more information about recoding a continuous variable to a categorical one, see Recipe \@ref(RECIPE-DATAPREP-RECODE-CONTINUOUS).
 
 
-Mapping a Continuous Variable to Color or Size {#RECIPE_SCATTER_CONTINUOUS_SCATTER}
+Mapping a Continuous Variable to Color or Size {#RECIPE-SCATTER-CONTINUOUS-SCATTER}
 ----------------------------------------------
 
 ### Problem
@@ -239,7 +239,7 @@ library(gcookbook) # For the data set
 heightweight[, c("sex", "ageYear", "heightIn", "weightLb")]
 ```
 
-The basic scatter plot in [section\_title](#RECIPE_SCATTER_BASIC_SCATTER) shows the relationship between the continuous variables `ageYear` and `heightIn`. To represent a third continuous variable, `weightLb`, we must map it to another aesthetic property. We can map it to `colour` or `size`, as shown in Figure \@ref(fig:FIG-SCATTER-CONTINUOUS-COLOR-SIZE):
+The basic scatter plot in Recipe \@ref(RECIPE-SCATTER-BASIC-SCATTER) shows the relationship between the continuous variables `ageYear` and `heightIn`. To represent a third continuous variable, `weightLb`, we must map it to another aesthetic property. We can map it to `colour` or `size`, as shown in Figure \@ref(fig:FIG-SCATTER-CONTINUOUS-COLOR-SIZE):
 
 ```{r FIG-SCATTER-CONTINUOUS-COLOR-SIZE, fig.show="hold", fig.cap="Left: a continuous variable mapped to colour; right: mapped to size", fig.width=3.5, fig.height=3.5}
 ggplot(heightweight, aes(x = ageYear, y = heightIn, colour = weightLb)) +
@@ -273,7 +273,7 @@ ggplot(heightweight, aes(x = ageYear, y = heightIn, size = weightLb)) +
     scale_size_area()
 ```
 
-See [section\_title](#RECIPE_SCATTER_BALLOON) for details on making the area of points proportional to the value.
+See Recipe \@ref(RECIPE-SCATTER-BALLOON) for details on making the area of points proportional to the value.
 
 TODO: explain size/area better
 
@@ -293,7 +293,7 @@ ggplot(heightweight, aes(x = ageYear, y = heightIn, fill = weightLb)) +
 ```
 
 
-When we map a continuous variable to an aesthetic, that doesn't prevent us from mapping a categorical variable to other aesthetics. In Figure \@ref(fig:FIG-SCATTER-CONTINUOUS-SIZE-CATEGORICAL-COLOR), we'll map weightLb to size, and also map sex to colour. Because there is a fair amount of overplotting, we'll make the points 50% transparent by setting alpha=.5. We'll also use scale_size_area() to make the area of the points proportional to the value (see [section\_title](#RECIPE_SCATTER_BALLOON)), and change the color palette to one that is a little more appealing:
+When we map a continuous variable to an aesthetic, that doesn't prevent us from mapping a categorical variable to other aesthetics. In Figure \@ref(fig:FIG-SCATTER-CONTINUOUS-SIZE-CATEGORICAL-COLOR), we'll map weightLb to size, and also map sex to colour. Because there is a fair amount of overplotting, we'll make the points 50% transparent by setting alpha=.5. We'll also use scale_size_area() to make the area of the points proportional to the value (see Recipe \@ref(RECIPE-SCATTER-BALLOON)), and change the color palette to one that is a little more appealing:
 
 ```{r FIG-SCATTER-CONTINUOUS-SIZE-CATEGORICAL-COLOR, echo=FALSE, fig.cap="Continuous variable mapped to size and categorical variable mapped to colour"}
 ggplot(heightweight, aes(x = ageYear, y = heightIn, size = weightLb, colour = sex)) +
@@ -307,12 +307,12 @@ When a variable is mapped to size, it's a good idea to *not* map a variable to s
 
 ### See Also
 
-To use different colors from the default, see [???](#RECIPE_COLORS_PALETTE_CONTINUOUS).
+To use different colors from the default, see Recipe \@ref(RECIPE-COLORS-PALETTE-CONTINUOUS).
 
-See [section\_title](#RECIPE_SCATTER_BALLOON) for creating a balloon plot.
+See Recipe \@ref(RECIPE-SCATTER-BALLOON) for creating a balloon plot.
 
 
-Dealing with Overplotting {#RECIPE_SCATTER_OVERPLOT}
+Dealing with Overplotting {#RECIPE-SCATTER-OVERPLOT}
 -------------------------
 
 ### Problem
@@ -321,7 +321,7 @@ You have many points and they obscure each other.
 
 ### Solution
 
-With large data sets, the points in a scatter plot may obscure each other and prevent the viewer from accurately assessing the distribution of the data. This is called *overplotting*. If the amount of overplotting is low, you may be able to alleviate it by using smaller points, or by using a different shape (like shape 1, a hollow circle) through which other points can be seen. Figure \@ref(fig:FIG-SCATTER-BASIC-SHAPE-SIZE) in [section\_title](#RECIPE_SCATTER_BASIC_SCATTER) demonstrates both of these solutions.
+With large data sets, the points in a scatter plot may obscure each other and prevent the viewer from accurately assessing the distribution of the data. This is called *overplotting*. If the amount of overplotting is low, you may be able to alleviate it by using smaller points, or by using a different shape (like shape 1, a hollow circle) through which other points can be seen. Figure \@ref(fig:FIG-SCATTER-BASIC-SHAPE-SIZE) in Recipe \@ref(RECIPE-SCATTER-BASIC-SCATTER) demonstrates both of these solutions.
 
 If there's a high degree of overplotting, there are a number of possible solutions:
 
@@ -411,10 +411,10 @@ sp1 + geom_boxplot() # Without groups
 
 ### See Also
 
-Instead of binning the data, it may be useful to display a 2D density estimate. To do this, see [???](#RECIPE_DISTRIBUTION_DENSITY2D).
+Instead of binning the data, it may be useful to display a 2D density estimate. To do this, see Recipe \@ref(RECIPE-DISTRIBUTION-DENSITY2D).
 
 
-Adding Fitted Regression Model Lines {#RECIPE_SCATTER_FITLINES}
+Adding Fitted Regression Model Lines {#RECIPE-SCATTER-FITLINES}
 ------------------------------------
 
 ### Problem
@@ -536,7 +536,7 @@ In this example with the `heightweight` data set, the default settings for `stat
 > TODO: Explain `geom_smooth` vs. `stat_smooth`.
 
 
-Adding Fitted Lines from an Existing Model {#RECIPE_SCATTER_FITLINES_MODEL}
+Adding Fitted Lines from an Existing Model {#RECIPE-SCATTER-FITLINES-MODEL}
 ------------------------------------------
 
 ### Problem
@@ -545,7 +545,7 @@ You have already created a fitted regression model object for a data set, and yo
 
 ### Solution
 
-Usually the easiest way to overlay a fitted model is to simply ask `stat_smooth()` to do it for you, as described in [section\_title](#RECIPE_SCATTER_FITLINES). Sometimes, however, you may want to create the model yourself and then add it to your graph. This allows you to be sure that the model you're using for other calculations is the same one that you see.
+Usually the easiest way to overlay a fitted model is to simply ask `stat_smooth()` to do it for you, as described in Recipe \@ref(RECIPE-SCATTER-FITLINES). Sometimes, however, you may want to create the model yourself and then add it to your graph. This allows you to be sure that the model you're using for other calculations is the same one that you see.
 
 In this example, we'll build a quadratic model using `lm()` with `ageYear` as a predictor of heightIn. Then we'll use the `predict()` function and find the predicted values of heightIn across the range of values for the predictor, `ageYear`:
 
@@ -638,7 +638,7 @@ sp + geom_line(data = lm_predicted, colour = "red", size = .8) +
 
 For `glm` models that use a nonlinear link function, you need to specify `type="response"` to the `predictvals()` function. This is because the default behavior is to return predicted values in the scale of the linear predictors, instead of in the scale of the response (*y*) variable.
 
-To illustrate this, we'll use the `biopsy` data set from the MASS package. As we did in [section\_title](#RECIPE_SCATTER_FITLINES), we'll use `V1` to predict `class`. Since logistic regression uses values from 0 to 1, while `class` is a factor, we'll first have to convert `class` to 0s and 1s:
+To illustrate this, we'll use the `biopsy` data set from the MASS package. As we did in Recipe \@ref(RECIPE-SCATTER-FITLINES), we'll use `V1` to predict `class`. Since logistic regression uses values from 0 to 1, while `class` is a factor, we'll first have to convert `class` to 0s and 1s:
 
 ```{r}
 library(MASS) # For the data set
@@ -668,7 +668,7 @@ ggplot(b, aes(x = V1, y = classn)) +
 
 
 
-Adding Fitted Lines from Multiple Existing Models {#RECIPE_SCATTER_FITLINES_MODEL_MULTI}
+Adding Fitted Lines from Multiple Existing Models {#RECIPE-SCATTER-FITLINES-MODEL-MULTI}
 -------------------------------------------------
 
 ### Problem
@@ -759,7 +759,7 @@ ggplot(heightweight, aes(x = ageYear, y = heightIn, colour = sex)) +
 As you can see in Figure \@ref(fig:FIG-SCATTER-FIT-MODEL-MULTI-RANGE), the line for males now extends as far to the right as the line for females. Keep in mind that extrapolating past the data isn't always appropriate, though; whether or not it's justified will depend on the nature of your data and the assumptions you bring to the table.
 
 
-Adding Annotations with Model Coefficients {#RECIPE_SCATTER_FITLINES_TEXT}
+Adding Annotations with Model Coefficients {#RECIPE-SCATTER-FITLINES-TEXT}
 ------------------------------------------
 
 ### Problem
@@ -768,7 +768,7 @@ You want to add numerical information about a model to a plot.
 
 ### Solution
 
-To add simple text to a plot, simply add an annotation. In this example, we'll create a linear model and use the `predictvals()` function defined in [section\_title](#RECIPE_SCATTER_FITLINES_MODEL) to create a prediction line from the model. Then we'll add an annotation:
+To add simple text to a plot, simply add an annotation. In this example, we'll create a linear model and use the `predictvals()` function defined in Recipe \@ref(RECIPE-SCATTER-FITLINES-MODEL) to create a prediction line from the model. Then we'll add an annotation:
 
 ```{r}
 library(gcookbook) # For the data set
@@ -843,10 +843,10 @@ sp + annotate("text", label = eqn, parse = TRUE, x = Inf, y = -Inf, hjust = 1.1,
 
 ### See Also
 
-The math expression syntax in R can be a bit tricky. See [???](#RECIPE_ANNOTATE_TEXT_MATH) for more information.
+The math expression syntax in R can be a bit tricky. See Recipe \@ref(RECIPE-ANNOTATE-TEXT-MATH) for more information.
 
 
-Adding Marginal Rugs to a Scatter Plot {#RECIPE_SCATTER_RUG}
+Adding Marginal Rugs to a Scatter Plot {#RECIPE-SCATTER-RUG}
 --------------------------------------
 
 ### Problem
@@ -877,10 +877,10 @@ ggplot(faithful, aes(x = eruptions, y = waiting)) +
 
 ### See Also
 
-For more about overplotting, see [section\_title](#RECIPE_SCATTER_OVERPLOT).
+For more about overplotting, see Recipe \@ref(RECIPE-SCATTER-OVERPLOT).
 
 
-Labeling Points in a Scatter Plot {#RECIPE_SCATTER_LABELS}
+Labeling Points in a Scatter Plot {#RECIPE-SCATTER-LABELS}
 ---------------------------------
 
 ### Problem
@@ -988,16 +988,16 @@ ggplot(cdat, aes(x = healthexp, y = infmortality)) +
     xlim(2000, 10000)
 ```
 
-If any individual position adjustments are needed, you have a couple of options. One option is to copy the columns used for the *x* and *y* coordinates and modify the numbers for the individual items to move the text around. Make sure to use the original numbers for the coordinates of the points, of course! Another option is to save the output to a vector format such as PDF or SVG (see Recipes [???](#RECIPE_OUTPUT_VECTOR) and [???](#RECIPE_OUTPUT_VECTOR_SVG)), then edit it in a program like Illustrator or Inkscape.
+If any individual position adjustments are needed, you have a couple of options. One option is to copy the columns used for the *x* and *y* coordinates and modify the numbers for the individual items to move the text around. Make sure to use the original numbers for the coordinates of the points, of course! Another option is to save the output to a vector format such as PDF or SVG (see Recipes Recipe \@ref(RECIPE-OUTPUT-VECTOR) and Recipe \@ref(RECIPE-OUTPUT-VECTOR-SVG)), then edit it in a program like Illustrator or Inkscape.
 
 ### See Also
 
-For more on controlling the appearance of the text, see [???](#RECIPE_APPEARANCE_TEXT_APPEARANCE).
+For more on controlling the appearance of the text, see Recipe \@ref(RECIPE-APPEARANCE-TEXT-APPEARANCE).
 
-If you want to manually edit a PDF or SVG file, see [???](#RECIPE_OUTPUT_EDIT_VECTOR).
+If you want to manually edit a PDF or SVG file, see Recipe \@ref(RECIPE-OUTPUT-EDIT-VECTOR).
 
 
-Creating a Balloon Plot {#RECIPE_SCATTER_BALLOON}
+Creating a Balloon Plot {#RECIPE-SCATTER-BALLOON}
 -----------------------
 
 ### Problem
@@ -1069,12 +1069,12 @@ The text under the circles is in a shade of grey. This is so that it doesn't jum
 
 ### See Also
 
-To add labels to the circles, see Recipes [section\_title](#RECIPE_SCATTER_LABELS) and [???](#RECIPE_ANNOTATE_TEXT).
+To add labels to the circles, see Recipes Recipe \@ref(RECIPE-SCATTER-LABELS) and Recipe \@ref(RECIPE-ANNOTATE-TEXT).
 
-See [section\_title](#RECIPE_SCATTER_CONTINUOUS_SCATTER) for ways of mapping variables to other aesthetics in a scatter plot.
+See Recipe \@ref(RECIPE-SCATTER-CONTINUOUS-SCATTER) for ways of mapping variables to other aesthetics in a scatter plot.
 
 
-Making a Scatter Plot Matrix {#RECIPE_SCATTER_SPLOM}
+Making a Scatter Plot Matrix {#RECIPE-SCATTER-SPLOM}
 ----------------------------
 
 ### Problem
@@ -1142,7 +1142,7 @@ Both of these panel functions are taken from the pairs help page, so if it's mor
 
 Now that we've defined these functions we can use them for our scatter plot matrix, by telling `pairs()` to use `panel.cor` for the upper panels and `panel.hist` for the diagonal panels.
 
-We'll also throw in one more thing: `panel.smooth` for the lower panels, which makes a scatter plot and adds a LOWESS smoothed line, as shown in Figure \@ref(fig:FIG-SCATTER-SPLOM-PANELS). (LOWESS is slightly different from LOESS, which we saw in [section\_title](#RECIPE_SCATTER_FITLINES), but the differences aren't important for this sort of rough exploratory visualization):
+We'll also throw in one more thing: `panel.smooth` for the lower panels, which makes a scatter plot and adds a LOWESS smoothed line, as shown in Figure \@ref(fig:FIG-SCATTER-SPLOM-PANELS). (LOWESS is slightly different from LOESS, which we saw in Recipe \@ref(RECIPE-SCATTER-FITLINES), but the differences aren't important for this sort of rough exploratory visualization):
 
 ```{r FIG-SCATTER-SPLOM-PANELS, fig.cap="Scatter plot with correlations in the upper triangle, smoothing lines in the lower triangle, and histograms on the diagonal", fig.width=7, fig.height=7}
 pairs(c2009[,2:5], upper.panel = panel.cor,
@@ -1175,6 +1175,6 @@ The size of the points can also be controlled using the `cex` parameter. The def
 
 ### See Also
 
-To create a correlation matrix, see [???](#RECIPE_MISCGRAPH_CORRMATRIX).
+To create a correlation matrix, see Recipe \@ref(RECIPE-MISCGRAPH-CORRMATRIX).
 
 The `ggpairs()` function from the GGally package can also make scatter plot matrices.

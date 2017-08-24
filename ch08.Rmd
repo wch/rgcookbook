@@ -18,7 +18,7 @@ Axes {#CHAPTER_AXES}
 The x- and y-axes provide context for interpreting the displayed data. Ggplot will display the axes with defaults that look good in most cases, but you might want to control, for example, the axis labels, the number and placement of tick marks, the tick mark labels, and so on. In this chapter, I'll cover how to fine-tune the appearance of the axes.
 
 
-Swapping X- and Y-Axes {#RECIPE_AXES_SWAP_AXES}
+Swapping X- and Y-Axes {#RECIPE-AXES-SWAP-AXES}
 ----------------------
 
 ### Problem
@@ -48,10 +48,10 @@ ggplot(PlantGrowth, aes(x = group, y = weight)) + geom_boxplot() + coord_flip() 
 
 ### See Also
 
-If the variable is continuous, see [section\_title](#RECIPE_AXES_REVERSE) to reverse the direction.
+If the variable is continuous, see Recipe \@ref(RECIPE-AXES-REVERSE) to reverse the direction.
 
 
-Setting the Range of a Continuous Axis {#RECIPE_AXES_RANGE}
+Setting the Range of a Continuous Axis {#RECIPE-AXES-RANGE}
 --------------------------------------
 
 ### Problem
@@ -114,7 +114,7 @@ p + expand_limits(y = 0)
 ```
 
 
-Reversing a Continuous Axis {#RECIPE_AXES_REVERSE}
+Reversing a Continuous Axis {#RECIPE-AXES-REVERSE}
 ---------------------------
 
 ### Problem
@@ -143,10 +143,10 @@ ggplot(PlantGrowth, aes(x = group, y = weight)) + geom_boxplot() +
 
 ### See Also
 
-To reverse the order of items on a *discrete* axis, see [section\_title](#RECIPE_AXIS_ORDER).
+To reverse the order of items on a *discrete* axis, see Recipe \@ref(RECIPE-AXIS-ORDER).
 
 
-Changing the Order of Items on a Categorical Axis {#RECIPE_AXIS_ORDER}
+Changing the Order of Items on a Categorical Axis {#RECIPE-AXIS-ORDER}
 -------------------------------------------------
 
 ### Problem
@@ -181,10 +181,10 @@ p + scale_x_discrete(limits = rev(levels(PlantGrowth$group)))
 
 ### See Also
 
-To reorder factor levels based on data values from another column, see [???](#RECIPE_DATAPREP_FACTOR_REORDER_VALUE).
+To reorder factor levels based on data values from another column, see Recipe \@ref(RECIPE-DATAPREP-FACTOR-REORDER-VALUE).
 
 
-Setting the Scaling Ratio of the X- and Y-Axes {#RECIPE_AXES_SCALE}
+Setting the Scaling Ratio of the X- and Y-Axes {#RECIPE-AXES-SCALE}
 ----------------------------------------------
 
 ### Problem
@@ -228,7 +228,7 @@ sp + coord_fixed(ratio = 1/2) +
 ```
 
 
-Setting the Positions of Tick Marks {#RECIPE_AXES_SET_TICKS}
+Setting the Positions of Tick Marks {#RECIPE-AXES-SET-TICKS}
 -----------------------------------
 
 ### Problem
@@ -257,7 +257,7 @@ seq(4, 7, by = .5)
 5:10
 ```
 
-If the axis is discrete instead of continuous, then there is by default a tick mark for each item. For discrete axes, you can change the order of items or remove them by specifying the limits (see [section\_title](#RECIPE_AXIS_ORDER)). Setting breaks will change which of the levels are labeled, but will not remove them or change their order. Figure \@ref(fig:FIG-AXES-SET-TICKS-DISCRETE) shows what happens when you set limits and breaks:
+If the axis is discrete instead of continuous, then there is by default a tick mark for each item. For discrete axes, you can change the order of items or remove them by specifying the limits (see Recipe \@ref(RECIPE-AXIS-ORDER)). Setting breaks will change which of the levels are labeled, but will not remove them or change their order. Figure \@ref(fig:FIG-AXES-SET-TICKS-DISCRETE) shows what happens when you set limits and breaks:
 
 ```{r FIG-AXES-SET-TICKS-DISCRETE, fig.cap="For a discrete axis, setting limits reorders and removes items, and setting breaks controls which items have labels"}
 # Set both breaks and labels for a discrete axis
@@ -267,10 +267,10 @@ ggplot(PlantGrowth, aes(x = group, y = weight)) + geom_boxplot() +
 
 ### See Also
 
-To remove the tick marks and labels (but not the data) from thegraph, see [section\_title](#RECIPE_AXIS_REMOVE_TICKS).
+To remove the tick marks and labels (but not the data) from thegraph, see Recipe \@ref(RECIPE-AXIS-REMOVE-TICKS).
 
 
-Removing Tick Marks and Labels {#RECIPE_AXIS_REMOVE_TICKS}
+Removing Tick Marks and Labels {#RECIPE-AXIS-REMOVE-TICKS}
 ------------------------------
 
 ### Problem
@@ -303,7 +303,7 @@ p + scale_y_continuous(breaks = NULL)
 ```{r FIG-AXES-SET-TICKS-NONE, ref.label=c("FIG-AXES-SET-TICKS-NONE-1", "FIG-AXES-SET-TICKS-NONE-2", "FIG-AXES-SET-TICKS-NONE-3"), echo=FALSE, fig.show="hold", fig.cap="Left: no tick labels on y-axis; middle: no tick marks and no tick labels on y-axis; right: with breaks=NULL"}
 ```
 
-This will work for continuous axes only; if you remove items from a categorical axis using limits, as in [section\_title](#RECIPE_AXIS_ORDER), the data with that value won't be shown at all.
+This will work for continuous axes only; if you remove items from a categorical axis using limits, as in Recipe \@ref(RECIPE-AXIS-ORDER), the data with that value won't be shown at all.
 
 ### Discussion
 
@@ -312,7 +312,7 @@ There are actually three related items that can be controlled: tick labels, tick
 The tick labels on each axis can be controlled independently. However, the tick marks and grid lines must be controlled all together.
 
 
-Changing the Text of Tick Labels {#RECIPE_AXES_TICK_LABEL}
+Changing the Text of Tick Labels {#RECIPE-AXES-TICK-LABEL}
 --------------------------------
 
 ### Problem
@@ -407,7 +407,7 @@ The scales package, which is installed with ggplot2, comes with some built-in fo
 If you want to use these functions, you must first load the scales package, with `library(scales)`.
 
 
-Changing the Appearance of Tick Labels {#RECIPE_AXES_TICK_LABEL_APPEARANCE}
+Changing the Appearance of Tick Labels {#RECIPE-AXES-TICK-LABEL-APPEARANCE}
 --------------------------------------
 
 ### Problem
@@ -452,14 +452,14 @@ bp + theme(axis.text.x = element_text(family = "Times", face = "italic",
 
 In this example, the size is set to `rel(0.9)`, which means that it is 0.9 times the size of the base font size for the theme.
 
-These commands control the appearance of only the tick labels, on only one axis. They don't affect the other axis, the axis label, the overall title, or the legend. To control all of these at once, you can use the theming system, as discussed in [???](#RECIPE_APPEARANCE_THEME).
+These commands control the appearance of only the tick labels, on only one axis. They don't affect the other axis, the axis label, the overall title, or the legend. To control all of these at once, you can use the theming system, as discussed in Recipe \@ref(RECIPE-APPEARANCE-THEME).
 
 ### See Also
 
-See [???](#RECIPE_APPEARANCE_TEXT_APPEARANCE) for more about controlling the appearance of the text.
+See Recipe \@ref(RECIPE-APPEARANCE-TEXT-APPEARANCE) for more about controlling the appearance of the text.
 
 
-Changing the Text of Axis Labels {#RECIPE_AXES_AXIS_LABEL}
+Changing the Text of Axis Labels {#RECIPE-AXES-AXIS-LABEL}
 --------------------------------
 
 ### Problem
@@ -509,7 +509,7 @@ hwp + scale_x_continuous(name = "Age\n(years)")
 ```
 
 
-Removing Axis Labels {#RECIPE_AXES_AXIS_LABEL_REMOVE}
+Removing Axis Labels {#RECIPE-AXES-AXIS-LABEL-REMOVE}
 --------------------
 
 ### Problem
@@ -544,7 +544,7 @@ p + xlab("")
 When you use `theme()` to set `axis.title.x=element_blank()`, the name of the *x* or *y* scale is unchanged, but the text is not displayed and no space is reserved for it. When you set the label to `""`, the name of the scale is changed and the (empty) text does display.
 
 
-Changing the Appearance of Axis Labels {#RECIPE_AXES_AXIS_LABEL_APPEARANCE}
+Changing the Appearance of Axis Labels {#RECIPE-AXES-AXIS-LABEL-APPEARANCE}
 --------------------------------------
 
 ### Problem
@@ -587,10 +587,10 @@ When you call `element_text()`, the default `angle` is 0, so if you set `axis.ti
 
 ### See Also
 
-See [???](#RECIPE_APPEARANCE_TEXT_APPEARANCE) for more about controlling the appearance of the text.
+See Recipe \@ref(RECIPE-APPEARANCE-TEXT-APPEARANCE) for more about controlling the appearance of the text.
 
 
-Showing Lines Along the Axes {#RECIPE_AXES_AXIS_LINES}
+Showing Lines Along the Axes {#RECIPE-AXES-AXIS-LINES}
 ----------------------------
 
 ### Problem
@@ -642,10 +642,10 @@ p + theme_bw() +
 
 ### See Also
 
-For more information about how the theming system works,see [???](#RECIPE_APPEARANCE_THEME).
+For more information about how the theming system works,see Recipe \@ref(RECIPE-APPEARANCE-THEME).
 
 
-Using a Logarithmic Axis {#RECIPE_AXES_AXIS_LOG}
+Using a Logarithmic Axis {#RECIPE-AXES-AXIS-LOG}
 ------------------------
 
 ### Problem
@@ -745,7 +745,7 @@ ggplot(aapl, aes(x = date,y = adj_price)) + geom_line() +
 ```
 
 
-Adding Ticks for a Logarithmic Axis {#RECIPE_AXES_AXIS_LOG_TICKS}
+Adding Ticks for a Logarithmic Axis {#RECIPE-AXES-AXIS-LOG-TICKS}
 -----------------------------------
 
 ### Problem
@@ -822,7 +822,7 @@ ggplot(Animals, aes(x = body, y = brain, label = rownames(Animals))) +
 ```
 
 
-Making a Circular Plot {#RECIPE_AXES_POLAR}
+Making a Circular Plot {#RECIPE-AXES-POLAR}
 -----------------------
 
 ### Problem
@@ -908,7 +908,7 @@ p + coord_polar() + ylim(0, max(md$deaths))
 ```{r FIG-AXES-POLAR-CONTINUOUS, ref.label=c("FIG-AXES-POLAR-CONTINUOUS-1", "FIG-AXES-POLAR-CONTINUOUS-2"), echo=FALSE, fig.show="hold", fig.cap="Left: polar plot with line (notice the data range of the radius); right: with the radius representing a data range starting from zero", fig.width=3.5, fig.height=3.5}
 ```
 
-The next problem is that the lowest and highest month values, 1 and 12, are shown at the same angle. We'll fix this by setting the *x* limits from 0 to 12, creating the graph on the left in Figure \@ref(fig:FIG-AXES-POLAR-CONTINUOUS2) (notice that using `xlim()` overrides the `scale_x_continuous()` in `p`, so it no longer displays breaks for each month; see [section\_title](#RECIPE_AXES_RANGE) for more information):
+The next problem is that the lowest and highest month values, 1 and 12, are shown at the same angle. We'll fix this by setting the *x* limits from 0 to 12, creating the graph on the left in Figure \@ref(fig:FIG-AXES-POLAR-CONTINUOUS2) (notice that using `xlim()` overrides the `scale_x_continuous()` in `p`, so it no longer displays breaks for each month; see Recipe \@ref(RECIPE-AXES-RANGE) for more information):
 
 ```{r FIG-AXES-POLAR-CONTINUOUS2-1, eval=FALSE}
 p + coord_polar() + ylim(0, max(md$deaths)) + xlim(0, 12)
@@ -935,12 +935,12 @@ p %+% mdnew + coord_polar() + ylim(0, max(md$deaths))
 
 ### See Also
 
-See [???](#RECIPE_LEGEND_REVERSE) for more about reversing the direction of a legend.
+See Recipe \@ref(RECIPE-LEGEND-REVERSE) for more about reversing the direction of a legend.
 
-See [section\_title](#RECIPE_AXES_SET_TICKS) for more about specifying which values will have tick marks (breaks) and labels.
+See Recipe \@ref(RECIPE-AXES-SET-TICKS) for more about specifying which values will have tick marks (breaks) and labels.
 
 
-Using Dates on an Axis {#RECIPE_AXES_AXIS_DATE}
+Using Dates on an Axis {#RECIPE-AXES-AXIS-DATE}
 ----------------------
 
 ### Problem
@@ -1058,7 +1058,7 @@ See `?Sys.setlocale` for more about setting the locale.
 See `?strptime` for information about converting strings to dates, and for information about formatting the date output.
 
 
-Using Relative Times on an Axis {#RECIPE_AXES_TIME_REL}
+Using Relative Times on an Axis {#RECIPE-AXES-TIME-REL}
 -------------------------------
 
 ### Problem
@@ -1130,4 +1130,4 @@ timeHMS_formatter(c(20, 3000, 3075, 3559.2, 3600, 3606, 7813.8))
 
 ### See Also
 
-See [???](#RECIPE_DATAPREP_TIMESERIES) for information about converting time series objects to data frames.
+See Recipe \@ref(RECIPE-DATAPREP-TIMESERIES) for information about converting time series objects to data frames.

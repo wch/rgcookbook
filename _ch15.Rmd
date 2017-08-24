@@ -39,7 +39,7 @@ difference is that with character vectors, items will be displayed in
 lexicographical order, but with factors, items will be displayed in the
 same order as the factor levels, which you can control.
 
-Creating a Data Frame {#RECIPE_DATAPREP_CREATE_DATAFRAME}
+Creating a Data Frame {#RECIPE-DATAPREP-CREATE-DATAFRAME}
 ---------------------
 
 ### Problem
@@ -67,7 +67,7 @@ lst <- list(group = g, value = x)    # A list of vectors
 dat <- as.data.frame(lst)
 ```
 
-Getting Information About a Data Structure {#RECIPE_DATAPREP_INFO_DATA}
+Getting Information About a Data Structure {#RECIPE-DATAPREP-INFO-DATA}
 ------------------------------------------
 
 ### Problem
@@ -113,7 +113,7 @@ OJ OJ OJ OJ OJ OJ \[51\] OJ OJ OJ OJ OJ OJ OJ OJ OJ OJ Levels: OJ VC
 "VC" "VC" "VC" "VC" \[31\] "OJ" "OJ" "OJ" "OJ" "OJ" "OJ" "OJ" "OJ" "OJ"
 "OJ" "OJ" "OJ" "OJ" "OJ" "OJ" \[46\] "OJ" "OJ" "OJ" "OJ" "OJ" "OJ" "OJ"
 "OJ" "OJ" "OJ" "OJ" "OJ" "OJ" "OJ" "OJ"
-Adding a Column to a Data Frame {#RECIPE_DATAPREP_ADD_COL}
+Adding a Column to a Data Frame {#RECIPE-DATAPREP-ADD-COL}
 -------------------------------
 
 ### Problem
@@ -147,7 +147,7 @@ Each "column" of a data frame is a vector or factor. R handles
 them slightly differently from standalone vectors, because all the
 columns in a data frame have the same length.
 
-Deleting a Column from a Data Frame {#RECIPE_DATAPREP_DELETE_COL}
+Deleting a Column from a Data Frame {#RECIPE-DATAPREP-DELETE-COL}
 -----------------------------------
 
 ### Problem
@@ -177,10 +177,10 @@ data <- subset(data, select = c(-badcol, -othercol))
 
 ### See Also
 
-[section\_title](#RECIPE_DATAPREP_SUBSET) for more on getting a subset
+Recipe \@ref(RECIPE-DATAPREP-SUBSET) for more on getting a subset
 of a data frame.
 
-Renaming Columns in a Data Frame {#RECIPE_DATAPREP_RENAME_COL}
+Renaming Columns in a Data Frame {#RECIPE-DATAPREP-RENAME-COL}
 --------------------------------
 
 ### Problem
@@ -210,7 +210,7 @@ They can also be renamed by numeric position:
 
 names(anthoming)\[1\] &lt;- "Angle" names(anthoming)
 "Angle" "Experimental" "Control"
-Reordering Columns in a Data Frame {#RECIPE_DATAPREP_REORDER_COL}
+Reordering Columns in a Data Frame {#RECIPE-DATAPREP-REORDER-COL}
 ----------------------------------
 
 ### Problem
@@ -256,7 +256,7 @@ anthoming\[, 3\] \# Matrix-style indexing
 0 3 3 3 1
 anthoming\[, 3, drop=FALSE\] \# Matrix-style indexing with drop=FALSE
 ctrl 0 3 3 3 1
-Getting a Subset of a Data Frame {#RECIPE_DATAPREP_SUBSET}
+Getting a Subset of a Data Frame {#RECIPE-DATAPREP-SUBSET}
 --------------------------------
 
 ### Problem
@@ -324,7 +324,7 @@ collaborating with others or when you come back to it months or years
 after writing it, and it makes the code less likely to break when there
 are changes to the data, such as when columns are added or removed.
 
-Changing the Order of Factor Levels {#RECIPE_DATAPREP_FACTOR_REORDER}
+Changing the Order of Factor Levels {#RECIPE-DATAPREP-FACTOR-REORDER}
 -----------------------------------
 
 ### Problem
@@ -369,13 +369,13 @@ small large large small medium Levels: small medium large
 ### See Also
 
 To reorder a factor based on the value of another variable, see
-[section\_title](#RECIPE_DATAPREP_FACTOR_REORDER_VALUE).
+Recipe \@ref(RECIPE-DATAPREP-FACTOR-REORDER-VALUE).
 
 Reordering factor levels is useful for controlling the order of axes and
-legends. See Recipes [???](#RECIPE_AXIS_ORDER) and
-[???](#RECIPE_LEGEND_ORDER) for more information.
+legends. See Recipes Recipe \@ref(RECIPE-AXIS-ORDER) and
+Recipe \@ref(RECIPE-LEGEND-ORDER) for more information.
 
-Changing the Order of Factor Levels Based on Data Values {#RECIPE_DATAPREP_FACTOR_REORDER_VALUE}
+Changing the Order of Factor Levels Based on Data Values {#RECIPE-DATAPREP-FACTOR-REORDER-VALUE}
 --------------------------------------------------------
 
 ### Problem
@@ -426,10 +426,10 @@ median() function in reorder().
 ### See Also
 
 Reordering factor levels is also useful for controlling the order of
-axes and legends. See Recipes [???](#RECIPE_AXIS_ORDER) and
-[???](#RECIPE_LEGEND_ORDER) for more information.
+axes and legends. See Recipes Recipe \@ref(RECIPE-AXIS-ORDER) and
+Recipe \@ref(RECIPE-LEGEND-ORDER) for more information.
 
-Changing the Names of Factor Levels {#RECIPE_DATAPREP_FACTOR_RENAME}
+Changing the Names of Factor Levels {#RECIPE-DATAPREP-FACTOR-RENAME}
 -----------------------------------
 
 ### Problem
@@ -493,9 +493,9 @@ analysis.
 ### See Also
 
 If, instead of a factor, you have a character vector with items to
-rename, see [section\_title](#RECIPE_DATAPREP_CHARACTER_RENAME).
+rename, see Recipe \@ref(RECIPE-DATAPREP-CHARACTER-RENAME).
 
-Removing Unused Levels from a Factor {#RECIPE_DATAPREP_FACTOR_DROPLEVELS}
+Removing Unused Levels from a Factor {#RECIPE-DATAPREP-FACTOR-DROPLEVELS}
 ------------------------------------
 
 ### Problem
@@ -520,7 +520,7 @@ The droplevels() function preserves the order of factor levels.
 
 You can use the except argument to keep particular levels.
 
-Changing the Names of Items in a Character Vector {#RECIPE_DATAPREP_CHARACTER_RENAME}
+Changing the Names of Items in a Character Vector {#RECIPE-DATAPREP-CHARACTER-RENAME}
 -------------------------------------------------
 
 ### Problem
@@ -553,9 +553,9 @@ sizes\[sizes=="large"\] &lt;- "L" sizes
 ### See Also
 
 If, instead of a character vector, you have a factor with levels to
-rename, see [section\_title](#RECIPE_DATAPREP_FACTOR_RENAME).
+rename, see Recipe \@ref(RECIPE-DATAPREP-FACTOR-RENAME).
 
-Recoding a Categorical Variable to Another Categorical Variable {#RECIPE_DATAPREP_RECODE_CATEGORICAL}
+Recoding a Categorical Variable to Another Categorical Variable {#RECIPE-DATAPREP-RECODE-CATEGORICAL}
 ---------------------------------------------------------------
 
 ### Problem
@@ -595,7 +595,7 @@ weight group treatment 4.17 ctrl no 5.58 ctrl no 4.81 trt1 yes 6.31 trt2
 yes 5.12 trt2 yes
 Here, we combined two of the factor levels and put the result into a new
 column. If you simply want to rename the levels of a factor, see
-[section\_title](#RECIPE_DATAPREP_FACTOR_RENAME).
+Recipe \@ref(RECIPE-DATAPREP-FACTOR-RENAME).
 
 ### Discussion
 
@@ -622,12 +622,12 @@ yes large.yes 5.12 trt2 large yes yes large.yes
 ### See Also
 
 For more on renaming factor levels, see
-[section\_title](#RECIPE_DATAPREP_FACTOR_RENAME).
+Recipe \@ref(RECIPE-DATAPREP-FACTOR-RENAME).
 
-See [section\_title](#RECIPE_DATAPREP_RECODE_CONTINUOUS) for recoding
+See Recipe \@ref(RECIPE-DATAPREP-RECODE-CONTINUOUS) for recoding
 continuous values to categorical values.
 
-Recoding a Continuous Variable to a Categorical Variable {#RECIPE_DATAPREP_RECODE_CONTINUOUS}
+Recoding a Continuous Variable to a Categorical Variable {#RECIPE-DATAPREP-RECODE-CONTINUOUS}
 --------------------------------------------------------
 
 ### Problem
@@ -679,9 +679,9 @@ cut(pg$weight, breaks = c(0, 5, 6, Inf), right = FALSE)
 ### See Also
 
 To recode a categorical variable to another categoricalvariable, see
-[section\_title](#RECIPE_DATAPREP_RECODE_CATEGORICAL).
+Recipe \@ref(RECIPE-DATAPREP-RECODE-CATEGORICAL).
 
-Transforming Variables {#RECIPE_DATAPREP_TRANSFORM}
+Transforming Variables {#RECIPE-DATAPREP-TRANSFORM}
 ----------------------
 
 ### Problem
@@ -749,10 +749,10 @@ hw <- mutate(hw,
 
 ### See Also
 
-See [section\_title](#RECIPE_DATAPREP_TRANSFORM_GROUP) for how to
+See Recipe \@ref(RECIPE-DATAPREP-TRANSFORM-GROUP) for how to
 perform group-wise transformations on data.
 
-Transforming Variables by Group {#RECIPE_DATAPREP_TRANSFORM_GROUP}
+Transforming Variables by Group {#RECIPE-DATAPREP-TRANSFORM-GROUP}
 -------------------------------
 
 ### Problem
@@ -834,9 +834,9 @@ Cult Date HeadWt VitC DevWt DevVitC c39 d16 2.5 51 -0.68 0.7 c39 d16 2.2
 ### See Also
 
 To summarize data by groups, see
-[section\_title](#RECIPE_DATAPREP_SUMMARIZE).
+Recipe \@ref(RECIPE-DATAPREP-SUMMARIZE).
 
-Summarizing Data by Groups {#RECIPE_DATAPREP_SUMMARIZE}
+Summarizing Data by Groups {#RECIPE-DATAPREP-SUMMARIZE}
 --------------------------
 
 ### Problem
@@ -975,15 +975,15 @@ geom\_bar(position="dodge")
 ### See Also
 
 If you want to calculate standard errors and confidence intervals, see
-[section\_title](#RECIPE_DATAPREP_SUMMARIZE_SE).
+Recipe \@ref(RECIPE-DATAPREP-SUMMARIZE-SE).
 
-See [???](#RECIPE_DISTRIBUTION_BOXPLOT_MEAN) for an example of using
+See Recipe \@ref(RECIPE-DISTRIBUTION-BOXPLOT-MEAN) for an example of using
 stat_summary() to calculate means and overlay them on a graph.
 
 To perform transformations on data by groups, see
-[section\_title](#RECIPE_DATAPREP_TRANSFORM_GROUP).
+Recipe \@ref(RECIPE-DATAPREP-TRANSFORM-GROUP).
 
-Summarizing Data with Standard Errors and Confidence Intervals {#RECIPE_DATAPREP_SUMMARIZE_SE}
+Summarizing Data with Standard Errors and Confidence Intervals {#RECIPE-DATAPREP-SUMMARIZE-SE}
 --------------------------------------------------------------
 
 ### Problem
@@ -1135,10 +1135,10 @@ calculate a quantile for a group with no observations.
 
 ### See Also
 
-See [???](#RECIPE_ANNOTATE_ERROR_BAR) to use the values calculated here
+See Recipe \@ref(RECIPE-ANNOTATE-ERROR-BAR) to use the values calculated here
 to add error bars to a graph.
 
-Converting Data from Wide to Long {#RECIPE_DATAPREP_WIDE_TO_LONG}
+Converting Data from Wide to Long {#RECIPE-DATAPREP-WIDE-TO-LONG}
 ---------------------------------
 
 ### Problem
@@ -1222,13 +1222,13 @@ with as.character(), or a factor with factor().
 
 ### See Also
 
-See [section\_title](#RECIPE_DATAPREP_LONG_TO_WIDE) to do conversions in
+See Recipe \@ref(RECIPE-DATAPREP-LONG-TO-WIDE) to do conversions in
 the other direction, from long to wide.
 
 See the stack() function for another way of converting from wide to
 long.
 
-Converting Data from Long to Wide {#RECIPE_DATAPREP_LONG_TO_WIDE}
+Converting Data from Long to Wide {#RECIPE-DATAPREP-LONG-TO-WIDE}
 ---------------------------------
 
 ### Problem
@@ -1273,13 +1273,13 @@ time long\_dead long\_alive short\_dead short\_alive at\_once 84 156 133
 107 in\_spring 156 84 209 31
 ### See Also
 
-See [section\_title](#RECIPE_DATAPREP_WIDE_TO_LONG) to do conversions in
+See Recipe \@ref(RECIPE-DATAPREP-WIDE-TO-LONG) to do conversions in
 the other direction, from wide to long.
 
 See the unstack() function for another way of converting from long to
 wide.
 
-Converting a Time Series Object to Times and Values {#RECIPE_DATAPREP_TIMESERIES}
+Converting a Time Series Object to Times and Values {#RECIPE-DATAPREP-TIMESERIES}
 ---------------------------------------------------
 
 ### Problem

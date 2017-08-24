@@ -95,8 +95,8 @@ Aval Bval value A1 B1 10 A1 B2 9 A2 B1 7 A2 B2 11 A3 B1 12 A3 B2 6
 This represents the same information, but with a different structure.
 There are advantages and disadvantages to the long format, but on the
 whole, I find that it makes things simpler when dealing with complicated
-data sets. See Recipes [???](#RECIPE_DATAPREP_WIDE_TO_LONG) and
-[???](#RECIPE_DATAPREP_LONG_TO_WIDE) for information about converting
+data sets. See Recipes Recipe \@ref(RECIPE-DATAPREP-WIDE-TO-LONG) and
+Recipe \@ref(RECIPE-DATAPREP-LONG-TO-WIDE) for information about converting
 between wide and long data formats.
 
 To make the first grouped bar graph (Figure \@ref(fig:app_figure_16-4)),

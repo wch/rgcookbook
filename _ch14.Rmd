@@ -11,7 +11,7 @@ chapters), and you'll usually need to put them somewhere other than
 on your computer screen. This chapter is about that last part: *saving*
 your graphics so that they can be presented in documents.
 
-Outputting to PDF Vector Files {#RECIPE_OUTPUT_VECTOR}
+Outputting to PDF Vector Files {#RECIPE-OUTPUT-VECTOR}
 ------------------------------
 
 ### Problem
@@ -74,7 +74,7 @@ multipage plots, though.
 PDF files are usually the best option when your goal is to output to
 printed documents. They work easily with LaTeX and can be used in
 presentations with Apple's Keynote, but Microsoft programs may have
-trouble importing them. (See [section\_title](#RECIPE_OUTPUT_VECTOR_WMF)
+trouble importing them. (See Recipe \@ref(RECIPE-OUTPUT-VECTOR-WMF)
 for details on creating vector images that can be imported into
 Microsoft programs.)
 
@@ -87,14 +87,14 @@ that is heavily overplotted, a PDF file can end up much larger than a
 PNG-even though most of the points are obscured, the PDF file will still
 contain instructions for drawing each and every point, whereas a bitmap
 file will not contain the redundant information. See
-[???](#RECIPE_SCATTER_OVERPLOT) for an example.
+Recipe \@ref(RECIPE-SCATTER-OVERPLOT) for an example.
 
 ### See Also
 
 If you want to manually edit the PDF or SVG file, see
-[section\_title](#RECIPE_OUTPUT_EDIT_VECTOR).
+Recipe \@ref(RECIPE-OUTPUT-EDIT-VECTOR).
 
-Outputting to SVG Vector Files {#RECIPE_OUTPUT_VECTOR_SVG}
+Outputting to SVG Vector Files {#RECIPE-OUTPUT-VECTOR-SVG}
 ------------------------------
 
 ### Problem
@@ -121,7 +121,7 @@ better than PDFs, and vice versa. For example, web browsers tend to have
 better SVG support, while document-creation programs like LaTeX tend to
 have better PDF support.
 
-Outputting to WMF Vector Files {#RECIPE_OUTPUT_VECTOR_WMF}
+Outputting to WMF Vector Files {#RECIPE-OUTPUT-VECTOR-WMF}
 ------------------------------
 
 ### Problem
@@ -148,7 +148,7 @@ Windows programs such as Microsoft Word and PowerPoint have poor support
 for importing PDF files, but they natively support WMF. One drawback is
 that WMF files do not support transparency (alpha).
 
-Editing a Vector Output File {#RECIPE_OUTPUT_EDIT_VECTOR}
+Editing a Vector Output File {#RECIPE-OUTPUT-EDIT-VECTOR}
 ----------------------------
 
 ### Problem
@@ -199,7 +199,7 @@ ggsave("myplot.pdf", width=4, height=4, useDingbats=FALSE)
 > Conflict." After this, Inkscape should properly display the
 > Helvetica font.
 
-Outputting to Bitmap (PNG/TIFF) Files {#RECIPE_OUTPUT_BITMAP}
+Outputting to Bitmap (PNG/TIFF) Files {#RECIPE-OUTPUT-BITMAP}
 -------------------------------------
 
 ### Problem
@@ -328,7 +328,7 @@ at approximately the same size, as they dohere.
 ![Left: 6 ×6 inch image at 75 ppi; right: 3 ×3 inch image at 150
 ppi](figs/rgcb_1403.png)
 
-Using Fonts in PDF Files {#RECIPE_OUTPUT_FONTS_PDF}
+Using Fonts in PDF Files {#RECIPE-OUTPUT-FONTS-PDF}
 ------------------------
 
 ### Problem
@@ -423,9 +423,9 @@ package handles many of the ugly details for you.
 ### See Also
 
 For more on controlling text appearance, see
-[???](#RECIPE_APPEARANCE_TEXT_APPEARANCE).
+Recipe \@ref(RECIPE-APPEARANCE-TEXT-APPEARANCE).
 
-Using Fonts in Windows Bitmap or Screen Output {#RECIPE_OUTPUT_FONTS_WIN}
+Using Fonts in Windows Bitmap or Screen Output {#RECIPE-OUTPUT-FONTS-WIN}
 ----------------------------------------------
 
 ### Problem
@@ -437,7 +437,7 @@ provided by R for bitmap or screen output.
 
 The extrafont package can be used to create bitmap or screen output. The
 procedure is similar to using extrafont with PDF files
-([section\_title](#RECIPE_OUTPUT_FONTS_PDF)). The one-time setup is
+(Recipe \@ref(RECIPE-OUTPUT-FONTS-PDF)). The one-time setup is
 almost the same, except that Ghostscript is not required:
 
 ```{r}

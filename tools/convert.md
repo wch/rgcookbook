@@ -48,6 +48,16 @@ mreplace -e "FIG([^ \n]*?)_" "FIG\\1-" *.Rmd
 # Change figure references to knitr format
 mreplace -e "\\[figure\\\\_title\\]\\(#" "Figure \\@ref(fig:" *.Rmd
 
+
+# Rename RECIPE_X_Y to RECIPE-X-Y.
+# Run this repeatedly until no more are found.
+mreplace -e "RECIPE([^ \n]*?)_" "RECIPE\\1-" *.Rmd
+
+# Change recipe references to knitr format
+mreplace -e "\\[.*?]\\(#RECIPE" "Recipe \\@ref(RECIPE" *.Rmd
+
+
+
 # Remove Problem/Solution/See Also/Discussion labels
 mreplace " +{#_(problem|solution|see_also|discussion)_\\d+}" "" *.Rmd
 

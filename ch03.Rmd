@@ -19,7 +19,7 @@ Bar graphs are perhaps the most commonly used kind of data visualization. They'r
 There's an important distinction you should be aware of when making bar graphs: sometimes the bar heights represent *counts* of cases in the data set, and sometimes they represent *values* in the data set. Keep this distinction in mind -- it can be a source of confusion since they have very different relationships to the data, but the same term is used for both of them. In this chapter I'll discuss this more, and present recipes for both types of bar graphs.
 
 
-Making a Basic Bar Graph {#RECIPE_BAR_GRAPH_BASIC_BAR}
+Making a Basic Bar Graph {#RECIPE-BAR-GRAPH-BASIC-BAR}
 ------------------------
 
 ### Problem
@@ -55,7 +55,7 @@ ggplot(BOD, aes(x = factor(Time), y = demand)) + geom_bar(stat = "identity")
 ```
 
 In these examples, the data has a column for x values and another for y values. If you instead want the height of the bars to represent the *count* of cases in each group, see
-[section\_title](#RECIPE_BAR_GRAPH_COUNTS).
+Recipe \@ref(RECIPE-BAR-GRAPH-COUNTS).
 
 By default, bar graphs use a dark grey for the bars. To use a color fill, use `fill`. Also, by default, there is no outline around the fill. To add an outline, use `colour`. For
 Figure \@ref(fig:FIG-BAR-GRAPH-BASIC-BAR-SINGLE-FILL), we use a light
@@ -72,15 +72,15 @@ ggplot(pg_mean, aes(x = group, y = weight)) +
 
 ### See Also
 
-If you want the height of the bars to represent the count of cases in each group, see [section\_title](#RECIPE_BAR_GRAPH_COUNTS).
+If you want the height of the bars to represent the count of cases in each group, see Recipe \@ref(RECIPE-BAR-GRAPH-COUNTS).
 
-To reorder the levels of a factor based on the values of another variable, see [???](#RECIPE_DATAPREP_FACTOR_REORDER_VALUE). To manually change the order of factor levels, see
-[???](#RECIPE_DATAPREP_FACTOR_REORDER).
+To reorder the levels of a factor based on the values of another variable, see Recipe \@ref(RECIPE-DATAPREP-FACTOR-REORDER-VALUE). To manually change the order of factor levels, see
+Recipe \@ref(RECIPE-DATAPREP-FACTOR-REORDER).
 
 For more information about using colors, see [???](#CHAPTER_COLORS).
 
 
-Grouping Bars Together {#RECIPE_BAR_GRAPH_GROUPED_BAR}
+Grouping Bars Together {#RECIPE-BAR-GRAPH-GROUPED-BAR}
 ----------------------
 
 ### Problem
@@ -107,7 +107,7 @@ ggplot(cabbage_exp, aes(x = Date, y = Weight, fill = Cultivar)) +
 
 ### Discussion
 
-The most basic bar graphs have one categorical variable on the x-axis and one continuous variable on the y-axis. Sometimes you'll want to use another categorical variable to divide up the data, in addition to the variable on the x-axis. You can produce a grouped bar plot by mapping that variable to fill, which represents the fill color of the bars. You must also use `position="dodge"`, which tells the bars to "dodge" each other horizontally; if you don't, you'll end up with a stacked bar plot ([section\_title](#RECIPE_BAR_GRAPH_STACKED_BAR)).
+The most basic bar graphs have one categorical variable on the x-axis and one continuous variable on the y-axis. Sometimes you'll want to use another categorical variable to divide up the data, in addition to the variable on the x-axis. You can produce a grouped bar plot by mapping that variable to fill, which represents the fill color of the bars. You must also use `position="dodge"`, which tells the bars to "dodge" each other horizontally; if you don't, you'll end up with a stacked bar plot (Recipe \@ref(RECIPE-BAR-GRAPH-STACKED-BAR)).
 
 As with variables mapped to the x-axis of a bar graph, variables that are mapped to the fill color of bars must be categorical rather than continuous variables.
 
@@ -138,12 +138,12 @@ If your data has this issue, you can manually make an entry for the missing fact
 
 ### See Also
 
-For more on using colors in bar graphs, see [section\_title](#RECIPE_BAR_GRAPH_COLORS).
+For more on using colors in bar graphs, see Recipe \@ref(RECIPE-BAR-GRAPH-COLORS).
 
-To reorder the levels of a factor based on the values of another variable, see [???](#RECIPE_DATAPREP_FACTOR_REORDER_VALUE).
+To reorder the levels of a factor based on the values of another variable, see Recipe \@ref(RECIPE-DATAPREP-FACTOR-REORDER-VALUE).
 
 
-Making a Bar Graph of Counts {#RECIPE_BAR_GRAPH_COUNTS}
+Making a Bar Graph of Counts {#RECIPE-BAR-GRAPH-COUNTS}
 ----------------------------
 
 ### Problem
@@ -187,14 +187,14 @@ The bar graph with a continuous x-axis is similar to a histogram, but not the sa
 
 ### See Also
 
-If, instead of having `ggplot()` count up the number of rows in each group, you have a column in your data frame representing the y values, see [section\_title](#RECIPE_BAR_GRAPH_BASIC_BAR).
+If, instead of having `ggplot()` count up the number of rows in each group, you have a column in your data frame representing the y values, see Recipe \@ref(RECIPE-BAR-GRAPH-BASIC-BAR).
 
-You could also get the same graphical output by calculating the counts before sending the data to `ggplot()`. See [???](#RECIPE_DATAPREP_SUMMARIZE) for more on summarizing data.
+You could also get the same graphical output by calculating the counts before sending the data to `ggplot()`. See Recipe \@ref(RECIPE-DATAPREP-SUMMARIZE) for more on summarizing data.
 
-For more about histograms, see [???](#RECIPE_DISTRIBUTION_BASIC_HIST).
+For more about histograms, see Recipe \@ref(RECIPE-DISTRIBUTION-BASIC-HIST).
 
 
-Using Colors in a Bar Graph {#RECIPE_BAR_GRAPH_COLORS}
+Using Colors in a Bar Graph {#RECIPE-BAR-GRAPH-COLORS}
 ---------------------------
 
 ### Problem
@@ -239,12 +239,12 @@ This example also uses the `reorder()` function, as in this particular case it m
 
 ### See Also
 
-For more about using the `reorder()` function to reorder the levels of a factor based on the values of another variable, see [???](#RECIPE_DATAPREP_FACTOR_REORDER_VALUE).
+For more about using the `reorder()` function to reorder the levels of a factor based on the values of another variable, see Recipe \@ref(RECIPE-DATAPREP-FACTOR-REORDER-VALUE).
 
 For more information about using colors, see [???](#CHAPTER_COLORS).
 
 
-Coloring Negative and Positive Bars Differently {#RECIPE_BAR_GRAPH_COLOR_NEG}
+Coloring Negative and Positive Bars Differently {#RECIPE-BAR-GRAPH-COLOR-NEG}
 -----------------------------------------------
 
 ### Problem
@@ -285,12 +285,12 @@ ggplot(csub, aes(x = Year, y = Anomaly10y, fill = pos)) +
 
 ### See Also
 
-To change the colors used, see Recipes [???](#RECIPE_COLORS_PALETTE_DISCRETE) and [???](#RECIPE_COLORS_PALETTE_DISCRETE_MANUAL).
+To change the colors used, see Recipes Recipe \@ref(RECIPE-COLORS-PALETTE-DISCRETE) and Recipe \@ref(RECIPE-COLORS-PALETTE-DISCRETE-MANUAL).
 
-To hide the legend, see [???](#RECIPE_LEGEND_REMOVE).
+To hide the legend, see Recipe \@ref(RECIPE-LEGEND-REMOVE).
 
 
-Adjusting Bar Width and Spacing {#RECIPE_BAR_GRAPH_ADJUST_WIDTH}
+Adjusting Bar Width and Spacing {#RECIPE-BAR-GRAPH-ADJUST-WIDTH}
 -------------------------------
 
 ### Problem
@@ -385,7 +385,7 @@ ggplot(cabbage_exp, aes(x = Date, y = Weight, fill = Cultivar)) +
 If you make the entire graph wider or narrower, the bar dimensions will scale proportionally. To see how this works, you can just resize the window in which the graphs appear. For information about controlling this when writing to a file, see [???](#CHAPTER_OUTPUT).
 
 
-Making a Stacked Bar Graph {#RECIPE_BAR_GRAPH_STACKED_BAR}
+Making a Stacked Bar Graph {#RECIPE-BAR-GRAPH-STACKED-BAR}
 --------------------------
 
 ### Problem
@@ -427,7 +427,7 @@ ggplot(cabbage_exp, aes(x = Date, y = Weight, fill = Cultivar)) +
     guides(fill = guide_legend(reverse = TRUE))
 ```
 
-It's also possible to modify the column of the data frame so that the factor levels are in a different order (see [???](#RECIPE_DATAPREP_FACTOR_REORDER)). Do this with care, since the modified data could change the results of other analyses.
+It's also possible to modify the column of the data frame so that the factor levels are in a different order (see Recipe \@ref(RECIPE-DATAPREP-FACTOR-REORDER)). Do this with care, since the modified data could change the results of other analyses.
 
 For a more polished graph, we'll use `scale_fill_brewer()` to get a different color palette, and use `colour="black"` to get a black outline (Figure \@ref(fig:FIG-BAR-GRAPH-STACKED-BAR-COLORS)):
 
@@ -439,12 +439,12 @@ ggplot(cabbage_exp, aes(x = Date, y = Weight, fill = Cultivar)) +
 
 ### See Also
 
-For more on using colors in bar graphs, see [section\_title](#RECIPE_BAR_GRAPH_COLORS).
+For more on using colors in bar graphs, see Recipe \@ref(RECIPE-BAR-GRAPH-COLORS).
 
-To reorder the levels of a factor based on the values of another variable, see [???](#RECIPE_DATAPREP_FACTOR_REORDER_VALUE). To manually change the order of factor levels, see [???](#RECIPE_DATAPREP_FACTOR_REORDER).
+To reorder the levels of a factor based on the values of another variable, see Recipe \@ref(RECIPE-DATAPREP-FACTOR-REORDER-VALUE). To manually change the order of factor levels, see Recipe \@ref(RECIPE-DATAPREP-FACTOR-REORDER).
 
 
-Making a Proportional Stacked Bar Graph {#RECIPE_BAR_GRAPH_PROPORTIONAL_STACKED_BAR}
+Making a Proportional Stacked Bar Graph {#RECIPE-BAR-GRAPH-PROPORTIONAL-STACKED-BAR}
 ---------------------------------------
 
 ### Problem
@@ -498,10 +498,10 @@ ggplot(ce, aes(x = Date, y = percent_weight, fill = Cultivar)) +
 
 ### See Also
 
-For more on transforming data by groups, see [???](#RECIPE_DATAPREP_TRANSFORM_GROUP).
+For more on transforming data by groups, see Recipe \@ref(RECIPE-DATAPREP-TRANSFORM-GROUP).
 
 
-Adding Labels to a Bar Graph {#RECIPE_BAR_GRAPH_LABELS}
+Adding Labels to a Bar Graph {#RECIPE-BAR-GRAPH-LABELS}
 ----------------------------
 
 ### Problem
@@ -526,7 +526,7 @@ ggplot(cabbage_exp, aes(x = interaction(Date, Cultivar), y = Weight)) +
     geom_text(aes(label = Weight), vjust=-0.2)
 ```
 
-Notice that when the labels are placed atop the bars, they may be clipped. To remedy this, see [???](#RECIPE_AXES_RANGE).
+Notice that when the labels are placed atop the bars, they may be clipped. To remedy this, see Recipe \@ref(RECIPE-AXES-RANGE).
 
 ### Discussion
 
@@ -578,7 +578,7 @@ ggplot(ce, aes(x = Date, y = Weight, fill = Cultivar)) +
 
 The result is shown in Figure \@ref(fig:FIG-BAR-LABEL-STACKED).
 
-When using labels, changes to the stacking order are best done by modifying the order of levels in the factor (see [???](#RECIPE_DATAPREP_FACTOR_REORDER)) before taking the cumulative sum. The other method of changing stacking order, by specifying breaks in a scale, won't work properly, because the order of the cumulative sum won't be the same as the stacking order.
+When using labels, changes to the stacking order are best done by modifying the order of levels in the factor (see Recipe \@ref(RECIPE-DATAPREP-FACTOR-REORDER)) before taking the cumulative sum. The other method of changing stacking order, by specifying breaks in a scale, won't work properly, because the order of the cumulative sum won't be the same as the stacking order.
 
 To put the labels in the middle of each bar (Figure \@ref(fig:FIG-BAR-LABEL-STACKED-MIDDLE)), there must be an adjustment to the cumulative sum, and the *y* offset in `geom_bar()` can be removed:
 
@@ -607,12 +607,12 @@ ggplot(ce, aes(x = Date, y = Weight, fill = Cultivar)) +
 
 ### See Also
 
-To control the appearance of the text, see [???](#RECIPE_APPEARANCE_TEXT_APPEARANCE).
+To control the appearance of the text, see Recipe \@ref(RECIPE-APPEARANCE-TEXT-APPEARANCE).
 
-For more on transforming data by groups, see [???](#RECIPE_DATAPREP_TRANSFORM_GROUP).
+For more on transforming data by groups, see Recipe \@ref(RECIPE-DATAPREP-TRANSFORM-GROUP).
 
 
-Making a Cleveland Dot Plot {#RECIPE_BAR_GRAPH_DOT_PLOT}
+Making a Cleveland Dot Plot {#RECIPE-BAR-GRAPH-DOT-PLOT}
 ---------------------------
 
 ### Problem
@@ -705,6 +705,6 @@ ggplot(tophit, aes(x = avg, y = name)) +
 
 ### See Also
 
-For more on changing the order of factor levels, see [???](#RECIPE_DATAPREP_FACTOR_REORDER). Also see [???](#RECIPE_DATAPREP_FACTOR_REORDER_VALUE) for details on changing the order of factor levels based on some other values.
+For more on changing the order of factor levels, see Recipe \@ref(RECIPE-DATAPREP-FACTOR-REORDER). Also see Recipe \@ref(RECIPE-DATAPREP-FACTOR-REORDER-VALUE) for details on changing the order of factor levels based on some other values.
 
-For more on moving the legend, see [???](#RECIPE_LEGEND_POSITION). To hide grid lines, see [???](#RECIPE_APPEARANCE_HIDE_GRIDLINES).
+For more on moving the legend, see Recipe \@ref(RECIPE-LEGEND-POSITION). To hide grid lines, see Recipe \@ref(RECIPE-APPEARANCE-HIDE-GRIDLINES).

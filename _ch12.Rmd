@@ -12,7 +12,7 @@ you use a gradient with several different hues? How do you choose colors
 that can be interpreted accurately by those with color-vision
 deficiencies? In this chapter, I'll address these issues.
 
-Setting the Colors of Objects {#RECIPE_COLORS_SETTING}
+Setting the Colors of Objects {#RECIPE-COLORS-SETTING}
 -----------------------------
 
 ### Problem
@@ -50,12 +50,12 @@ both a fill and an outline.
 ### See Also
 
 For more information about point shapes, see
-[???](#RECIPE_LINE_GRAPH_POINT_APPEARANCE).
+Recipe \@ref(RECIPE-LINE-GRAPH-POINT-APPEARANCE).
 
-See [section\_title](#RECIPE_COLORS_PALETTE_DISCRETE_MANUAL) for more on
+See Recipe \@ref(RECIPE-COLORS-PALETTE-DISCRETE-MANUAL) for more on
 specifying colors.
 
-Mapping Variables to Colors {#RECIPE_COLORS_MAPPING}
+Mapping Variables to Colors {#RECIPE-COLORS-MAPPING}
 ---------------------------
 
 ### Problem
@@ -129,11 +129,11 @@ factor](figs/rgcb_1203.png)
 
 You may also want to change the colors that are used in the scale. For
 continuous data, see
-[section\_title](#RECIPE_COLORS_PALETTE_CONTINUOUS). For discrete data,
-see Recipes [section\_title](#RECIPE_COLORS_PALETTE_DISCRETE) and
-[section\_title](#RECIPE_COLORS_PALETTE_DISCRETE_MANUAL).
+Recipe \@ref(RECIPE-COLORS-PALETTE-CONTINUOUS). For discrete data,
+see Recipes Recipe \@ref(RECIPE-COLORS-PALETTE-DISCRETE) and
+Recipe \@ref(RECIPE-COLORS-PALETTE-DISCRETE-MANUAL).
 
-Using a Different Palette for a Discrete Variable {#RECIPE_COLORS_PALETTE_DISCRETE}
+Using a Different Palette for a Discrete Variable {#RECIPE-COLORS-PALETTE-DISCRETE}
 -------------------------------------------------
 
 ### Problem
@@ -258,15 +258,15 @@ palette](figs/rgcb_1208.png)
 
 ### See Also
 
-See [???](#RECIPE_LEGEND_REVERSE) for more information about reversing
+See Recipe \@ref(RECIPE-LEGEND-REVERSE) for more information about reversing
 the legend.
 
 To select colors manually, see
-[section\_title](#RECIPE_COLORS_PALETTE_DISCRETE_MANUAL).
+Recipe \@ref(RECIPE-COLORS-PALETTE-DISCRETE-MANUAL).
 
 For more about ColorBrewer, see <http://colorbrewer.org>.
 
-Using a Manually Defined Palette for a Discrete Variable {#RECIPE_COLORS_PALETTE_DISCRETE_MANUAL}
+Using a Manually Defined Palette for a Discrete Variable {#RECIPE-COLORS-PALETTE-DISCRETE-MANUAL}
 --------------------------------------------------------
 
 ### Problem
@@ -353,7 +353,7 @@ Here are some rules of thumb for specifying and adjusting RGB colors:
 
 A [chart of RGB color codes](http://html-color-codes.com).
 
-Using a Colorblind-Friendly Palette {#RECIPE_COLORS_PALETTE_DISCRETE_COLORBLIND}
+Using a Colorblind-Friendly Palette {#RECIPE-COLORS-PALETTE-DISCRETE-COLORBLIND}
 -----------------------------------
 
 ### Problem
@@ -418,7 +418,7 @@ testing, I viewed an image with simulated red-green deficiency, and I
 could distinguish the colors just fine-but others with actual red-green
 deficiency viewed the same image and couldn't tell the colors apart!
 
-Using a Manually Defined Palette for a Continuous Variable {#RECIPE_COLORS_PALETTE_CONTINUOUS}
+Using a Manually Defined Palette for a Continuous Variable {#RECIPE-COLORS-PALETTE-CONTINUOUS}
 ----------------------------------------------------------
 
 ### Problem
@@ -495,9 +495,9 @@ less-saturated version of the color chosen.
 
 If you want use a discrete (categorical) scale instead of a continuous
 one, you can recode your data into categorical values. See
-[???](#RECIPE_DATAPREP_RECODE_CONTINUOUS).
+Recipe \@ref(RECIPE-DATAPREP-RECODE-CONTINUOUS).
 
-Coloring a Shaded Region Based on Value {#RECIPE_COLORS_AREA_VALUE}
+Coloring a Shaded Region Based on Value {#RECIPE-COLORS-AREA-VALUE}
 ---------------------------------------
 
 ### Problem

@@ -5,7 +5,7 @@ There are many, many ways of visualizing data, and sometimes things
 don't fit into nice, tidy categories. This chapter shows how to make
 some of these other visualizations.
 
-Making a Correlation Matrix {#RECIPE_MISCGRAPH_CORRMATRIX}
+Making a Correlation Matrix {#RECIPE-MISCGRAPH-CORRMATRIX}
 ---------------------------
 
 ### Problem
@@ -131,11 +131,11 @@ menagerie of options, which can't all be illustrated here.
 
 ### See Also
 
-To create a scatter plot matrix, see [???](#RECIPE_SCATTER_SPLOM).
+To create a scatter plot matrix, see Recipe \@ref(RECIPE-SCATTER-SPLOM).
 
-For more on subsetting data, see [???](#RECIPE_DATAPREP_SUBSET).
+For more on subsetting data, see Recipe \@ref(RECIPE-DATAPREP-SUBSET).
 
-Plotting a Function {#RECIPE_MISCGRAPH_FUNCTION}
+Plotting a Function {#RECIPE-MISCGRAPH-FUNCTION}
 -------------------
 
 ### Problem
@@ -195,9 +195,9 @@ stat_function(fun=myfun, n=200).
 ### See Also
 
 For plotting predicted values from model objects (such as lm and glm),
-see [???](#RECIPE_SCATTER_FITLINES_MODEL).
+see Recipe \@ref(RECIPE-SCATTER-FITLINES-MODEL).
 
-Shading a Subregion Under a Function Curve {#RECIPE_MISCGRAPH_FUNCTION_SHADE}
+Shading a Subregion Under a Function Curve {#RECIPE-MISCGRAPH-FUNCTION-SHADE}
 ------------------------------------------
 
 ### Problem
@@ -282,11 +282,11 @@ Figure \@ref(fig:FIG-MISCGRAPH-FUNCTION-SHADE), you may see that the
 shaded region does not align exactly with the range we specified. This
 is because ggplot2 does a numeric approximation by calculating values at
 fixed intervals, and these intervals may not fall exactly within the
-specified range. As in [section\_title](#RECIPE_MISCGRAPH_FUNCTION), we
+specified range. As in Recipe \@ref(RECIPE-MISCGRAPH-FUNCTION), we
 can improve the approximation by increasing the number of
 interpolatedvalues with stat_function(n=200).
 
-Creating a Network Graph {#RECIPE_MISCGRAPH_GRAPH}
+Creating a Network Graph {#RECIPE-MISCGRAPH-GRAPH}
 ------------------------
 
 ### Problem
@@ -378,7 +378,7 @@ and makes it easier to create graphs with a controlled layout, but it
 can be a bit challenging to install. Rgraphviz is available through the
 Bioconductor repository system.
 
-Using Text Labels in a Network Graph {#RECIPE_MISCGRAPH_GRAPH_LABEL}
+Using Text Labels in a Network Graph {#RECIPE-MISCGRAPH-GRAPH-LABEL}
 ------------------------------------
 
 ### Problem
@@ -451,7 +451,7 @@ function or by passing values to edge.*xxx* arguments
 See ?igraph.plotting for more information about graphical parameters in
 igraph.
 
-Creating a Heat Map {#RECIPE_MISCGRAPH_HEATMAP}
+Creating a Heat Map {#RECIPE-MISCGRAPH-HEATMAP}
 -------------------
 
 ### Problem
@@ -500,7 +500,7 @@ data](figs/rgcb_1312.png)
 >
 > The results with geom_tile() and geom_raster()
 > *should* look the same, but in practice they might appear different.
-> See [???](#RECIPE_DISTRIBUTION_DENSITY2D) for more information about
+> See Recipe \@ref(RECIPE-DISTRIBUTION-DENSITY2D) for more information about
 > this issue.
 
 ### Discussion
@@ -526,9 +526,9 @@ p + geom_tile() +
 ### See Also
 
 If you want to use a different color palette, see
-[???](#RECIPE_COLORS_PALETTE_CONTINUOUS).
+Recipe \@ref(RECIPE-COLORS-PALETTE-CONTINUOUS).
 
-Creating a Three-Dimensional Scatter Plot {#RECIPE_MISCGRAPH_3D_SCATTER}
+Creating a Three-Dimensional Scatter Plot {#RECIPE-MISCGRAPH-3D-SCATTER}
 -----------------------------------------
 
 ### Problem
@@ -634,7 +634,7 @@ from a different point of view](figs/rgcb_1316.png)
 
 See ?plot3d for more options for controlling the output.
 
-Adding a Prediction Surface to a Three-Dimensional Plot {#RECIPE_MISCGRAPH_3D_SCATTER_MODEL}
+Adding a Prediction Surface to a Three-Dimensional Plot {#RECIPE-MISCGRAPH-3D-SCATTER-MODEL}
 -------------------------------------------------------
 
 ### Problem
@@ -775,7 +775,7 @@ appearance](figs/rgcb_1318.png)
 
 For more on changing the appearance of the surface, see ?rgl.material.
 
-Saving a Three-Dimensional Plot {#RECIPE_MISCGRAPH_3D_SAVE}
+Saving a Three-Dimensional Plot {#RECIPE-MISCGRAPH-3D-SAVE}
 -------------------------------
 
 ### Problem
@@ -840,7 +840,7 @@ view <- structure(c(0.907931625843048, 0.267511069774628, -0.322642296552658,
 par3d(userMatrix = view)
 ```
 
-Animating a Three-Dimensional Plot {#RECIPE_MISCGRAPH_3D_ANIMATE}
+Animating a Three-Dimensional Plot {#RECIPE-MISCGRAPH-3D-ANIMATE}
 ----------------------------------
 
 ### Problem
@@ -891,7 +891,7 @@ If you don't want to use ImageMagick to convert the output to a
 *.gif*, you can specify convert=FALSE and then convert the series of
 *.png* files to a movie using some other utility.
 
-Creating a Dendrogram {#RECIPE_MISCGRAPH_DENDROGRAM}
+Creating a Dendrogram {#RECIPE-MISCGRAPH-DENDROGRAM}
 ---------------------
 
 ### Problem
@@ -992,7 +992,7 @@ are "ward", "single", "average", "mcquitty", "median", and "centroid".
 
 See ?hclust for more information about the different clustering methods.
 
-Creating a Vector Field {#RECIPE_MISCGRAPH_VECTORFIELD}
+Creating a Vector Field {#RECIPE-MISCGRAPH-VECTORFIELD}
 -----------------------
 
 ### Problem
@@ -1145,12 +1145,12 @@ ggplot(isub, aes(x=x, y=y)) +
 ### See Also
 
 If you want to use a different color palette, see
-[???](#RECIPE_COLORS_PALETTE_CONTINUOUS).
+Recipe \@ref(RECIPE-COLORS-PALETTE-CONTINUOUS).
 
-See [???](#RECIPE_AXES_RANGE) for more information about zooming in on
+See Recipe \@ref(RECIPE-AXES-RANGE) for more information about zooming in on
 part of a graph.
 
-Creating a QQ Plot {#RECIPE_MISCGRAPH_QQ}
+Creating a QQ Plot {#RECIPE-MISCGRAPH-QQ}
 ------------------
 
 ### Problem
@@ -1196,7 +1196,7 @@ distributions other than the normal distribution.
 ggplot2 has a stat_qq() function, but it doesn't provide an
 easy way to draw the QQ line.
 
-Creating a Graph of an Empirical Cumulative Distribution Function {#RECIPE_MISCGRAPH_ECDF}
+Creating a Graph of an Empirical Cumulative Distribution Function {#RECIPE-MISCGRAPH-ECDF}
 -----------------------------------------------------------------
 
 ### Problem
@@ -1226,7 +1226,7 @@ The ECDF shows what proportion of observations are at or below the given
 *x* value. Because it is *empirical*, the line takes a step up at each
 *x* value where there are one or more observations.
 
-Creating a Mosaic Plot {#RECIPE_MISCGRAPH_MOSAIC}
+Creating a Mosaic Plot {#RECIPE-MISCGRAPH-MOSAIC}
 ----------------------
 
 ### Problem
@@ -1360,7 +1360,7 @@ P.J. Bickel, E.A. Hammel, and J.W. O'Connell, "Sex Bias in
 Graduate Admissions: Data from Berkeley," *Science* 187 (1975):
 398–404.
 
-Creating a Pie Chart {#RECIPE_MISCGRAPH_PIE}
+Creating a Pie Chart {#RECIPE-MISCGRAPH-PIE}
 --------------------
 
 ### Problem
@@ -1394,7 +1394,7 @@ consider whether a bar graph (or stacked bar graph) would convey the
 information more effectively. Despite their faults, pie charts do have
 one important virtue: everyone knows how to read them.
 
-Creating a Map {#RECIPE_MISCGRAPH_MAP}
+Creating a Map {#RECIPE-MISCGRAPH-MAP}
 --------------
 
 ### Problem
@@ -1524,7 +1524,7 @@ See the map() function, for quickly generating maps.
 
 See ?mapproject for a list of available map projections.
 
-Creating a Choropleth Map {#RECIPE_MISCGRAPH_CHOROPLETH}
+Creating a Choropleth Map {#RECIPE-MISCGRAPH-CHOROPLETH}
 -------------------------
 
 ### Problem
@@ -1646,12 +1646,12 @@ is to use ylim() and xlim().)
 ### See Also
 
 For an example of data overlaid on a map, see
-[section\_title](#RECIPE_MISCGRAPH_VECTORFIELD).
+Recipe \@ref(RECIPE-MISCGRAPH-VECTORFIELD).
 
 For more on using continuous colors, see
-[???](#RECIPE_COLORS_PALETTE_CONTINUOUS).
+Recipe \@ref(RECIPE-COLORS-PALETTE-CONTINUOUS).
 
-Making a Map with a Clean Background {#RECIPE_MISCGRAPH_MAP_BACKGROUND}
+Making a Map with a Clean Background {#RECIPE-MISCGRAPH-MAP-BACKGROUND}
 ------------------------------------
 
 ### Problem
@@ -1683,7 +1683,7 @@ require(grid) # Needed for unit() function
 
 Then add it to the map (Figure \@ref(fig:FIG-MISCGRAPH-MAP-BACKGROUND)).
 In this example, we'll add it to one of the choropleths we created
-in [section\_title](#RECIPE_MISCGRAPH_CHOROPLETH):
+in Recipe \@ref(RECIPE-MISCGRAPH-CHOROPLETH):
 
 ```{r}
 ggplot(crimes, aes(map_id = state, fill=Assault_q)) +
@@ -1718,7 +1718,7 @@ states. They can probably identify the states by shape and relative
 position, and even if they can't, having the latitude and longitude
 isn't really helpful.
 
-Creating a Map from a Shapefile {#RECIPE_MISCGRAPH_MAP_SHAPEFILE}
+Creating a Map from a Shapefile {#RECIPE-MISCGRAPH-MAP-SHAPEFILE}
 -------------------------------
 
 ### Problem

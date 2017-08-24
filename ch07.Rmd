@@ -16,7 +16,7 @@ Annotations {#CHAPTER_ANNOTATE}
 Displaying just your data usually isn't enough-there's all sorts of other information that can help the viewer interpret the data. In addition to the standard repertoire of axis labels, tick marks, and legends, you can also add individual graphical or text elements to your plot. These can be used to add extra contextual information, highlight an area of the plot, or add some descriptive text about the data.
 
 
-Adding Text Annotations {#RECIPE_ANNOTATE_TEXT}
+Adding Text Annotations {#RECIPE-ANNOTATE-TEXT}
 -----------------------
 
 ### Problem
@@ -47,7 +47,7 @@ p + annotate("text", x = 3, y = 48, label = "Group 1", family = "serif",
              fontface = "italic", colour = "darkred", size = 3)
 ```
 
-Be careful not to use `geom_text()` when you want to add individual text objects. While `annotate(geom="text")` will add a single text object to the plot, `geom_text()` will create many text objects based on the data, as discussed in [???](#RECIPE_SCATTER_LABELS).
+Be careful not to use `geom_text()` when you want to add individual text objects. While `annotate(geom="text")` will add a single text object to the plot, `geom_text()` will create many text objects based on the data, as discussed in Recipe \@ref(RECIPE-SCATTER-LABELS).
 
 If you use `geom_text()`, the text will be heavily overplotted on the same location, with one copy per data point:
 
@@ -68,12 +68,12 @@ p + annotate("text", x = -Inf, y = Inf, label = "Upper left", hjust = -.2, vjust
 
 ### See Also
 
-See [???](#RECIPE_SCATTER_LABELS) for making a scatter plot with text.
+See Recipe \@ref(RECIPE-SCATTER-LABELS) for making a scatter plot with text.
 
-For more on controlling the appearance of the text, see [???](#RECIPE_APPEARANCE_TEXT_APPEARANCE).
+For more on controlling the appearance of the text, see Recipe \@ref(RECIPE-APPEARANCE-TEXT-APPEARANCE).
 
 
-Using Mathematical Expressions in Annotations {#RECIPE_ANNOTATE_TEXT_MATH}
+Using Mathematical Expressions in Annotations {#RECIPE-ANNOTATE-TEXT-MATH}
 ---------------------------------------------
 
 ### Problem
@@ -107,11 +107,11 @@ p + annotate("text", x = 0, y = 0.05, parse = TRUE, size = 4,
 
 See `?plotmath` for many examples of mathematical expressions, and `?demo(plotmath)` for graphical examples of mathematical expressions.
 
-See [???](#RECIPE_SCATTER_FITLINES_TEXT) for adding regression coefficients to a graph.
+See Recipe \@ref(RECIPE-SCATTER-FITLINES-TEXT) for adding regression coefficients to a graph.
 
-For using other fonts in mathematical expressions, see [???](#RECIPE_OUTPUT_FONTS_PDF).
+For using other fonts in mathematical expressions, see Recipe \@ref(RECIPE-OUTPUT-FONTS-PDF).
 
-Adding Lines {#RECIPE_ANNOTATE_LINES}
+Adding Lines {#RECIPE-ANNOTATE-LINES}
 ------------
 
 ### Problem
@@ -167,12 +167,12 @@ pg + geom_vline(xintercept = which(levels(PlantGrowth$group) == "ctrl"))
 
 ### See Also
 
-For adding regression lines, see Recipes [???](#RECIPE_SCATTER_FITLINES) and [???](#RECIPE_SCATTER_FITLINES_MODEL).
+For adding regression lines, see Recipes Recipe \@ref(RECIPE-SCATTER-FITLINES) and Recipe \@ref(RECIPE-SCATTER-FITLINES-MODEL).
 
-Lines are often used to indicate summarized information about data. See [???](#RECIPE_DATAPREP_SUMMARIZE) for more on how to summarize data by groups.
+Lines are often used to indicate summarized information about data. See Recipe \@ref(RECIPE-DATAPREP-SUMMARIZE) for more on how to summarize data by groups.
 
 
-Adding Line Segments and Arrows {#RECIPE_ANNOTATE_SEGMENT}
+Adding Line Segments and Arrows {#RECIPE-ANNOTATE-SEGMENT}
 -------------------------------
 
 ### Problem
@@ -213,7 +213,7 @@ If one or both axes are discrete, the *x* and *y* positions are such that the ca
 For more information about the parameters for drawing arrows, load the grid package and see `?arrow`.
 
 
-Adding a Shaded Rectangle {#RECIPE_ANNOTATE_RECT}
+Adding a Shaded Rectangle {#RECIPE-ANNOTATE-RECT}
 -------------------------
 
 ### Problem
@@ -241,7 +241,7 @@ Each layer is drawn in the order that it's added to the ggplot object, so in the
 Any geom can be used with `annotate()`, as long as you pass in the proper parameters. In this case, `geom_rect()` requires min and max values for x and y.
 
 
-Highlighting an Item {#RECIPE_ANNOTATE_HIGHLIGHT}
+Highlighting an Item {#RECIPE-ANNOTATE-HIGHLIGHT}
 --------------------
 
 ### Problem
@@ -278,10 +278,10 @@ ggplot(PlantGrowth, aes(x = group, y = weight, fill = group)) + geom_boxplot() +
 
 See [???](#CHAPTER_COLORS) for more information about specifying colors.
 
-For more information about removing the legend, see [???](#RECIPE_LEGEND_REMOVE).
+For more information about removing the legend, see Recipe \@ref(RECIPE-LEGEND-REMOVE).
 
 
-Adding Error Bars {#RECIPE_ANNOTATE_ERROR_BAR}
+Adding Error Bars {#RECIPE-ANNOTATE-ERROR-BAR}
 -----------------
 
 ### Problem
@@ -323,7 +323,7 @@ added/subtracted `se`.
 
 We also specified the width of the ends of the error bars, with `width=.2`. It's best to play around with this to find a value that looks good. If you don't set the width, the error bars will be very wide, spanning all the space between items on the x-axis.
 
-For a bar graph with groups of bars, the error bars must also be *dodged*; otherwise, they'll have the exact same *x* coordinate and won't line up with the bars. (See [???](#RECIPE_BAR_GRAPH_GROUPED_BAR) for more information about grouped bars and dodging.)
+For a bar graph with groups of bars, the error bars must also be *dodged*; otherwise, they'll have the exact same *x* coordinate and won't line up with the bars. (See Recipe \@ref(RECIPE-BAR-GRAPH-GROUPED-BAR) for more information about grouped bars and dodging.)
 
 We'll work with the full `cabbage_exp` data set this time:
 
@@ -373,14 +373,14 @@ When a discrete variable is *mapped* to an aesthetic like colour or fill (as in 
 
 ### See Also
 
-See [???](#RECIPE_BAR_GRAPH_GROUPED_BAR) for more about creating grouped bar graphs, and [???](#RECIPE_LINE_GRAPH_MULTIPLE_LINE) for more about creating line graphs with multiple lines.
+See Recipe \@ref(RECIPE-BAR-GRAPH-GROUPED-BAR) for more about creating grouped bar graphs, and Recipe \@ref(RECIPE-LINE-GRAPH-MULTIPLE-LINE) for more about creating line graphs with multiple lines.
 
-See [???](#RECIPE_DATAPREP_SUMMARIZE_SE) for calculating summaries with means, standard deviations, standard errors, and confidence intervals.
+See Recipe \@ref(RECIPE-DATAPREP-SUMMARIZE-SE) for calculating summaries with means, standard deviations, standard errors, and confidence intervals.
 
-See [???](#RECIPE_LINE_GRAPH_REGION) for adding a confidence region when the data has a higher density along the x-axis.
+See Recipe \@ref(RECIPE-LINE-GRAPH-REGION) for adding a confidence region when the data has a higher density along the x-axis.
 
 
-Adding Annotations to Individual Facets {#RECIPE_ANNOTATE_FACET}
+Adding Annotations to Individual Facets {#RECIPE-ANNOTATE-FACET}
 ---------------------------------------
 
 ### Problem
@@ -447,6 +447,6 @@ Text geoms aren't the only kind that can be added individually for each facet. A
 
 ### See Also
 
-See [section\_title](#RECIPE_ANNOTATE_TEXT_MATH) for more about using math expressions in plots.
+See Recipe \@ref(RECIPE-ANNOTATE-TEXT-MATH) for more about using math expressions in plots.
 
-If you want to make prediction lines from your own model objects, instead of having ggplot2 do it for you with `stat_smooth()`, see [???](#RECIPE_SCATTER_FITLINES_MODEL_MULTI).
+If you want to make prediction lines from your own model objects, instead of having ggplot2 do it for you with `stat_smooth()`, see Recipe \@ref(RECIPE-SCATTER-FITLINES-MODEL-MULTI).

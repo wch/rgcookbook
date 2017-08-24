@@ -4,7 +4,7 @@ Legends {#CHAPTER_LEGEND}
 Like the x- or y-axis, a legend is a guide: it shows people how to map
 visual (aesthetic) properties back to data values.
 
-Removing the Legend {#RECIPE_LEGEND_REMOVE}
+Removing the Legend {#RECIPE-LEGEND-REMOVE}
 -------------------
 
 ### Problem
@@ -89,7 +89,7 @@ scales include:
 
 -   scale_linetype()
 
-Changing the Position of a Legend {#RECIPE_LEGEND_POSITION}
+Changing the Position of a Legend {#RECIPE-LEGEND-POSITION}
 ---------------------------------
 
 ### Problem
@@ -163,7 +163,7 @@ p + theme(legend.position=c(.85,.2)) +
     theme(legend.key=element_blank())           # Remove border around each item
 ```
 
-Changing the Order of Items in a Legend {#RECIPE_LEGEND_ORDER}
+Changing the Order of Items in a Legend {#RECIPE-LEGEND-ORDER}
 ---------------------------------------
 
 ### Problem
@@ -191,9 +191,9 @@ order](figs/rgcb_1005.png)
 
 Note that the order of the items on the x-axis did not change. To do
 that, you would have to set the limits of
-scale_x\$\$\_\$\$discrete() ([???](#RECIPE_AXIS_ORDER)), or
+scale_x\$\$\_\$\$discrete() (Recipe \@ref(RECIPE-AXIS-ORDER)), or
 change the data to have a different factor level order
-([???](#RECIPE_DATAPREP_FACTOR_REORDER)).
+(Recipe \@ref(RECIPE-DATAPREP-FACTOR-REORDER)).
 
 In the preceding example, group was mapped to the fill aesthetic. By
 default this uses scale_fill\$\$\_\$\$discrete() (which is the
@@ -252,14 +252,14 @@ scales.
 ### See Also
 
 To reverse the order of the legend, see
-[section\_title](#RECIPE_LEGEND_REVERSE).
+Recipe \@ref(RECIPE-LEGEND-REVERSE).
 
 To change the order of factor levels, see
-[???](#RECIPE_DATAPREP_FACTOR_REORDER). To order legend items based on
+Recipe \@ref(RECIPE-DATAPREP-FACTOR-REORDER). To order legend items based on
 values in another variable, see
-[???](#RECIPE_DATAPREP_FACTOR_REORDER_VALUE).
+Recipe \@ref(RECIPE-DATAPREP-FACTOR-REORDER-VALUE).
 
-Reversing the Order of Items in a Legend {#RECIPE_LEGEND_REVERSE}
+Reversing the Order of Items in a Legend {#RECIPE-LEGEND-REVERSE}
 ----------------------------------------
 
 ### Problem
@@ -294,7 +294,7 @@ in the following:
 scale_fill_hue(guide=guide_legend(reverse=TRUE))
 ```
 
-Changing a Legend Title {#RECIPE_LEGEND_TITLE_TEXT}
+Changing a Legend Title {#RECIPE-LEGEND-TITLE-TEXT}
 -----------------------
 
 ### Problem
@@ -388,7 +388,7 @@ you're already using it to control other properties:
 p + guides(fill=guide_legend(title="Condition"))
 ```
 
-Changing the Appearance of a Legend Title {#RECIPE_LEGEND_TITLE_APPEARANCE}
+Changing the Appearance of a Legend Title {#RECIPE-LEGEND-TITLE-APPEARANCE}
 -----------------------------------------
 
 ### Problem
@@ -422,10 +422,10 @@ p + guides(fill=guide_legend(title.theme=
 
 ### See Also
 
-See [???](#RECIPE_APPEARANCE_TEXT_APPEARANCE) for more on controlling
+See Recipe \@ref(RECIPE-APPEARANCE-TEXT-APPEARANCE) for more on controlling
 the appearance of text.
 
-Removing a Legend Title {#RECIPE_LEGEND_TITLE_REMOVE}
+Removing a Legend Title {#RECIPE-LEGEND-TITLE-REMOVE}
 -----------------------
 
 ### Problem
@@ -455,7 +455,7 @@ scale. This has the same effect as the preceding code:
 scale_fill_hue(guide = guide_legend(title=NULL))
 ```
 
-Changing the Labels in a Legend {#RECIPE_LEGEND_LABEL_TEXT}
+Changing the Labels in a Legend {#RECIPE-LEGEND-LABEL-TEXT}
 -------------------------------
 
 ### Problem
@@ -484,8 +484,8 @@ scale](figs/rgcb_1013.png)
 
 Note that the labels on the x-axis did not change. To do that, you would
 have to set the labels of scale_x\$\$\_\$\$discrete()
-([???](#RECIPE_AXES_AXIS_LABEL)), or change the data to have different
-factor level names ([???](#RECIPE_DATAPREP_FACTOR_RENAME)).
+(Recipe \@ref(RECIPE-AXES-AXIS-LABEL)), or change the data to have different
+factor level names (Recipe \@ref(RECIPE-DATAPREP-FACTOR-RENAME)).
 
 In the preceding example, group was mapped to the fill aesthetic. By
 default this uses scale_fill\$\$\_\$\$discrete(), which maps
@@ -567,7 +567,7 @@ By default, using scale_fill\$\$\_\$\$discrete() is equivalent
 to using scale_fill\$\$\_\$\$hue(); the same is true for color
 scales.
 
-Changing the Appearance of Legend Labels {#RECIPE_LEGEND_LABEL_APPEARANCE}
+Changing the Appearance of Legend Labels {#RECIPE-LEGEND-LABEL-APPEARANCE}
 ----------------------------------------
 
 ### Problem
@@ -604,10 +604,10 @@ p + guides(fill=guide_legend(label.theme=
 
 ### See Also
 
-See [???](#RECIPE_APPEARANCE_TEXT_APPEARANCE) for more on controlling
+See Recipe \@ref(RECIPE-APPEARANCE-TEXT-APPEARANCE) for more on controlling
 the appearance of text.
 
-Using Labels with Multiple Lines of Text {#RECIPE_LEGEND_LABEL_MULTILINE}
+Using Labels with Multiple Lines of Text {#RECIPE-LEGEND-LABEL-MULTILINE}
 ----------------------------------------
 
 ### Problem

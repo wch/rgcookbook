@@ -15,7 +15,7 @@ Summarized Data Distributions {#CHAPTER_DISTRIBUTION}
 
 This chapter explores how to visualize summarized distributions of data.
 
-Making a Basic Histogram {#RECIPE_DISTRIBUTION_BASIC_HIST}
+Making a Basic Histogram {#RECIPE-DISTRIBUTION-BASIC-HIST}
 ------------------------
 
 ### Problem
@@ -76,10 +76,10 @@ If your data has discrete values, it may matter that the histogram bins are asym
 
 ### See Also
 
-Frequency polygons provide a better way of visualizing multiple distributions without the bars interfering with each other. See [section\_title](#RECIPE_DISTRIBUTION_FREQPOLY).
+Frequency polygons provide a better way of visualizing multiple distributions without the bars interfering with each other. See Recipe \@ref(RECIPE-DISTRIBUTION-FREQPOLY).
 
 
-Making Multiple Histograms from Grouped Data {#RECIPE_DISTRIBUTION_MULTI_HIST}
+Making Multiple Histograms from Grouped Data {#RECIPE-DISTRIBUTION-MULTI-HIST}
 --------------------------------------------
 
 ### Problem
@@ -159,7 +159,7 @@ ggplot(birthwt1, aes(x = bwt, fill = smoke)) +
 The position="identity" is important. Without it, ggplot() will stack the histogram bars on top of each other vertically, making it much more difficult to see the distribution of each group.
 
 
-Making a Density Curve {#RECIPE_DISTRIBUTION_BASIC_DENSITY}
+Making a Density Curve {#RECIPE-DISTRIBUTION-BASIC-DENSITY}
 ----------------------
 
 ### Problem
@@ -240,10 +240,10 @@ ggplot(faithful, aes(x = waiting, y = ..density..)) +
 
 ### See Also
 
-See [section\_title](#RECIPE_DISTRIBUTION_VIOLIN) for information on violin plots, which are another way of representing density curves and may be more appropriate for comparing multiple distributions.
+See Recipe \@ref(RECIPE-DISTRIBUTION-VIOLIN) for information on violin plots, which are another way of representing density curves and may be more appropriate for comparing multiple distributions.
 
 
-Making Multiple Density Curves from Grouped Data {#RECIPE_DISTRIBUTION_MULTI_DENSITY}
+Making Multiple Density Curves from Grouped Data {#RECIPE-DISTRIBUTION-MULTI-DENSITY}
 ------------------------------------------------
 
 ### Problem
@@ -317,7 +317,7 @@ ggplot(birthwt1, aes(x = bwt, y = ..density..)) +
 ```
 
 
-Making a Frequency Polygon {#RECIPE_DISTRIBUTION_FREQPOLY}
+Making a Frequency Polygon {#RECIPE-DISTRIBUTION-FREQPOLY}
 --------------------------
 
 ### Problem
@@ -354,10 +354,10 @@ ggplot(faithful, aes(x = waiting)) + geom_freqpoly(binwidth = binsize)
 
 ### See Also
 
-Histograms display the same information, but with bars instead of lines. See [section\_title](#RECIPE_DISTRIBUTION_BASIC_HIST).
+Histograms display the same information, but with bars instead of lines. See Recipe \@ref(RECIPE-DISTRIBUTION-BASIC-HIST).
 
 
-Making a Basic Box Plot {#RECIPE_DISTRIBUTION_BASIC_BOXPLOT}
+Making a Basic Box Plot {#RECIPE-DISTRIBUTION-BASIC-BOXPLOT}
 -----------------------
 
 ### Problem
@@ -490,7 +490,7 @@ ggplot(birthwt, aes(x = 1, y = bwt)) + geom_boxplot() +
 > The calculation of quantiles works slightly differently from the boxplot() function in base R. This can sometimes be noticeable for small sample sizes. See ?geom_boxplot for detailed information about how the calculations differ.
 
 
-Adding Notches to a Box Plot {#RECIPE_DISTRIBUTION_BOXPLOT_NOTCH}
+Adding Notches to a Box Plot {#RECIPE-DISTRIBUTION-BOXPLOT-NOTCH}
 ----------------------------
 
 ### Problem
@@ -520,7 +520,7 @@ Notch went outside hinges. Try setting notch=FALSE.
 This means that the confidence region (the notch) went past the bounds (or hinges) of one of the boxes. In this case, the upper part of the notch in the middle box goes just barely outside the box body, but it's by such a small amount that you can't see it in the final output. There's nothing inherently wrong with a notch going outside the hinges, but it can look strange in more extreme cases.
 
 
-Adding Means to a Box Plot {#RECIPE_DISTRIBUTION_BOXPLOT_MEAN}
+Adding Means to a Box Plot {#RECIPE-DISTRIBUTION-BOXPLOT-MEAN}
 --------------------------
 
 ### Problem
@@ -543,7 +543,7 @@ ggplot(birthwt, aes(x = factor(race), y = bwt)) + geom_boxplot() +
 The horizontal line in the middle of a box plot displays the median, not the mean. For data that is normally distributed, the median and mean will be about the same, but for skewed data these values will differ.
 
 
-Making a Violin Plot {#RECIPE_DISTRIBUTION_VIOLIN}
+Making a Violin Plot {#RECIPE-DISTRIBUTION-VIOLIN}
 --------------------
 
 ### Problem
@@ -589,7 +589,7 @@ By default, the violins are scaled so that the total area of each one is the sam
 p + geom_violin(scale = "count")
 ```
 
-To change the amount of smoothing, use the adjust parameter, as described in [section\_title](#RECIPE_DISTRIBUTION_BASIC_DENSITY). The default value is 1; use larger values for more smoothing and smaller values for less smoothing (Figure \@ref(fig:FIG-DISTRIBUTION-VIOLIN-ADJUST)):
+To change the amount of smoothing, use the adjust parameter, as described in Recipe \@ref(RECIPE-DISTRIBUTION-BASIC-DENSITY). The default value is 1; use larger values for more smoothing and smaller values for less smoothing (Figure \@ref(fig:FIG-DISTRIBUTION-VIOLIN-ADJUST)):
 
 ```{r FIG-DISTRIBUTION-VIOLIN-ADJUST, fig.show="hold", fig.cap="Left: violin plot with more smoothing; right: with less smoothing", fig.width=3.5, fig.height=3.5}
 # More smoothing
@@ -601,12 +601,12 @@ p + geom_violin(adjust = .5)
 
 ### See Also
 
-To create a traditional density curve, see [section\_title](#RECIPE_DISTRIBUTION_BASIC_DENSITY).
+To create a traditional density curve, see Recipe \@ref(RECIPE-DISTRIBUTION-BASIC-DENSITY).
 
-To use different point shapes, see [???](#RECIPE_LINE_GRAPH_POINT_APPEARANCE).
+To use different point shapes, see Recipe \@ref(RECIPE-LINE-GRAPH-POINT-APPEARANCE).
 
 
-Making a Dot Plot {#RECIPE_DISTRIBUTION_DOT_PLOT}
+Making a Dot Plot {#RECIPE-DISTRIBUTION-DOT-PLOT}
 -----------------
 
 ### Problem
@@ -628,7 +628,7 @@ p + geom_dotplot()
 
 ### Discussion
 
-This kind of dot plot is sometimes called a *Wilkinson* dot plot. It's different from the Cleveland dot plots shown in [???](#RECIPE_BAR_GRAPH_DOT_PLOT). In these dot plots, the placement of the bins depends on the data, and the width of each dot corresponds to the maximum width of each bin. The maximum bin size defaults to 1/30 of the range of the data, but it can be changed with binwidth.
+This kind of dot plot is sometimes called a *Wilkinson* dot plot. It's different from the Cleveland dot plots shown in Recipe \@ref(RECIPE-BAR-GRAPH-DOT-PLOT). In these dot plots, the placement of the bins depends on the data, and the width of each dot corresponds to the maximum width of each bin. The maximum bin size defaults to 1/30 of the range of the data, but it can be changed with binwidth.
 
 By default, `geom_dotplot()` bins the data along the x-axis and stacks on the y-axis. The dots are stacked visually, and for due to technical limitations of ggplot2, the resulting graph has y-axis tick marks that aren't meaningful. The y-axis labels can be removed by using `scale_y_continuous()`. In this example, we'll also use `geom_rug()` to show exactly where each data point is (Figure \@ref(fig:FIG-DISTRIBUTION-DOTPLOT-NO-Y-RUG)):
 
@@ -665,7 +665,7 @@ p + geom_dotplot(binwidth = .25, stackdir = "centerwhole") +
 Leland Wilkinson, "Dot Plots," *The American Statistician* 53 (1999): 276–281, <http://www.cs.uic.edu/~wilkinson/Publications/dots.pdf>.
 
 
-Making Multiple Dot Plots for Grouped Data {#RECIPE_DISTRIBUTION_DOT_PLOT_MULTI}
+Making Multiple Dot Plots for Grouped Data {#RECIPE-DISTRIBUTION-DOT-PLOT-MULTI}
 ------------------------------------------
 
 ### Problem
@@ -705,7 +705,7 @@ ggplot(heightweight, aes(x = sex, y = heightIn)) +
 ```
 
 
-Making a Density Plot of Two-Dimensional Data {#RECIPE_DISTRIBUTION_DENSITY2D}
+Making a Density Plot of Two-Dimensional Data {#RECIPE-DISTRIBUTION-DENSITY2D}
 ---------------------------------------------
 
 ### Problem
@@ -759,8 +759,8 @@ p + stat_density2d(aes(fill = ..density..), geom = "raster",
 
 ### See Also
 
-The relationship between `stat_density2d()` and `stat_bin2d()` is the same as the relationship between their one-dimensional counterparts, the density curve and the histogram. The density curve is an *estimate* of the distribution under certain assumptions, while the binned visualization represents the observed data directly. See [???](#RECIPE_SCATTER_OVERPLOT) for more about binning data.
+The relationship between `stat_density2d()` and `stat_bin2d()` is the same as the relationship between their one-dimensional counterparts, the density curve and the histogram. The density curve is an *estimate* of the distribution under certain assumptions, while the binned visualization represents the observed data directly. See Recipe \@ref(RECIPE-SCATTER-OVERPLOT) for more about binning data.
 
-If you want to use a different color palette, see [???](#RECIPE_COLORS_PALETTE_CONTINUOUS).
+If you want to use a different color palette, see Recipe \@ref(RECIPE-COLORS-PALETTE-CONTINUOUS).
 
 `stat_density2d()` passes options to `kde2d()`; see `?kde2d` for information on the available options.
