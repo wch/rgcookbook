@@ -1,4 +1,4 @@
-Output for Presentation {#CHAPTER_OUTPUT}
+Output for Presentation {#CHAPTER-OUTPUT}
 =======================
 
 Broadly speaking, visualizations of data serve two purposes: discovery

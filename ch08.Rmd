@@ -12,7 +12,7 @@ source("utils.R", local = TRUE)
 knitr::opts_chunk$set(fig.width = 3, fig.height = 3)
 ```
 
-Axes {#CHAPTER_AXES}
+Axes {#CHAPTER-AXES}
 ====
 
 The x- and y-axes provide context for interpreting the displayed data. Ggplot will display the axes with defaults that look good in most cases, but you might want to control, for example, the axis labels, the number and placement of tick marks, the tick mark labels, and so on. In this chapter, I'll cover how to fine-tune the appearance of the axes.

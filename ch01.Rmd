@@ -30,7 +30,7 @@ library(gcookbook)
 
 > **Note**
 >
-> [???](#CHAPTER_GGPLOT2) provides an introduction to the ggplot2 graphing package, for readers who are not already familiar with its use.
+> Chapter \@ref(CHAPTER-GGPLOT2) provides an introduction to the ggplot2 graphing package, for readers who are not already familiar with its use.
 
 Packages in R are collections of functions and/or data that are bundled up for easy distribution, and installing a package will extend the functionality of R on your computer. If an R user creates a package and thinks that it might be useful for others, that user can distribute it through a package repository. The primary repository for distributing R packages is called CRAN (the Comprehensive R Archive Network), but there are others, such as Bioconductor and Omegahat.
 

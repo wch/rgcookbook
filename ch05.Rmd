@@ -10,7 +10,7 @@ editor_options:
 source("utils.R", local = TRUE)
 ```
 
-Scatter Plots {#CHAPTER_SCATTER}
+Scatter Plots {#CHAPTER-SCATTER}
 =============
 
 Scatter plots are used to display the relationship between two continuous variables. In a scatter plot, each observation in a data set is represented by a point. Often, a scatter plot will also have a line showing the predicted values based on some statistical model. This is easy to do with R and ggplot2, and can help to make sense of data when the trends aren't immediately obvious just by looking at it.
@@ -120,7 +120,7 @@ ggplot(heightweight, aes(x = ageYear, y = heightIn, shape = sex, colour = sex)) 
 
 To use different shapes, see Recipe \@ref(RECIPE-SCATTER-SHAPES).
 
-For more on using different colors, see [???](#CHAPTER_COLORS).
+For more on using different colors, see Chapter \@ref(CHAPTER-COLORS).
 
 
 Using Different Point Shapes {#RECIPE-SCATTER-SHAPES}
@@ -217,7 +217,7 @@ ggplot(hw, aes(x = ageYear, y = heightIn, shape = sex, fill = weightGroup)) +
 
 ### See Also
 
-For more on using different colors, see [???](#CHAPTER_COLORS).
+For more on using different colors, see Chapter \@ref(CHAPTER-COLORS).
 
 For more information about recoding a continuous variable to a categorical one, see Recipe \@ref(RECIPE-DATAPREP-RECODE-CONTINUOUS).
 
@@ -352,7 +352,7 @@ Now we can see that there are vertical bands at nice round values of carats, ind
 
 > **Note**
 >
-> For most graphs, vector formats (such as PDF, EPS, and SVG) result in smaller output files than bitmap formats (such as TIFF and PNG). But in cases where there are tens of thousands of points, vector output files can be very large and slow to render-the scatter plot here with 99% transparent points is 1.5 MB! In these cases, high-resolution bitmaps will be smaller and faster to display on computer screens. See [???](#CHAPTER_OUTPUT) for more information.
+> For most graphs, vector formats (such as PDF, EPS, and SVG) result in smaller output files than bitmap formats (such as TIFF and PNG). But in cases where there are tens of thousands of points, vector output files can be very large and slow to render-the scatter plot here with 99% transparent points is 1.5 MB! In these cases, high-resolution bitmaps will be smaller and faster to display on computer screens. See Chapter \@ref(CHAPTER-OUTPUT) for more information.
 
 Another solution is to *bin* the points into rectangles and map the density of the points to the fill color of the rectangles, as shown in Figure \@ref(fig:FIG-SCATTER-OVERPLOT-BIN2D). With the binned visualization, the vertical bands are barely visible. The density of points in the lower-left corner is much greater, which tells us that the vast majority of diamonds are small and inexpensive.
 

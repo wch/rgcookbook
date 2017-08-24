@@ -1,4 +1,4 @@
-Controlling the Overall Appearance of Graphs {#CHAPTER_APPEARANCE}
+Controlling the Overall Appearance of Graphs {#CHAPTER-APPEARANCE}
 ============================================
 
 In this chapter I'll discuss how to control the overall appearance

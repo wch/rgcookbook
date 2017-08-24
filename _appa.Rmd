@@ -1,4 +1,4 @@
-Introduction to ggplot2 {#CHAPTER_GGPLOT2}
+Introduction to ggplot2 {#CHAPTER-GGPLOT2}
 =======================
 
 Most of the recipes in this book involve the ggplot2 package, created by Hadley Wickham. ggplot2 has only been around for a few years, but in that short time it has attracted many users in the R community because of its versatility, clear and consistent interface, and beautiful output.
@@ -385,7 +385,7 @@ Some aspects of a graph's appearance fall outside the scope of the
 grammar of graphics. These include the color of the background and grid
 lines in the graphing area, the fonts used in the axis labels, and the
 text in the graph title. These are controlled with the theme() function,
-explored in [???](#CHAPTER_APPEARANCE).
+explored in Chapter \@ref(CHAPTER-APPEARANCE).
 
 End {#_end}
 ---

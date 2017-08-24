@@ -11,7 +11,7 @@ source("utils.R", local = TRUE)
 ```
 
 
-Line Graphs {#CHAPTER_LINE_GRAPH}
+Line Graphs {#CHAPTER-LINE-GRAPH}
 ===========
 
 Line graphs are typically used for visualizing how one continuous variable, on the y-axis, changes in relation to another continuous variable, on the x-axis. Often the *x* variable represents time, but it may also represent some other continuous quantity, for example, the amount of a drug administered to experimental subjects.
@@ -242,7 +242,7 @@ ggplot(tg, aes(x = dose, y = length, colour = supp)) +
 
 ### See Also
 
-For more information about using colors, see [???](#CHAPTER_COLORS).
+For more information about using colors, see Chapter \@ref(CHAPTER-COLORS).
 
 
 Changing the Appearance of Points {#RECIPE-LINE-GRAPH-POINT-APPEARANCE}
@@ -296,7 +296,7 @@ ggplot(tg, aes(x = dose, y = length, fill = supp)) +
 
 ### See Also
 
-See Recipe \@ref(RECIPE-SCATTER-SHAPES) for more on using different shapes, and [???](#CHAPTER_COLORS) for more about colors.
+See Recipe \@ref(RECIPE-SCATTER-SHAPES) for more on using different shapes, and Chapter \@ref(CHAPTER-COLORS) for more about colors.
 
 
 ---
@@ -354,7 +354,7 @@ ggplot(sunspotyear, aes(x = Year, y = Sunspots)) +
 
 ### See Also
 
-See [???](#CHAPTER_COLORS) for more on choosing colors.
+See Chapter \@ref(CHAPTER-COLORS) for more on choosing colors.
 
 
 Making a Stacked Area Graph {#RECIPE-LINE-GRAPH-STACKED-AREA}
@@ -405,7 +405,7 @@ ggplot(uspopage, aes(x = Year, y = Thousands, fill = AgeGroup, order = desc(AgeG
 
 See Recipe \@ref(RECIPE-DATAPREP-WIDE-TO-LONG) for more on converting data from wide to long format.
 
-See [???](#CHAPTER_COLORS) for more on choosing colors.
+See Chapter \@ref(CHAPTER-COLORS) for more on choosing colors.
 
 
 Making a Proportional Stacked Area Graph {#RECIPE-LINE-GRAPH-PROPORTIONAL-STACKED-AREA}

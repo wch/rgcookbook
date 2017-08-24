@@ -1,4 +1,4 @@
-Facets {#CHAPTER_FACET}
+Facets {#CHAPTER-FACET}
 ======
 
 One of the most useful techniques in data visualization is rendering

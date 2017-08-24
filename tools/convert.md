@@ -57,6 +57,13 @@ mreplace -e "RECIPE([^ \n]*?)_" "RECIPE\\1-" *.Rmd
 mreplace -e "\\[.*?]\\(#RECIPE" "Recipe \\@ref(RECIPE" *.Rmd
 
 
+# Rename CHAPTER_X_Y to CHAPTER-X-Y.
+# Run this repeatedly until no more are found.
+mreplace -e "CHAPTER([^ \n]*?)_" "CHAPTER\\1-" *.Rmd
+
+# Change chapter references to knitr format
+mreplace -e "\\[.*?]\\(#CHAPTER" "Chapter \\@ref(CHAPTER" *.Rmd
+
 
 # Remove Problem/Solution/See Also/Discussion labels
 mreplace " +{#_(problem|solution|see_also|discussion)_\\d+}" "" *.Rmd

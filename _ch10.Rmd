@@ -1,4 +1,4 @@
-Legends {#CHAPTER_LEGEND}
+Legends {#CHAPTER-LEGEND}
 =======
 
 Like the x- or y-axis, a legend is a guide: it shows people how to map

@@ -10,7 +10,7 @@ editor_options:
 source("utils.R", local = TRUE)
 ```
 
-Summarized Data Distributions {#CHAPTER_DISTRIBUTION}
+Summarized Data Distributions {#CHAPTER-DISTRIBUTION}
 =============================
 
 This chapter explores how to visualize summarized distributions of data.

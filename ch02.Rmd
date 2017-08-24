@@ -10,7 +10,7 @@ editor_options:
 source("utils.R", local = TRUE)
 ```
 
-Quickly Exploring Data {#CHAPTER_QUICK}
+Quickly Exploring Data {#CHAPTER-QUICK}
 ======================
 
 Although I've used the ggplot2 package for most of the graphics in this book, it is not the only way to make graphs. For very quick exploration of data, it's sometimes useful to use the plotting functions in base R. These areinstalled by default with R and do not require any additional packages to beinstalled. They're quick to type, are straightforward to use in simple cases,and run very quickly.
@@ -53,7 +53,7 @@ ggplot(data = NULL, aes(x = mtcars$wt, y = mtcars$mpg)) + geom_point()
 
 ### See Also
 
-See [???](#CHAPTER_SCATTER) for more in-depth information about creating scatter plots.
+See Chapter \@ref(CHAPTER-SCATTER) for more in-depth information about creating scatter plots.
 
 
 Creating a Line Graph {#RECIPE-QUICK-LINE}
@@ -119,7 +119,7 @@ ggplot(data = NULL, aes(x = pressure$temperature, y=pressure$pressure)) +
 
 ### See Also
 
-See [???](#CHAPTER_LINE_GRAPH) for more in-depth information about creating line graphs.
+See Chapter \@ref(CHAPTER_LINE_GRAPH) for more in-depth information about creating line graphs.
 
 
 Creating a Bar Graph {#RECIPE-QUICK-BAR}
@@ -189,7 +189,7 @@ ggplot(mtcars, aes(x = factor(cyl))) + geom_bar()
 
 ### See Also
 
-See [???](#CHAPTER_BAR_GRAPH) for more in-depth information about creating bar graphs.
+See Chapter \@ref(CHAPTER_BAR_GRAPH) for more in-depth information about creating bar graphs.
 
 
 Creating a Histogram {#RECIPE-QUICK-HISTOGRAM}

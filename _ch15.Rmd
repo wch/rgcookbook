@@ -1,4 +1,4 @@
-Getting Your Data into Shape {#CHAPTER_DATAPREP}
+Getting Your Data into Shape {#CHAPTER-DATAPREP}
 ============================
 
 When it comes to making graphs, half the battle occurs before you call

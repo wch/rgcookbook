@@ -10,7 +10,7 @@ editor_options:
 source("utils.R", local = TRUE)
 ```
 
-Annotations {#CHAPTER_ANNOTATE}
+Annotations {#CHAPTER-ANNOTATE}
 ===========
 
 Displaying just your data usually isn't enough-there's all sorts of other information that can help the viewer interpret the data. In addition to the standard repertoire of axis labels, tick marks, and legends, you can also add individual graphical or text elements to your plot. These can be used to add extra contextual information, highlight an area of the plot, or add some descriptive text about the data.
@@ -276,7 +276,7 @@ ggplot(PlantGrowth, aes(x = group, y = weight, fill = group)) + geom_boxplot() +
 
 ### See Also
 
-See [???](#CHAPTER_COLORS) for more information about specifying colors.
+See Chapter \@ref(CHAPTER-COLORS) for more information about specifying colors.
 
 For more information about removing the legend, see Recipe \@ref(RECIPE-LEGEND-REMOVE).
 

@@ -1,4 +1,4 @@
-Using Colors in Plots {#CHAPTER_COLORS}
+Using Colors in Plots {#CHAPTER-COLORS}
 =====================
 
 In ggplot2's implementation of the grammar of graphics, color is an

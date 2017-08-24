@@ -1,4 +1,4 @@
-Miscellaneous Graphs {#CHAPTER_MISCGRAPH}
+Miscellaneous Graphs {#CHAPTER-MISCGRAPH}
 ====================
 
 There are many, many ways of visualizing data, and sometimes things

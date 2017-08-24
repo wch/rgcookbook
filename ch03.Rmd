@@ -11,7 +11,7 @@ source("utils.R", local = TRUE)
 ```
 
 
-Bar Graphs {#CHAPTER_BAR_GRAPH}
+Bar Graphs {#CHAPTER-BAR-GRAPH}
 ==========
 
 Bar graphs are perhaps the most commonly used kind of data visualization. They're typically used to display numeric values (on the y-axis), for different categories (on the x-axis). For example, a bar graph would be good for showing the prices of four different kinds of items. A bar graph generally wouldn't be as good for showing prices over time, where time is a continuous variable -- though it can be done, as we'll see in this chapter.
@@ -77,7 +77,7 @@ If you want the height of the bars to represent the count of cases in each group
 To reorder the levels of a factor based on the values of another variable, see Recipe \@ref(RECIPE-DATAPREP-FACTOR-REORDER-VALUE). To manually change the order of factor levels, see
 Recipe \@ref(RECIPE-DATAPREP-FACTOR-REORDER).
 
-For more information about using colors, see [???](#CHAPTER_COLORS).
+For more information about using colors, see Chapter \@ref(CHAPTER-COLORS).
 
 
 Grouping Bars Together {#RECIPE-BAR-GRAPH-GROUPED-BAR}
@@ -241,7 +241,7 @@ This example also uses the `reorder()` function, as in this particular case it m
 
 For more about using the `reorder()` function to reorder the levels of a factor based on the values of another variable, see Recipe \@ref(RECIPE-DATAPREP-FACTOR-REORDER-VALUE).
 
-For more information about using colors, see [???](#CHAPTER_COLORS).
+For more information about using colors, see Chapter \@ref(CHAPTER-COLORS).
 
 
 Coloring Negative and Positive Bars Differently {#RECIPE-BAR-GRAPH-COLOR-NEG}
@@ -382,7 +382,7 @@ ggplot(cabbage_exp, aes(x = Date, y = Weight, fill = Cultivar)) +
     geom_bar(stat = "identity", width = 0.2, position = position_dodge(width=0.9))
 ```
 
-If you make the entire graph wider or narrower, the bar dimensions will scale proportionally. To see how this works, you can just resize the window in which the graphs appear. For information about controlling this when writing to a file, see [???](#CHAPTER_OUTPUT).
+If you make the entire graph wider or narrower, the bar dimensions will scale proportionally. To see how this works, you can just resize the window in which the graphs appear. For information about controlling this when writing to a file, see Chapter \@ref(CHAPTER-OUTPUT).
 
 
 Making a Stacked Bar Graph {#RECIPE-BAR-GRAPH-STACKED-BAR}

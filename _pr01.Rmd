@@ -45,7 +45,7 @@ site](http://www.r-project.org).
 
 > **Note**
 >
-> If you are not familiar with ggplot2, see [???](#CHAPTER_GGPLOT2) for
+> If you are not familiar with ggplot2, see Chapter \@ref(CHAPTER-GGPLOT2) for
 > a brief introduction to the package.
 
 Once you've installed R, you can install the necessary packages. In
@@ -79,7 +79,7 @@ The major platforms for R are Mac OS X, Linux, and Windows, and all the
 recipes in this book should work on all of these platforms. There are
 some platform-specific differences when it comes to creating bitmap
 output files, and these differences are covered in
-[???](#CHAPTER_OUTPUT).
+Chapter \@ref(CHAPTER-OUTPUT).
 
 Conventions Used in This Book {#_conventions_used_in_this_book}
 =============================
