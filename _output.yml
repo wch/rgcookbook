@@ -1,0 +1,5 @@
+bookdown::gitbook:
+  toc_depth: 2
+
+bookdown::pdf_book:
+  toc_depth: 2

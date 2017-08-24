@@ -3,9 +3,6 @@ title: "R Graphics Cookbook, 2nd edition"
 author: "Winston Chang"
 date: "`r Sys.Date()`"
 site: bookdown::bookdown_site
-output:
-    bookdown::gitbook:
-        toc_depth: 2
 documentclass: book
 biblio-style: apalike
 link-citations: yes
