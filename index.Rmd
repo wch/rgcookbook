@@ -1,17 +1,18 @@
 --- 
-title: "RGC Index"
+title: "R Graphics Cookbook, 2nd edition"
 author: "Winston Chang"
 date: "`r Sys.Date()`"
 site: bookdown::bookdown_site
-output: bookdown::gitbook
+output:
+    bookdown::gitbook:
+        toc_depth: 2
 documentclass: book
 biblio-style: apalike
 link-citations: yes
-github-repo: rstudio/bookdown-demo
-description: "This is a minimal example of using the bookdown package to write a book. The output format for this example is bookdown::gitbook."
+description: "R Graphics Cookbook, 2nd edition"
 ---
 
-# Something
+Preface {-}
+=======
 
-
-Test
+Text here.
