@@ -6,7 +6,7 @@ editor_options:
   chunk_output_type: console
 ---
 
-```{r echo = FALSE}
+```{r echo = FALSE, cache = FALSE}
 source("utils.R", local = TRUE)
 ```
 
