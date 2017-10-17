@@ -18,7 +18,7 @@ chapters_md: $(CHAPTER_RMD_FILES)
 clean:
 	rm -f "R-Graphics-Cookbook-2e.Rmd"
 	Rscript -e "bookdown::clean_book(TRUE)"
-	rm -rf chapters_md/
+	rm -rf chapters_md/ _book/
 
 cleaner: clean
 	rm -rf _bookdown_files/
