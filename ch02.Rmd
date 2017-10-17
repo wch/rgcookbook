@@ -47,7 +47,7 @@ The first part, `ggplot()`, tell is to create a plot object, and the second part
 
 The usual way to use `ggplot()` is to pass it a data frame (`mtcars`) and then tell it which columns to use for the x and y values. If you want to pass it two vectors for x and y, you can use `data=NULL`, and then pass it the vectors. Keep in mind that ggplot2 is designed to work with data frames as the data source, not individual vectors, and that using it this way will only allow you to use a limited part of its capabilities.
 
-```{r}
+```{r, eval=FALSE}
 ggplot(data = NULL, aes(x = mtcars$wt, y = mtcars$mpg)) + geom_point()
 ```
 
@@ -96,12 +96,12 @@ points(pressure$temperature, pressure$pressure/2, col="red")
 
 With ggplot2, you can get a similar result using `geom="line"` (Figure \@ref(fig:FIG-QUICK-LINE-GGPLOT)):
 
-```{r}
+```{r eval=FALSE}
 library(ggplot2)
 ggplot(pressure, aes(x = temperature, y = pressure)) + geom_line()
 ```
 
-```{r FIG-QUICK-LINE-GGPLOT, echo=FALSE, fig.show="hold", fig.cap="Left: line graph with qplot() from ggplot2; right: with points added", fig.width=3.5, fig.height=3.5}
+```{r FIG-QUICK-LINE-GGPLOT, echo=FALSE, fig.show="hold", fig.cap="Left: line graph with `ggplot()`; right: with points added", fig.width=3.5, fig.height=3.5}
 
 ggplot(pressure, aes(x = temperature, y = pressure)) + geom_line()
 
@@ -111,7 +111,7 @@ ggplot(pressure, aes(x=temperature, y=pressure)) + geom_line() + geom_point()
 
 As with scatter plots, you can pass you data in vectors instead of in a data frame (but this will limit the things you can do later with the plot):
 
-```{r}
+```{r eval=FALSE}
 ggplot(data = NULL, aes(x = pressure$temperature, y=pressure$pressure)) +
   geom_line() +
   geom_point()

@@ -13,7 +13,7 @@ pdf:
 
 # Knit individual chapters and put resulting .md files in chapters_md/
 chapters_md: $(CHAPTER_RMD_FILES)
-	build_chapters.R $(CHAPTER_RMD_FILES)
+	tools/build_chapters.R $(CHAPTER_RMD_FILES)
 
 clean:
 	rm -f "R-Graphics-Cookbook-2e.Rmd"

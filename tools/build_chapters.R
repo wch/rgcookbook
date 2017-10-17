@@ -3,7 +3,7 @@
 # Build each individual chapter's Markdown file, and put it the chapters_md/
 # directory.
 # Usage:
-#   ./build_chapters.R ch01.Rmd ch02.Rmd
+#   tools/build_chapters.R ch01.Rmd ch02.Rmd
 
 
 files <- commandArgs(trailingOnly = TRUE)

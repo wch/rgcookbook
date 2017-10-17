@@ -85,7 +85,7 @@ scale_y_continuous(limits = c(0, 10))
 
 Sometimes you will need to set other properties of `scale_y_continuous()`, and in these cases using `xlim()` and `scale_y_continuous()` together may result in some unexpected behavior, because only the first of the directives will have an effect. In these two examples, `ylim(0, 10)` should set the *y* range from 0 to 10, and `scale_y_continuous(breaks=c(0, 5, 10))` should put tick marks at 0, 5, and 10. However, in both cases, only the second directive has any effect:
 
-```{r}
+```{r eval=FALSE}
 p + ylim(0, 10) + scale_y_continuous(breaks = NULL)
 
 p + scale_y_continuous(breaks = NULL) + ylim(0, 10)
@@ -93,7 +93,7 @@ p + scale_y_continuous(breaks = NULL) + ylim(0, 10)
 
 To make both changes work, get rid of `ylim()` and set both limits and breaks in `scale_y_continuous()`:
 
-```{r}
+```{r eval=FALSE}
 p + scale_y_continuous(limits = c(0, 10), breaks = NULL)
 ```
 
@@ -161,7 +161,7 @@ For a categorical (or discrete) axis-one with a factor mapped to it-the order of
 
 To manually set the order of items on the axis, specify limits with a vector of the levels in the desired order. You can also omit items with this vector, as shown in Figure \@ref(fig:FIG-AXES-ORDER-MANUAL):
 
-```{r FIG-AXES-ORDER-MANUAL, fig.show="hold", fig.cap="Left: box plot with manually specified items on the x-axis; right: with only two items"}
+```{r FIG-AXES-ORDER-MANUAL-1, eval=FALSE}
 p <- ggplot(PlantGrowth, aes(x = group, y = weight)) + geom_boxplot()
 
 p + scale_x_discrete(limits = c("trt1","ctrl","trt2"))
@@ -171,8 +171,11 @@ p + scale_x_discrete(limits = c("trt1","ctrl","trt2"))
 
 You can also use this method to display a subset of the items on the axis. This will show only `ctrl` and `trt1` (Figure \@ref(fig:FIG-AXES-ORDER-MANUAL), right):
 
-```{r}
+```{r FIG-AXES-ORDER-MANUAL-2, eval=FALSE}
 p + scale_x_discrete(limits = c("ctrl","trt1"))
+```
+
+```{r FIG-AXES-ORDER-MANUAL, echo=FALSE, fig.show="hold", fig.cap="Left: box plot with manually specified items on the x-axis; right: with only two items"}
 ```
 
 To reverse the order, set `limits=rev(levels(...))`, and put the factor inside. This will reverse the order of the `PlantGrowth$group` factor, as shown in Figure \@ref(fig:FIG-AXES-ORDER-REV):
@@ -1043,7 +1046,7 @@ Table: (\#tab:TABLE-AXES-DATE-FORMATS) Date format options
 
 Some of these items are specific to the computer's locale. Months and days have different names in different languages (the examples here are generated with a US locale). You can change the locale with `Sys.setlocale()`. For example, this will change the date formatting to use an Italian locale:
 
-```{r}
+```{r, eval=FALSE}
 # Mac and Linux
 Sys.setlocale("LC_TIME", "it_IT.UTF-8")
 

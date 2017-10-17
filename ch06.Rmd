@@ -328,7 +328,7 @@ You want to make a frequency polygon.
 
 Use geom_`freqpoly()` (Figure \@ref(fig:FIG-DISTRIBUTION-FREQPOLY)):
 
-```{r FIG-DISTRIBUTION-FREQPOLY, fig.cap="Left: a frequency polygon; right: with wider bins"}
+```{r FIG-DISTRIBUTION-FREQPOLY-1, eval=FALSE}
 ggplot(faithful, aes(x=waiting)) + geom_freqpoly()
 ```
 
@@ -338,19 +338,21 @@ A frequency polygon appears similar to a kernel density estimate curve, but it s
 
 Also like a histogram, you can control the bin width for the frequency polygon (Figure \@ref(fig:FIG-DISTRIBUTION-FREQPOLY), right):
 
-```{r}
+```{r FIG-DISTRIBUTION-FREQPOLY-2, eval=FALSE}
 ggplot(faithful, aes(x = waiting)) + geom_freqpoly(binwidth = 4)
+```
+
+```{r FIG-DISTRIBUTION-FREQPOLY, ref.label=c("FIG-DISTRIBUTION-FREQPOLY-1", "FIG-DISTRIBUTION-FREQPOLY-2"), echo=FALSE, fig.show="hold", fig.cap="Left: a frequency polygon; right: with wider bins", fig.width=3.5, fig.height=3.5}
 ```
 
 Or, instead of setting the width of each bin directly, you can divide the *x* range into a particular number of bins:
 
-```{r}
+```{r eval=FALSE}
 # Use 15 bins
 binsize <- diff(range(faithful$waiting))/15
 ggplot(faithful, aes(x = waiting)) + geom_freqpoly(binwidth = binsize)
 ```
 
-[TODO: add comparison of freqpoly to histogram. Pro: ?? Con: Can't know for sure how wide bins are]
 
 ### See Also
 

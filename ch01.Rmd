@@ -10,7 +10,7 @@ editor_options:
 source("utils.R", local = TRUE)
 ```
 
-R Basics
+R Basics {#CHAPTER-R-BASICS}
 ========
 
 This chapter covers the basics: installing and using packages and loading data.

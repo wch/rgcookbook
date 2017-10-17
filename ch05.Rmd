@@ -257,9 +257,9 @@ We can easily perceive small differences in spatial position, so we can interpre
 
 When a variable is mapped to `size`, the results can be perceptually misleading. The largest dots in Figure \@ref(fig:FIG-SCATTER-CONTINUOUS-COLOR-SIZE) have about 36 times the area of the smallest ones, but they represent only about 3.5 times the weight. This is because the by default the diameter of points goes from 1 to 6mm. If the data values go from 0 to 10, then the a value of 0 is represented with a 1mm point, and a value of 10 is represented with a 6mm point. Similarly, if the values go from 100 to 110, the 100 is represented with a 1mm point, and the 110 is represented with a 6mm point. And in all cases, the largest point will have 6 times the diameter of the smallest, and 36 times the area.
 
-If it is important for the sizes to proportionally represent the quantities, you should first decide if you want the diameter of the points to represent the value, or if you want to area of the points to represent the value. 
+If it is important for the sizes to proportionally represent the quantities, you should first decide if you want the diameter of the points to represent the value, or if you want to area of the points to represent the value. Figure \@ref(fig:FIG-SCATTER-SIZE-AREA) shows the difference between these representations.
 
-```{r}
+```{r FIG-SCATTER-SIZE-AREA, fig.show="hold", fig.cap="Left: value mapped to diameter of points; right: value mapped to area of points", fig.width=3.5, fig.height=3.5}
 range(heightweight$weightLb)
 size_range <- range(heightweight$weightLb) / max(heightweight$weightLb) *  6
 size_range
@@ -274,8 +274,6 @@ ggplot(heightweight, aes(x = ageYear, y = heightIn, size = weightLb)) +
 ```
 
 See Recipe \@ref(RECIPE-SCATTER-BALLOON) for details on making the area of points proportional to the value.
-
-TODO: explain size/area better
 
 When it comes to color, there are actually two aesthetic attributes that can be used: `colour` and `fill`. For most point shapes, you use colour. However, shapes 21–25 have an outline with a solid region in the middle where the color is controlled by fill. These outlined shapes can be useful when using a color scale with light colors, as in Figure \@ref(fig:FIG-SCATTER-CONTINUOUS-FILL), because the outline sets them off from the background. In this example, we also set the fill gradient to go from black to white and make the points larger so that the fill is easier to see:
 

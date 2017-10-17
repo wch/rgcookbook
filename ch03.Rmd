@@ -171,14 +171,11 @@ With `geom_bar()`, the default behavior is to use `stat="bin"`, which counts up 
 
 In this example, the variable on the x-axis is discrete. If we use a continuous variable on the x-axis, we'll get a bar at each unique *x* value in the data, as shown in Figure \@ref(fig:FIG-BAR-GRAPH-COUNT-CONTINUOUS):
 
-```{r, fig.cap="Left: bar graph of counts on a continuous axis"}
-ggplot(diamonds, aes(x = carat)) + geom_bar()
-```
-
-
 ```{r FIG-BAR-GRAPH-COUNT-CONTINUOUS, echo=FALSE, fig.show="hold", fig.cap='Left: bar graph of counts on a continuous axis; right: a histogram', fig.width=3.5, fig.height=3.5}
+# Bar graph of counts
 ggplot(diamonds, aes(x = carat)) + geom_bar()
 
+# Histogram
 ggplot(diamonds, aes(x = carat)) + geom_histogram()
 ```
 
@@ -532,7 +529,7 @@ Notice that when the labels are placed atop the bars, they may be clipped. To re
 
 In Figure \@ref(fig:FIG-BAR-GRAPH-LABEL), the *y* coordinates of the labels are centered at the top of each bar; by setting the vertical justification (`vjust`), they appear below or above the bar tops. One drawback of this is that when the label is above the top of the bar, it can go off the top of the plotting area. To fix this, you can manually set the *y* limits, or you can set the *y* positions of the text *above* the bars and not change the vertical justification. One drawback to changing the text's *y* position is that if you want to place the text fully above or below the bar top, the value to add will depend on the *y* range of the data; in contrast, changing `vjust` to a different value will always move the text the same distance relative to the height of the bar:
 
-```{r}
+```{r, eval=FALSE}
 # Adjust y limits to be a little higher
 ggplot(cabbage_exp, aes(x = interaction(Date, Cultivar), y = Weight)) +
     geom_bar(stat = "identity") +

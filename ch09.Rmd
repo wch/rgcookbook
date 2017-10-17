@@ -207,7 +207,7 @@ You want to use premade themes to control the overall plot appearance.
 
 To use a premade theme, add `theme_bw()` or `theme_grey()` (Figure \@ref(fig:FIG-APPEARANCE-THEME)):
 
-```{r FIGTITLE, fig.show="hold", fig.cap="Left: scatter plot with `theme_grey()` (the default); right: with `theme_bw()`"}
+```{r FIG-APPEARANCE-THEME, fig.show="hold", fig.cap="Left: scatter plot with `theme_grey()` (the default); right: with `theme_bw()`"}
 library(gcookbook) # For the data set
 
 # Base plot
@@ -228,13 +228,13 @@ The two included themes are `theme_grey()` and `theme_bw()`, but it is also poss
 
 You can set the base font family and size with either of the included themes (the default base font family is Helvetica, and the default size is 12):
 
-```{r}
+```{r, eval=FALSE}
 p + theme_grey(base_size = 16, base_family = "Times")
 ```
 
 You can set the default theme for the current R session with `theme_set()`, although it's generally not a good idea to set options globally because it may affect other plots that are unrelated to your current project:
 
-```{r}
+```{r, eval=FALSE}
 # Set default theme for current session
 theme_set(theme_bw())
 
@@ -305,7 +305,7 @@ p + facet_grid(sex ~ .) + theme(
 
 If you want to use a saved theme and tweak a few parts of it with `theme()`, the `theme()` must come after the theme specification. Otherwise, anything set by `theme()` will be unset by the theme you add:
 
-```{r}
+```{r eval=FALSE}
 # theme() has no effect if before adding a complete theme
 p + theme(axis.title.x = element_text(colour = "red")) + theme_bw()
 
