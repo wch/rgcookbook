@@ -3,8 +3,9 @@
     [
         {
             "path": ".",
-            "folder_exclude_patterns": [".Rproj.user", "_bookdown_files", "_book"],
-            "file_exclude_patterns": ["*.sublime-workspace"]
+            "folder_exclude_patterns": [".Rproj.user", "_bookdown_files", "_book", "*_cache"],
+            "file_exclude_patterns": ["*.sublime-workspace"],
+            "tab_size": 4
         }
     ]
 }
