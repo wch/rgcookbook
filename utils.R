@@ -1,4 +1,4 @@
-knitr::opts_chunk$set(collapse = TRUE, comment = "#>", cache = TRUE)
+knitr::opts_chunk$set(collapse = TRUE, comment = "#>", cache = TRUE, fig.show = "hold")
 library(ggplot2)
 
 knit_print.data.frame <- function(x, ..., maxrows = 8) {

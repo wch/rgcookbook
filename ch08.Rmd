@@ -175,7 +175,7 @@ You can also use this method to display a subset of the items on the axis. This 
 p + scale_x_discrete(limits = c("ctrl","trt1"))
 ```
 
-```{r FIG-AXES-ORDER-MANUAL, echo=FALSE, fig.show="hold", fig.cap="Left: box plot with manually specified items on the x-axis; right: with only two items"}
+```{r FIG-AXES-ORDER-MANUAL, ref.label=c("FIG-AXES-ORDER-MANUAL-1", "FIG-AXES-ORDER-MANUAL-2"), echo=FALSE, fig.cap="Left: box plot with manually specified items on the x-axis; right: with only two items"}
 ```
 
 To reverse the order, set `limits=rev(levels(...))`, and put the factor inside. This will reverse the order of the `PlantGrowth$group` factor, as shown in Figure \@ref(fig:FIG-AXES-ORDER-REV):
