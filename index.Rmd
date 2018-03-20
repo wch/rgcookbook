@@ -9,6 +9,13 @@ link-citations: yes
 description: "R Graphics Cookbook, 2nd edition"
 ---
 
+```{r echo = FALSE, cache = FALSE}
+# Need to load MASS before dplyr because of conflict with select()
+suppressPackageStartupMessages({
+    library(MASS)
+    library(dplyr)
+})
+```
 Preface {-}
 =======
 

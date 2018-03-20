@@ -495,7 +495,7 @@ ggplot(ce, aes(x = Date, y = percent_weight, fill = Cultivar)) +
 
 ### See Also
 
-For more on transforming data by groups, see Recipe \@ref(RECIPE-DATAPREP-TRANSFORM-GROUP).
+For more on transforming data by groups, see Recipe \@ref(RECIPE-DATAPREP-CALCULATE-GROUP).
 
 
 Adding Labels to a Bar Graph {#RECIPE-BAR-GRAPH-LABELS}
@@ -606,7 +606,7 @@ ggplot(ce, aes(x = Date, y = Weight, fill = Cultivar)) +
 
 To control the appearance of the text, see Recipe \@ref(RECIPE-APPEARANCE-TEXT-APPEARANCE).
 
-For more on transforming data by groups, see Recipe \@ref(RECIPE-DATAPREP-TRANSFORM-GROUP).
+For more on transforming data by groups, see Recipe \@ref(RECIPE-DATAPREP-CALCULATE-GROUP).
 
 
 Making a Cleveland Dot Plot {#RECIPE-BAR-GRAPH-DOT-PLOT}
