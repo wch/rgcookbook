@@ -3,6 +3,11 @@
 knitr::opts_chunk$set(collapse = TRUE, comment = "#>", cache = TRUE, fig.show = "hold")
 library(ggplot2)
 
+knitr::knit_hooks$set(small.mar = function(before, options, envir) {
+    if (before) par(mar = c(4.5, 4.5, 1, .5))  # smaller margin on top and right
+})
+
+
 knit_print.data.frame <- function(x, ..., maxrows = 8) {
   output <- capture.output(
     base::print.data.frame(head(x, maxrows), ...)
