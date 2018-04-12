@@ -119,16 +119,10 @@ You want to make a line graph with more than one line.
 In addition to the variables mapped to the x- and y-axes, map another (discrete) variable to colour or linetype, as shown in Figure \@ref(fig:FIG-LINE-GRAPH-MULTI-LINE-COLOR-TYPE):
 
 ```{r FIG-LINE-GRAPH-MULTI-LINE-COLOR-TYPE, fig.show="hold", fig.cap="Left: a variable mapped to colour; right: a variable mapped to linetype", fig.width=3.5, fig.height=3.5}
-# Use dplyr to create the example data set
-library(dplyr)
-# Summarize the ToothGrowth data
-
-tg <- ToothGrowth %>%
-    group_by(supp, dose) %>%
-    summarise(length = mean(len))
+library(gcookbook) # For the data set
 
 # Map supp to colour
-ggplot(tg, aes( x =dose, y = length, colour = supp)) + geom_line()
+ggplot(tg, aes( x = dose, y = length, colour = supp)) + geom_line()
 
 # Map supp to linetype
 ggplot(tg, aes(x = dose, y = length, linetype = supp)) + geom_line()
@@ -136,7 +130,7 @@ ggplot(tg, aes(x = dose, y = length, linetype = supp)) + geom_line()
 
 ### Discussion
 
-The tg data has three columns, including the factor supp, which we mapped to colour and linetype:
+The `tg` data has three columns, including the factor `supp`, which we mapped to `colour` and `linetype`:
 
 ```{r}
 tg
@@ -153,13 +147,14 @@ ggplot(tg, aes(x = factor(dose), y = length, colour = supp, group = supp)) + geo
 ```
 
 
-Notice the use of group=supp. Without this statement, ggplot won't know how to group the data together to draw the lines, and it will give an error:
+Notice the use of `group=supp`. Without this statement, ggplot won't know how to group the data together to draw the lines, and it will give an error:
 
 ```{r eval=FALSE}
 ggplot(tg, aes(x = factor(dose), y = length, colour = supp)) + geom_line()
 #> geom_path: Each group consists of only one observation. Do you need to
 #> adjust the group aesthetic?
 ```
+
 Another common problem when the incorrect grouping is used is that you will see a jagged sawtooth pattern, as in Figure \@ref(fig:FIG-LINE-GRAPH-MULTI-LINE-SAWTOOTH):
 
 ```{r FIG-LINE-GRAPH-MULTI-LINE-SAWTOOTH, fig.cap="A sawtooth pattern indicates improper grouping"}
@@ -212,12 +207,7 @@ ggplot(BOD, aes(x = Time, y = demand)) +
 If there is more than one line, setting the aesthetic properties will affect all of the lines. On the other hand, *mapping* variables to the properties, as we saw in Recipe \@ref(RECIPE-LINE-GRAPH-MULTIPLE-LINE), will result in each line looking different. The default colors aren't the most appealing, so you may want to use a different palette, as shown in Figure \@ref(fig:FIG-LINE-GRAPH-MULTI-LINE-PALETTE), by using `scale_colour_brewer()` or `scale_colour_manual()`:
 
 ```{r FIG-LINE-GRAPH-MULTI-LINE-PALETTE, fig.cap="Using a palette from RColorBrewer"}
-# Use dplyr to create the example data set
-library(dplyr)
-# Summarize the ToothGrowth data
-tg <- ToothGrowth %>%
-    group_by(supp, dose) %>%
-    summarise(length = mean(len))
+library(gcookbook) # For the data set
 
 ggplot(tg, aes(x = dose, y = length, colour = supp)) +
     geom_line() +
@@ -277,12 +267,7 @@ If the points and lines have different colors, you should specify the points aft
 For multiple lines, we saw in Recipe \@ref(RECIPE-LINE-GRAPH-MULTIPLE-LINE) how to draw differently colored points for each group by mapping variables to aesthetic properties of points, inside of `aes()`. The default colors are not very appealing, so you may want to use a different palette, using `scale_colour_brewer()` or `scale_colour_manual()`. To set a single constant shape or size for all the points, as in Figure \@ref(fig:FIG-LINE-GRAPH-MULTI-LINE-POINT-PALETTE), specify shape or size outside of `aes()`:
 
 ```{r FIG-LINE-GRAPH-MULTI-LINE-POINT-PALETTE, fig.cap="Line graph with manually specified fills of black and white, and a slight dodge"}
-# Use dplyr to create the example data set
-library(dplyr)
-# Summarize the ToothGrowth data
-tg <- ToothGrowth %>%
-    group_by(supp, dose) %>%
-    summarise(length = mean(len))
+library(gcookbook) # For the data set
 
 # Save the position_dodge specification because we'll use it multiple times
 pd <- position_dodge(0.2)
