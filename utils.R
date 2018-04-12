@@ -1,7 +1,13 @@
 # options(warn = -1)
 
-knitr::opts_chunk$set(collapse = TRUE, comment = "#>", cache = TRUE, fig.show = "hold")
 library(ggplot2)
+
+knitr::opts_chunk$set(collapse = TRUE, comment = "#>", cache = TRUE, fig.show = "hold")
+
+# Seems to be necessary for captions for multiple images in a single Figure.
+if (identical(knitr:::pandoc_to(), 'latex')) {
+  knitr::knit_hooks$set(plot = knitr::hook_plot_tex)
+}
 
 knitr::knit_hooks$set(small.mar = function(before, options, envir) {
     if (before) par(mar = c(4.5, 4.5, 1, .5))  # smaller margin on top and right
