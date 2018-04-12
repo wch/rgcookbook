@@ -182,7 +182,9 @@ ggplot(faithful, aes(x = waiting)) + geom_line(stat = "density") +
     expand_limits(y = 0)
 ```
 
-```{r FIG-DISTRIBUTION-DENSITY-BASIC, ref.label=c("FIG-DISTRIBUTION-DENSITY-BASIC-1", "FIG-DISTRIBUTION-DENSITY-BASIC-2"), echo=FALSE, fig.show="hold", fig.cap="Left: a kernel density estimate curve with geom_density(); right: with geom_line()", fig.width=3.5, fig.height=3.5}
+(ref:cap-FIG-DISTRIBUTION-DENSITY-BASIC) Left: a kernel density estimate curve with `geom_density()`; right: with `geom_line()`
+
+```{r FIG-DISTRIBUTION-DENSITY-BASIC, ref.label=c("FIG-DISTRIBUTION-DENSITY-BASIC-1", "FIG-DISTRIBUTION-DENSITY-BASIC-2"), echo=FALSE, fig.show="hold", fig.cap="(ref:cap-FIG-DISTRIBUTION-DENSITY-BASIC)", fig.width=3.5, fig.height=3.5}
 ```
 
 ### Discussion
@@ -215,7 +217,10 @@ ggplot(faithful, aes(x = waiting)) +
 
 In this example, the *x* range is automatically set so that it contains the data, but this results in the edge of the curve getting clipped. To show more of the curve, set the *x* limits (Figure \@ref(fig:FIG-DISTRIBUTION-DENSITY-WIDTH)). We'll also add an 80% transparent fill, with `alpha=.2`:
 
-```{r FIG-DISTRIBUTION-DENSITY-WIDTH, fig.show="hold", fig.cap="Left: density curve with wider x limits and a semitransparent fill; right: in two parts, with geom_density() and geom_line()", fig.width=3.5, fig.height=3.5}
+
+(ref:cap-FIG-DISTRIBUTION-DENSITY-WIDTH) Left: density curve with wider x limits and a semitransparent fill; right: in two parts, with `geom_density()` and `geom_line()`
+
+```{r FIG-DISTRIBUTION-DENSITY-WIDTH, fig.show="hold", fig.cap="(ref:cap-FIG-DISTRIBUTION-DENSITY-WIDTH)", fig.width=3.5, fig.height=3.5}
 ggplot(faithful, aes(x = waiting)) +
     geom_density(fill = "blue", alpha = .2) +
     xlim(35, 105)

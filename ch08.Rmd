@@ -543,7 +543,9 @@ Another way to remove the axis label is to set it to an empty string. However, i
 p + xlab("")
 ```
 
-```{r FIG-AXES-AXIS-LABEL-REMOVE, ref.label=c("FIG-AXES-AXIS-LABEL-REMOVE-1", "FIG-AXES-AXIS-LABEL-REMOVE-2"), echo=FALSE, fig.show="hold", fig.cap='Left: x-axis label with element_blank(); right: with the label set to ""', fig.width=3.5, fig.height=3.5}
+(ref:cap-FIG-AXES-AXIS-LABEL-REMOVE) Left: x-axis label with `element_blank()`; right: with the label set to `""`
+
+```{r FIG-AXES-AXIS-LABEL-REMOVE, ref.label=c("FIG-AXES-AXIS-LABEL-REMOVE-1", "FIG-AXES-AXIS-LABEL-REMOVE-2"), echo=FALSE, fig.show="hold", fig.cap="(ref:cap-FIG-AXES-AXIS-LABEL-REMOVE)", fig.width=3.5, fig.height=3.5}
 ```
 
 When you use `theme()` to set `axis.title.x=element_blank()`, the name of the *x* or *y* scale is unchanged, but the text is not displayed and no space is reserved for it. When you set the label to `""`, the name of the scale is changed and the (empty) text does display.
@@ -627,7 +629,9 @@ p + theme_bw() +
           axis.line = element_line(colour = "black"))
 ```
 
-```{r FIG-AXES-AXIS-LINE, ref.label=c("FIG-AXES-AXIS-LINE-1", "FIG-AXES-AXIS-LINE-2"), echo=FALSE, fig.show="hold", fig.cap="Left: scatter plot with axis lines; right: with theme_bw(), panel.border must also be made blank"}
+(ref:cap-FIG-AXES-AXIS-LINE) Left: scatter plot with axis lines; right: with theme_bw(), panel.border must also be made blank
+
+```{r FIG-AXES-AXIS-LINE, ref.label=c("FIG-AXES-AXIS-LINE-1", "FIG-AXES-AXIS-LINE-2"), echo=FALSE, fig.show="hold", fig.cap="(ref:cap-FIG-AXES-AXIS-LINE)"}
 ```
 
 

@@ -50,7 +50,8 @@ p + facet_grid(drv ~ cyl)
 
 With `facet_wrap()`, the subplots are laid out horizontally and wrap around, like words on a page, as in Figure \@ref(fig:FIG-FACET-FACET-WRAP):
 
-```{r FIG-FACET-FACET-WRAP, fig.cap="A scatter plot with `facet_wrap()` on class"}
+(ref:cap-FIG-FACET-FACET-WRAP) A scatter plot with `facet_wrap()` on class
+```{r FIG-FACET-FACET-WRAP, fig.cap="(ref:cap-FIG-FACET-FACET-WRAP)"}
 # Facet on class
 # Note there is nothing before the tilde
 p + facet_wrap( ~ class)
@@ -153,7 +154,9 @@ ggplot(mpg3, aes(x = displ, y = hwy)) + geom_point() +
     facet_grid(drv ~ ., labeller = label_parsed)
 ```
 
-```{r FIG-FACET-LABEL-TEXT-LABELLER, ref.label=c("FIG-FACET-LABEL-TEXT-LABELLER-1", "FIG-FACET-LABEL-TEXT-LABELLER-2"), echo=FALSE, fig.cap="Left: with `label_both()`; right: with `label_parsed()` for mathematical expressions", fig.width=2.5}
+(ref:cap-FIG-FACET-LABEL-TEXT-LABELLER) Left: with `label_both()`; right: with `label_parsed()` for mathematical expressions
+
+```{r FIG-FACET-LABEL-TEXT-LABELLER, ref.label=c("FIG-FACET-LABEL-TEXT-LABELLER-1", "FIG-FACET-LABEL-TEXT-LABELLER-2"), echo=FALSE, fig.cap="(ref:cap-FIG-FACET-LABEL-TEXT-LABELLER)", fig.width=2.5}
 ```
 
 ### See Also

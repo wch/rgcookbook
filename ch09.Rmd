@@ -91,7 +91,10 @@ p + ggtitle("Age and Height\nof Schoolchildren") +
 
 To set the appearance of text geoms (text that's in the plot itself, with `geom_text()` or `annotate()`), set the text properties. For example (Figure \@ref(fig:FIG-APPEARANCE-TEXT-APPEARANCE-GEOM)):
 
-```{r FIG-APPEARANCE-TEXT-APPEARANCE-GEOM, fig.show="hold", fig.cap='Left: `annotate("text")`; right: `geom_text()`'}
+
+(ref:cap-FIG-APPEARANCE-TEXT-APPEARANCE-GEOM) Left: `annotate("text")`; right: `geom_text()`
+
+```{r FIG-APPEARANCE-TEXT-APPEARANCE-GEOM, fig.show="hold", fig.cap="(ref:cap-FIG-APPEARANCE-TEXT-APPEARANCE-GEOM)"}
 p + annotate("text", x = 15, y = 53, label = "Some text", size = 7, family = "Times",
         fontface = "bold.italic", colour = "red")
 
@@ -207,7 +210,9 @@ You want to use premade themes to control the overall plot appearance.
 
 To use a premade theme, add `theme_bw()` or `theme_grey()` (Figure \@ref(fig:FIG-APPEARANCE-THEME)):
 
-```{r FIG-APPEARANCE-THEME, fig.show="hold", fig.cap="Left: scatter plot with `theme_grey()` (the default); right: with `theme_bw()`"}
+(ref:cap-FIG-APPEARANCE-THEME) Left: scatter plot with `theme_grey()` (the default); right: with `theme_bw()`
+
+```{r FIG-APPEARANCE-THEME, fig.show="hold", fig.cap="(ref:cap-FIG-APPEARANCE-THEME)"}
 library(gcookbook) # For the data set
 
 # Base plot

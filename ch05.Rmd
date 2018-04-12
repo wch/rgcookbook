@@ -358,7 +358,9 @@ By default, `stat_bin_2d()` divides the space into 30 groups in the *x* and *y* 
 
 The default colors are somewhat difficult to distinguish because they don't vary much in luminosity. In the second version we set the colors by using `scale_fill_gradient()` and specifying the low and high colors. By default, the legend doesn't show an entry for the lowest values. This is because the range of the color scale starts not from zero, but from the smallest nonzero quantity in a bin-probably 1, in this case. To make the legend show a zero (as in Figure \@ref(fig:FIG-SCATTER-OVERPLOT-BIN2D), right), we can manually set the range from 0 to the maximum, 6000, using limits (Figure \@ref(fig:FIG-SCATTER-OVERPLOT-BIN2D), left):
 
-```{r FIG-SCATTER-OVERPLOT-BIN2D, fig.show="hold", fig.cap="Left: binning data with stat_bin2d(); right: with more bins, manually specified colors, and legend breaks", fig.width=3.5, fig.height=3.5}
+(ref:cap-FIG-SCATTER-OVERPLOT-BIN2D) Left: binning data with `stat_bin2d()`; right: with more bins, manually specified colors, and legend breaks
+
+```{r FIG-SCATTER-OVERPLOT-BIN2D, fig.show="hold", fig.cap="(ref:cap-FIG-SCATTER-OVERPLOT-BIN2D)", fig.width=3.5, fig.height=3.5}
 sp + stat_bin2d()
 
 sp + stat_bin2d(bins = 50) +
@@ -368,7 +370,10 @@ sp + stat_bin2d(bins = 50) +
 
 Another alternative is to bin the data into hexagons instead of rectangles, with `stat_binhex()` (Figure \@ref(fig:FIG-SCATTER-OVERPLOT-BINHEX)). It works just like `stat_bin2d()`. To use it, you must first install the hexbin package, with `install.packages("hexbin")`:
 
-```{r FIG-SCATTER-OVERPLOT-BINHEX, fig.show="hold", fig.cap="Left: binning data with stat_binhex(); right: cells outside of the range shown in grey", fig.width=3.5, fig.height=3.5}
+(ref:cap-FIG-SCATTER-OVERPLOT-BINHEX) Left: binning data with `stat_binhex()`; right: cells outside of the range shown in grey
+
+
+```{r FIG-SCATTER-OVERPLOT-BINHEX, fig.show="hold", fig.cap="(ref:cap-FIG-SCATTER-OVERPLOT-BINHEX)", fig.width=3.5, fig.height=3.5}
 library(hexbin)
 
 sp + stat_binhex() +

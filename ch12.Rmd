@@ -335,7 +335,9 @@ You want to use different colors for a continuous variable.
 
 In the example here, we'll specify the colors for a continuous variable using various gradient scales (Figure \@ref(fig:FIG-COLORS-PALETTE-CONTINUOUS)). The colors can be named, or they can be specified with RGB values:
 
-```{r FIG-COLORS-PALETTE-CONTINUOUS, fig.show="hold", fig.cap="Clockwise from top left: default colors, two-color gradient with `scale_colour_gradient()`, three-color gradient with midpoint with `scale_colour_gradient2()`, four-color gradient with `scale_colour_gradientn()`", fig.width=4}
+(ref:cap-FIG-COLORS-PALETTE-CONTINUOUS) Clockwise from top left: default colors, two-color gradient with `scale_colour_gradient()`, three-color gradient with midpoint with `scale_colour_gradient2()`, four-color gradient with `scale_colour_gradientn()`
+
+```{r FIG-COLORS-PALETTE-CONTINUOUS, fig.show="hold", fig.cap="(ref:cap-FIG-COLORS-PALETTE-CONTINUOUS)", fig.width=4}
 library(gcookbook) # For the data set
 
 # Base plot
