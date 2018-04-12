@@ -2,7 +2,13 @@
 
 library(ggplot2)
 
-knitr::opts_chunk$set(collapse = TRUE, comment = "#>", cache = TRUE, fig.show = "hold")
+knitr::opts_chunk$set(
+    collapse = TRUE,
+    comment = "#>",
+    cache = TRUE,
+    fig.show = "hold",
+    out.width = NULL
+)
 
 # Seems to be necessary for captions for multiple images in a single Figure.
 if (identical(knitr:::pandoc_to(), 'latex')) {

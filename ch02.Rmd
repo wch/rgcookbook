@@ -11,7 +11,7 @@ editor_options:
 # persist across cached builds.
 
 source("utils.R", local = TRUE)
-knitr::opts_chunk$set(fig.width=4, fig.height=3)
+knitr::opts_chunk$set(fig.width=4, fig.height=3, out.width="50%")
 ```
 
 Quickly Exploring Data {#CHAPTER-QUICK}
@@ -265,7 +265,7 @@ To make a box plot (Figure \@ref(fig:FIG-QUICK-BOXPLOT-BASE)), use `plot()` and 
 plot(ToothGrowth$supp, ToothGrowth$len)
 ```
 
-```{r FIG-QUICK-BOXPLOT-BASE, echo=FALSE, small.mar=TRUE, fig.show="hold", fig.cap="Left: box plot with base graphics; right: with multiple grouping variables", fig.width=10}
+```{r FIG-QUICK-BOXPLOT-BASE, echo=FALSE, small.mar=TRUE, fig.show="hold", fig.cap="Left: box plot with base graphics; right: with multiple grouping variables", fig.width=10, out.width="100%"}
 layout(t(c(1,2,2)))
 plot(ToothGrowth$supp, ToothGrowth$len)
 

@@ -7,8 +7,13 @@ editor_options:
 ---
 
 ```{r echo = FALSE, cache = FALSE}
+# This block needs cache=FALSE to set fig.width and fig.height, and have those
+# persist across cached builds.
+
 source("utils.R", local = TRUE)
+knitr::opts_chunk$set(fig.width=5, fig.height=3.5, out.width="50%")
 ```
+
 
 
 Line Graphs {#CHAPTER-LINE-GRAPH}
@@ -118,7 +123,7 @@ You want to make a line graph with more than one line.
 
 In addition to the variables mapped to the x- and y-axes, map another (discrete) variable to colour or linetype, as shown in Figure \@ref(fig:FIG-LINE-GRAPH-MULTI-LINE-COLOR-TYPE):
 
-```{r FIG-LINE-GRAPH-MULTI-LINE-COLOR-TYPE, fig.show="hold", fig.cap="Left: a variable mapped to colour; right: a variable mapped to linetype", fig.width=3.5, fig.height=3.5}
+```{r FIG-LINE-GRAPH-MULTI-LINE-COLOR-TYPE, fig.show="hold", fig.cap="Left: a variable mapped to colour; right: a variable mapped to linetype"}
 library(gcookbook) # For the data set
 
 # Map supp to colour
@@ -169,7 +174,7 @@ This happens because there are multiple data points at each *y* location, and gg
 
 If your plot has points along with the lines, you can also map variables to properties of the points, such as shape and fill (Figure \@ref(fig:FIG-LINE-GRAPH-MULTI-LINE-SHAPE-FILL)):
 
-```{r FIG-LINE-GRAPH-MULTI-LINE-SHAPE-FILL, fig.show="hold", fig.cap="Left: line graph with different shapes; right: with different colors", fig.width=3.5, fig.height=3.5}
+```{r FIG-LINE-GRAPH-MULTI-LINE-SHAPE-FILL, fig.show="hold", fig.cap="Left: line graph with different shapes; right: with different colors"}
 ggplot(tg, aes(x = dose, y = length, shape = supp)) + geom_line() +
     geom_point(size = 4)           # Make the points a little larger
 
@@ -218,7 +223,7 @@ ggplot(tg, aes(x = dose, y = length, colour = supp)) +
 
 To set a single constant color for all the lines, specify colour outside of `aes()`. The same works for size, linetype, and point shape (Figure \@ref(fig:FIG-LINE-GRAPH-MULTI-LINE-CONSTANT-AES)). You may also have to specify the grouping variable:
 
-```{r FIG-LINE-GRAPH-MULTI-LINE-CONSTANT-AES, fig.show="hold", fig.cap="Left: line graph with constant size and color; right: with supp mapped to colour, and with points added", fig.width=3.5, fig.height=3.5}
+```{r FIG-LINE-GRAPH-MULTI-LINE-CONSTANT-AES, fig.show="hold", fig.cap="Left: line graph with constant size and color; right: with supp mapped to colour, and with points added"}
 # If both lines have the same properties, you need to specify a variable to
 # use for grouping
 ggplot(tg, aes(x = dose, y = length, group = supp)) +
@@ -284,21 +289,6 @@ ggplot(tg, aes(x = dose, y = length, fill = supp)) +
 See Recipe \@ref(RECIPE-SCATTER-SHAPES) for more on using different shapes, and Chapter \@ref(CHAPTER-COLORS) for more about colors.
 
 
----
-output:
-  bookdown::html_document2:
-    fig_caption: yes
-editor_options:
-  chunk_output_type: console
----
-
-```{r echo = FALSE}
-knitr::opts_chunk$set(collapse = TRUE, comment = "#>")
-source("utils.R", local = TRUE)
-library(ggplot2)
-```
-
-
 Making a Graph with a Shaded Area {#RECIPE-LINE-GRAPH-AREA}
 ---------------------------------
 
@@ -310,7 +300,7 @@ You want to make a graph with a shaded area.
 
 Use `geom_area()` to get a shaded area, as in Figure \@ref(fig:FIG-LINE-GRAPH-AREA):
 
-```{r FIG-LINE-GRAPH-AREA, fig.cap="Graph with a shaded area"}
+```{r FIG-LINE-GRAPH-AREA, fig.cap="Graph with a shaded area", fig.width=8, fig.height=1.5, out.width="100%"}
 # Convert the sunspot.year data set into a data frame for this example
 sunspotyear <- data.frame(
     Year     = as.numeric(time(sunspot.year)),
@@ -324,7 +314,7 @@ ggplot(sunspotyear, aes(x = Year, y = Sunspots)) + geom_area()
 
 By default, the area will be filled with a very dark grey and will have no outline. The color can be changed by setting `fill`. In the following example, we'll set it to `"blue"`, and we'll also make it 80% transparent by setting `alpha` to 0.2. This makes it possible to see the grid lines through the area, as shown in Figure \@ref(fig:FIG-LINE-GRAPH-AREA-OUTLINE). We'll also add an outline, by setting colour:
 
-```{r FIG-LINE-GRAPH-AREA-OUTLINE, fig.cap="Graph with a semitransparent shaded area and an outline"}
+```{r FIG-LINE-GRAPH-AREA-OUTLINE, fig.cap="Graph with a semitransparent shaded area and an outline", fig.width=8, fig.height=1.5, out.width="100%"}
 ggplot(sunspotyear, aes(x = Year, y = Sunspots)) +
     geom_area(colour = "black", fill = "blue", alpha = .2)
 ```
@@ -333,7 +323,7 @@ Having an outline around the entire area might not be desirable, because it puts
 
 (ref:cap-FIG-LINE-GRAPH-AREA-TOPLINE) Line graph with a line just on top, using `geom_line()`
 
-```{r FIG-LINE-GRAPH-AREA-TOPLINE, fig.cap="(ref:cap-FIG-LINE-GRAPH-AREA-TOPLINE)"}
+```{r FIG-LINE-GRAPH-AREA-TOPLINE, fig.cap="(ref:cap-FIG-LINE-GRAPH-AREA-TOPLINE)", fig.width=8, fig.height=1.5, out.width="100%"}
 ggplot(sunspotyear, aes(x = Year, y = Sunspots)) +
     geom_area(fill = "blue", alpha = .2) +
     geom_line()
@@ -355,7 +345,7 @@ You want to make a stacked area graph.
 
 Use `geom_area()` andmap a factor to fill (Figure \@ref(fig:FIG-LINE-GRAPH-STACKED-AREA)):
 
-```{r FIG-LINE-GRAPH-STACKED-AREA, fig.cap="Stacked area graph"}
+```{r FIG-LINE-GRAPH-STACKED-AREA, fig.cap="Stacked area graph", fig.width=6, out.width="75%"}
 library(gcookbook) # For the data set
 
 ggplot(uspopage, aes(x = Year, y = Thousands, fill = AgeGroup)) + geom_area()
@@ -373,7 +363,7 @@ uspopage
 
 This version of the chart (Figure \@ref(fig:FIG-LINE-GRAPH-STACKED-AREA-CUSTOMIZED)) changes the palette to a range of blues and adds thin (`size=.2`) lines between each area. It also makes the filled areas semitransparent (`alpha=.4`), so that it is possible to see the grid lines through them:
 
-```{r FIG-LINE-GRAPH-STACKED-AREA-CUSTOMIZED, fig.cap="Reversed legend order, lines, and a different palette"}
+```{r FIG-LINE-GRAPH-STACKED-AREA-CUSTOMIZED, fig.cap="Reversed legend order, lines, and a different palette", fig.width=6, out.width="75%"}
 ggplot(uspopage, aes(x = Year, y = Thousands, fill = AgeGroup)) +
     geom_area(colour = "black", size = .2, alpha = .4) +
     scale_fill_brewer(palette = "Blues")
@@ -381,8 +371,8 @@ ggplot(uspopage, aes(x = Year, y = Thousands, fill = AgeGroup)) +
 
 Since each filled area is drawn with a polygon, the outline includes the left and right sides. This might be distracting or misleading. To get rid of it (Figure \@ref(fig:FIG-LINE-GRAPH-STACKED-AREA-NOSIDES)), first draw the stacked areas *without* an outline (by leaving `colour` as the default `NA` value), and then add a `geom_line()` on top:
 
-```{r FIG-LINE-GRAPH-STACKED-AREA-NOSIDES, fig.cap="No lines on the left and right of the graph"}
-ggplot(uspopage, aes(x = Year, y = Thousands, fill = AgeGroup, order = desc(AgeGroup))) +
+```{r FIG-LINE-GRAPH-STACKED-AREA-NOSIDES, fig.cap="No lines on the left and right of the graph", fig.width=6, out.width="75%"}
+ggplot(uspopage, aes(x = Year, y = Thousands, fill = AgeGroup, order = dplyr::desc(AgeGroup))) +
     geom_area(colour = NA, alpha = .4) +
     scale_fill_brewer(palette = "Blues") +
     geom_line(position = "stack", size = .2)
@@ -413,12 +403,13 @@ library(dplyr)
 # Convert Thousands to Percent
 uspopage_prop <- uspopage %>%
     group_by(Year) %>%
-    mutate(Percent = Thousands / sum(Thousands) * 100)
+    mutate(Percent = Thousands / sum(Thousands) * 100) %>%
+    ungroup()
 ```
 
 Once we've calculated the proportions, plotting is the same as with a regular stacked area graph (Figure \@ref(fig:FIG-LINE-GRAPH-PROPORTIONAL-STACKED-AREA)):
 
-```{r FIG-LINE-GRAPH-PROPORTIONAL-STACKED-AREA, fig.cap="A proportional stacked area graph"}
+```{r FIG-LINE-GRAPH-PROPORTIONAL-STACKED-AREA, fig.cap="A proportional stacked area graph", fig.width=6, out.width="75%"}
 ggplot(uspopage_prop, aes(x = Year, y = Percent, fill = AgeGroup)) +
     geom_area(colour = "black", size = .2, alpha = .4) +
     scale_fill_brewer(palette = "Blues")
@@ -459,7 +450,7 @@ Use `geom_ribbon()` and map values to `ymin` and `ymax`.
 
 In the `climate` data set, `Anomaly10y` is a 10-year running average of the deviation (in Celsius) from the average 1950–1980 temperature, and `Unc10y` is the 95% confidence interval. We'll set `ymax` and `ymin` to `Anomaly10y` plus or minus `Unc10y` (Figure \@ref(fig:FIG-LINE-GRAPH-REGION)):
 
-```{r FIG-LINE-GRAPH-REGION, fig.cap="A line graph with a shaded confidence region"}
+```{r FIG-LINE-GRAPH-REGION, fig.cap="A line graph with a shaded confidence region", fig.width=8, out.width="100%"}
 library(gcookbook) # For the data set
 # Grab a subset of the climate data
 clim <- subset(climate, Source == "Berkeley", select=c("Year", "Anomaly10y", "Unc10y"))
@@ -480,7 +471,7 @@ Notice that the `geom_ribbon()` comes before `geom_line()`, so that the line is 
 
 Instead of a shaded region, you can also use dotted lines to represent the upper and lower bounds (Figure \@ref(fig:FIG-LINE-GRAPH-REGION-LINES)):
 
-```{r FIG-LINE-GRAPH-REGION-LINES, fig.cap="A line graph with dotted lines representing a confidence region"}
+```{r FIG-LINE-GRAPH-REGION-LINES, fig.cap="A line graph with dotted lines representing a confidence region", fig.width=8, out.width="100%"}
 # With a dotted line for upper and lower bounds
 ggplot(clim, aes(x = Year, y = Anomaly10y)) +
     geom_line(aes(y = Anomaly10y-Unc10y), colour = "grey50", linetype = "dotted") +

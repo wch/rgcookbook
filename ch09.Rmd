@@ -30,7 +30,9 @@ You want to set the title of a graph.
 
 Set title with `ggtitle()`, as shown in Figure \@ref(fig:FIG-APPEARANCE-TITLE):
 
-```{r FIG-APPEARANCE-TITLE, fig.show="hold", fig.cap="Left: scatter plot with a title added; right: with a `\\n` for a newline"}
+(ref:cap-FIG-APPEARANCE-TITLE) Left: scatter plot with a title added; right: with a `\n` for a newline
+
+```{r FIG-APPEARANCE-TITLE, fig.show="hold", fig.cap="(ref:cap-FIG-APPEARANCE-TITLE)"}
 library(gcookbook) # For the data set
 
 p <- ggplot(heightweight, aes(x = ageYear, y = heightIn)) + geom_point()

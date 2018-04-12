@@ -269,7 +269,7 @@ csub
 
 Once we have the data, we can make the graph and map pos to the fill color, as in Figure \@ref(fig:FIG-BAR-GRAPH-COLOR-NEG). Notice that we use position="identity" with the bars. This will prevent a warning message about stacking not being well defined for negative numbers:
 
-```{r FIG-BAR-GRAPH-COLOR-NEG, fig.cap="Different colors for positive and negative values"}
+```{r FIG-BAR-GRAPH-COLOR-NEG, fig.cap="Different colors for positive and negative values", fig.width=8, out.width="100%"}
 ggplot(csub, aes(x = Year, y = Anomaly10y, fill = pos)) +
   geom_col(position = "identity")
 ```
@@ -280,7 +280,7 @@ There are a few problems with the first attempt. First, the colors are probably 
 
 We can change the colors with `scale_fill_manual()` and remove the legend with `guide=FALSE`, as shown in Figure \@ref(fig:FIG-BAR-GRAPH-COLOR-NEG2). We'll also add a thin black outline around each of the bars by setting `colour` and specifying `size`, which is the thickness of the outline (in millimeters):
 
-```{r FIG-BAR-GRAPH-COLOR-NEG2, fig.cap="Graph with customized colors and no legend"}
+```{r FIG-BAR-GRAPH-COLOR-NEG2, fig.cap="Graph with customized colors and no legend", fig.width=8, out.width="100%"}
 ggplot(csub, aes(x = Year, y = Anomaly10y, fill = pos)) +
     geom_col(position = "identity", colour = "black", size = 0.25) +
     scale_fill_manual(values = c("#CCEEFF", "#FFDDDD"), guide = FALSE)
@@ -662,7 +662,7 @@ Cleveland dot plots are an alternative to bar graphs that reduce visual clutter 
 
 The simplest way to create a dot plot (as shown in Figure \@ref(fig:FIG-BAR-GRAPH-DOTPLOT)) is to use `geom_point()`:
 
-```{r FIG-BAR-GRAPH-DOTPLOT, fig.cap="Basic dot plot"}
+```{r FIG-BAR-GRAPH-DOTPLOT, fig.cap="Basic dot plot", fig.width = 4, fig.height=5, out.width="50%"}
 library(gcookbook) # For the data set
 tophit <- tophitters2001[1:25, ] # Take the top 25 from the tophitters data set
 
@@ -683,7 +683,7 @@ Although the rows of `tophit` happen to be sorted by `avg`, that doesn't mean th
 
 To do this, we can use `reorder(name, avg)`, which takes the name column, turns it into a factor, and sorts the factor levels by `avg`. To further improve the appearance, we'll make the vertical grid lines go away by using the theming system, and turn the horizontal grid lines into dashed lines (Figure \@ref(fig:FIG-BAR-GRAPH-DOTPLOT-ORDERED)):
 
-```{r FIG-BAR-GRAPH-DOTPLOT-ORDERED, fig.cap="Dot plot, ordered by batting average"}
+```{r FIG-BAR-GRAPH-DOTPLOT-ORDERED, fig.cap="Dot plot, ordered by batting average", fig.width=4, fig.height=5, out.width="50%"}
 ggplot(tophit, aes(x = avg, y = reorder(name, avg))) +
     geom_point(size = 3) +                        # Use a larger dot
     theme_bw() +
@@ -694,7 +694,7 @@ ggplot(tophit, aes(x = avg, y = reorder(name, avg))) +
 
 It's also possible to swap the axes so that the names go along the x-axis and the values go along the y-axis, as shown in Figure \@ref(fig:FIG-BAR-GRAPH-DOTPLOT-ORDERED-SWAP). We'll also rotate the text labels by 60 degrees:
 
-```{r FIG-BAR-GRAPH-DOTPLOT-ORDERED-SWAP, fig.cap="Dot plot with names on x-axis and values on y-axis"}
+```{r FIG-BAR-GRAPH-DOTPLOT-ORDERED-SWAP, fig.cap="Dot plot with names on x-axis and values on y-axis", fig.width=6, fig.height=4, out.width="80%"}
 ggplot(tophit, aes(x = reorder(name, avg), y = avg)) +
     geom_point(size = 3) +                        # Use a larger dot
     theme_bw() +
@@ -717,7 +717,7 @@ tophit$name <- factor(tophit$name, levels = nameorder)
 
 To make the graph (Figure \@ref(fig:FIG-BAR-GRAPH-DOTPLOT-ORDERED2)), we'll also add a mapping of `lg` to the color of the points. Instead of using grid lines that run all the way across, this time we'll make the lines go only up to the points, by using `geom_segment()`. Note that `geom_segment()` needs values for `x`, `y`, `xend`, and `yend`:
 
-```{r FIG-BAR-GRAPH-DOTPLOT-ORDERED2, fig.cap="Grouped by league, with lines that stop at the point"}
+```{r FIG-BAR-GRAPH-DOTPLOT-ORDERED2, fig.cap="Grouped by league, with lines that stop at the point", fig.width=4, fig.height=6, out.width="50%"}
 ggplot(tophit, aes(x = avg, y = name)) +
     geom_segment(aes(yend = name), xend = 0, colour = "grey50") +
     geom_point(size = 3, aes(colour = lg)) +
@@ -730,7 +730,7 @@ ggplot(tophit, aes(x = avg, y = name)) +
 
 Another way to separate the two groups is to use facets, as shown in Figure \@ref(fig:FIG-BAR-GRAPH-DOTPLOT-ORDERED2-FACET). The order in which the facets are displayed is different from the sorting order in Figure \@ref(fig:FIG-BAR-GRAPH-DOTPLOT-ORDERED2); to change the display order, you must change the order of factor levels in the `lg` variable:
 
-```{r FIG-BAR-GRAPH-DOTPLOT-ORDERED2-FACET, fig.cap="Faceted by league"}
+```{r FIG-BAR-GRAPH-DOTPLOT-ORDERED2-FACET, fig.cap="Faceted by league", fig.width=4, fig.height=6, out.width="50%"}
 ggplot(tophit, aes(x = avg, y = name)) +
     geom_segment(aes(yend = name), xend = 0, colour = "grey50") +
     geom_point(size = 3, aes(colour = lg)) +
