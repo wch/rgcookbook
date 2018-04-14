@@ -6,12 +6,13 @@ editor_options:
   chunk_output_type: console
 ---
 
+
 ```{r echo = FALSE, cache = FALSE}
 # This block needs cache=FALSE to set fig.width and fig.height, and have those
 # persist across cached builds.
 
 source("utils.R", local = TRUE)
-knitr::opts_chunk$set(fig.width=4, fig.height=3, out.width="50%")
+knitr::opts_chunk$set(fig.width=5, fig.height=4, out.width="50%")
 ```
 
 Quickly Exploring Data {#CHAPTER-QUICK}
@@ -36,7 +37,7 @@ You want to create a scatter plot.
 
 To make a scatter plot (Figure \@ref(fig:FIG-QUICK-SCATTER-BASE)), use `plot()` and pass it a vector of *x* values followed by a vector of *y* values:
 
-```{r FIG-QUICK-SCATTER-BASE, small.mar=TRUE, fig.cap='Scatter plot with base graphics'}
+```{r FIG-QUICK-SCATTER-BASE, small.mar=TRUE, fig.cap='Scatter plot with base graphics', out.width="70%"}
 plot(mtcars$wt, mtcars$mpg)
 ```
 
@@ -44,7 +45,7 @@ The `mtcars$wt` returns the column named `wt` from the `mtcars` data frame, and 
 
 With ggplot2, you can get a similar result using the `ggplot()` function (Figure Figure \@ref(fig:FIG-QUICK-SCATTER-GGPLOT)):
 
-```{r FIG-QUICK-SCATTER-GGPLOT, fig.cap='Scatter plot with ggplot2'}
+```{r FIG-QUICK-SCATTER-GGPLOT, fig.cap='Scatter plot with ggplot2', out.width="70%"}
 library(ggplot2)
 ggplot(mtcars, aes(x = wt, y = mpg)) + geom_point()
 ```
@@ -356,7 +357,7 @@ curve(1 - myfun(x), add = TRUE, col = "red")
 
 With ggplot2, you can get a similar result (Figure \@ref(fig:FIG-QUICK-FUNCTION-GGPLOT)), by using `stat_function(geom="line")` and passing it a function that takes a numeric vector as input and returns a numeric vector:
 
-```{r FIG-QUICK-FUNCTION-GGPLOT, fig.cap="A function curve with ggplot2"}
+```{r FIG-QUICK-FUNCTION-GGPLOT, fig.cap="A function curve with ggplot2", out.width="70%"}
 library(ggplot2)
 # This sets the x range from 0 to 20
 ggplot(data.frame(x = c(0, 20)), aes(x = x)) +
