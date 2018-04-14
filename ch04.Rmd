@@ -394,45 +394,32 @@ You want to make a stacked area graph with the overall height scaled to a consta
 
 ### Solution
 
-First, calculate the proportions. In this example, we'll use the dplyr package to break `uspopage` into groups by `Year`, then calculate a new column, `Percent`. This value is the `Thousands` for each row, divided by the sum of `Thousands` for each `Year` group, multiplied by 100 to get a percent value:
+Use `geom_area(position="fill")`, as in Figure \@ref(fig:FIG-LINE-GRAPH-PROPORTIONAL-STACKED-AREA), left:
 
-```{r}
-library(gcookbook) # For the data set
-library(dplyr)
-
-# Convert Thousands to Percent
-uspopage_prop <- uspopage %>%
-    group_by(Year) %>%
-    mutate(Percent = Thousands / sum(Thousands) * 100) %>%
-    ungroup()
-```
-
-Once we've calculated the proportions, plotting is the same as with a regular stacked area graph (Figure \@ref(fig:FIG-LINE-GRAPH-PROPORTIONAL-STACKED-AREA)):
-
-```{r FIG-LINE-GRAPH-PROPORTIONAL-STACKED-AREA, fig.cap="A proportional stacked area graph", fig.width=6, out.width="75%"}
-ggplot(uspopage_prop, aes(x = Year, y = Percent, fill = AgeGroup)) +
-    geom_area(colour = "black", size = .2, alpha = .4) +
+```{r FIG-LINE-GRAPH-PROPORTIONAL-STACKED-AREA-1, eval=FALSE, fig.show="hold"}
+ggplot(uspopage, aes(x = Year, y = Thousands, fill = AgeGroup)) +
+    geom_area(position = "fill", colour = "black", size = .2, alpha = .4) +
     scale_fill_brewer(palette = "Blues")
 ```
 
-
 ### Discussion
 
-Let's take a closer look at the data and how it was summarized:
+With `position="fill"`, the y values will be scaled to go from 0 to 1. To print the labels as percentages, use `scale_y_continuous(labels = scales::percent)`, as in Figure \@ref(fig:FIG-LINE-GRAPH-PROPORTIONAL-STACKED-AREA), right:
 
-```{r}
-uspopage
+```{r FIG-LINE-GRAPH-PROPORTIONAL-STACKED-AREA-2, eval=FALSE, fig.show="hold"}
+ggplot(uspopage, aes(x = Year, y = Thousands, fill = AgeGroup)) +
+    geom_area(position = "fill", colour = "black", size = .2, alpha = .4) +
+    scale_fill_brewer(palette = "Blues") +
+    scale_y_continuous(labels = scales::percent)
 ```
 
-We used dplyr's `group_by()` function to group it into separate data frames for each value of Year, then used the `mutate()` function to each piece to calculate the `Percent` for each piece:
-
-```{r}
-uspopage %>%
-    group_by(Year) %>%
-    mutate(Percent = Thousands / sum(Thousands) * 100)
+```{r FIG-LINE-GRAPH-PROPORTIONAL-STACKED-AREA, ref.label=c("FIG-LINE-GRAPH-PROPORTIONAL-STACKED-AREA-1", "FIG-LINE-GRAPH-PROPORTIONAL-STACKED-AREA-2"), echo=FALSE, fig.cap="A proportional stacked area graph", fig.width=6}
 ```
+
 
 ### See Also
+
+Creating stacked bar graph is done in a similar way. See Recipe \@ref(RECIPE-BAR-GRAPH-PROPORTIONAL-STACKED-BAR) for information about computing the percentages separately.
 
 For more on summarizing data by groups, see Recipe \@ref(RECIPE-DATAPREP-SUMMARIZE).
 
@@ -452,8 +439,11 @@ In the `climate` data set, `Anomaly10y` is a 10-year running average of the devi
 
 ```{r FIG-LINE-GRAPH-REGION, fig.cap="A line graph with a shaded confidence region", fig.width=8, out.width="100%"}
 library(gcookbook) # For the data set
+library(dplyr)
 # Grab a subset of the climate data
-clim <- subset(climate, Source == "Berkeley", select=c("Year", "Anomaly10y", "Unc10y"))
+clim <- climate %>%
+    filter(Source == "Berkeley") %>%
+    select(Year, Anomaly10y, Unc10y)
 clim
 
 # Shaded region
