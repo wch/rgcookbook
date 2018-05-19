@@ -53,9 +53,16 @@ At this point you may be prompted to select a download mirror. It's usually best
 
 ### Discussion
 
+If you want to install multiple packages at once, you can pass it a vector of package names. For example, this will install most of the packages used in this book:
+
+```{r, eval=FALSE}
+install.packages(c("ggplot2", "gcookbook", "MASS", "dplyr"))
+```
+
 When you tell R to install a package, it will automatically install any other packages that the first package depends on.
 
 CRAN (the Comprehensive R Archive Network) is a repository of packages for R, and it is mirrored on many servers around the world. It is the default repository system used by R. There are other package repositories; Bioconductor, for example, is a repository of packages related to analyzing genomic data.
+
 
 Loading a Package
 -----------------
@@ -82,6 +89,33 @@ One of R's quirks is the package/library terminology. Although you use the `libr
 
 A *library* is a directory that contains a set of packages. You might, for example, have a system-wide library as well as a library for each user.
 
+
+Upgrading Packages
+------------------
+
+### Problem
+
+You want to upgrade a package that is already installed.
+
+### Solution
+
+Run `update.packages()`:
+
+```{r, eval=FALSE}
+update.packages()
+```
+
+It will prompt you for each package that can be upgraded. If you want it to upgrade all packages without asking, use `ask=FALSE`:
+
+```{r, eval=FALSE}
+update.packages(ask = FALSE)
+```
+
+### Discussion
+
+Over time, package authors will release new versions of packages with bug fixes and new features, and it's usually a good idea to keep up-to-date. However, keep in mind that occasionally new versions of packages will introduce bugs or have slightly changed behavior.
+
+
 Loading a Delimited Text Data File
 ----------------------------------
 
@@ -96,6 +130,8 @@ The most common way to read in a file is to use comma-separated values (CSV) dat
 ```{r, eval=FALSE}
 data <- read.csv("datafile.csv")
 ```
+
+Alternatively, you can use the `read_csv()` function (note the underscore instead of period) from the readr package. This function is significantly faster than `read.csv()`, and 
 
 ### Discussion
 
@@ -140,8 +176,6 @@ str(data)
 #> $ Sex : Factor w/ 2 levels "F","M": 1 2 NA
 #> $ Number: int 2 49 21
 ```
-
-**TODO: Fix text output formatting**
 
 Alternatively, you could load the file with strings as factors, and then convert individual columns from factors to characters.
 
