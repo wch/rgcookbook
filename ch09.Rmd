@@ -47,6 +47,12 @@ p + ggtitle("Age and Height\nof Schoolchildren")
 
 `ggtitle()` is equivalent to using `labs(title = "Title text")`.
 
+You can add a subtitle by providing a string as the second argument of `ggtitle()`. By default it will display with slightly smaller text than the main title.
+
+```{r FIG-APPEARANCE-TITLE-SUBTITLE, fig.show="hold", fig.cap="With a subtitle"}
+p + ggtitle("Age and Height of Schoolchildren", "11.5 to 17.5 years old")
+```
+
 If you want to move the title inside the plotting area, you can use one of two methods, both of which are a little bit of a hack (Figure \@ref(fig:FIG-APPEARANCE-TITLE-INSIDE)). The first method is to use `ggtitle()` with a negative `vjust` value. The drawback of this method is that it still reserves blank space above the plotting region for the title.
 
 The second method is to instead use a text annotation, setting its *x* position to the middle of the *x* range and its *y* position to `Inf`, which places it at the top of the plotting region. This also requires a positive `vjust` value to bring the text fully inside the plotting region:
