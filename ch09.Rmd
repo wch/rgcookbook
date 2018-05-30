@@ -484,7 +484,7 @@ p + theme(panel.grid.major = element_blank(),
 
 ### Discussion
 
-It's possible to hide just the vertical or horizontal grid lines, as shown in the middle and righthand graphs in Figure \@ref(fig:FIG-APPEARANCE-HIDE-GRIDLINES), with `panel.grid.major.x`, `panel.grid.major.y`, `panel.grid.minor.x`, and `panel.grid.minor.y`:
+It's possible to hide just the vertical or horizontal grid lines, as shown in the middle and right-hand graphs in Figure \@ref(fig:FIG-APPEARANCE-HIDE-GRIDLINES), with `panel.grid.major.x`, `panel.grid.major.y`, `panel.grid.minor.x`, and `panel.grid.minor.y`:
 
 ```{r FIG-APPEARANCE-HIDE-GRIDLINES-2, eval=FALSE}
 # Hide the vertical grid lines (which intersect with the x-axis)
