@@ -396,7 +396,7 @@ In Figure \@ref(fig:FIG-DISTRIBUTION-BOXPLOT-BASIC), the data is divided into gr
 A box plot consists of a box and "whiskers." The box goes from the 25th percentile to the 75th percentile of the data, also known as the *inter-quartile range* (IQR). There's a line indicating the median, or 50th percentile of the data. The whiskers start from the edge of the box and extend to the furthest data point that is within 1.5 times the IQR. If there are any data points that are past the ends of the whiskers, they are considered outliers and displayed with dots. Figure \@ref(fig:FIG-DISTRIBUTION-BOXPLOT-DIAGRAM) shows the relationship between a histogram, a density curve, and a box plot, using a skewed data set.
 
 
-```{r FIG-DISTRIBUTION-BOXPLOT-DIAGRAM, echo=FALSE, fig.cap="Box plot compared to histogram and density curve", figh.width=7, fig.height=3}
+```{r FIG-DISTRIBUTION-BOXPLOT-DIAGRAM, echo=FALSE, fig.cap="Box plot compared to histogram and density curve", figh.width=7, fig.height=3, warning=FALSE}
 set.seed(122)
 # Generate skewed data
 ds <- data.frame(x=rnorm(1000, mean=10, sd=2)^3)
