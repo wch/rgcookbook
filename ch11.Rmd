@@ -178,7 +178,7 @@ With the theming system, set `strip.text` to control the text appearance and `st
 ```{r FIG-FACET-LABEL-APPEARANCE, fig.cap="Customized appearance for facet labels", fig.height=3}
 library(gcookbook)  # For the data set
 
-ggplot(cabbage_exp, aes(x = Cultivar, y = Weight)) + geom_bar(stat = "identity") +
+ggplot(cabbage_exp, aes(x = Cultivar, y = Weight)) + geom_col() +
     facet_grid(. ~ Date) +
     theme(strip.text = element_text(face = "bold", size = rel(1.5)),
           strip.background = element_rect(fill = "lightblue", colour = "black",

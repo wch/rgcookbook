@@ -299,7 +299,7 @@ ce <- subset(cabbage_exp, Cultivar == "c39")
 
 # With a bar graph
 ggplot(ce, aes(x = Date, y = Weight)) +
-    geom_bar(stat = "identity", fill = "white", colour = "black") +
+    geom_col(fill = "white", colour = "black") +
     geom_errorbar(aes(ymin = Weight-se, ymax = Weight+se), width = .2)
 
 # With a line graph
@@ -336,13 +336,13 @@ The default dodge width for `geom_bar()` is 0.9, and you'll have to tell the err
 ```{r FIG-ANNOTATE-ERRORBAR-GROUP-BAR, fig.show="hold", fig.cap="Left: error bars on a grouped bar graph without dodging width specified; right: with dodging width specified", fig.width=3.5, fig.height=3.5}
 # Bad: dodge width not specified
 ggplot(cabbage_exp, aes(x = Date, y = Weight, fill = Cultivar)) +
-    geom_bar(stat = "identity", position = "dodge") +
+    geom_col(position = "dodge") +
     geom_errorbar(aes(ymin = Weight-se, ymax = Weight+se),
                   position = "dodge", width = .2)
 
 # Good: dodge width set to same as bar width (0.9)
 ggplot(cabbage_exp, aes(x = Date, y = Weight, fill = Cultivar)) +
-    geom_bar(stat = "identity", position = "dodge") +
+    geom_col(position = "dodge") +
     geom_errorbar(aes(ymin = Weight-se, ymax = Weight+se),
                   position = position_dodge(0.9), width = .2)
 ```

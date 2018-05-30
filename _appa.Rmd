@@ -111,7 +111,7 @@ details yet; we'll get to those later):
 ```{r}
 library(ggplot2)
 ggplot(simpledat_long, aes(x=Aval, y=value, fill=Bval)) +
-    geom_bar(stat="identity", position="dodge")
+    geom_col(position="dodge")
 ```
 
 ![A bar graph made with ggplot() and geom\_bar()](figs/rgcb_16in04.png)
@@ -124,7 +124,7 @@ commands for making the graph:
 
 ```{r}
 ggplot(simpledat_long, aes(x=Bval, y=value, fill=Aval)) +
-    geom_bar(stat="identity", position="dodge")
+    geom_col(position="dodge")
 ```
 
 ![Bar graph of the same data, but with x and fill mappings

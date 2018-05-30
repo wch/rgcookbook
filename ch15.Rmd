@@ -1145,7 +1145,7 @@ c2a <- c2 %>%
     summarise(Weight = mean(HeadWt))
 
 ggplot(c2a, aes(x = Date, fill = Cult, y = Weight)) +
-    geom_bar(position = "dodge", stat = "identity")
+    geom_col(position = "dodge")
 ```
 
 
@@ -1155,7 +1155,7 @@ To fill in the missing combination (Figure \@ref(fig:FIG-DATAPREP-SUMMARIZE-MISS
 library(tidyr)
 c2b <- c2a %>% ungroup() %>% complete(Cult, Date)
 ggplot(c2b, aes(x = Date, fill = Cult, y = Weight)) +
-    geom_bar(position = "dodge", stat = "identity")
+    geom_col(position = "dodge")
 ```
 
 ```{r, FIG-DATAPREP-SUMMARIZE-MISSING-COMBO, ref.label=c("FIG-DATAPREP-SUMMARIZE-MISSING-COMBO-1", "FIG-DATAPREP-SUMMARIZE-MISSING-COMBO-2"), fig.show="hold", fig.cap="Left: bar graph with a missing combination; right: with missing combination filled", fig.width=4, fig.height=3}
