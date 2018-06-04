@@ -10,6 +10,8 @@ editor_options:
 source("utils.R", local = TRUE)
 ```
 
+**REMOVE LATER** hello test
+
 R Basics {#CHAPTER-R-BASICS}
 ========
 
