@@ -13,7 +13,7 @@ source("utils.R", local = TRUE)
 Scatter Plots {#CHAPTER-SCATTER}
 =============
 
-Scatter plots are used to display the relationship between two continuous variables. In a scatter plot, each observation in a data set is represented by a point. Often, a scatter plot will also have a line showing the predicted values based on some statistical model. This is easy to do with R and ggplot2, and can help to make sense of data when the trends aren't immediately obvious just by looking at it.
+Scatter plots are used to display the relationship between two continuous variables. In a scatter plot, each observation in a data set is represented by a point. Often, a scatter plot will also have a line showing the predicted values based on some statistical model. Adding this line is easy to do with R and ggplot2, and can help to make sense of data when the trends aren't immediately obvious just by looking at it.
 
 With large data sets, it can be problematic to plot every single observation because the points will be overplotted, obscuring one another. When this happens, you'll probably want to summarize the data before displaying it. We'll also see how to do that in this chapter.
 
@@ -27,14 +27,15 @@ You want to make a scatter plot.
 
 ### Solution
 
-Use `geom_point()`, and map one variable to `x` and one to `y`.
+Use `geom_point()`, and map one variable to `x` and one variable to `y`.
 
-In the `heightweight` data set, there are a number of columns, but we'll only use two in this example (Figure \@ref(fig:FIG-SCATTER-BASIC)):
+There are a number of columns inthe `heightweight` data set, but we'll only use two in this example (Figure \@ref(fig:FIG-SCATTER-BASIC)):
 
 ```{r FIG-SCATTER-BASIC, fig.cap="A basic scatter plot"}
 library(gcookbook) # For the data set 
-# List the two columns we'll use
-heightweight[, c("ageYear", "heightIn")]
+
+# List the head of the two columns we'll use
+head(heightweight[, c("ageYear", "heightIn")])
 
 ggplot(heightweight, aes(x = ageYear, y = heightIn)) + geom_point()
 ```
@@ -47,7 +48,7 @@ To use different shapes in a scatter plot, set the `shape` aesthetic. A common a
 ggplot(heightweight, aes(x = ageYear, y = heightIn)) + geom_point(shape = 21)
 ```
 
-The size of the points can be controlled with the `size` aesthetic. The default value of size is 2. The following will set `size=1.5`, for smaller points (Figure \@ref(fig:FIG-SCATTER-BASIC-SHAPE-SIZE), right):
+The size of the points can be controlled with the `size` aesthetic. The default value of size is 2. The following will set `size = 1.5`, for smaller points (Figure \@ref(fig:FIG-SCATTER-BASIC-SHAPE-SIZE), right):
 
 ```{r, eval=FALSE}
 ggplot(heightweight, aes(x = ageYear, y = heightIn)) + geom_point(size = 1.5)
