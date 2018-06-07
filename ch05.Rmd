@@ -34,7 +34,7 @@ There are a number of columns inthe `heightweight` data set, but we'll only use 
 ```{r FIG-SCATTER-BASIC, fig.cap="A basic scatter plot"}
 library(gcookbook) # For the data set 
 
-# List the head of the two columns we'll use
+# Show the head of the two columns we'll use
 head(heightweight[, c("ageYear", "heightIn")])
 
 ggplot(heightweight, aes(x = ageYear, y = heightIn)) + geom_point()
@@ -60,30 +60,43 @@ ggplot(heightweight, aes(x = ageYear, y = heightIn)) + geom_point(size = 1.5)
 ```
 
 
-Grouping Data Points by a Variable Using Shape or Color {#RECIPE-SCATTER-GROUPED-SCATTER}
+Grouping Points Together using Shape or Color {#RECIPE-SCATTER-GROUPED-SCATTER}
 -------------------------------------------------------
 
 ### Problem
 
-You want to visually group points by some variable, using shape or color.
+You want to visually group points by some variable (the grouping variable), using shape or color.
 
 ### Solution
 
-Map the grouping variable to `shape` or `colour`. In the `heightweight` data set, there are many columns, but we'll only use three of them in this example:
+Map the grouping variable to `shape` or `colour`. There are many columns in the `heightweight` data set, but we'll only use three of them in this example:
 
 ```{r}
 library(gcookbook) # For the data set
-# Show the three columns we'll use
-heightweight[, c("sex", "ageYear", "heightIn")]
+
+# Show the head of the three columns we'll use
+head(heightweight[, c("sex", "ageYear", "heightIn")])
 ```
 
-We can group points on the variable sex, by mapping sex to one of the
-aesthetics colour or shape (Figure \@ref(fig:FIG-SCATTER-SHAPE-COLOR)):
+We can visually group points by `sex`, by mapping `sex` to one of the
+aesthetics `colour` or `shape` (Figure \@ref(fig:FIG-SCATTER-SHAPE-COLOR)):
 
-```{r FIG-SCATTER-SHAPE-COLOR, echo=FALSE, fig.show="hold", fig.cap="Grouping points by a variable mapped to colour (left), and to shape (right)", fig.width=3.5, fig.height=3.5}
-ggplot(heightweight, aes(x = ageYear, y = heightIn, colour = sex)) + geom_point()
+```{r, eval=FALSE}
+ggplot(heightweight, aes(x = ageYear, y = heightIn, colour = sex)) + 
+  geom_point() 
 
-ggplot(heightweight, aes(x = ageYear, y = heightIn, shape = sex)) + geom_point()
+ggplot(heightweight, aes(x = ageYear, y = heightIn, shape = sex)) + 
+  geom_point()
+```
+
+```{r FIG-SCATTER-SHAPE-COLOR, echo=FALSE, fig.show="hold", fig.cap="Grouping points by a variable mapped to colour (left), or to shape (right)", fig.width=3.5, fig.height=3.5, fig.align='center'}
+ggplot(heightweight, aes(x = ageYear, y = heightIn, colour = sex)) + 
+  geom_point() +
+  theme(plot.margin = margin(0, 1, 0.5, 0, "cm"))
+
+ggplot(heightweight, aes(x = ageYear, y = heightIn, shape = sex)) + 
+  geom_point() +
+  theme(plot.margin = margin(0, 0, 0.5, 1, "cm"))
 ```
 
 ### Discussion
