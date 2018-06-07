@@ -54,7 +54,7 @@ The size of the points can be controlled with the `size` aesthetic. The default 
 ggplot(heightweight, aes(x = ageYear, y = heightIn)) + geom_point(size = 1.5)
 ```
 
-```{r FIG-SCATTER-BASIC-SHAPE-SIZE, echo=FALSE, fig.show="hold", fig.cap="Left: scatter plot with hollow circles (shape 21); right: with smaller points", fig.width=3.5, fig.height=3.5}
+```{r FIG-SCATTER-BASIC-SHAPE-SIZE, echo=FALSE, fig.show="hold", fig.cap="Scatter plot with hollow circles (left; shape 21); With smaller points (right)", fig.width=3.5, fig.height=3.5}
 ggplot(heightweight, aes(x = ageYear, y = heightIn)) + geom_point(shape = 21)
 ggplot(heightweight, aes(x = ageYear, y = heightIn)) + geom_point(size = 1.5)
 ```
@@ -92,27 +92,25 @@ ggplot(heightweight, aes(x = ageYear, y = heightIn, shape = sex)) +
 ```{r FIG-SCATTER-SHAPE-COLOR, echo=FALSE, fig.show="hold", fig.cap="Grouping points by a variable mapped to colour (left), or to shape (right)", fig.width=3.5, fig.height=3.5, fig.align='center'}
 ggplot(heightweight, aes(x = ageYear, y = heightIn, colour = sex)) + 
   geom_point() +
-  theme(plot.margin = margin(0, 1, 0.5, 0, "cm"))
+  theme(plot.margin = margin(0, 0.5, 0.5, 0, "cm"))
 
 ggplot(heightweight, aes(x = ageYear, y = heightIn, shape = sex)) + 
   geom_point() +
-  theme(plot.margin = margin(0, 0, 0.5, 1, "cm"))
+  theme(plot.margin = margin(0, 0, 0.5, 0.5, "cm"))
 ```
 
 ### Discussion
 
-The grouping variable must be categorical--in other words, a factor or character vector. If it is stored as a vector of numeric values, it should be converted to a factor before it is used as a grouping variable.
+The grouping variable you choose must be categorical -- in other words, a factor or character vector. If the grouping variable is a numeric vector, you should convert it to a factor variable before using it as the grouping variable.
 
-It is possible to map a variable to both `shape` and `colour`, or, if you have multiple grouping variables, to map different variables to them. Here, we'll map `sex` to `shape` and `colour` (Figure \@ref(fig:FIG-SCATTER-SHAPE-COLOR-BOTH), left):
+It is possible to map a variable to both `shape` and `colour`, or, if you have multiple grouping variables, to map different variables to different aesthetics. Here, we'll map the variable `sex` to both `shape` and `colour` aesthetics (Figure \@ref(fig:FIG-SCATTER-SHAPE-COLOR-BOTH), left):
 
 ```{r, eval=FALSE}
 ggplot(heightweight, aes(x = ageYear, y = heightIn, shape = sex, colour = sex)) +
     geom_point()
 ```
 
-The default shapes and colors may not be very appealing. Other shapes can be used with `scale_shape_manual()`, and other colors can be used with `scale_colour_brewer()` or `scale_colour_manual()`.
-
-This will set different shapes and colors for the grouping variables (Figure \@ref(fig:FIG-SCATTER-SHAPE-COLOR-BOTH), right):
+You may not find the default shapes and colors very appealing. You can select other shapes for the grouping variables using `scale_shape_manual()`, and select other colors using `scale_colour_brewer()` or `scale_colour_manual()`. (Figure \@ref(fig:FIG-SCATTER-SHAPE-COLOR-BOTH), right):
 
 ```{r, eval=FALSE}
 ggplot(heightweight, aes(x = ageYear, y = heightIn, shape = sex, colour = sex)) +
@@ -121,7 +119,7 @@ ggplot(heightweight, aes(x = ageYear, y = heightIn, shape = sex, colour = sex)) 
     scale_colour_brewer(palette = "Set1")
 ```
 
-```{r FIG-SCATTER-SHAPE-COLOR-BOTH, echo=FALSE, fig.show="hold", fig.cap="Left: mapping to both shape and colour; right: with manually set shapes and colors", fig.width=3.5, fig.height=3.5}
+```{r FIG-SCATTER-SHAPE-COLOR-BOTH, echo=FALSE, fig.show="hold", fig.cap="Mapping to both shape and colour (left); With manually set shapes and colors (right)", fig.width=3.5, fig.height=3.5}
 ggplot(heightweight, aes(x = ageYear, y = heightIn, shape = sex, colour = sex)) +
     geom_point()
 ggplot(heightweight, aes(x = ageYear, y = heightIn, shape = sex, colour = sex)) +
@@ -146,7 +144,7 @@ You want to use point shapes that are different from the defaults.
 
 ### Solution
 
-If you want to set the shape of all the points (Figure \@ref(fig:FIG-SCATTER-SHAPES)), specify the shape in `geom_point()`:
+You can set the shape of all the points at once (Figure \@ref(fig:FIG-SCATTER-SHAPES), left) by setting the shape in `geom_point()`:
 
 ```{r, eval=FALSE}
 library(gcookbook) # For the data set
@@ -154,10 +152,10 @@ library(gcookbook) # For the data set
 ggplot(heightweight, aes(x = ageYear, y = heightIn)) + geom_point(shape = 3)
 ```
 
-If you have mapped a variable to shape, use `scale_shape_manual()` to change the shapes:
+If you have mapped a variable to `shape`, use `scale_shape_manual()` to change the shapes:
 
 ```{r, eval=FALSE}
-# Use slightly larger points and use a shape scale with custom values
+# Use slightly larger points and use custom values for the shape scale
 ggplot(heightweight, aes(x = ageYear, y = heightIn, shape = sex)) +
     geom_point(size = 3) +
     scale_shape_manual(values = c(1, 4))
@@ -174,9 +172,9 @@ ggplot(heightweight, aes(x = ageYear, y = heightIn, shape = sex)) +
 
 ### Discussion
 
-Figure \@ref(fig:FIG-SCATTER-SHAPES-CHART) shows the shapes that are available in R graphics. Some of the point shapes (1–14) have just an outline, some (15–20) have just a solid fill, and some (21–25) have an outline and fill that can be controlled separately. (You can also use characters for points.)
+Figure \@ref(fig:FIG-SCATTER-SHAPES-CHART) shows the shapes that are available in R graphics. Some of the point shapes (1–14) only have  an outline; some (15–20) have a solid fill; and some (21–25) have an outline and fill that can be controlled separately. You can also use characters for points.
 
-For shapes 1–20, the color of the entire point -- even the points that are solid -- is controlled by the `colour` aesthetic. For shapes 21–25, the outline is controlled by `colour` and the fill is controlled by `fill`.
+For shapes 1–20, the color of the entire point -- even the points that have solid fill -- is controlled by the `colour` aesthetic. For shapes 21–25, the outline is controlled by `colour` and the fill is controlled by `fill`.
 
 
 ```{r FIG-SCATTER-SHAPES-CHART, echo=FALSE, fig.cap="Shapes in R graphics"}
@@ -354,7 +352,7 @@ sp + geom_point()
 
 We can make the points semitransparent using alpha, as in Figure \@ref(fig:FIG-SCATTER-OVERPLOT-ALPHA). Here, we'll make them 90% transparent and then 99% transparent, by setting `alpha=.1` and `alpha=.01`:
 
-```{r FIG-SCATTER-OVERPLOT-ALPHA, dev="png", dpi=300, fig.show="hold", fig.cap="Left: semitransparent points with alpha=.1; right: with alpha=.01", fig.width=3.5, fig.height=3.5}
+```{r FIG-SCATTER-OVERPLOT-ALPHA, dev="png", dpi=300, fig.show="hold", fig.cap="Left: semitransparent points with alpha=.1; right: with alpha=.01", fig.height=4}
 sp + geom_point(alpha = .1)
 
 sp + geom_point(alpha = .01)
@@ -913,7 +911,7 @@ library(gcookbook) # For the data set
 subset(countries, Year==2009 & healthexp>2000)
 ```
 
-We'll save the basic scatter plot object in sp and add then add things to it. To manually add annotations, use `annotate()`, and specify the coordinates and label (Figure \@ref(fig:FIG-SCATTER-LABEL), left). It may require some trial-and-error tweaking to get them positioned just right:
+We'll save the basic scatter plot object in sp and add then add our annotations to it. To manually add annotations, use `annotate()`, and specify the coordinates and label (Figure \@ref(fig:FIG-SCATTER-LABEL), left). It may require some trial-and-error tweaking to get the labels positioned just right:
 
 ```{r, eval=FALSE}
 sp <- ggplot(subset(countries, Year==2009 & healthexp>2000),
@@ -941,28 +939,40 @@ sp + annotate("text", x = 4350, y = 5.4, label = "Canada") +
      annotate("text", x = 7400, y = 6.8, label = "USA")
 
 # Second block
-sp + geom_text(aes(label = Name), size = 4)
+sp + geom_text(aes(label = Name), size = 3)
 ```
+
+As you can see in the center of (Figure \@ref(fig:FIG-SCATTER-LABEL), right), you may find yourself with a plot where labels are overlapping. To automatically adjust point labels so that they don't overlap, we can use `geom_text_repel` (Figure \@ref(fig:FIG-GGREPEL-LABEL), left) or `geom_label_repel` (which adds a box around the label, Figure \@ref(fig:FIG-GGREPEL-LABEL), right) from the ggrepel package by Kamil Slowikowski, which function similarly to `geom_text`. The documentation for these functions (e.g. ?`geom_text_repel`) specifies a long list of other label features you can modify. 
+
+```{r FIG-GGREPEL-LABEL, fig.show="hold", fig.cap="A scatter plot labeled with geom_text_repel (left); Labeled with geom_label_repel (right)", fig.width=4.5, fig.height=4.5}
+
+# Make sure to install the ggrepel package using install.packages()
+
+sp + ggrepel::geom_text_repel(aes(label = Name), size = 3)
+
+sp + ggrepel::geom_label_repel(aes(label = Name), size = 3)
+```
+
 
 ### Discussion
 
-The automatic method for placing annotations centers each annotation on the *x* and *y* coordinates. You'll probably want to shift the text vertically, horizontally, or both.
+The automatic method for placing annotations using `geom_text()` centers each annotation on the *x* and *y* coordinates. You'll probably want to shift the text vertically, horizontally, or both.
 
 Setting `vjust=0` will make the baseline of the text on the same level as the point (Figure \@ref(fig:FIG-SCATTER-LABEL-VJUST), left), and setting vjust=1 will make the top of the text level with the point. This usually isn't enough, though -- you can increase or decrease `vjust` to shift the labels higher or lower, or you can add or subtract a bit to or from the y mapping to get the same effect (Figure \@ref(fig:FIG-SCATTER-LABEL-VJUST), right):
 
 ```{r FIG-SCATTER-LABEL-VJUST, fig.show="hold", fig.cap="Left: a scatter plot with vjust=0; right: with a little extra added to y", fig.width=4.5, fig.height=4.5}
-sp + geom_text(aes(label = Name), size = 4, vjust = 0)
+sp + geom_text(aes(label = Name), size = 3, vjust = 0)
 
 # Add a little extra to y
-sp + geom_text(aes(y = infmortality + .1, label = Name), size = 4)
+sp + geom_text(aes(y = infmortality + .1, label = Name), size = 3)
 ```
 
 It often makes sense to right- or left-justify the labels relative to the points. To left-justify, set `hjust=0` (Figure \@ref(fig:FIG-SCATTER-LABEL-HJUST), left), and to right-justify, set `hjust=1`. As was the case with `vjust`, the labels will still slightly overlap with the points. This time, though, it's not a good idea to try to fix it by increasing or decreasing `hjust`. Doing so will shift the labels a distance proportional to the length of the label, making longer labels move further than shorter ones. It's better to just set hjust to 0 or 1, and then add or subtract a bit to or from `x` (Figure \@ref(fig:FIG-SCATTER-LABEL-HJUST), right):
 
 ```{r FIG-SCATTER-LABEL-HJUST, fig.show="hold", fig.cap="Left: a scatter plot with hjust=0; right: with a little extra added to x", fig.width=4.5, fig.height=4.5}
-sp + geom_text(aes(label = Name), size = 4, hjust = 0)
+sp + geom_text(aes(label = Name), size = 3, hjust = 0)
 
-sp + geom_text(aes(x = healthexp+100, label = Name), size = 4, hjust = 0)
+sp + geom_text(aes(x = healthexp+100, label = Name), size = 3, hjust = 0)
 ```
 
 > **Note**
