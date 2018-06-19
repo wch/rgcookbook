@@ -13,9 +13,17 @@ source("utils.R", local = TRUE)
 Scatter Plots {#CHAPTER-SCATTER}
 =============
 
-Scatter plots are used to display the relationship between two continuous variables. In a scatter plot, each observation in a data set is represented by a point. Often, a scatter plot will also have a line showing the predicted values based on some statistical model. Adding this line is easy to do with R and ggplot2, and can help to make sense of data when the trends aren't immediately obvious just by looking at it.
+Scatter plots are used to display the relationship between two continuous
+variables. In a scatter plot, each observation in a data set is represented by a
+point. Often, a scatter plot will also have a line showing the predicted values
+based on some statistical model. Adding this line is easy to do with R and the
+ggplot2 package, and can help to make sense of data when the trends aren't
+immediately obvious just by looking at the points.
 
-With large data sets, it can be problematic to plot every single observation because the points will be overplotted, obscuring one another. When this happens, you'll probably want to summarize the data before displaying it. We'll also see how to do that in this chapter.
+With large data sets, plotting every single observation in the data set can
+result in overplotting, when points overlap and obscure one another. To deal
+with the problem of overplotting, you'll probably want to summarize the data
+before displaying it. We'll also see how to do that in this chapter.
 
 
 Making a Basic Scatter Plot {#RECIPE-SCATTER-BASIC-SCATTER}
@@ -23,16 +31,18 @@ Making a Basic Scatter Plot {#RECIPE-SCATTER-BASIC-SCATTER}
 
 ### Problem
 
-You want to make a scatter plot.
+You want to make a scatter plot using two continuous variables.
 
 ### Solution
 
 Use `geom_point()`, and map one variable to `x` and one variable to `y`.
 
-There are a number of columns in the `heightweight` data set, but we'll only use two in this example (Figure \@ref(fig:FIG-SCATTER-BASIC)):
+We will use the `heightweight` data set. There are a number of columns in this
+data set, but we'll only use two in this example (Figure
+\@ref(fig:FIG-SCATTER-BASIC)):
 
 ```{r FIG-SCATTER-BASIC, fig.cap="A basic scatter plot"}
-library(gcookbook) # For the data set 
+library(gcookbook) # Load the gcookbook package to access the heightweight data set 
 
 # Show the head of the two columns we'll use in the plot
 heightweight %>% 
@@ -45,81 +55,113 @@ heightweight %>%
 
 ### Discussion
 
-To use different shapes in a scatter plot, set the `shape` aesthetic. A common alternative to the default solid circles (shape #19) is hollow ones (#21), as seen in Figure \@ref(fig:FIG-SCATTER-BASIC-SHAPE-SIZE) (left):
+Instead of points, you can use different shapes for your scatter plot by using
+the `shape` aesthetic. A common alternative to the default solid circles 
+(shape #19) is hollow ones (#21), as seen in Figure
+\@ref(fig:FIG-SCATTER-BASIC-SHAPE-SIZE) (left):
 
 ```{r, eval=FALSE}
-ggplot(heightweight, aes(x = ageYear, y = heightIn)) + geom_point(shape = 21)
+heightweight %>% 
+  ggplot(aes(x = ageYear, y = heightIn)) + 
+  geom_point(shape = 21)
 ```
 
-The size of the points can be controlled with the `size` aesthetic. The default value of size is 2. The following will set `size = 1.5`, for smaller points (Figure \@ref(fig:FIG-SCATTER-BASIC-SHAPE-SIZE), right):
+The size of the points can be controlled with the `size` aesthetic. The default
+value of size is 2 (`size = 2`). The following code will set `size = 1.5` to
+create smaller points (Figure \@ref(fig:FIG-SCATTER-BASIC-SHAPE-SIZE), right):
 
 ```{r, eval=FALSE}
-ggplot(heightweight, aes(x = ageYear, y = heightIn)) + geom_point(size = 1.5)
+heightweight %>% 
+  ggplot(aes(x = ageYear, y = heightIn)) + 
+  geom_point(size = 1.5)
 ```
 
 ```{r FIG-SCATTER-BASIC-SHAPE-SIZE, echo=FALSE, fig.show="hold", fig.cap="Scatter plot with hollow circles (left; shape 21); With smaller points (right)", fig.width=3.5, fig.height=3.5}
-ggplot(heightweight, aes(x = ageYear, y = heightIn)) + geom_point(shape = 21)
-ggplot(heightweight, aes(x = ageYear, y = heightIn)) + geom_point(size = 1.5)
+heightweight %>% 
+  ggplot(aes(x = ageYear, y = heightIn)) + 
+  geom_point(shape = 21)
+
+heightweight %>% 
+  ggplot(aes(x = ageYear, y = heightIn)) + 
+  geom_point(size = 1.5)
 ```
 
 
-Grouping Points Together using Shape or Color {#RECIPE-SCATTER-GROUPED-SCATTER}
+Grouping Points Together using Shapes or Colors {#RECIPE-SCATTER-GROUPED-SCATTER}
 -------------------------------------------------------
 
 ### Problem
 
-You want to visually group points by some variable (the grouping variable), using shape or color.
+You want to visually group points by some variable (the grouping variable), using different shapes or colors.
 
 ### Solution
 
-Map the grouping variable to `shape` or `colour`. There are many columns in the `heightweight` data set, but we'll only use three of them in this example:
+Map the grouping variable to the aesthetic of `shape` or `colour`. We'll use
+three columns from the `heightweight` data set for this example:
 
 ```{r}
-library(gcookbook) # For the data set
+library(gcookbook) # Load the gcookbook package to access the heightweight data set 
 
 # Show the head of the three columns we'll use
 heightweight %>% 
   select(sex, ageYear, heightIn)
 ```
 
-We can visually group points by `sex`, by mapping `sex` to one of the
-aesthetics `colour` or `shape` (Figure \@ref(fig:FIG-SCATTER-SHAPE-COLOR)):
+We can use the aesthetics of `colour` or `shape` to visually differentiate the
+data points belonging to different categories of `sex`. We do this by mapping
+`sex` to one of the aesthetics `colour` or `shape` (Figure\@ref(fig:FIG-SCATTER-SHAPE-COLOR)):
 
 ```{r FIG-SCATTER-SHAPE-COLOR, echo=FALSE, fig.show="hold", fig.cap="Grouping points by a variable mapped to colour (left), or to shape (right)", fig.width=3.5, fig.height=3.5}
-ggplot(heightweight, aes(x = ageYear, y = heightIn, colour = sex)) + 
+heightweight %>% 
+  ggplot(aes(x = ageYear, y = heightIn, colour = sex)) + 
   geom_point() 
 
-ggplot(heightweight, aes(x = ageYear, y = heightIn, shape = sex)) + 
+heightweight %>% 
+  ggplot(aes(x = ageYear, y = heightIn, shape = sex)) + 
   geom_point()
 ```
 
 ### Discussion
 
-The grouping variable you choose must be categorical -- in other words, a factor or character vector. If the grouping variable is a numeric vector, you should convert it to a factor variable first.
+The grouping variable you choose must be categorical -- in other words, a factor
+or character vector. If the grouping variable is a numeric vector, you should
+convert it to a factor first.
 
-It is possible to map a variable to both `shape` and `colour`, or, if you have multiple grouping variables, to map different variables to different aesthetics. Here, we'll map the variable `sex` to both `shape` and `colour` aesthetics (Figure \@ref(fig:FIG-SCATTER-SHAPE-COLOR-BOTH), left):
+It is possible to map a variable to both `shape` and `colour`, or, if you have
+multiple grouping variables, to map each grouping variable to a different
+aesthetic. Here, we'll map the variable `sex` to both `shape` and `colour`
+aesthetics (Figure \@ref(fig:FIG-SCATTER-SHAPE-COLOR-BOTH), left):
 
 ```{r, eval=FALSE}
-ggplot(heightweight, aes(x = ageYear, y = heightIn, shape = sex, colour = sex)) +
-    geom_point()
+heightweight %>% 
+  ggplot(aes(x = ageYear, y = heightIn, shape = sex, colour = sex)) +
+  geom_point()
 ```
 
-You may not find the default shapes and colors very appealing. You can select other shapes for the grouping variables using `scale_shape_manual()`, and select other colors using `scale_colour_brewer()` or `scale_colour_manual()`. (Figure \@ref(fig:FIG-SCATTER-SHAPE-COLOR-BOTH), right):
+You may want to use different shapes and colors than are given by the default
+settings. You can select other shapes for the grouping variables using
+`scale_shape_manual()`, and select other colors using `scale_colour_brewer()` or
+`scale_colour_manual()`. (Figure \@ref(fig:FIG-SCATTER-SHAPE-COLOR-BOTH),
+right):
 
 ```{r, eval=FALSE}
-ggplot(heightweight, aes(x = ageYear, y = heightIn, shape = sex, colour = sex)) +
-    geom_point() +
-    scale_shape_manual(values = c(1,2)) +
-    scale_colour_brewer(palette = "Set1")
+heightweight %>% 
+  ggplot(aes(x = ageYear, y = heightIn, shape = sex, colour = sex)) +
+  geom_point() +
+  scale_shape_manual(values = c(1,2)) +
+  scale_colour_brewer(palette = "Set1")
 ```
 
 ```{r FIG-SCATTER-SHAPE-COLOR-BOTH, echo=FALSE, fig.show="hold", fig.cap="Mapping to both shape and colour (left); With manually set shapes and colors (right)", fig.width=3.5, fig.height=3.5}
-ggplot(heightweight, aes(x = ageYear, y = heightIn, shape = sex, colour = sex)) +
-    geom_point()
-ggplot(heightweight, aes(x = ageYear, y = heightIn, shape = sex, colour = sex)) +
-    geom_point() +
-    scale_shape_manual(values = c(1,2)) +
-    scale_colour_brewer(palette = "Set1")
+heightweight %>% 
+  ggplot(aes(x = ageYear, y = heightIn, shape = sex, colour = sex)) +
+  geom_point()
+
+heightweight %>% 
+  ggplot(aes(x = ageYear, y = heightIn, shape = sex, colour = sex)) +
+  geom_point() +
+  scale_shape_manual(values = c(1,2)) +
+  scale_colour_brewer(palette = "Set1")
 ```
 
 ### See Also
@@ -134,42 +176,55 @@ Using Different Point Shapes {#RECIPE-SCATTER-SHAPES}
 
 ### Problem
 
-You want to use point shapes that are different from the defaults.
+You want to change the default scatterplot shapes for the data points.
 
 ### Solution
 
-You can set the shape of all the points at once (Figure \@ref(fig:FIG-SCATTER-SHAPES), left) by setting the shape in `geom_point()`:
+You can set the shape of all the data points at once (Figure
+\@ref(fig:FIG-SCATTER-SHAPES), left) by setting a shape in `geom_point()`:
 
 ```{r, eval=FALSE}
-library(gcookbook) # For the data set
+library(gcookbook) # Load the gcookbook package to access the heightweight data set 
 
-ggplot(heightweight, aes(x = ageYear, y = heightIn)) + geom_point(shape = 3)
+heightweight %>% 
+  ggplot(aes(x = ageYear, y = heightIn)) + 
+  geom_point(shape = 3)
 ```
 
-If you have mapped a variable to `shape`, use `scale_shape_manual()` to change the shapes:
+If you have mapped a variable to `shape`, you can use `scale_shape_manual()` to
+manually change the shapes mapped to the levels of that variable:
 
 ```{r, eval=FALSE}
 # Use slightly larger points and use custom values for the shape scale
-ggplot(heightweight, aes(x = ageYear, y = heightIn, shape = sex)) +
-    geom_point(size = 3) +
-    scale_shape_manual(values = c(1, 4))
+heightweight %>% 
+  ggplot(aes(x = ageYear, y = heightIn, shape = sex)) +
+  geom_point(size = 3) +
+  scale_shape_manual(values = c(1, 4))
 ```
 
 ```{r FIG-SCATTER-SHAPES, echo=FALSE, fig.show="hold", fig.cap="Left: scatter plot with the shape aesthetic set to a custom value; right: with a variable mapped to shape, using a custom shape palette", fig.width=3.5, fig.height=3.5}
-library(gcookbook) # For the data set
-ggplot(heightweight, aes(x = ageYear, y = heightIn)) + geom_point(shape = 3)
+library(gcookbook) # Load the gcookbook package to access the heightweight data set 
 
-ggplot(heightweight, aes(x = ageYear, y = heightIn, shape = sex)) +
-    geom_point(size = 3) +
-    scale_shape_manual(values = c(1, 4))
+heightweight %>% 
+  ggplot(aes(x = ageYear, y = heightIn)) + 
+  geom_point(shape = 3)
+
+heightweight %>% 
+  ggplot(aes(x = ageYear, y = heightIn, shape = sex)) +
+  geom_point(size = 3) +
+  scale_shape_manual(values = c(1, 4))
 ```
 
 ### Discussion
 
-Figure \@ref(fig:FIG-SCATTER-SHAPES-CHART) shows the shapes that are available in R graphics. Some of the point shapes (1–14) only have  an outline; some (15–20) have a solid fill; and some (21–25) have an outline and fill that can be controlled separately. You can also use characters for points.
+Figure \@ref(fig:FIG-SCATTER-SHAPES-CHART) shows the shapes that are already
+built into R. Some of the point shapes (1–14) only have an outline; some
+(15–20) have solid fill; and some (21–25) have an outline and fill that can be
+controlled separately. You can also use characters for points.
 
-For shapes 1–20, the color of the entire point -- even the points that have solid fill -- is controlled by the `colour` aesthetic. For shapes 21–25, the outline is controlled by `colour` and the fill is controlled by `fill`.
-
+For shapes 1–20, the color of the entire point -- even the points that have
+solid fill -- is controlled by the `colour` aesthetic. For shapes 21–25, the
+outline is controlled by `colour` and the fill is controlled by `fill`.
 
 ```{r FIG-SCATTER-SHAPES-CHART, echo=FALSE, fig.cap="Shapes in R graphics"}
 pchShow <- function(extras = c("*",".", "o","O","0","+","-","|","%","#"),
@@ -199,33 +254,45 @@ pchShow <- function(extras = c("*",".", "o","O","0","+","-","|","%","#"),
   }
 }
 
-par(mar=c(0,0,0,0))
+par(mar = c(0,0,0,0))
 pchShow(main = NULL)
 ```
 
-It's possible to have the shape represent one variable and the fill (empty or solid) represent another variable. This is done a little indirectly, by choosing shapes that have both colour and fill, and a color palette that includes `NA` and another color (the `NA` will result in a hollow shape). For example, we'll take the `heightweight` data set and add another column that indicates whether the child weighed 100 pounds or more (Figure \@ref(fig:FIG-SCATTER-SHAPES-FILL)):
+It's possible to have one variable represented by the shape of a point, and and
+another variable represented by the fill (empty or filled) of the point. To do
+this, you need to first choose point shapes that have both colour and fill, and
+set these in `scale_shape_manual`. You then need to choose a fill palette that
+includes `NA` and another color (the `NA` will result in a hollow shape) and se
+these in `scale_fill_manual`.
+
+For example, we'll take the `heightweight` data set and add another column that
+indicates whether the child weighed 100 pounds or more (Figure
+\@ref(fig:FIG-SCATTER-SHAPES-FILL)):
 
 ```{r FIG-SCATTER-SHAPES-FILL, fig.cap="A variable mapped to shape and another mapped to fill"}
-# Make a copy of the data
-hw <- heightweight
-# Categorize into <100 and >=100 groups
-hw$weightGroup <- cut(hw$weightLb, breaks = c(-Inf, 100, Inf),
-                      labels = c("< 100", ">= 100"))
+# Using the heightweight data set, create a new column that indicates if the
+# child weighs < 100 or >= 100 pounds. We'll save this modified dataset as 'hw'.
+hw <-
+  heightweight %>% 
+  mutate(weightgroup = ifelse(weightLb < 100, "< 100", ">= 100"))
 
-# Use shapes with fill and color, and use colors that are empty (NA) and
-# filled
-ggplot(hw, aes(x = ageYear, y = heightIn, shape = sex, fill = weightGroup)) +
-    geom_point(size = 2.5) +
-    scale_shape_manual(values = c(21, 24)) +
-    scale_fill_manual(values = c(NA, "black"),
-      guide = guide_legend(override.aes = list(shape = 21)))
+# Specify shapes with fill and color, and specify fill colors that includes an empty (NA) color
+hw %>% 
+  ggplot(aes(x = ageYear, y = heightIn, shape = sex, fill = weightgroup)) +
+  geom_point(size = 2.5) +
+  scale_shape_manual(values = c(21, 24)) +
+  scale_fill_manual(
+    values = c(NA, "black"), 
+    guide = guide_legend(override.aes = list(shape = 21))
+    )
 ```
 
 ### See Also
 
 For more on using different colors, see Chapter \@ref(CHAPTER-COLORS).
 
-For more information about recoding a continuous variable to a categorical one, see Recipe \@ref(RECIPE-DATAPREP-RECODE-CONTINUOUS).
+For more information about recoding a continuous variable to a categorical one,
+see Recipe \@ref(RECIPE-DATAPREP-RECODE-CONTINUOUS).
 
 
 Mapping a Continuous Variable to Color or Size {#RECIPE-SCATTER-CONTINUOUS-SCATTER}
@@ -237,81 +304,148 @@ You want to represent a third continuous variable using color or size.
 
 ### Solution
 
-Map the continuous variable to `size` or `colour`. In the `heightweight` data set, there are many columns, but we'll only use four of them in this example:
+Map the continuous variable to `size` or `colour`. We will use the
+`heightweight` data set for this example. There are many columns in this data
+set, but we'll only use four of them in this example:
 
 ```{r}
-library(gcookbook) # For the data set 
-# List the four columns we'll use
-heightweight[, c("sex", "ageYear", "heightIn", "weightLb")]
+library(gcookbook) # Load the gcookbook package to access the heightweight data set 
+
+# Show the head of the four columns we'll use
+heightweight %>% 
+  select(sex, ageYear, heightIn, weightLb)
 ```
 
-The basic scatter plot in Recipe \@ref(RECIPE-SCATTER-BASIC-SCATTER) shows the relationship between the continuous variables `ageYear` and `heightIn`. To represent a third continuous variable, `weightLb`, we must map it to another aesthetic property. We can map it to `colour` or `size`, as shown in Figure \@ref(fig:FIG-SCATTER-CONTINUOUS-COLOR-SIZE):
+The basic scatter plot in Recipe \@ref(RECIPE-SCATTER-BASIC-SCATTER) shows the
+relationship between the continuous variables `ageYear` and `heightIn`. We can
+represent a third continuous variable, `weightLb`, by mapping this variable to
+another aesthetic property, such as `colour` or `size` (Figure
+\@ref(fig:FIG-SCATTER-CONTINUOUS-COLOR-SIZE):
 
 ```{r FIG-SCATTER-CONTINUOUS-COLOR-SIZE, fig.show="hold", fig.cap="Left: a continuous variable mapped to colour; right: mapped to size", fig.width=3.5, fig.height=3.5}
-ggplot(heightweight, aes(x = ageYear, y = heightIn, colour = weightLb)) +
-    geom_point()
+heightweight %>% 
+  ggplot(aes(x = ageYear, y = heightIn, colour = weightLb)) +
+  geom_point()
 
-ggplot(heightweight, aes(x = ageYear, y = heightIn, size = weightLb)) +
-    geom_point()
+heightweight %>% 
+  ggplot(aes(x = ageYear, y = heightIn, size = weightLb)) +
+  geom_point()
 ```
 
 ### Discussion
 
-A basic scatter plot shows the relationship between two continuous variables: one mapped to the x-axis, and one to the y-axis. When there are more than two continuous variables, they must be mapped to other aesthetics, like size and color.
+A basic scatter plot shows the relationship between two continuous variables:
+one mapped to the x-axis, and one to the y-axis. When there are more than two
+continuous variables, these additional variables must be mapped to other
+aesthetics, like `size` and `color`.
 
-We can easily perceive small differences in spatial position, so we can interpret the variables mapped to *x* and *y* coordinates with high precision. We aren't very good at perceiving small differences in size and color, though, so we will interpret variables mapped to these aesthetic attributes with a much lower precision. When you map a variable to one of these properties, it should be one where precision is not very important for interpretation.
+Humans can easily perceive small differences in spatial position, so we can
+interpret the variables mapped to *x* and *y* coordinates with high precision.
+Humans aren't as good at perceiving small differences in `size` and `color`
+though, so we will interpret variables mapped to these aesthetic attributes with
+much lower precision. Therefore, when you map a variable to `size` or `color`,
+make sure it is a variable where high precision is not very important for
+correctly intepreting the data.
 
-When a variable is mapped to `size`, the results can be perceptually misleading. The largest dots in Figure \@ref(fig:FIG-SCATTER-CONTINUOUS-COLOR-SIZE) have about 36 times the area of the smallest ones, but they represent only about 3.5 times the weight. This is because the by default the diameter of points goes from 1 to 6mm. If the data values go from 0 to 10, then the a value of 0 is represented with a 1mm point, and a value of 10 is represented with a 6mm point. Similarly, if the values go from 100 to 110, the 100 is represented with a 1mm point, and the 110 is represented with a 6mm point. And in all cases, the largest point will have 6 times the diameter of the smallest, and 36 times the area.
+There is another consideration when mapping a variable to `size`, which is that
+the results can be perceptually misleading. While the largest dots in Figure
+\@ref(fig:FIG-SCATTER-CONTINUOUS-COLOR-SIZE) are about 36 times the size of the
+smallest ones, they are only supposed to represent about 3.5 times the weight of
+the smallest dots.
 
-If it is important for the sizes to proportionally represent the quantities, you should first decide if you want the diameter of the points to represent the value, or if you want to area of the points to represent the value. Figure \@ref(fig:FIG-SCATTER-SIZE-AREA) shows the difference between these representations.
+This relative misrepresentation of size happens because the default values in
+`ggplot2` for the diameter of points ranges from 1 to 6mm, regardless of the
+actual data values. For example, if the data values range from 0 to 10, the
+smallest value of 0 will be represented on the plot with a point that is 1mm
+wide, while the largest value of 10 will be represented on the plot with a point
+that is 6mm wide. Similarly, if the data values range from 100 to 110, the
+smallest value of 100 will still be represented by a point that is 1mm wide, and
+the largest value of 110 will be represented by a point that is 6mm wide. Thus
+regardless of the actual data values, the largest point will have a diameter
+that is 6 times the diameter of the smallest point, and will be 36 times the
+area.
+
+If it is important for the size of the points to accurately reflect the
+proportional differences of your data values, you should first decide if you
+want the diameter of the points to represent the data values, or if you want to
+area of the points to represent the data values. Figure
+\@ref(fig:FIG-SCATTER-SIZE-AREA) shows the difference between these
+representations.
 
 ```{r FIG-SCATTER-SIZE-AREA, fig.show="hold", fig.cap="Left: value mapped to diameter of points; right: value mapped to area of points", fig.width=3.5, fig.height=3.5}
+
 range(heightweight$weightLb)
 size_range <- range(heightweight$weightLb) / max(heightweight$weightLb) *  6
 size_range
 
-ggplot(heightweight, aes(x = ageYear, y = heightIn, size = weightLb)) +
-    geom_point() +
-    scale_size_continuous(range = size_range)
+heightweight %>% 
+  ggplot(aes(x = ageYear, y = heightIn, size = weightLb)) +
+  geom_point() +
+  scale_size_continuous(range = size_range)
 
-ggplot(heightweight, aes(x = ageYear, y = heightIn, size = weightLb)) +
-    geom_point() +
-    scale_size_area()
+heightweight %>% 
+  ggplot(aes(x = ageYear, y = heightIn, size = weightLb)) +
+  geom_point() +
+  scale_size_area()
 ```
 
-See Recipe \@ref(RECIPE-SCATTER-BALLOON) for details on making the area of points proportional to the value.
+See Recipe \@ref(RECIPE-SCATTER-BALLOON) for details on making the area of
+points proportional to the data values.
 
-When it comes to color, there are actually two aesthetic attributes that can be used: `colour` and `fill`. For most point shapes, you use colour. However, shapes 21–25 have an outline with a solid region in the middle where the color is controlled by fill. These outlined shapes can be useful when using a color scale with light colors, as in Figure \@ref(fig:FIG-SCATTER-CONTINUOUS-FILL), because the outline sets them off from the background. In this example, we also set the fill gradient to go from black to white and make the points larger so that the fill is easier to see:
+When it comes to color, there are actually two aesthetic attributes that can be
+used: `color` and `fill`. You will use `color` for most point shapes. However,
+shapes 21–25 have an outline with a solid region in the middle where the color
+is controlled by fill. These outlined shapes can be useful when using a color
+scale with light colors as in Figure \@ref(fig:FIG-SCATTER-CONTINUOUS-FILL),
+because the outline sets the shapes off from the background. In this example, we
+also set the fill gradient to go from black to white and make the points larger
+so that the fill is easier to see:
 
 ```{r FIG-SCATTER-CONTINUOUS-FILL, echo=FALSE, fig.show="hold", fig.cap="Left: outlined points with a continuous variable mapped to fill; right: with a discrete legend instead of continuous colorbar", fig.width=3.5, fig.height=3.5}
-ggplot(heightweight, aes(x = ageYear, y = heightIn, fill = weightLb)) +
-    geom_point(shape = 21, size = 2.5) +
-    scale_fill_gradient(low = "black", high = "white")
+heightweight %>% 
+  ggplot(aes(x = ageYear, y = heightIn, fill = weightLb)) +
+  geom_point(shape = 21, size = 2.5) +
+  scale_fill_gradient(low = "black", high = "white")
 
-# Using guide_legend() will result in a discrete legend instead of a colorbar
-ggplot(heightweight, aes(x = ageYear, y = heightIn, fill = weightLb)) +
-    geom_point(shape = 21, size = 2.5) +
-    scale_fill_gradient(low = "black", high = "white",
-                        breaks = seq(70, 170, by = 20),
-                        guide = guide_legend())
+# Using guide_legend() will result in a discrete legend instead of a colorbar legend
+heightewight %>% 
+  ggplot(aes(x = ageYear, y = heightIn, fill = weightLb)) +
+  geom_point(shape = 21, size = 2.5) +
+  scale_fill_gradient(
+    low = "black", high = "white",
+    breaks = seq(70, 170, by = 20),
+    guide = guide_legend()
+    )
 ```
 
-
-When we map a continuous variable to an aesthetic, that doesn't prevent us from mapping a categorical variable to other aesthetics. In Figure \@ref(fig:FIG-SCATTER-CONTINUOUS-SIZE-CATEGORICAL-COLOR), we'll map weightLb to size, and also map sex to colour. Because there is a fair amount of overplotting, we'll make the points 50% transparent by setting alpha=.5. We'll also use scale_size_area() to make the area of the points proportional to the value (see Recipe \@ref(RECIPE-SCATTER-BALLOON)), and change the color palette to one that is a little more appealing:
+Mapping a continuous variable to an aesthetic doesn't prevent us from mapping a
+categorical variable to other aesthetics. In Figure
+\@ref(fig:FIG-SCATTER-CONTINUOUS-SIZE-CATEGORICAL-COLOR), we'll map `weightLb`
+to `size`, and also map `sex` to `color`. Because there is a fair amount of
+overplotting (where the points overlap), we'll make the points 50% transparent
+by setting `alpha = .5`. We'll also use `scale_size_area()` to make the area of
+the points proportional to the data values (see Recipe \@ref(RECIPE-SCATTER-BALLOON)),
+and manually change the color palette:
 
 ```{r FIG-SCATTER-CONTINUOUS-SIZE-CATEGORICAL-COLOR, echo=FALSE, fig.cap="Continuous variable mapped to size and categorical variable mapped to colour"}
-ggplot(heightweight, aes(x = ageYear, y = heightIn, size = weightLb, colour = sex)) +
-    geom_point(alpha = .5) +
-    scale_size_area() +     # Make area proportional to numeric value
-    scale_colour_brewer(palette = "Set1")
+heightweight %>% 
+  ggplot(aes(x = ageYear, y = heightIn, size = weightLb, colour = sex)) +
+  geom_point(alpha = .5) +
+  scale_size_area() +     # Make area proportional to numeric value
+  scale_colour_brewer(palette = "Set1")
 ```
 
-
-When a variable is mapped to size, it's a good idea to *not* map a variable to shape. This is because it is difficult to compare the sizes of different shapes; for example, a size 4 triangle could appear larger than a size 3.5 circle. Also, some of the shapes really are different sizes: shapes 16 and 19 are both circles, but at any given numeric size, shape 19 circles are visually larger than shape 16 circles.
+When a variable is mapped to `size`, it's a good idea to *not* map a variable to
+`shape`. This is because it is difficult to compare the sizes of different shapes;
+for example, a size 4 triangle could appear larger than a size 3.5 circle. Also,
+some of the shapes really are different sizes: shapes 16 and 19 are both
+circles, but at any given numeric size, shape 19 circles are visually larger
+than shape 16 circles.
 
 ### See Also
 
-To use different colors from the default, see Recipe \@ref(RECIPE-COLORS-PALETTE-CONTINUOUS).
+To use different colors from the default, see Recipe
+\@ref(RECIPE-COLORS-PALETTE-CONTINUOUS).
 
 See Recipe \@ref(RECIPE-SCATTER-BALLOON) for creating a balloon plot.
 
@@ -321,13 +455,20 @@ Dealing with Overplotting {#RECIPE-SCATTER-OVERPLOT}
 
 ### Problem
 
-You have many points and they obscure each other.
+You have many points that overlap and obscure each other when plotted.
 
 ### Solution
 
-With large data sets, the points in a scatter plot may obscure each other and prevent the viewer from accurately assessing the distribution of the data. This is called *overplotting*. If the amount of overplotting is low, you may be able to alleviate it by using smaller points, or by using a different shape (like shape 1, a hollow circle) through which other points can be seen. Figure \@ref(fig:FIG-SCATTER-BASIC-SHAPE-SIZE) in Recipe \@ref(RECIPE-SCATTER-BASIC-SCATTER) demonstrates both of these solutions.
+With large data sets, the points in a scatter plot may overlap and obscure each
+other and prevent the viewer from accurately assessing the distribution of the
+data. This is called *overplotting*. If the amount of overplotting is low, you
+may be able to alleviate the problem by using smaller points, or by using a
+different shape (like shape 1, a hollow circle) through which other points can
+be seen. Figure \@ref(fig:FIG-SCATTER-BASIC-SHAPE-SIZE) in Recipe
+\@ref(RECIPE-SCATTER-BASIC-SCATTER) demonstrates both of these solutions.
 
-If there's a high degree of overplotting, there are a number of possible solutions:
+If there's a high degree of overplotting, there are a number of possible
+solutions:
 
 *   Make the points semi-transparent
 *   Bin the data into rectangles (better for quantitative analysis)
@@ -336,91 +477,159 @@ If there's a high degree of overplotting, there are a number of possible solutio
 
 ### Discussion
 
-The scatter plot in Figure \@ref(fig:FIG-SCATTER-OVERPLOT) contains about 54,000 points. They are heavily overplotted, making it impossible to get a sense of the relative density of points in different areas of the graph:
+The scatter plot in Figure \@ref(fig:FIG-SCATTER-OVERPLOT) contains about 54,000
+points. They are heavily overplotted, making it impossible to get a sense of the
+relative density of points in different areas of the graph:
 
 ```{r FIG-SCATTER-OVERPLOT, dev="png", dpi=300, fig.cap="Overplotting, with about 54,000 points", fig.height=3}
-sp <- ggplot(diamonds, aes(x = carat, y = price))
+# We'll use the diamonds data set, and set `sp` to represent the following line of ggplot clode
+sp <- 
+  diamonds %>% 
+  ggplot(aes(x = carat, y = price))
 
-sp + geom_point()
+sp + 
+  geom_point()
 ```
 
-We can make the points semitransparent using alpha, as in Figure \@ref(fig:FIG-SCATTER-OVERPLOT-ALPHA). Here, we'll make them 90% transparent and then 99% transparent, by setting `alpha=.1` and `alpha=.01`:
+We can make the points semitransparent using the `alpha` aesthetic, as in Figure
+\@ref(fig:FIG-SCATTER-OVERPLOT-ALPHA). Here, we'll make them 90% transparent and
+then 99% transparent, by setting `alpha = .1` and `alpha = .01`:
 
 ```{r FIG-SCATTER-OVERPLOT-ALPHA, dev="png", dpi=300, fig.show="hold", fig.cap="Left: semitransparent points with alpha=.1; right: with alpha=.01", fig.height=3}
-sp + geom_point(alpha = .1)
+sp + 
+  geom_point(alpha = .1)
 
-sp + geom_point(alpha = .01)
+sp + 
+  geom_point(alpha = .01)
 ```
 
-Now we can see that there are vertical bands at nice round values of carats, indicating that diamonds tend to be cut to those sizes. Still, the data is so dense that even when the points are 99% transparent, much of the graph appears solid black, and the data distribution is still somewhat obscured.
+Now we can see that there appear to be vertical bands at nice round values of
+carats, indicating that diamonds tend to be cut to those sizes. Still, the data
+is so dense that even when the points are 99% transparent, much of the graph
+appears black and the data distribution is still somewhat obscured.
 
 > **Note**
 >
-> For most graphs, vector formats (such as PDF, EPS, and SVG) result in smaller output files than bitmap formats (such as TIFF and PNG). But in cases where there are tens of thousands of points, vector output files can be very large and slow to render-the scatter plot here with 99% transparent points is 1.5 MB! In these cases, high-resolution bitmaps will be smaller and faster to display on computer screens. See Chapter \@ref(CHAPTER-OUTPUT) for more information.
+> For most graphs, vector formats (such as PDF, EPS, and SVG) result in smaller
+output files than bitmap formats (such as TIFF and PNG). But in cases where
+there are tens of thousands of points, vector output files can be very large and
+slow to render -- the scatter plot here with 99% transparent points is 1.5 MB!
+In these cases, high-resolution bitmaps will be smaller and faster to display on
+computer screens. See Chapter \@ref(CHAPTER-OUTPUT) for more information.
 
-Another solution is to *bin* the points into rectangles and map the density of the points to the fill color of the rectangles, as shown in Figure \@ref(fig:FIG-SCATTER-OVERPLOT-BIN2D). With the binned visualization, the vertical bands are barely visible. The density of points in the lower-left corner is much greater, which tells us that the vast majority of diamonds are small and inexpensive.
+Another solution is to *bin* the points into rectangles and map the density of
+the points to the fill color of the rectangles, as shown in Figure
+\@ref(fig:FIG-SCATTER-OVERPLOT-BIN2D). With the binned visualization, the
+vertical bands are barely visible. The density of points in the lower-left
+corner is much greater, which tells us that the vast majority of diamonds are
+small and inexpensive.
 
-By default, `stat_bin_2d()` divides the space into 30 groups in the *x* and *y* directions, for a total of 900 bins. In the second version, we increase the number of bins with bins=50.
+By default, `stat_bin_2d()` divides the space into 30 groups in the *x* and *y*
+directions, for a total of 900 bins. In the second version, we increase the
+number of bins with `bins = 50`.
 
-The default colors are somewhat difficult to distinguish because they don't vary much in luminosity. In the second version we set the colors by using `scale_fill_gradient()` and specifying the low and high colors. By default, the legend doesn't show an entry for the lowest values. This is because the range of the color scale starts not from zero, but from the smallest nonzero quantity in a bin-probably 1, in this case. To make the legend show a zero (as in Figure \@ref(fig:FIG-SCATTER-OVERPLOT-BIN2D), right), we can manually set the range from 0 to the maximum, 6000, using limits (Figure \@ref(fig:FIG-SCATTER-OVERPLOT-BIN2D), left):
+The default colors are somewhat difficult to distinguish because they don't vary
+much in luminosity. In the second version we set the colors by using
+`scale_fill_gradient()` and by specifying the low and high colors. By default,
+the legend doesn't show an entry for the lowest values. This is because the
+range of the color scale starts not from zero, but from the smallest nonzero
+quantity in a bin -- probably 1, in this case. To make the legend show a zero
+(as in Figure \@ref(fig:FIG-SCATTER-OVERPLOT-BIN2D), right), we can manually set
+the range from 0 to the maximum, 6000, using limits (Figure
+\@ref(fig:FIG-SCATTER-OVERPLOT-BIN2D), left):
 
-(ref:cap-FIG-SCATTER-OVERPLOT-BIN2D) Left: binning data with `stat_bin2d()`; right: with more bins, manually specified colors, and legend breaks
+(ref:cap-FIG-SCATTER-OVERPLOT-BIN2D) Left: binning data with `stat_bin2d()`;
+right: with more bins, manually specified colors, and legend breaks
 
 ```{r FIG-SCATTER-OVERPLOT-BIN2D, fig.show="hold", fig.cap="(ref:cap-FIG-SCATTER-OVERPLOT-BIN2D)", fig.width=3.5, fig.height=3.5}
-sp + stat_bin2d()
+sp + 
+  stat_bin2d()
 
-sp + stat_bin2d(bins = 50) +
-    scale_fill_gradient(low = "lightblue", high = "red", limits = c(0, 6000))
+sp + 
+  stat_bin2d(bins = 50) +
+  scale_fill_gradient(low = "lightblue", high = "red", limits = c(0, 6000))
 ```
 
+Another alternative is to bin the data into hexagons instead of rectangles, with
+`stat_binhex()` (Figure \@ref(fig:FIG-SCATTER-OVERPLOT-BINHEX)). It works just
+like `stat_bin2d()`. To use `stat_binhex()`, you must first install the hexbin
+package, with the command `install.packages("hexbin")`:
 
-Another alternative is to bin the data into hexagons instead of rectangles, with `stat_binhex()` (Figure \@ref(fig:FIG-SCATTER-OVERPLOT-BINHEX)). It works just like `stat_bin2d()`. To use it, you must first install the hexbin package, with `install.packages("hexbin")`:
-
-(ref:cap-FIG-SCATTER-OVERPLOT-BINHEX) Left: binning data with `stat_binhex()`; right: cells outside of the range shown in grey
+(ref:cap-FIG-SCATTER-OVERPLOT-BINHEX) Left: binning data with `stat_binhex()`;
+right: cells outside of the range shown in grey
 
 
 ```{r FIG-SCATTER-OVERPLOT-BINHEX, fig.show="hold", fig.cap="(ref:cap-FIG-SCATTER-OVERPLOT-BINHEX)", fig.width=3.5, fig.height=3.5}
-library(hexbin)
+library(hexbin) # Load the hexbin library to access stat_binhex()
 
-sp + stat_binhex() +
-    scale_fill_gradient(low = "lightblue", high = "red",
-                        limits = c(0, 8000))
+sp + 
+  stat_binhex() +
+  scale_fill_gradient(low = "lightblue", high = "red", limits = c(0, 8000))
 
-sp + stat_binhex() +
-    scale_fill_gradient(low = "lightblue", high = "red",
-                        breaks = c(0, 250, 500, 1000, 2000, 4000, 6000),
-                        limits = c(0, 6000))
+sp + 
+  stat_binhex() +
+  scale_fill_gradient(
+    low = "lightblue", high = "red", limits = c(0, 6000),
+    breaks = c(0, 250, 500, 1000, 2000, 4000, 6000)
+    )
 ```
 
-For both of these methods, if you manually specify the range, and there is a bin that falls outside that range because it has too many or too few points, that bin will show up as grey rather than the color at the high or low end of the range, as seen in the graph on the right in Figure \@ref(fig:FIG-SCATTER-OVERPLOT-BINHEX).
+For both of these methods, if you manually specify the range and there is a bin
+that falls outside that range because it has too many or too few points, that
+bin will show up as grey rather than the color at the high or low end of the
+range, as seen in the graph on the right in Figure
+\@ref(fig:FIG-SCATTER-OVERPLOT-BINHEX).
 
-Overplotting can also occur when the data is *discrete* on one or both axes, as shown in Figure \@ref(fig:FIG-SCATTER-OVERPLOT-JITTER). In these cases, you can randomly *jitter* the points with `position_jitter()`. By default the amount of jitter is 40% of the resolution of the data in each direction, but these amounts can be controlled with width and height:
+Overplotting can also occur when the data is *discrete* on one or both axes, as
+shown in Figure \@ref(fig:FIG-SCATTER-OVERPLOT-JITTER). In these cases, you can
+randomly *jitter* the points with `position_jitter()`. By default the amount of
+jitter is 40% of the resolution of the data in each direction, but these amounts
+can be controlled with `width` and `height`:
 
 ```{r FIG-SCATTER-OVERPLOT-JITTER, fig.show="hold", fig.cap="Left: data with a discrete x variable; middle: jittered; right: jittered horizontally only", fig.width=3.5, fig.height=3.5}
-sp1 <- ggplot(ChickWeight, aes(x = Time, y = weight))
 
-sp1 + geom_point()
+# We'll use the ChickWeight data set, and set `sp1` to represent the following line of ggplot clode
+sp1 <- 
+  ChickWeight %>% 
+  ggplot(aes(x = Time, y = weight))
 
-sp1 + geom_point(position = "jitter")
-# Could also use geom_jitter(), which is equivalent
+sp1 + 
+  geom_point()
 
-sp1 + geom_point(position = position_jitter(width = .5, height = 0))
+sp1 + 
+  geom_point(position = "jitter")  # Could also use geom_jitter(), which is equivalent
+
+sp1 + 
+  geom_point(position = position_jitter(width = .5, height = 0))
 ```
 
-When the data has one discrete axis and one continuous axis, it might make sense to use box plots, as shown in Figure \@ref(fig:FIG-SCATTER-OVERPLOT-BOXPLOT). This will convey a different story than a standard scatter plot because it will obscure the *number* of data points at each location on the discrete axis. This may be problematic in some cases, but desirable in others.
+When the data has one discrete axis and one continuous axis, it might make sense
+to use box plots, as shown in Figure \@ref(fig:FIG-SCATTER-OVERPLOT-BOXPLOT).
+This will convey a different story than a standard scatter plot because a box
+plot will obscure the *number* of data points at each location on the discrete
+axis. This may be problematic in some cases, but desirable in others.
 
-With the `ChickWeights` data, the x-axis is conceptually discrete, but since it is stored numerically, ggplot doesn't know how to group the data for each box. If you don't tell it how to group the data, you get a result like the graph on the right in Figure \@ref(fig:FIG-SCATTER-OVERPLOT-BOXPLOT). To tell it how to group the data, use `aes(group=...)`. In this case, we'll group by each distinct value of `Time`:
+When we look at the `ChickWeight` data we know that we conceptually want to
+treat `Time` as a discrete variable. However since `Time` is taken as a
+numerical variable by default, ggplot doesn't know to group the data to form
+each boxplot box. If you don't tell ggplot how to group the data, you get a
+result like the graph on the right in Figure
+\@ref(fig:FIG-SCATTER-OVERPLOT-BOXPLOT). To tell it how to group the data, use
+`aes(group = ...)`. In this case, we'll group by each distinct value of `Time`:
 
 ```{r FIG-SCATTER-OVERPLOT-BOXPLOT, fig.show="hold", fig.cap="Left: grouping into box plots; right: what happens if you don't specify groups", fig.width=3.5, fig.height=3.5}
-sp1 + geom_boxplot(aes(group = Time))
+sp1 + 
+  geom_boxplot(aes(group = Time))
 
-sp1 + geom_boxplot() # Without groups
+sp1 + 
+  geom_boxplot() # Without groups
 ```
 
 
 ### See Also
 
-Instead of binning the data, it may be useful to display a 2D density estimate. To do this, see Recipe \@ref(RECIPE-DISTRIBUTION-DENSITY2D).
+Instead of binning the data, it may be useful to display a 2D density estimate.
+To do this, see Recipe \@ref(RECIPE-DISTRIBUTION-DENSITY2D).
 
 
 Adding Fitted Regression Model Lines {#RECIPE-SCATTER-FITLINES}
@@ -432,10 +641,13 @@ You want to add lines from a fitted regression model to a scatter plot.
 
 ### Solution
 
-To add a linear regression line to a scatter plot, add `stat_smooth()` and tell it to use `method=lm`. This instructs it to fit the data with the `lm()` (linear model) function. First we'll save the base plot object in `sp`, then we'll add different components to it:
+To add a linear regression line to a scatter plot, add `stat_smooth()` and tell
+it to use `method = lm`. This instructs ggplot to fit the data with the `lm()`
+(linear model) function. First we'll save the base plot object in `sp`, then
+we'll add different components to it:
 
 ```{r, eval=FALSE}
-library(gcookbook) # For the data set
+library(gcookbook) # Load the gcookbook package to access the heightweight data set 
 
 # The base plot
 sp <- ggplot(heightweight, aes(x = ageYear, y = heightIn))
@@ -462,7 +674,7 @@ sp + geom_point(colour = "grey60") +
 
 ```{r FIG-SCATTER-FIT-LM, echo=FALSE, fig.show="hold", fig.cap="Top left: an lm fit with the default 95% confidence region; top right: a 99% confidence region; bottom left: no confidence region; bottom right: in black with grey points", fig.width=3.5, fig.height=3.5}
 
-library(gcookbook) # For the data set
+library(gcookbook) # Load the gcookbook package to access the heightweight data set 
 
 sp <- ggplot(heightweight, aes(x = ageYear, y = heightIn))
 
@@ -559,7 +771,7 @@ Usually the easiest way to overlay a fitted model is to simply ask `stat_smooth(
 In this example, we'll build a quadratic model using `lm()` with `ageYear` as a predictor of heightIn. Then we'll use the `predict()` function and find the predicted values of heightIn across the range of values for the predictor, `ageYear`:
 
 ```{r}
-library(gcookbook) # For the data set
+library(gcookbook) # Load the gcookbook package to access the heightweight data set 
 model <- lm(heightIn ~ ageYear + I(ageYear^2), heightweight)
 model
 
@@ -699,7 +911,7 @@ make_model <- function(data) {
 With this function, we can use the `dlply()` function to build a model for each subset of data. This will split the data frame into subsets by the grouping variable sex, and apply `make_model()` to each subset. In this case, the `heightweight` data will be split into two data frames, one for males and one for females, and `make_model()` will be run on each subset. With `dlply()`, the models are put into a list and the list is returned:
 
 ```{r}
-library(gcookbook) # For the data set
+library(gcookbook) # Load the gcookbook package to access the heightweight data set 
 library(dplyr)
 
 # Create a lm for each value of sex; this returns a data frame
@@ -780,7 +992,7 @@ You want to add numerical information about a model to a plot.
 To add simple text to a plot, simply add an annotation. In this example, we'll create a linear model and use the `predictvals()` function defined in Recipe \@ref(RECIPE-SCATTER-FITLINES-MODEL) to create a prediction line from the model. Then we'll add an annotation:
 
 ```{r}
-library(gcookbook) # For the data set
+library(gcookbook) # Load the gcookbook package to access the heightweight data set 
 model <- lm(heightIn ~ ageYear, heightweight)
 summary(model)
 ```
@@ -901,7 +1113,7 @@ You want to add labels to points in a scatter plot.
 For annotating just one or a few points, you can use `annotate()` or `geom_text()`. For this example, we'll use the countries data set and visualize the relationship between health expenditures and infant mortality rate per 1,000 live births. To keep things manageable, we'll just take the subset of countries that spent more than $2,000 USD per capita:
 
 ```{r}
-library(gcookbook) # For the data set
+library(gcookbook) # Load the gcookbook package to access the countries data set 
 subset(countries, Year==2009 & healthexp>2000)
 ```
 
@@ -1032,7 +1244,7 @@ TODO: Check if the content from size/color recipe should be moved here.
 Use `geom_point()` with `scale_size_area()`. For this example, we'll use a subset of `countries`:
 
 ```{r}
-library(gcookbook) # For the data set
+library(gcookbook) # Load the gcookbook package to access the countries data set 
 cdat <- subset(countries, Year==2009 & Name %in% c("Canada", "Ireland",
     "United Kingdom", "United States", "New Zealand", "Iceland", "Japan",
     "Luxembourg", "Netherlands", "Switzerland"))
@@ -1110,7 +1322,7 @@ For this example, we'll use a subset of the `countries` data. We'll pull out the
 
 
 ```{r}
-library(gcookbook) # For the data set
+library(gcookbook) # Load the gcookbook package to access the countries data set 
 c2009 <- subset(countries, Year==2009,
                 select = c(Name, GDP, laborrate, healthexp, infmortality))
 c2009
