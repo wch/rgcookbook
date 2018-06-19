@@ -29,15 +29,18 @@ You want to make a scatter plot.
 
 Use `geom_point()`, and map one variable to `x` and one variable to `y`.
 
-There are a number of columns inthe `heightweight` data set, but we'll only use two in this example (Figure \@ref(fig:FIG-SCATTER-BASIC)):
+There are a number of columns in the `heightweight` data set, but we'll only use two in this example (Figure \@ref(fig:FIG-SCATTER-BASIC)):
 
 ```{r FIG-SCATTER-BASIC, fig.cap="A basic scatter plot"}
 library(gcookbook) # For the data set 
 
-# Show the head of the two columns we'll use
-head(heightweight[, c("ageYear", "heightIn")])
+# Show the head of the two columns we'll use in the plot
+heightweight %>% 
+  select(ageYear, heightIn)
 
-ggplot(heightweight, aes(x = ageYear, y = heightIn)) + geom_point()
+heightweight %>% 
+  ggplot(aes(x = ageYear, y = heightIn)) + 
+  geom_point()
 ```
 
 ### Discussion
@@ -75,13 +78,14 @@ Map the grouping variable to `shape` or `colour`. There are many columns in the 
 library(gcookbook) # For the data set
 
 # Show the head of the three columns we'll use
-head(heightweight[, c("sex", "ageYear", "heightIn")])
+heightweight %>% 
+  select(sex, ageYear, heightIn)
 ```
 
 We can visually group points by `sex`, by mapping `sex` to one of the
 aesthetics `colour` or `shape` (Figure \@ref(fig:FIG-SCATTER-SHAPE-COLOR)):
 
-```{r, eval=FALSE}
+```{r FIG-SCATTER-SHAPE-COLOR, echo=FALSE, fig.show="hold", fig.cap="Grouping points by a variable mapped to colour (left), or to shape (right)", fig.width=3.5, fig.height=3.5}
 ggplot(heightweight, aes(x = ageYear, y = heightIn, colour = sex)) + 
   geom_point() 
 
@@ -89,19 +93,9 @@ ggplot(heightweight, aes(x = ageYear, y = heightIn, shape = sex)) +
   geom_point()
 ```
 
-```{r FIG-SCATTER-SHAPE-COLOR, echo=FALSE, fig.show="hold", fig.cap="Grouping points by a variable mapped to colour (left), or to shape (right)", fig.width=3.5, fig.height=3.5, fig.align='center'}
-ggplot(heightweight, aes(x = ageYear, y = heightIn, colour = sex)) + 
-  geom_point() +
-  theme(plot.margin = margin(0, 0.5, 0.5, 0, "cm"))
-
-ggplot(heightweight, aes(x = ageYear, y = heightIn, shape = sex)) + 
-  geom_point() +
-  theme(plot.margin = margin(0, 0, 0.5, 0.5, "cm"))
-```
-
 ### Discussion
 
-The grouping variable you choose must be categorical -- in other words, a factor or character vector. If the grouping variable is a numeric vector, you should convert it to a factor variable before using it as the grouping variable.
+The grouping variable you choose must be categorical -- in other words, a factor or character vector. If the grouping variable is a numeric vector, you should convert it to a factor variable first.
 
 It is possible to map a variable to both `shape` and `colour`, or, if you have multiple grouping variables, to map different variables to different aesthetics. Here, we'll map the variable `sex` to both `shape` and `colour` aesthetics (Figure \@ref(fig:FIG-SCATTER-SHAPE-COLOR-BOTH), left):
 
