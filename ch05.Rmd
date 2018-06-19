@@ -202,7 +202,7 @@ heightweight %>%
   scale_shape_manual(values = c(1, 4))
 ```
 
-```{r FIG-SCATTER-SHAPES, echo=FALSE, fig.show="hold", fig.cap="Left: scatter plot with the shape aesthetic set to a custom value; right: with a variable mapped to shape, using a custom shape palette", fig.width=3.5, fig.height=3.5}
+```{r FIG-SCATTER-SHAPES, echo=FALSE, fig.show="hold", fig.cap="Scatter plot with the shape aesthetic set to a custom value (left); With a variable mapped to shape, using a custom shape palette (right)", fig.width=3.5, fig.height=3.5}
 library(gcookbook) # Load the gcookbook package to access the heightweight data set 
 
 heightweight %>% 
@@ -322,7 +322,7 @@ represent a third continuous variable, `weightLb`, by mapping this variable to
 another aesthetic property, such as `colour` or `size` (Figure
 \@ref(fig:FIG-SCATTER-CONTINUOUS-COLOR-SIZE):
 
-```{r FIG-SCATTER-CONTINUOUS-COLOR-SIZE, fig.show="hold", fig.cap="Left: a continuous variable mapped to colour; right: mapped to size", fig.width=3.5, fig.height=3.5}
+```{r FIG-SCATTER-CONTINUOUS-COLOR-SIZE, fig.show="hold", fig.cap="A continuous variable mapped to colour (left); Mapped to size (right)", fig.width=3.5, fig.height=3.5}
 heightweight %>% 
   ggplot(aes(x = ageYear, y = heightIn, colour = weightLb)) +
   geom_point()
@@ -372,7 +372,7 @@ area of the points to represent the data values. Figure
 \@ref(fig:FIG-SCATTER-SIZE-AREA) shows the difference between these
 representations.
 
-```{r FIG-SCATTER-SIZE-AREA, fig.show="hold", fig.cap="Left: value mapped to diameter of points; right: value mapped to area of points", fig.width=3.5, fig.height=3.5}
+```{r FIG-SCATTER-SIZE-AREA, fig.show="hold", fig.cap="Value mapped to diameter of points (left); Value mapped to area of points (right)", fig.width=3.5, fig.height=3.5}
 
 range(heightweight$weightLb)
 size_range <- range(heightweight$weightLb) / max(heightweight$weightLb) *  6
@@ -401,14 +401,14 @@ because the outline sets the shapes off from the background. In this example, we
 also set the fill gradient to go from black to white and make the points larger
 so that the fill is easier to see:
 
-```{r FIG-SCATTER-CONTINUOUS-FILL, echo=FALSE, fig.show="hold", fig.cap="Left: outlined points with a continuous variable mapped to fill; right: with a discrete legend instead of continuous colorbar", fig.width=3.5, fig.height=3.5}
+```{r FIG-SCATTER-CONTINUOUS-FILL, echo=FALSE, fig.show="hold", fig.cap="Outlined points with a continuous variable mapped to fill (left); With a discrete legend instead of continuous colorbar (right)", fig.width=3.5, fig.height=3.5}
 heightweight %>% 
   ggplot(aes(x = ageYear, y = heightIn, fill = weightLb)) +
   geom_point(shape = 21, size = 2.5) +
   scale_fill_gradient(low = "black", high = "white")
 
 # Using guide_legend() will result in a discrete legend instead of a colorbar legend
-heightewight %>% 
+heightweight %>% 
   ggplot(aes(x = ageYear, y = heightIn, fill = weightLb)) +
   geom_point(shape = 21, size = 2.5) +
   scale_fill_gradient(
@@ -495,7 +495,7 @@ We can make the points semitransparent using the `alpha` aesthetic, as in Figure
 \@ref(fig:FIG-SCATTER-OVERPLOT-ALPHA). Here, we'll make them 90% transparent and
 then 99% transparent, by setting `alpha = .1` and `alpha = .01`:
 
-```{r FIG-SCATTER-OVERPLOT-ALPHA, dev="png", dpi=300, fig.show="hold", fig.cap="Left: semitransparent points with alpha=.1; right: with alpha=.01", fig.height=3}
+```{r FIG-SCATTER-OVERPLOT-ALPHA, dev="png", dpi=300, fig.show="hold", fig.cap="Semitransparent points with alpha=.1 (left); With alpha=.01 (right)", fig.height=3}
 sp + 
   geom_point(alpha = .1)
 
@@ -538,8 +538,8 @@ quantity in a bin -- probably 1, in this case. To make the legend show a zero
 the range from 0 to the maximum, 6000, using limits (Figure
 \@ref(fig:FIG-SCATTER-OVERPLOT-BIN2D), left):
 
-(ref:cap-FIG-SCATTER-OVERPLOT-BIN2D) Left: binning data with `stat_bin2d()`;
-right: with more bins, manually specified colors, and legend breaks
+(ref:cap-FIG-SCATTER-OVERPLOT-BIN2D) Binning data with `stat_bin2d()` (left);
+With more bins, manually specified colors, and legend breaks (right)
 
 ```{r FIG-SCATTER-OVERPLOT-BIN2D, fig.show="hold", fig.cap="(ref:cap-FIG-SCATTER-OVERPLOT-BIN2D)", fig.width=3.5, fig.height=3.5}
 sp + 
@@ -555,8 +555,8 @@ Another alternative is to bin the data into hexagons instead of rectangles, with
 like `stat_bin2d()`. To use `stat_binhex()`, you must first install the hexbin
 package, with the command `install.packages("hexbin")`:
 
-(ref:cap-FIG-SCATTER-OVERPLOT-BINHEX) Left: binning data with `stat_binhex()`;
-right: cells outside of the range shown in grey
+(ref:cap-FIG-SCATTER-OVERPLOT-BINHEX) Binning data with `stat_binhex()` (left);
+Cells outside of the range shown in grey (right)
 
 
 ```{r FIG-SCATTER-OVERPLOT-BINHEX, fig.show="hold", fig.cap="(ref:cap-FIG-SCATTER-OVERPLOT-BINHEX)", fig.width=3.5, fig.height=3.5}
@@ -586,7 +586,7 @@ randomly *jitter* the points with `position_jitter()`. By default the amount of
 jitter is 40% of the resolution of the data in each direction, but these amounts
 can be controlled with `width` and `height`:
 
-```{r FIG-SCATTER-OVERPLOT-JITTER, fig.show="hold", fig.cap="Left: data with a discrete x variable; middle: jittered; right: jittered horizontally only", fig.width=3.5, fig.height=3.5}
+```{r FIG-SCATTER-OVERPLOT-JITTER, fig.show="hold", fig.cap="Data with a discrete x variable (left); Jittered (middle); Jittered horizontally only (right)", fig.width=3.5, fig.height=3.5}
 
 # We'll use the ChickWeight data set and create a base plot called `sp1`
 sp1 <- 
@@ -617,7 +617,7 @@ result like the graph on the right in Figure
 \@ref(fig:FIG-SCATTER-OVERPLOT-BOXPLOT). To tell it how to group the data, use
 `aes(group = ...)`. In this case, we'll group by each distinct value of `Time`:
 
-```{r FIG-SCATTER-OVERPLOT-BOXPLOT, fig.show="hold", fig.cap="Left: grouping into box plots; right: what happens if you don't specify groups", fig.width=3.5, fig.height=3.5}
+```{r FIG-SCATTER-OVERPLOT-BOXPLOT, fig.show="hold", fig.cap="Grouping into box plots (left); What happens if you don't specify groups (right)", fig.width=3.5, fig.height=3.5}
 sp1 + 
   geom_boxplot(aes(group = Time))
 
@@ -686,7 +686,7 @@ sp +
   stat_smooth(method = lm, se = FALSE, colour = "black")
 ```
 
-```{r FIG-SCATTER-FIT-LM, echo=FALSE, fig.show="hold", fig.cap="Top left: an lm fit with the default 95% confidence region; top right: a 99% confidence region; bottom left: no confidence region; bottom right: in black with grey points", fig.width=3.5, fig.height=3.5}
+```{r FIG-SCATTER-FIT-LM, echo=FALSE, fig.show="hold", fig.cap="An lm fit with the default 95% confidence region (top left); A 99% confidence region (top right); No confidence region (bottom left); In black with grey points (bottom right)", fig.width=3.5, fig.height=3.5}
 
 library(gcookbook) # Load the gcookbook package to access the heightweight data set 
 
@@ -820,7 +820,7 @@ sps +
   geom_smooth(method = lm, se = FALSE, fullrange = TRUE)
 ```
 
-```{r FIG-SCATTER-FIT-GROUP, fig.show="hold", fig.cap="Left: LOESS fit lines for each group; right: extrapolated linear fit lines", fig.width=3.5, fig.height=3.5}
+```{r FIG-SCATTER-FIT-GROUP, fig.show="hold", fig.cap="LOESS fit lines for each group (left); Extrapolated linear fit lines (right)", fig.width=3.5, fig.height=3.5}
 
 sps <- 
   heightweight %>% 
@@ -949,7 +949,7 @@ sp +
   geom_line(data = loess_predicted, colour = "blue", size = .8)
 ```
 
-```{r FIG-SCATTER-FIT-MODEL, fig.show="hold", fig.cap="Left: a quadratic prediction line from an lm object; right: prediction lines from linear (red) and LOESS (blue) models", fig.width=3.5, fig.height=3.5}
+```{r FIG-SCATTER-FIT-MODEL, fig.show="hold", fig.cap="A quadratic prediction line from an lm object (left); Prediction lines from linear (in red) and LOESS (in blue) models (right)", fig.width=3.5, fig.height=3.5}
 
 # From first block above
 sp <- 
@@ -1093,7 +1093,7 @@ heightweight %>%
   geom_line(data = predvals)
 ```
 
-```{r FIG-SCATTER-FIT-MODEL-MULTI, fig.show="hold", fig.cap="Left: predictions from two separate lm objects, one for each subset of data; right: with facets", fig.width=4, fig.height=3.5}
+```{r FIG-SCATTER-FIT-MODEL-MULTI, fig.show="hold", fig.cap="Predictions from two separate lm objects, one for each subset of data (left); With facets (right)", fig.width=4, fig.height=3.5}
 heightweight %>% 
   ggplot(aes(x = ageYear, y = heightIn, colour = sex)) +
   geom_point() +
@@ -1193,7 +1193,7 @@ sp +
 ```
 
 
-```{r FIG-SCATTER-FIT-MODEL-TEXT, echo=FALSE, fig.show="hold", fig.cap="Left: plain text; right: math expression", fig.width=3.5, fig.height=3.5}
+```{r FIG-SCATTER-FIT-MODEL-TEXT, echo=FALSE, fig.show="hold", fig.cap="Plain text (left); Math expression (right)", fig.width=3.5, fig.height=3.5}
 pred <- predictvals(model, "ageYear", "heightIn")
 
 sp <- 
@@ -1368,7 +1368,7 @@ sp +
   geom_text(aes(label = Name), size = 4)
 ```
 
-```{r FIG-SCATTER-LABEL, echo=FALSE, fig.show="hold", fig.cap="Left: a scatter plot with manually labeled points; right: with automatically labeled points and a smaller font", fig.width=4.5, fig.height=4.5}
+```{r FIG-SCATTER-LABEL, echo=FALSE, fig.show="hold", fig.cap="A scatter plot with manually labeled points (left); With automatically labeled points and a smaller font (right)", fig.width=4.5, fig.height=4.5}
 
 # First block
 sp <-
@@ -1420,7 +1420,7 @@ though -- you can increase or decrease `vjust` to shift the labels higher or
 lower, or you can add or subtract a bit to or from the y mapping to get the same
 effect (Figure \@ref(fig:FIG-SCATTER-LABEL-VJUST), right):
 
-```{r FIG-SCATTER-LABEL-VJUST, fig.show="hold", fig.cap="Left: a scatter plot with vjust=0; right: with a little extra added to y", fig.width=4.5, fig.height=4.5}
+```{r FIG-SCATTER-LABEL-VJUST, fig.show="hold", fig.cap="A scatter plot with vjust=0 (left); With a little extra added to y (right)", fig.width=4.5, fig.height=4.5}
 sp + 
   geom_text(aes(label = Name), size = 3, vjust = 0)
 
@@ -1439,7 +1439,7 @@ the length of the label, making longer labels move further than shorter ones.
 It's better to just set hjust to 0 or 1, and then add or subtract a bit to or
 from `x` (Figure \@ref(fig:FIG-SCATTER-LABEL-HJUST), right):
 
-```{r FIG-SCATTER-LABEL-HJUST, fig.show="hold", fig.cap="Left: a scatter plot with hjust=0; right: with a little extra added to x", fig.width=4.5, fig.height=4.5}
+```{r FIG-SCATTER-LABEL-HJUST, fig.show="hold", fig.cap="A scatter plot with hjust=0 (left); With a little extra added to x (right)", fig.width=4.5, fig.height=4.5}
 sp + 
   geom_text(aes(label = Name), size = 3, hjust = 0)
 
@@ -1554,7 +1554,7 @@ distort the interpretation of the data. We instead want to map the value of
 `GDP` to the *area* of the dots, which we can do this using `scale_size_area()`
 (Figure \@ref(fig:FIG-SCATTER-BALLOON), right):
 
-```{r FIG-SCATTER-BALLOON, fig.show="hold", fig.cap="Left: balloon plot with value mapped to radius; right: with value mapped to area", fig.width=4.5, fig.height=3.5}
+```{r FIG-SCATTER-BALLOON, fig.show="hold", fig.cap="Balloon plot with value mapped to radius (left); With value mapped to area (right)", fig.width=4.5, fig.height=3.5}
 p <- 
   cdat %>% 
   ggplot(aes(x = healthexp, y = infmortality, size = GDP)) +
@@ -1576,7 +1576,7 @@ where the x- and y-axes are categorical, as in Figure
 \@ref(fig:FIG-SCATTER-BALLOON-CAT):
 
 
-```{r FIG-SCATTER-BALLOON-CAT, fig.show="hold", fig.cap="Balloon plot with categorical axes and text labels. Left: with guide points to help position text; right: without guide points", fig.width=4.5, fig.height=4.5}
+```{r FIG-SCATTER-BALLOON-CAT, fig.show="hold", fig.cap="Balloon plot with categorical axes and text labels. Qith guide points to help position text (left); Without guide points (right)", fig.width=4.5, fig.height=4.5}
 
 # Create a data frame that adds up counts for males and females
 hec <- 
