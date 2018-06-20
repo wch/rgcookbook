@@ -649,7 +649,7 @@ p1 <-
   theme(plot.margin = unit(c(0,0,0,0), "lines"))
 
 p2 <-
-  df %>% 
+  ds %>% 
   ggplot(aes(x = 1, y = x)) +
   geom_boxplot(width = .5, outlier.size = 1.5) +
   coord_flip() +

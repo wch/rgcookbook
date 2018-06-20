@@ -1579,6 +1579,8 @@ where the x- and y-axes are categorical, as in Figure
 
 ```{r FIG-SCATTER-BALLOON-CAT, fig.show="hold", fig.cap="Balloon plot with categorical axes and text labels. Qith guide points to help position text (left); Without guide points (right)", fig.width=4.5, fig.height=4.5}
 
+library(tidyverse) # Load the tidyverse package to transform HairEyeColor from tables into long format (tibble)
+
 # Create a data frame that adds up counts for males and females
 hec <- 
   HairEyeColor %>% 
@@ -1604,7 +1606,7 @@ hecplot
 
 # Adding red guide points
 hecplot +
-  geom_point(aes(y = as.numeric(Hair) - sqrt(count)/34), colour = "red", size = 1) 
+  geom_point(aes(y = as.numeric(as.factor(Hair)) - sqrt(count)/34), colour = "red", size = 1) 
 ```
 
 In this example we've used a few tricks to add the text labels under the
