@@ -67,7 +67,7 @@ In addition, the default colors -- a dark fill without an outline -- can make it
 difficult to see which bar corresponds to which value, so we'll also change the
 colors, as shown in Figure \@ref(fig:FIG-DISTRIBUTION-HIST-WIDTH).
 
-```{r FIG-DISTRIBUTION-HIST-WIDTH, fig.show="hold", fig.cap="Left: histogram with binwidth=5, and with different colors; right: with 15 bins", fig.width=3.5, fig.height=3.5}
+```{r FIG-DISTRIBUTION-HIST-WIDTH, fig.show="hold", fig.cap="Histogram with binwidth = 5 and with different colors (left); With 15 bins (right)", fig.width=3.5, fig.height=3.5}
 
 # Set the width of each bin to 5 (each bin will span 5 x-axis units)
 faithful %>% 
@@ -134,7 +134,7 @@ group.
 Use `geom_histogram()` and use facets for each group, as shown in Figure
 \@ref(fig:FIG-DISTRIBUTION-MULTI-HISTOGRAM-FACET):
 
-```{r FIG-DISTRIBUTION-MULTI-HISTOGRAM-FACET, fig.cap="Left: two histograms with facets; right: with different facet labels"}
+```{r FIG-DISTRIBUTION-MULTI-HISTOGRAM-FACET, fig.cap="Two histograms with facets (left); With different facet labels (right)"}
 library(MASS) # Load the MASS package to access the birthwt data set 
 
 # Use smoke as the faceting variable
@@ -209,7 +209,7 @@ birthwt %>%
   facet_grid(race ~ ., scales = "free")
 ```
 
-```{r FIG-DISTRIBUTION-MULTI-HISTOGRAM-FACET-SCALESFREE, ref.label=c("FIG-DISTRIBUTION-MULTI-HISTOGRAM-FACET-SCALESFREE-1", "FIG-DISTRIBUTION-MULTI-HISTOGRAM-FACET-SCALESFREE-2"), echo=FALSE, fig.show="hold", fig.cap='Left: histograms with the default fixed scales; right: with scales="free"', fig.width=3.5, fig.height=3.5}
+```{r FIG-DISTRIBUTION-MULTI-HISTOGRAM-FACET-SCALESFREE, ref.label=c("FIG-DISTRIBUTION-MULTI-HISTOGRAM-FACET-SCALESFREE-1", "FIG-DISTRIBUTION-MULTI-HISTOGRAM-FACET-SCALESFREE-2"), echo=FALSE, fig.show="hold", fig.cap='Histograms with the default fixed scales (left); With scales = "free" (right)', fig.width=3.5, fig.height=3.5}
 ```
 
 Another approach is to map the grouping variable to `fill`, as shown in Figure
@@ -261,8 +261,8 @@ faithful %>%
   expand_limits(y = 0)
 ```
 
-(ref:cap-FIG-DISTRIBUTION-DENSITY-BASIC) Left: a kernel density estimate curve
-with `geom_density()`; right: with `geom_line()`
+(ref:cap-FIG-DISTRIBUTION-DENSITY-BASIC) A kernel density estimate curve
+with `geom_density()` (left); With `geom_line()` (right)
 
 ```{r FIG-DISTRIBUTION-DENSITY-BASIC, ref.label=c("FIG-DISTRIBUTION-DENSITY-BASIC-1", "FIG-DISTRIBUTION-DENSITY-BASIC-2"), echo=FALSE, fig.show="hold", fig.cap="(ref:cap-FIG-DISTRIBUTION-DENSITY-BASIC)", fig.width=3.5, fig.height=3.5}
 ```
@@ -318,9 +318,9 @@ the curve, set the *x* limits (Figure
 \@ref(fig:FIG-DISTRIBUTION-DENSITY-WIDTH)). We'll also add an 80% transparent
 fill, with `alpha = .2`:
 
-(ref:cap-FIG-DISTRIBUTION-DENSITY-WIDTH) Left: density curve with wider x limits
-and a semitransparent fill; right: in two parts, with `geom_density()` and
-`geom_line()`
+(ref:cap-FIG-DISTRIBUTION-DENSITY-WIDTH) Density curve with wider x limits
+and a semitransparent fill (left); In two parts, with `geom_density()` and
+`geom_line()` (right)
 
 ```{r FIG-DISTRIBUTION-DENSITY-WIDTH, fig.show="hold", fig.cap="(ref:cap-FIG-DISTRIBUTION-DENSITY-WIDTH)", fig.width=3.5, fig.height=3.5}
 faithful %>% 
@@ -381,7 +381,7 @@ factor or a character vector. In the `birthwt` data set, the desired grouping
 variable, `smoke`, is stored as a number, so we have to convert it to a factor
 first, which we will store in a modified data set called `birthwt1`.
 
-```{r FIG-DISTRIBUTION-MULTI-DENSITY, fig.show="hold", fig.cap="Left: different line colors for each group; right: different semitransparent fill colors for each group", fig.width=3.5, fig.height=3.5}
+```{r FIG-DISTRIBUTION-MULTI-DENSITY, fig.show="hold", fig.cap="Different line colors for each group (left); Different semitransparent fill colors for each group (right)", fig.width=3.5, fig.height=3.5}
 
 library(MASS) # Load the MASS package to access the birthwt data set
 
@@ -458,7 +458,7 @@ birthwt1 %>%
   facet_grid(smoke ~ .)
 ```
 
-```{r FIG-DISTRIBUTION-MULTI-DENSITY-FACET, ref.label=c("FIG-DISTRIBUTION-MULTI-DENSITY-FACET-1", "FIG-DISTRIBUTION-MULTI-DENSITY-FACET-2", "FIG-DISTRIBUTION-MULTI-DENSITY-FACET-3"), echo=FALSE, fig.show="hold", fig.cap="Left: density curves with facets; right: with different facet labels", fig.width=3.5, fig.height=3.5}
+```{r FIG-DISTRIBUTION-MULTI-DENSITY-FACET, ref.label=c("FIG-DISTRIBUTION-MULTI-DENSITY-FACET-1", "FIG-DISTRIBUTION-MULTI-DENSITY-FACET-2", "FIG-DISTRIBUTION-MULTI-DENSITY-FACET-3"), echo=FALSE, fig.show="hold", fig.cap="Density curves with facets (left); With different facet labels (right)", fig.width=3.5, fig.height=3.5}
 ```
 
 If you want to see the histograms along with the density curves, the best option
@@ -508,7 +508,7 @@ faithful %>%
   geom_freqpoly(binwidth = 4)
 ```
 
-```{r FIG-DISTRIBUTION-FREQPOLY, ref.label=c("FIG-DISTRIBUTION-FREQPOLY-1", "FIG-DISTRIBUTION-FREQPOLY-2"), echo=FALSE, fig.show="hold", fig.cap="Left: a frequency polygon; right: with wider bins", fig.width=3.5, fig.height=3.5}
+```{r FIG-DISTRIBUTION-FREQPOLY, ref.label=c("FIG-DISTRIBUTION-FREQPOLY-1", "FIG-DISTRIBUTION-FREQPOLY-2"), echo=FALSE, fig.show="hold", fig.cap="A frequency polygon (left); With wider bins (right)", fig.width=3.5, fig.height=3.5}
 ```
 
 Or, instead of setting the width of each bin directly, you can divide the *x*
@@ -691,7 +691,7 @@ birthwt %>%
   geom_boxplot(outlier.size = 1.5, outlier.shape = 21)
 ```
 
-```{r FIG-DISTRIBUTION-BOXPLOT-WIDTH-POINT, ref.label=c("FIG-DISTRIBUTION-BOXPLOT-WIDTH-POINT-1", "FIG-DISTRIBUTION-BOXPLOT-WIDTH-POINT-2"), echo=FALSE, fig.show="hold", fig.cap="Left: box plot with narrower boxes; right: with smaller, hollow outlier points", fig.width=3.5, fig.height=3.5}
+```{r FIG-DISTRIBUTION-BOXPLOT-WIDTH-POINT, ref.label=c("FIG-DISTRIBUTION-BOXPLOT-WIDTH-POINT-1", "FIG-DISTRIBUTION-BOXPLOT-WIDTH-POINT-2"), echo=FALSE, fig.show="hold", fig.cap="Box plot with narrower boxes (left); With smaller, hollow outlier points (right)", fig.width=3.5, fig.height=3.5}
 ```
 
 To make a box plot of just a single group, we have to provide some arbitrary
@@ -859,7 +859,7 @@ Recipe \@ref(RECIPE-DISTRIBUTION-BASIC-DENSITY). The default value is 1; use
 larger values for more smoothing and smaller values for less smoothing (Figure
 \@ref(fig:FIG-DISTRIBUTION-VIOLIN-ADJUST)):
 
-```{r FIG-DISTRIBUTION-VIOLIN-ADJUST, fig.show="hold", fig.cap="Left: violin plot with more smoothing; right: with less smoothing", fig.width=3.5, fig.height=3.5}
+```{r FIG-DISTRIBUTION-VIOLIN-ADJUST, fig.show="hold", fig.cap="Violin plot with more smoothing (left); With less smoothing (right)", fig.width=3.5, fig.height=3.5}
 
 # More smoothing
 p + 
@@ -953,7 +953,7 @@ with even and odd quantities stay aligned. This can by done by setting
 `stackdir = "center"` or `stackdir = "centerwhole"`, as illustrated in Figure
 \@ref(fig:FIG-DISTRIBUTION-DOTPLOT-CENTER):
 
-```{r FIG-DISTRIBUTION-DOTPLOT-CENTER, fig.show="hold", fig.cap='Left: dot plot with stackdir = "center"; right: with stackdir = "centerwhole"', fig.width=3.5, fig.height=3.5}
+```{r FIG-DISTRIBUTION-DOTPLOT-CENTER, fig.show="hold", fig.cap='Dot plot with stackdir = "center" (left); With stackdir = "centerwhole" (right)', fig.width=3.5, fig.height=3.5}
 p + 
   geom_dotplot(binwidth = .25, stackdir = "center") +
   scale_y_continuous(breaks = NULL) +
@@ -1069,7 +1069,7 @@ p +
   stat_density2d(aes(colour = ..level..))
 ```
 
-```{r FIG-DISTRIBUTION-DENSITY2D, ref.label=c("FIG-DISTRIBUTION-DENSITY2D-1", "FIG-DISTRIBUTION-DENSITY2D-2"), echo=FALSE, fig.show="hold", fig.cap="Left: points and density contour; right: with ..level.. mapped to color", fig.width=3.5, fig.height=3.5}
+```{r FIG-DISTRIBUTION-DENSITY2D, ref.label=c("FIG-DISTRIBUTION-DENSITY2D-1", "FIG-DISTRIBUTION-DENSITY2D-2"), echo=FALSE, fig.show="hold", fig.cap="Points and density contour (left); With ..level.. mapped to color (right)", fig.width=3.5, fig.height=3.5}
 ```
 
 ### Discussion
@@ -1081,7 +1081,7 @@ possible to use tiles and to map the density estimate to the fill color, or to
 the transparency of the tiles, as shown in Figure
 \@ref(fig:FIG-DISTRIBUTION-DENSITY2D-TILE):
 
-```{r FIG-DISTRIBUTION-DENSITY2D-TILE, fig.show="hold", fig.cap="Left: with ..density.. mapped to fill; right: with points, and ..density.. mapped to alpha", fig.width=3.5, fig.height=3.5}
+```{r FIG-DISTRIBUTION-DENSITY2D-TILE, fig.show="hold", fig.cap="With ..density.. mapped to fill (left); With points, and ..density.. mapped to alpha (right)", fig.width=3.5, fig.height=3.5}
 # Map density estimate to fill color
 p + 
   stat_density2d(aes(fill = ..density..), geom = "raster", contour = FALSE)

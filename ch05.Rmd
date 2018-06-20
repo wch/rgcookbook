@@ -1496,7 +1496,7 @@ time, we'll also expand the *x* range so that the text will fit:
 cdat %>% 
   ggplot(aes(x = healthexp, y = infmortality)) +
   geom_point() +
-  geom_text(aes(x = healthexp+100, label = Name1), size = 4, hjust = 0) +
+  geom_text(aes(x = healthexp + 100, label = plotname), size = 4, hjust = 0) +
   xlim(2000, 10000)
 ```
 
