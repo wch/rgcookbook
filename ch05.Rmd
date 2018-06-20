@@ -1335,6 +1335,7 @@ capita:
 
 ```{r}
 library(gcookbook) # Load the gcookbook package to access the countries data set 
+
 # Filter the data to only look at 2009 data for countries that spent > 2000 USD per capita
 countries %>% 
   filter(Year == 2009 & healthexp > 2000)
