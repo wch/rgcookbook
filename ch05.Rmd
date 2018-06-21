@@ -36,10 +36,9 @@ library(gcookbook) # Load the gcookbook package to access the heightweight data 
 
 # Show the head of the two columns we'll use in the plot
 heightweight %>% 
-  select(ageYear, heightIn)
+  dplyr::select(ageYear, heightIn)
 
-heightweight %>% 
-  ggplot(aes(x = ageYear, y = heightIn)) + 
+ggplot(heightweight, aes(x = ageYear, y = heightIn)) + 
   geom_point()
 ```
 
@@ -48,26 +47,23 @@ heightweight %>%
 Instead of points, you can use different shapes for your scatter plot by using the `shape` aesthetic. A common alternative to the default solid circles (shape #19) is hollow ones (#21), as seen in Figure \@ref(fig:FIG-SCATTER-BASIC-SHAPE-SIZE) (left):
 
 ```{r, eval=FALSE}
-heightweight %>% 
-  ggplot(aes(x = ageYear, y = heightIn)) + 
+ggplot(heightweight, aes(x = ageYear, y = heightIn)) + 
   geom_point(shape = 21)
 ```
 
 The size of the points can be controlled with the `size` aesthetic. The default value of size is 2 (`size = 2`). The following code will set `size = 1.5` to create smaller points (Figure \@ref(fig:FIG-SCATTER-BASIC-SHAPE-SIZE), right):
 
 ```{r, eval=FALSE}
-heightweight %>% 
-  ggplot(aes(x = ageYear, y = heightIn)) + 
+ggplot(heightweight, aes(x = ageYear, y = heightIn)) + 
   geom_point(size = 1.5)
 ```
 
 ```{r FIG-SCATTER-BASIC-SHAPE-SIZE, echo=FALSE, fig.show="hold", fig.cap="Scatter plot with hollow circles (shape 21, left); With smaller points (right)", fig.width=3.5, fig.height=3.5}
-heightweight %>% 
-  ggplot(aes(x = ageYear, y = heightIn)) + 
+
+ggplot(heightweight, aes(x = ageYear, y = heightIn)) + 
   geom_point(shape = 21)
 
-heightweight %>% 
-  ggplot(aes(x = ageYear, y = heightIn)) + 
+ggplot(heightweight, aes(x = ageYear, y = heightIn)) + 
   geom_point(size = 1.5)
 ```
 
@@ -88,18 +84,17 @@ library(gcookbook) # Load the gcookbook package to access the heightweight data 
 
 # Show the head of the three columns we'll use
 heightweight %>% 
-  select(sex, ageYear, heightIn)
+  dplyr::select(sex, ageYear, heightIn)
 ```
 
 We can use the aesthetics of `colour` or `shape` to visually differentiate the data points belonging to different categories of `sex`. We do this by mapping `sex` to one of the aesthetics `colour` or `shape` (Figure\@ref(fig:FIG-SCATTER-SHAPE-COLOR)):
 
 ```{r FIG-SCATTER-SHAPE-COLOR, echo=FALSE, fig.show="hold", fig.cap="Grouping points by a variable mapped to colour (left), or to shape (right)", fig.width=3.5, fig.height=3.5}
-heightweight %>% 
-  ggplot(aes(x = ageYear, y = heightIn, colour = sex)) + 
+
+ggplot(heightweight, aes(x = ageYear, y = heightIn, colour = sex)) + 
   geom_point() 
 
-heightweight %>% 
-  ggplot(aes(x = ageYear, y = heightIn, shape = sex)) + 
+ggplot(heightweight, aes(x = ageYear, y = heightIn, shape = sex)) + 
   geom_point()
 ```
 
@@ -110,28 +105,24 @@ The grouping variable you choose must be categorical -- in other words, a factor
 It is possible to map a variable to both `shape` and `colour`, or, if you have multiple grouping variables, to map each grouping variable to a different aesthetic. Here, we'll map the variable `sex` to both `shape` and `colour` aesthetics (Figure \@ref(fig:FIG-SCATTER-SHAPE-COLOR-BOTH), left):
 
 ```{r, eval=FALSE}
-heightweight %>% 
-  ggplot(aes(x = ageYear, y = heightIn, shape = sex, colour = sex)) +
+ggplot(heightweight, aes(x = ageYear, y = heightIn, shape = sex, colour = sex)) +
   geom_point()
 ```
 
 You may want to use different shapes and colors than are given by the default settings. You can select other shapes for the grouping variables using `scale_shape_manual()`, and select other colors using `scale_colour_brewer()` or `scale_colour_manual()`. (Figure \@ref(fig:FIG-SCATTER-SHAPE-COLOR-BOTH), right):
 
 ```{r, eval=FALSE}
-heightweight %>% 
-  ggplot(aes(x = ageYear, y = heightIn, shape = sex, colour = sex)) +
+ggplot(heightweight, aes(x = ageYear, y = heightIn, shape = sex, colour = sex)) +
   geom_point() +
   scale_shape_manual(values = c(1,2)) +
   scale_colour_brewer(palette = "Set1")
 ```
 
 ```{r FIG-SCATTER-SHAPE-COLOR-BOTH, echo=FALSE, fig.show="hold", fig.cap="Mapping to both shape and colour (left); With manually set shapes and colors (right)", fig.width=3.5, fig.height=3.5}
-heightweight %>% 
-  ggplot(aes(x = ageYear, y = heightIn, shape = sex, colour = sex)) +
+ggplot(heightweight, aes(x = ageYear, y = heightIn, shape = sex, colour = sex)) +
   geom_point()
 
-heightweight %>% 
-  ggplot(aes(x = ageYear, y = heightIn, shape = sex, colour = sex)) +
+ggplot(heightweight, aes(x = ageYear, y = heightIn, shape = sex, colour = sex)) +
   geom_point() +
   scale_shape_manual(values = c(1,2)) +
   scale_colour_brewer(palette = "Set1")
@@ -158,8 +149,7 @@ You can set the shape of all the data points at once (Figure \@ref(fig:FIG-SCATT
 ```{r, eval=FALSE}
 library(gcookbook) # Load the gcookbook package to access the heightweight data set 
 
-heightweight %>% 
-  ggplot(aes(x = ageYear, y = heightIn)) + 
+ggplot(heightweight, aes(x = ageYear, y = heightIn)) + 
   geom_point(shape = 3)
 ```
 
@@ -167,8 +157,7 @@ If you have mapped a variable to `shape`, you can use `scale_shape_manual()` to 
 
 ```{r, eval=FALSE}
 # Use slightly larger points and use custom values for the shape scale
-heightweight %>% 
-  ggplot(aes(x = ageYear, y = heightIn, shape = sex)) +
+ggplot(heightweight, aes(x = ageYear, y = heightIn, shape = sex)) +
   geom_point(size = 3) +
   scale_shape_manual(values = c(1, 4))
 ```
@@ -176,12 +165,10 @@ heightweight %>%
 ```{r FIG-SCATTER-SHAPES, echo=FALSE, fig.show="hold", fig.cap="Scatter plot with the shape aesthetic set to a custom value (left); With a variable mapped to shape, using a custom shape palette (right)", fig.width=3.5, fig.height=3.5}
 library(gcookbook) # Load the gcookbook package to access the heightweight data set 
 
-heightweight %>% 
-  ggplot(aes(x = ageYear, y = heightIn)) + 
+ggplot(heightweight, aes(x = ageYear, y = heightIn)) + 
   geom_point(shape = 3)
 
-heightweight %>% 
-  ggplot(aes(x = ageYear, y = heightIn, shape = sex)) +
+ggplot(heightweight, aes(x = ageYear, y = heightIn, shape = sex)) +
   geom_point(size = 3) +
   scale_shape_manual(values = c(1, 4))
 ```
@@ -233,17 +220,16 @@ For example, we'll take the `heightweight` data set and add another column that 
 # child weighs < 100 or >= 100 pounds. We'll save this modified dataset as 'hw'.
 hw <-
   heightweight %>% 
-  mutate(weightgroup = ifelse(weightLb < 100, "< 100", ">= 100"))
+  dplyr::mutate(weightgroup = ifelse(weightLb < 100, "< 100", ">= 100"))
 
 # Specify shapes with fill and color, and specify fill colors that includes an empty (NA) color
-hw %>% 
-  ggplot(aes(x = ageYear, y = heightIn, shape = sex, fill = weightgroup)) +
+ggplot(hw, aes(x = ageYear, y = heightIn, shape = sex, fill = weightgroup)) +
   geom_point(size = 2.5) +
   scale_shape_manual(values = c(21, 24)) +
   scale_fill_manual(
     values = c(NA, "black"), 
     guide = guide_legend(override.aes = list(shape = 21))
-    )
+  )
 ```
 
 ### See Also
@@ -269,18 +255,16 @@ library(gcookbook) # Load the gcookbook package to access the heightweight data 
 
 # Show the head of the four columns we'll use
 heightweight %>% 
-  select(sex, ageYear, heightIn, weightLb)
+  dplyr::select(sex, ageYear, heightIn, weightLb)
 ```
 
 The basic scatter plot in Recipe \@ref(RECIPE-SCATTER-BASIC-SCATTER) shows the relationship between the continuous variables `ageYear` and `heightIn`. We can represent a third continuous variable, `weightLb`, by mapping this variable to another aesthetic property, such as `colour` or `size` (Figure \@ref(fig:FIG-SCATTER-CONTINUOUS-COLOR-SIZE):
 
 ```{r FIG-SCATTER-CONTINUOUS-COLOR-SIZE, fig.show="hold", fig.cap="A continuous variable mapped to colour (left); Mapped to size (right)", fig.width=3.5, fig.height=3.5}
-heightweight %>% 
-  ggplot(aes(x = ageYear, y = heightIn, colour = weightLb)) +
+ggplot(heightweight, aes(x = ageYear, y = heightIn, colour = weightLb)) +
   geom_point()
 
-heightweight %>% 
-  ggplot(aes(x = ageYear, y = heightIn, size = weightLb)) +
+ggplot(heightweight, aes(x = ageYear, y = heightIn, size = weightLb)) +
   geom_point()
 ```
 
@@ -302,13 +286,11 @@ range(heightweight$weightLb)
 size_range <- range(heightweight$weightLb) / max(heightweight$weightLb) *  6
 size_range
 
-heightweight %>% 
-  ggplot(aes(x = ageYear, y = heightIn, size = weightLb)) +
+ggplot(heightweight, aes(x = ageYear, y = heightIn, size = weightLb)) +
   geom_point() +
   scale_size_continuous(range = size_range)
 
-heightweight %>% 
-  ggplot(aes(x = ageYear, y = heightIn, size = weightLb)) +
+ggplot(heightweight, aes(x = ageYear, y = heightIn, size = weightLb)) +
   geom_point() +
   scale_size_area()
 ```
@@ -318,27 +300,24 @@ See Recipe \@ref(RECIPE-SCATTER-BALLOON) for details on making the area of point
 When it comes to color, there are actually two aesthetic attributes that can be used: `color` and `fill`. You will use `color` for most point shapes. However, shapes 21–25 have an outline with a solid region in the middle where the color is controlled by fill. These outlined shapes can be useful when using a color scale with light colors as in Figure \@ref(fig:FIG-SCATTER-CONTINUOUS-FILL), because the outline sets the shapes off from the background. In this example, we also set the fill gradient to go from black to white and make the points larger so that the fill is easier to see:
 
 ```{r FIG-SCATTER-CONTINUOUS-FILL, echo=FALSE, fig.show="hold", fig.cap="Outlined points with a continuous variable mapped to fill (left); With a discrete legend instead of continuous colorbar (right)", fig.width=3.5, fig.height=3.5}
-heightweight %>% 
-  ggplot(aes(x = ageYear, y = heightIn, fill = weightLb)) +
+ggplot(heightweight, aes(x = ageYear, y = heightIn, fill = weightLb)) +
   geom_point(shape = 21, size = 2.5) +
   scale_fill_gradient(low = "black", high = "white")
 
 # Using guide_legend() will result in a discrete legend instead of a colorbar legend
-heightweight %>% 
-  ggplot(aes(x = ageYear, y = heightIn, fill = weightLb)) +
+ggplot(heightweight, aes(x = ageYear, y = heightIn, fill = weightLb)) +
   geom_point(shape = 21, size = 2.5) +
   scale_fill_gradient(
     low = "black", high = "white",
     breaks = seq(70, 170, by = 20),
     guide = guide_legend()
-    )
+  )
 ```
 
 Mapping a continuous variable to an aesthetic doesn't prevent us from mapping a categorical variable to other aesthetics. In Figure \@ref(fig:FIG-SCATTER-CONTINUOUS-SIZE-CATEGORICAL-COLOR), we'll map `weightLb` to `size`, and also map `sex` to `color`. Because there is a fair amount of overplotting (where the points overlap), we'll make the points 50% transparent by setting `alpha = .5`. We'll also use `scale_size_area()` to make the area of the points proportional to the data values (see Recipe \@ref(RECIPE-SCATTER-BALLOON)), and manually change the color palette:
 
 ```{r FIG-SCATTER-CONTINUOUS-SIZE-CATEGORICAL-COLOR, echo=FALSE, fig.cap="Continuous variable mapped to size and categorical variable mapped to colour"}
-heightweight %>% 
-  ggplot(aes(x = ageYear, y = heightIn, size = weightLb, colour = sex)) +
+ggplot(heightweight, aes(x = ageYear, y = heightIn, size = weightLb, colour = sex)) +
   geom_point(alpha = .5) +
   scale_size_area() +     # Make area proportional to numeric value
   scale_colour_brewer(palette = "Set1")
@@ -378,8 +357,7 @@ The scatter plot in Figure \@ref(fig:FIG-SCATTER-OVERPLOT) contains about 54,000
 ```{r FIG-SCATTER-OVERPLOT, dev="png", dpi=300, fig.cap="Overplotting, with about 54,000 points", fig.height=3}
 # We'll use the diamonds data set and create a base plot called `sp1`
 sp <- 
-  diamonds %>% 
-  ggplot(aes(x = carat, y = price))
+  ggplot(diamonds, aes(x = carat, y = price))
 
 sp + 
   geom_point()
@@ -435,7 +413,7 @@ sp +
   scale_fill_gradient(
     low = "lightblue", high = "red", limits = c(0, 6000),
     breaks = c(0, 250, 500, 1000, 2000, 4000, 6000)
-    )
+  )
 ```
 
 For both of these methods, if you manually specify the range and there is a bin that falls outside that range because it has too many or too few points, that bin will show up as grey rather than the color at the high or low end of the range, as seen in the graph on the right in Figure \@ref(fig:FIG-SCATTER-OVERPLOT-BINHEX).
@@ -446,8 +424,7 @@ Overplotting can also occur when the data is *discrete* on one or both axes, as 
 
 # We'll use the ChickWeight data set and create a base plot called `sp1`
 sp1 <- 
-  ChickWeight %>% 
-  ggplot(aes(x = Time, y = weight))
+  ggplot(Chickweight, aes(x = Time, y = weight))
 
 sp1 + 
   geom_point()
@@ -493,8 +470,7 @@ library(gcookbook) # Load the gcookbook package to access the heightweight data 
 
 # We'll use the heightweight data set and create a base plot called `sp`
 sp <- 
-  heightweight %>% 
-  ggplot(aes(x = ageYear, y = heightIn))
+  ggplot(heightweight, aes(x = ageYear, y = heightIn))
 
 sp + 
   geom_point() + 
@@ -529,8 +505,7 @@ library(gcookbook) # Load the gcookbook package to access the heightweight data 
 
 # We'll use the heightweight data set and create a base plot called `sp`
 sp <- 
-  heightweight %>% 
-  ggplot(aes(x = ageYear, y = heightIn))
+  ggplot(heightweight, aes(x = ageYear, y = heightIn))
 
 sp + 
   geom_point() + 
@@ -583,7 +558,7 @@ library(MASS) # Load the MASS package to access the biopsy data set
 
 b <- 
   biopsy %>% 
-  mutate(
+  dplyr::mutate(
     classn = ifelse(class == "benign", 0, ifelse(class == "malignant", 1, NA))
     )
 
@@ -679,8 +654,7 @@ We can now plot the data points along with the values predicted from the model (
 
 ```{r eval=FALSE}
 sp <- 
-  heightweight %>% 
-  ggplot(aes(x = ageYear, y = heightIn)) +
+  ggplot(heightweight, aes(x = ageYear, y = heightIn)) +
   geom_point(colour = "grey40")
 
 sp + 
@@ -738,8 +712,7 @@ sp +
 
 # From first block above
 sp <- 
-  heightweight %>% 
-  ggplot(aes(x = ageYear, y = heightIn)) +
+  ggplot(heightweight, aes(x = ageYear, y = heightIn)) +
   geom_point(colour = "grey40")
 
 sp + 
@@ -767,7 +740,7 @@ library(MASS) # Load the MASS package to access the biopsy data set
 
 b <- 
   biopsy %>% 
-  mutate(
+  dplyr::mutate(
     classn = ifelse(class == "benign", 0, ifelse(class == "malignant", 1, NA))
     )
 
@@ -786,8 +759,7 @@ Finally, we'll make the graph with jittered points and the `fitlogistic` line. W
 # Get predicted values
 glm_predicted <- predictvals(fitlogistic, "V1", "classn", type = "response")
 
-b %>% 
-  ggplot(aes(x = V1, y = classn)) +
+ggplot(b, aes(x = V1, y = classn)) +
   geom_point(
     position = position_jitter(width = .3, height = .08), 
     alpha = 0.4,
@@ -849,21 +821,18 @@ predvals <-
 Finally, we can plot the data with the predicted values (Figure \@ref(fig:FIG-SCATTER-FIT-MODEL-MULTI)):
 
 ```{r eval=FALSE}
-heightweight %>% 
-  ggplot(aes(x = ageYear, y = heightIn, colour = sex)) +
+ggplot(heightweight, aes(x = ageYear, y = heightIn, colour = sex)) +
   geom_point() +
   geom_line(data = predvals)
 ```
 
 ```{r FIG-SCATTER-FIT-MODEL-MULTI, fig.show="hold", fig.cap="Predictions from two separate lm objects, one for each subset of data (left); With facets (right)", fig.width=4, fig.height=3.5}
-heightweight %>% 
-  ggplot(aes(x = ageYear, y = heightIn, colour = sex)) +
+ggplot(heightweight, aes(x = ageYear, y = heightIn, colour = sex)) +
   geom_point() +
   geom_line(data = predvals)
 
 # Using facets instead of colors for the groups
-heightweight %>% 
-  ggplot(aes(x = ageYear, y = heightIn)) +
+ggplot(heightweight, aes(x = ageYear, y = heightIn)) +
   geom_point() +
   geom_line(data = predvals) +
   facet_grid(. ~ sex)
@@ -890,8 +859,7 @@ predvals <-
 Then we can plot it, the same as we did before:
 
 ```{r FIG-SCATTER-FIT-MODEL-MULTI-RANGE, fig.cap="Predictions for each group extend to the full x range of all groups together"}
-heightweight %>% 
-  ggplot(aes(x = ageYear, y = heightIn, colour = sex)) +
+ggplot(heightweight, aes(x = ageYear, y = heightIn, colour = sex)) +
   geom_point() +
   geom_line(data = predvals)
 ```
@@ -924,8 +892,7 @@ This shows that the *r^2* value is 0.4249. We'll create a graph and manually add
 pred <- predictvals(model, "ageYear", "heightIn")
 
 sp <- 
-  heightweight %>% 
-  ggplot(aes(x = ageYear, y = heightIn)) + 
+ggplot(heightweight, aes(x = ageYear, y = heightIn)) + 
   geom_point() +
   geom_line(data = pred)
 
@@ -945,8 +912,7 @@ sp +
 pred <- predictvals(model, "ageYear", "heightIn")
 
 sp <- 
-  heightweight %>% 
-  ggplot(aes(x = ageYear, y = heightIn)) + 
+ggplot(heightweight, aes(x = ageYear, y = heightIn)) + 
   geom_point() +
   geom_line(data = pred)
 
@@ -1019,8 +985,7 @@ You want to add marginal rugs to a scatter plot.
 Use `geom_rug()`. For this example (Figure \@ref(fig:FIG-SCATTER-RUG)), we'll use the `faithful` data set. This data set has two columns with data about the Old Faithful geyser: `eruptions`, which is the length of each eruption, and `waiting`, which is the length of time until the next eruption:
 
 ```{r FIG-SCATTER-RUG, fig.cap="Marginal rug added to a scatter plot"}
-faithful %>% 
-  ggplot(aes(x = eruptions, y = waiting)) +
+ggplot(faithful, aes(x = eruptions, y = waiting)) +
   geom_point() +
   geom_rug()
 ```
@@ -1032,8 +997,7 @@ A marginal rug plot is essentially a one-dimensional scatter plot that can be us
 In this particular data set, the marginal rug is not as informative as it could be. The resolution of the `waiting` variable is in whole minutes, and because of this, the rug lines have a lot of overplotting. To reduce overplotting, we can jitter the line positions and make them slightly thinner by specifying size (Figure \@ref(fig:FIG-SCATTER-RUG-JITTER)). This helps the viewer see the distribution more clearly:
 
 ```{r FIG-SCATTER-RUG-JITTER, fig.cap="Marginal rug with thinner, jittered lines"}
-faithful %>% 
-  ggplot(aes(x = eruptions, y = waiting)) +
+ggplot(faithful, aes(x = eruptions, y = waiting)) +
   geom_point() +
   geom_rug(position = "jitter", size = 0.2)
 ```
@@ -1059,7 +1023,7 @@ library(gcookbook) # Load the gcookbook package to access the countries data set
 
 # Filter the data to only look at 2009 data for countries that spent > 2000 USD per capita
 countries %>% 
-  filter(Year == 2009 & healthexp > 2000)
+  dplyr::filter(Year == 2009 & healthexp > 2000)
 ```
 
 We'll save the basic scatter plot object in `sp` and add then add our annotations to it. To manually add annotations, use `annotate()`, and specify the coordinates and label (Figure \@ref(fig:FIG-SCATTER-LABEL), left). It may require some trial-and-error tweaking to get the labels positioned just right:
@@ -1067,7 +1031,7 @@ We'll save the basic scatter plot object in `sp` and add then add our annotation
 ```{r, eval=FALSE}
 sp <-
   countries %>% 
-  filter(Year == 2009, healthexp > 2000) %>% 
+  dplyr::filter(Year == 2009, healthexp > 2000) %>% 
   ggplot(aes(x = healthexp, y = infmortality)) +
   geom_point()
          
@@ -1088,7 +1052,7 @@ sp +
 # First block
 sp <-
   countries %>% 
-  filter(Year == 2009, healthexp > 2000) %>% 
+  dplyr::filter(Year == 2009, healthexp > 2000) %>% 
   ggplot(aes(x = healthexp, y = infmortality)) +
   geom_point()
          
@@ -1149,8 +1113,8 @@ If you want to label just some of the points but want the placement to be handle
 ```{r}
 cdat <-   
   countries %>% 
-  filter(Year == 2009, healthexp > 2000) %>% 
-  mutate(plotname = as.character(Name))
+  dplyr::filter(Year == 2009, healthexp > 2000) %>% 
+  dplyr::mutate(plotname = as.character(Name))
 ```
 
 Now that `plotname` is a character vector, we can use an `ifelse()` function and the `%in%` operator to identify if each row of `plotname` matches the list of names we want to show on our plot, which we have specified manually below. The `%in%` operator returns a logical vector that allows us to specify within the `ifelse()` function that we want to replace all values of `plotname` that do not match one of our specified names with a blank string.
@@ -1162,10 +1126,11 @@ countrylist <-
 
 cdat <-
   cdat %>% 
-  mutate(plotname = ifelse(plotname %in% countrylist, plotname, ""))
+  dplyr::mutate(plotname = ifelse(plotname %in% countrylist, plotname, ""))
 
 # Take a look at the resulting `plotname` variable, as compared to the original `Name` variable
-cdat %>% select(Name, plotname)
+cdat %>% 
+  dplyr::select(Name, plotname)
 ```
 
 TODO: Print first 2 and last 3 rows of data. via chunk option?
@@ -1173,8 +1138,7 @@ TODO: Print first 2 and last 3 rows of data. via chunk option?
 Now we can make the plot (Figure \@ref(fig:FIG-SCATTER-LABEL-SELECT)). This time, we'll also expand the *x* range so that the text will fit:
 
 ```{r FIG-SCATTER-LABEL-SELECT, fig.cap="Scatter plot with selected labels and expanded x range"}
-cdat %>% 
-  ggplot(aes(x = healthexp, y = infmortality)) +
+ggplot(cdat, aes(x = healthexp, y = infmortality)) +
   geom_point() +
   geom_text(aes(x = healthexp + 100, label = plotname), size = 4, hjust = 0) +
   xlim(2000, 10000)
@@ -1213,7 +1177,7 @@ countrylist <-
 
 cdat <-
   countries %>% 
-  filter(Year == 2009, Name %in% countrylist)
+  dplyr::filter(Year == 2009, Name %in% countrylist)
 
 cdat
 ```
@@ -1222,8 +1186,7 @@ If we just map `GDP` to `size`, the value of `GDP` gets mapped to the *radius* o
 
 ```{r FIG-SCATTER-BALLOON, fig.show="hold", fig.cap="Balloon plot with value mapped to radius (left); With value mapped to area (right)", fig.width=4.5, fig.height=3.5}
 p <- 
-  cdat %>% 
-  ggplot(aes(x = healthexp, y = infmortality, size = GDP)) +
+  ggplot(cdat, aes(x = healthexp, y = infmortality, size = GDP)) +
   geom_point(shape = 21, colour = "black", fill = "cornsilk")
 
 # GDP mapped to radius (default with scale_size_continuous)
@@ -1253,8 +1216,7 @@ hec <-
 
 # Creating the base balloon plot
 hecplot <- 
-  hec %>% 
-  ggplot(aes(x = Eye, y = Hair)) +
+  ggplot(hec, aes(x = Eye, y = Hair)) +
   geom_point(aes(size = count), shape = 21, colour = "black", fill = "cornsilk") +
   scale_size_area(max_size = 20, guide = FALSE) +
   geom_text(aes(
@@ -1302,8 +1264,8 @@ library(gcookbook) # Load the gcookbook package to access the countries data set
 
 c2009 <- 
   countries %>% 
-  filter(Year == 2009) %>% 
-  select(Name, GDP, laborrate, healthexp, infmortality)
+  dplyr::filter(Year == 2009) %>% 
+  dplyr::select(Name, GDP, laborrate, healthexp, infmortality)
 
 c2009
 ```
@@ -1312,7 +1274,7 @@ To make the scatter plot matrix (Figure \@ref(fig:FIG-SCATTER-SPLOM)), we'll use
 
 ```{r FIG-SCATTER-SPLOM, fig.cap="A scatter plot matrix", fig.width=7, fig.height=7}
 c2009 %>% 
-  select(-Name) %>% 
+  dplyr::select(-Name) %>% 
   pairs()
 ```
 
@@ -1368,7 +1330,7 @@ We'll also throw in one more thing: `panel.smooth` for the lower panels, which m
 
 ```{r FIG-SCATTER-SPLOM-PANELS, fig.cap="Scatter plot with correlations in the upper triangle, smoothing lines in the lower triangle, and histograms on the diagonal", fig.width=7, fig.height=7}
 c2009 %>% 
-  select(-Name) %>%  
+  dplyr::select(-Name) %>%  
   pairs(
     upper.panel = panel.cor,
     diag.panel  = panel.hist,
@@ -1392,7 +1354,7 @@ We'll also use small points in the visualization, so that we can distinguish the
 
 ```{r FIG-SCATTER-SPLOM-PANELS2, fig.cap="Scatter plot matrix with smaller points and linear fit lines", fig.width=7, fig.height=7}
 c2009 %>% 
-  select(-Name) %>%  
+  dplyr::select(-Name) %>%  
   pairs(
     upper.panel = panel.cor,
     diag.panel  = panel.hist,
