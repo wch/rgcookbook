@@ -116,7 +116,7 @@ You want to change the text of facet labels.
 
 Change the names of the factor levels (Figure \@ref(fig:FIG-FACET-LABEL-TEXT)):
 
-```{r FIG-FACET-LABEL-TEXT, fig.cap="Left: default facet labels; right: modified facet labels", fig.width=2.5}
+```{r FIG-FACET-LABEL-TEXT, fig.cap="Default facet labels (left); Modified facet labels (right)", fig.width=2.5}
 mpg2 <- mpg  # Make a copy of the original data
 
 # Rename 4 to 4wd, f to Front, r to Rear

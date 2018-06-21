@@ -61,7 +61,7 @@ heightweight %>%
   geom_point(size = 1.5)
 ```
 
-```{r FIG-SCATTER-BASIC-SHAPE-SIZE, echo=FALSE, fig.show="hold", fig.cap="Scatter plot with hollow circles (left; shape 21); With smaller points (right)", fig.width=3.5, fig.height=3.5}
+```{r FIG-SCATTER-BASIC-SHAPE-SIZE, echo=FALSE, fig.show="hold", fig.cap="Scatter plot with hollow circles (shape 21, left); With smaller points (right)", fig.width=3.5, fig.height=3.5}
 heightweight %>% 
   ggplot(aes(x = ageYear, y = heightIn)) + 
   geom_point(shape = 21)

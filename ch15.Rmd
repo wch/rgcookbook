@@ -967,7 +967,7 @@ First it groups cabbages based on the value of `Cult`. There are two levels of `
 The before and after results are shown in
 Figure \@ref(fig:FIG-DATAPREP-CALCULATE-GROUP):
 
-```{r FIG-DATAPREP-CALCULATE-GROUP, fig.show="hold", fig.cap="Left: before normalizing; right: after normalizing"}
+```{r FIG-DATAPREP-CALCULATE-GROUP, fig.show="hold", fig.cap="Before normalizing (left); After normalizing (right)"}
 # The data before normalizing
 ggplot(cb, aes(x=Cult, y=HeadWt)) + geom_boxplot()
 
@@ -1158,7 +1158,7 @@ ggplot(c2b, aes(x = Date, fill = Cult, y = Weight)) +
     geom_col(position = "dodge")
 ```
 
-```{r, FIG-DATAPREP-SUMMARIZE-MISSING-COMBO, ref.label=c("FIG-DATAPREP-SUMMARIZE-MISSING-COMBO-1", "FIG-DATAPREP-SUMMARIZE-MISSING-COMBO-2"), fig.show="hold", fig.cap="Left: bar graph with a missing combination; right: with missing combination filled", fig.width=4, fig.height=3}
+```{r, FIG-DATAPREP-SUMMARIZE-MISSING-COMBO, ref.label=c("FIG-DATAPREP-SUMMARIZE-MISSING-COMBO-1", "FIG-DATAPREP-SUMMARIZE-MISSING-COMBO-2"), fig.show="hold", fig.cap="Bar graph with a missing combination (left); With missing combination filled (right)", fig.width=4, fig.height=3}
 ```
 
 When we used `complete()`, it filled in the missing combinations with `NA`. It's possible to fill with a different value, with the `fill` parameter. See `?complete` for more information.

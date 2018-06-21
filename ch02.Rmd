@@ -80,7 +80,7 @@ To make a line graph using `plot()` (Figure \@ref(fig:FIG-QUICK-LINE-BASE), left
 plot(pressure$temperature, pressure$pressure, type = "l")
 ```
 
-```{r FIG-QUICK-LINE-BASE, echo=FALSE, small.mar=TRUE, fig.show="hold", fig.cap="Left: line graph with base graphics; right: with points and another line"}
+```{r FIG-QUICK-LINE-BASE, echo=FALSE, small.mar=TRUE, fig.show="hold", fig.cap="Line graph with base graphics (left); With points and another line (right)"}
 plot(pressure$temperature, pressure$pressure, type="l")
 
 # This code should be the same as the following block, but there's a problem: 
@@ -110,7 +110,7 @@ library(ggplot2)
 ggplot(pressure, aes(x = temperature, y = pressure)) + geom_line()
 ```
 
-```{r FIG-QUICK-LINE-GGPLOT, echo=FALSE, fig.show="hold", fig.cap="Left: line graph with `ggplot()`; right: with points added"}
+```{r FIG-QUICK-LINE-GGPLOT, echo=FALSE, fig.show="hold", fig.cap="Line graph with `ggplot()` (left); With points added (right)"}
 
 ggplot(pressure, aes(x = temperature, y = pressure)) + geom_line()
 
@@ -156,7 +156,7 @@ barplot(BOD$demand, names.arg = BOD$Time)
 ```
 
 
-```{r FIG-QUICK-BAR-BASE, echo=FALSE, small.mar=TRUE, fig.show="hold", fig.cap="Left: bar graph of values with base graphics; right: bar graph of counts"}
+```{r FIG-QUICK-BAR-BASE, echo=FALSE, small.mar=TRUE, fig.show="hold", fig.cap="Bar graph of values with base graphics (left); Bar graph of counts (right)"}
 barplot(BOD$demand, names.arg=BOD$Time)
 
 barplot(table(mtcars$cyl))
@@ -225,7 +225,7 @@ You want to view the distribution of one-dimensional data with a histogram.
 
 To make a histogram (Figure \@ref(fig:FIG-QUICK-HIST-BASE)), use `hist()` and pass it a vector of values:
 
-```{r FIG-QUICK-HIST-BASE, small.mar=TRUE, fig.show="hold", fig.cap="Left: histogram with base graphics; right: with more bins. Notice that because the bins are narrower, there are fewer items in each bin."}
+```{r FIG-QUICK-HIST-BASE, small.mar=TRUE, fig.show="hold", fig.cap="Histogram with base graphics (left); With more bins. Notice that because the bins are narrower, there are fewer items in each bin. (right)"}
 hist(mtcars$mpg)
 
 # Specify approximate number of bins with breaks
@@ -234,7 +234,7 @@ hist(mtcars$mpg, breaks = 10)
 
 With the ggplot2, you can get a similar result using `geom_histogram()` (Figure \@ref(fig:FIG-QUICK-HIST-GGPLOT)):
 
-```{r FIG-QUICK-HIST-GGPLOT, fig.show="hold", fig.cap="Left: ggplot2 histogram with default bin width; right: with wider bins"}
+```{r FIG-QUICK-HIST-GGPLOT, fig.show="hold", fig.cap="ggplot2 histogram with default bin width (left); With wider bins (right)"}
 library(ggplot2)
 ggplot(mtcars, aes(x = mpg)) + geom_histogram()
 
@@ -266,7 +266,7 @@ To make a box plot (Figure \@ref(fig:FIG-QUICK-BOXPLOT-BASE)), use `plot()` and 
 plot(ToothGrowth$supp, ToothGrowth$len)
 ```
 
-```{r FIG-QUICK-BOXPLOT-BASE, echo=FALSE, small.mar=TRUE, fig.show="hold", fig.cap="Left: box plot with base graphics; right: with multiple grouping variables", fig.width=10, out.width="100%"}
+```{r FIG-QUICK-BOXPLOT-BASE, echo=FALSE, small.mar=TRUE, fig.show="hold", fig.cap="Box plot with base graphics (left); With multiple grouping variables (right)", fig.width=10, out.width="100%"}
 layout(t(c(1,2,2)))
 plot(ToothGrowth$supp, ToothGrowth$len)
 
@@ -292,7 +292,7 @@ ggplot(ToothGrowth, aes(x = supp, y = len)) + geom_boxplot()
 ```
 
 
-```{r FIG-QUICK-BOXPLOT-GGPLOT, echo=FALSE, fig.show="hold", fig.cap="Left: box plot with `ggplot()`; right: with multiple grouping variables"}
+```{r FIG-QUICK-BOXPLOT-GGPLOT, echo=FALSE, fig.show="hold", fig.cap="Box plot with `ggplot()` (left); With multiple grouping variables (right)"}
 ggplot(ToothGrowth, aes(supp, len)) + geom_boxplot()
 
 ggplot(ToothGrowth, aes(x = interaction(supp, dose), y = len)) + geom_boxplot()
@@ -329,7 +329,7 @@ curve(x^3 - 5*x, from = -4, to = 4)
 ```
 
 
-```{r FIG-QUICK-FUNCTION-BASE, echo=FALSE, small.mar=TRUE, fig.show="hold", fig.cap="Left: function curve with base graphics; right: with user-defined function"}
+```{r FIG-QUICK-FUNCTION-BASE, echo=FALSE, small.mar=TRUE, fig.show="hold", fig.cap="Function curve with base graphics (left); With user-defined function (right)"}
 curve(x^3 - 5*x, from = -4, to = 4)
 
 

@@ -143,7 +143,7 @@ Some functions take additional arguments. For example, `dt()`, the function for 
 p + stat_function(fun = dt, args = list(df = 2))
 ```
 
-```{r FIG-MISCGRAPH-FUNCTION, ref.label=c("FIG-MISCGRAPH-FUNCTION-1", "FIG-MISCGRAPH-FUNCTION-2"), echo=FALSE, fig.show="hold", fig.cap="Left: the normal distribution; right: the *t*-distribution with `df=2`"}
+```{r FIG-MISCGRAPH-FUNCTION, ref.label=c("FIG-MISCGRAPH-FUNCTION-1", "FIG-MISCGRAPH-FUNCTION-2"), echo=FALSE, fig.show="hold", fig.cap="The normal distribution (left); The *t*-distribution with `df=2` (right)"}
 ````
 
 It's also possible to define your own functions. It should take an *x* value for its first argument, and it should return a *y* value. In this example, we'll define a sigmoid function (Figure \@ref(fig:FIG-MISCGRAPH-FUNCTION-CUSTOM)):
@@ -243,7 +243,7 @@ You want to create a network graph.
 
 Use the igraph package. To create a graph, pass a vector containing pairs of items to `graph()`, then plot the resulting object (Figure \@ref(fig:FIG-MISCGRAPH-GRAPH-BASIC)):
 
-```{r FIG-MISCGRAPH-GRAPH-BASIC, fig.show="hold", fig.cap="Left: a directed graph; right: an undirected graph, with no vertex labels", fig.width=4.5, fig.height=4.5}
+```{r FIG-MISCGRAPH-GRAPH-BASIC, fig.show="hold", fig.cap="A directed graph (left); An undirected graph, with no vertex labels (right)", fig.width=4.5, fig.height=4.5}
 # May need to install first, with install.packages("igraph")
 library(igraph)
 
@@ -503,7 +503,7 @@ segments3d(interleave(mtcars$wt,   mtcars$wt),
 
 It's possible to tweak the appearance of the background and the axes. In Figure \@ref(fig:FIG-MISCGRAPH-3D-SCATTER3), we change the number of tick marks and add tick marks and axis labels to the specified sides:
 
-```{r FIG-MISCGRAPH-3D-SCATTER3, eval=FALSE, fig.show="hold", fig.cap="Left: 3D scatter plot with axis ticks and labels repositioned; right: from a different point of view"}
+```{r FIG-MISCGRAPH-3D-SCATTER3, eval=FALSE, fig.show="hold", fig.cap="3D scatter plot with axis ticks and labels repositioned (left); From a different point of view (right)"}
 # Make plot without axis ticks or labels
 plot3d(mtcars$wt, mtcars$disp, mtcars$mpg,
        xlab = "", ylab = "", zlab = "",
@@ -818,7 +818,7 @@ By default the `scale()` function scales each column relative to its standard de
 
 Finally, we're ready to make the dendrogram, as shown in Figure \@ref(fig:FIG-MISCGRAPH-DENDROGRAM):
 
-```{r FIG-MISCGRAPH-DENDROGRAM, fig.show="hold", fig.cap="Left: a dendrogram; right: with text aligned", fig.width=6, fig.height=5}
+```{r FIG-MISCGRAPH-DENDROGRAM, fig.show="hold", fig.cap="A dendrogram (left); With text aligned (right)", fig.width=6, fig.height=5}
 hc <- hclust(dist(c3))
 
 # Make the dendrogram
@@ -944,7 +944,7 @@ ggplot(islicesub, aes(x = x, y = y)) +
 ```
 
 
-```{r FIG-MISCGRAPH-VECTORFIELD-AES, ref.label=c("FIG-MISCGRAPH-VECTORFIELD-AES-1", "FIG-MISCGRAPH-VECTORFIELD-AES-2"), echo=FALSE, fig.show="hold", fig.cap="Left: vector field with speed mapped to alpha; right: with speed mapped to colour", fig.width=6, fig.height=5}
+```{r FIG-MISCGRAPH-VECTORFIELD-AES, ref.label=c("FIG-MISCGRAPH-VECTORFIELD-AES-1", "FIG-MISCGRAPH-VECTORFIELD-AES-2"), echo=FALSE, fig.show="hold", fig.cap="Vector field with speed mapped to alpha (left); With speed mapped to colour (right)", fig.width=6, fig.height=5}
 
 ```
 
@@ -984,7 +984,7 @@ You want to make a quantile-quantile (QQ) plot to compare an empirical distribut
 
 Use `qqnorm()` to compare to a normal distribution. Give `qqnorm()` a vector of numerical values, and add a theoretical distribution line with `qqline()` (Figure \@ref(fig:FIG-MISCGRAPH-QQ)):
 
-```{r FIG-MISCGRAPH-QQ, fig.show="hold", fig.cap="Left: QQ plot of height, which is close to normally distributed; right: QQ plot of age, which is not normally distributed"}
+```{r FIG-MISCGRAPH-QQ, fig.show="hold", fig.cap="QQ plot of height, which is close to normally distributed (left); QQ plot of age, which is not normally distributed (right)"}
 library(gcookbook) # For the data set
 
 # QQ plot of height
@@ -1020,7 +1020,7 @@ You want to graph the empirical cumulative distribution function (ECDF) of a dat
 
 Use `stat_ecdf()` (Figure \@ref(fig:FIG-MISCGRAPH-ECDF)):
 
-```{r FIG-MISCGRAPH-ECDF, fig.show="hold", fig.cap="Left: ECDF of height; right: ECDF of age"}
+```{r FIG-MISCGRAPH-ECDF, fig.show="hold", fig.cap="ECDF of height (left); ECDF of age (right)"}
 library(gcookbook) # For the data set
 
 # ecdf of heightIn
@@ -1213,7 +1213,7 @@ ggplot(east_asia, aes(x = long, y = lat, group = group, fill = region)) +
 
 If there is a separate map available for a region, such as `nz` (New Zealand), that map data will be at a higher resolution than if you were to extract it from the world map, as shown in Figure \@ref(fig:FIG-MISCGRAPH-MAP-RESOLUTION):
 
-```{r FIG-MISCGRAPH-MAP-RESOLUTION, fig.show="hold", fig.cap="Left: New Zealand data taken from `world` map; right: data from `nz` map"}
+```{r FIG-MISCGRAPH-MAP-RESOLUTION, fig.show="hold", fig.cap="New Zealand data taken from `world` map (left); Data from `nz` map (right)"}
 # Get New Zealand data from world map
 nz1 <- map_data("world", region = "New Zealand")
 nz1 <- subset(nz1, long > 0 & lat > -48)        # Trim off islands

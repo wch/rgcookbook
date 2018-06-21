@@ -353,7 +353,7 @@ ggplot(cabbage_exp, aes(x = Date, y = Weight, fill = Cultivar)) +
 ```
 
 
-```{r FIG-BAR-WIDTH-DODGE, echo=FALSE, fig.show="hold", fig.cap="Left: bar graph with narrow grouped bars; right: with space between the bars"}
+```{r FIG-BAR-WIDTH-DODGE, echo=FALSE, fig.show="hold", fig.cap="Bar graph with narrow grouped bars (left); With space between the bars (right)"}
 ggplot(cabbage_exp, aes(x = Date, y = Weight, fill = Cultivar)) +
     geom_col(width = 0.5, position = "dodge")
 ggplot(cabbage_exp, aes(x = Date, y = Weight, fill = Cultivar)) +
@@ -537,7 +537,7 @@ You want to add labels to the bars in a bar graph.
 
 Add `geom_text()` to your graph. It requires a mapping for x, y, and the text itself. By setting `vjust` (the vertical justification), it is possible to move the text above or below the tops of the bars, as shown in Figure \@ref(fig:FIG-BAR-GRAPH-LABEL):
 
-```{r FIG-BAR-GRAPH-LABEL, fig.show="hold", fig.cap="Left: labels under the tops of bars; right: labels above bars", fig.width=3.5, fig.height=3.5}
+```{r FIG-BAR-GRAPH-LABEL, fig.show="hold", fig.cap="Labels under the tops of bars (left); Labels above bars (right)", fig.width=3.5, fig.height=3.5}
 library(gcookbook) # For the data set
 
 # Below the top

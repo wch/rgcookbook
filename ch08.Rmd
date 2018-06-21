@@ -31,7 +31,7 @@ You want to swap the x- and y-axes on a graph.
 
 Use `coord_flip()` to flip the axes (Figure \@ref(fig:FIG-AXES-SWAP-AXES)):
 
-```{r FIG-AXES-SWAP-AXES, fig.show="hold", fig.cap="Left: a box plot with regular axes; right: with swapped axes"}
+```{r FIG-AXES-SWAP-AXES, fig.show="hold", fig.cap="A box plot with regular axes (left); With swapped axes (right)"}
 ggplot(PlantGrowth, aes(x = group, y = weight)) + geom_boxplot()
 
 ggplot(PlantGrowth, aes(x = group, y = weight)) + geom_boxplot() + coord_flip()
@@ -64,7 +64,7 @@ You want to set the range (or limits) of an axis.
 
 You can use `xlim()` or `ylim()` to set the minimum and maximum values of a continuous axis. Figure \@ref(fig:FIG-AXES-RANGE) shows one graph with the default *y* limits, and one with manually set *y* limits:
 
-```{r FIG-AXES-RANGE, fig.show="hold", fig.cap="Left: box plot with default range; right: with manually set range"}
+```{r FIG-AXES-RANGE, fig.show="hold", fig.cap="Box plot with default range (left); With manually set range (right)"}
 p <- ggplot(PlantGrowth, aes(x = group, y = weight)) + geom_boxplot()
 # Display the basic graph
 p
@@ -175,7 +175,7 @@ You can also use this method to display a subset of the items on the axis. This 
 p + scale_x_discrete(limits = c("ctrl","trt1"))
 ```
 
-```{r FIG-AXES-ORDER-MANUAL, ref.label=c("FIG-AXES-ORDER-MANUAL-1", "FIG-AXES-ORDER-MANUAL-2"), echo=FALSE, fig.cap="Left: box plot with manually specified items on the x-axis; right: with only two items"}
+```{r FIG-AXES-ORDER-MANUAL, ref.label=c("FIG-AXES-ORDER-MANUAL-1", "FIG-AXES-ORDER-MANUAL-2"), echo=FALSE, fig.cap="Box plot with manually specified items on the x-axis (left); With only two items (right)"}
 ```
 
 To reverse the order, set `limits=rev(levels(...))`, and put the factor inside. This will reverse the order of the `PlantGrowth$group` factor, as shown in Figure \@ref(fig:FIG-AXES-ORDER-REV):
@@ -221,7 +221,7 @@ sp + coord_fixed() +
     scale_x_continuous(breaks = seq(0, 420, 30))
 ```
 
-```{r FIG-AXES-SCALE-EQUAL, ref.label=c("FIG-AXES-SCALE-EQUAL-1", "FIG-AXES-SCALE-EQUAL-2"), echo=FALSE, fig.show="hold", fig.cap="Left: scatter plot with equal scaling of axes; right: with tick marks at specified positions"}
+```{r FIG-AXES-SCALE-EQUAL, ref.label=c("FIG-AXES-SCALE-EQUAL-1", "FIG-AXES-SCALE-EQUAL-2"), echo=FALSE, fig.show="hold", fig.cap="Scatter plot with equal scaling of axes (left); With tick marks at specified positions (right)"}
 ```
 
 If, instead of an equal ratio, you want some other fixed ratio between the axes, set the ratio parameter. With the marathon data, we might want the axis with half-marathon times stretched out to twice that of the axis with the marathon times (Figure \@ref(fig:FIG-AXES-SCALE-HALF)). We'll also add tick marks twice as often on the x-axis:
@@ -244,7 +244,7 @@ You want to set where the tick marks appear on the axis.
 
 Usually ggplot does a good job of deciding where to put the tick marks, but if you want to change them, set `breaks` in the scale (Figure \@ref(fig:FIG-AXES-SET-TICKS)):
 
-```{r FIG-AXES-SET-TICKS, fig.show="hold", fig.cap="Left: box plot with automatic tick marks; right: with manually set tick marks"}
+```{r FIG-AXES-SET-TICKS, fig.show="hold", fig.cap="Box plot with automatic tick marks (left); With manually set tick marks (right)"}
 ggplot(PlantGrowth, aes(x = group, y = weight)) + geom_boxplot()
 
 ggplot(PlantGrowth, aes(x = group, y = weight)) + geom_boxplot() +
@@ -346,7 +346,7 @@ hwp + scale_y_continuous(breaks = c(50, 56, 60, 66, 72),
 ```
 
 
-```{r FIG-AXES-TICK-LABEL, ref.label=c("FIG-AXES-TICK-LABEL-1", "FIG-AXES-TICK-LABEL-2"), echo=FALSE, fig.show="hold", fig.cap="Left: scatter plot with automatic tick labels; right: with manually specified labels on the y-axis"}
+```{r FIG-AXES-TICK-LABEL, ref.label=c("FIG-AXES-TICK-LABEL-1", "FIG-AXES-TICK-LABEL-2"), echo=FALSE, fig.show="hold", fig.cap="Scatter plot with automatic tick labels (left); With manually specified labels on the y-axis (right)"}
 ```
 
 ### Discussion
@@ -379,7 +379,7 @@ Here, the automatic tick marks were placed every five inches, but that looks a l
 hwp + scale_y_continuous(breaks = seq(48, 72, 4), labels = footinch_formatter)
 ```
 
-```{r FIG-AXES-TICK-LABEL-FORMATTER, ref.label=c("FIG-AXES-TICK-LABEL-FORMATTER-1", "FIG-AXES-TICK-LABEL-FORMATTER-2"), echo=FALSE, fig.show="hold", fig.cap="Left: scatter plot with a formatter function; right: with manually specified breaks on the y-axis"}
+```{r FIG-AXES-TICK-LABEL-FORMATTER, ref.label=c("FIG-AXES-TICK-LABEL-FORMATTER-1", "FIG-AXES-TICK-LABEL-FORMATTER-2"), echo=FALSE, fig.show="hold", fig.cap="Scatter plot with a formatter function (left); With manually specified breaks on the y-axis (right)"}
 ```
 
 Another common task is to convert time measurements to HH:MM:SS format, or something similar. This function will take numeric minutes and convert them to this format, rounding to the nearest second (it can be customized for your particular needs):
@@ -475,7 +475,7 @@ You want to change the text of axis labels.
 
 Use `xlab()` or `ylab()` to change the text of the axis labels (Figure \@ref(fig:FIG-AXES-AXIS-LABEL)):
 
-```{r FIG-AXES-AXIS-LABEL, fig.show="hold", fig.cap="Left: scatter plot with the default axis labels; right: manually specified labels for the x- and y-axes", fig.width=3.5, fig.height=3.5}
+```{r FIG-AXES-AXIS-LABEL, fig.show="hold", fig.cap="Scatter plot with the default axis labels (left); Manually specified labels for the x- and y-axes (right)", fig.width=3.5, fig.height=3.5}
 library(gcookbook) # For the data set
 
 hwp <- ggplot(heightweight, aes(x = ageYear, y = heightIn, colour = sex)) +
@@ -589,7 +589,7 @@ When you call `element_text()`, the default `angle` is 0, so if you set `axis.ti
 ```
 
 
-```{r FIG-AXES-AXIS-LABEL-YROTATE, ref.label=c("FIG-AXES-AXIS-LABEL-YROTATE-1", "FIG-AXES-AXIS-LABEL-YROTATE-2"), echo=FALSE, fig.show="hold", fig.cap="Left: y-axis label with angle=0; right: with angle=90"}
+```{r FIG-AXES-AXIS-LABEL-YROTATE, ref.label=c("FIG-AXES-AXIS-LABEL-YROTATE-1", "FIG-AXES-AXIS-LABEL-YROTATE-2"), echo=FALSE, fig.show="hold", fig.cap="Y-axis label with angle=0 (left); With angle=90 (right)"}
 ```
 
 ### See Also
@@ -637,7 +637,7 @@ p + theme_bw() +
 
 If the lines are thick, the ends will only partially overlap (Figure \@ref(fig:FIG-AXES-AXIS-LINE-LINEEND), left). To make them fully overlap (Figure \@ref(fig:FIG-AXES-AXIS-LINE-LINEEND), right), set `lineend="square"`:
 
-```{r FIG-AXES-AXIS-LINE-LINEEND, fig.show="hold", fig.cap="Left: with thick lines, the ends don't fully overlap; right: full overlap with lineend=\"square\""}
+```{r FIG-AXES-AXIS-LINE-LINEEND, fig.show="hold", fig.cap="With thick lines, the ends don't fully overlap (left); Full overlap with lineend=\"square\" (right)"}
 # With thick lines, only half overlaps
 p + theme_bw() +
     theme(panel.border = element_blank(),
@@ -665,7 +665,7 @@ You want to use a logarithmic axis for a graph.
 
 Use `scale_x_log10()` and/or `scale_y_log10()` (Figure \@ref(fig:FIG-AXES-LOG)):
 
-```{r FIG-AXES-LOG, fig.show="hold", fig.cap="Left: exponentially distributed data with linear-scaled axes; right: with logarithmic axes"}
+```{r FIG-AXES-LOG, fig.show="hold", fig.cap="Exponentially distributed data with linear-scaled axes (left); With logarithmic axes (right)"}
 library(MASS) # For the data set
 
 # The base plot
@@ -717,7 +717,7 @@ p + scale_x_log10(breaks = 10^(-1:5),
                   labels = trans_format("log10", math_format(10^.x)))
 ```
 
-```{r FIG-AXES-LOG-BREAKS, ref.label=c("FIG-AXES-LOG-BREAKS-1", "FIG-AXES-LOG-BREAKS-2"), echo=FALSE, fig.show="hold", fig.cap="Left: scatter plot with log~10~ x- and y-axes, and with manually specified breaks; right: with exponents for the tick labels"}
+```{r FIG-AXES-LOG-BREAKS, ref.label=c("FIG-AXES-LOG-BREAKS-1", "FIG-AXES-LOG-BREAKS-2"), echo=FALSE, fig.show="hold", fig.cap="Scatter plot with log~10~ x- and y-axes, and with manually specified breaks (left); With exponents for the tick labels (right)"}
 ```
 
 
@@ -914,7 +914,7 @@ The first problem is that the data values (ranging from about 1000 to 2100) are 
 p + coord_polar() + ylim(0, max(md$deaths))
 ```
 
-```{r FIG-AXES-POLAR-CONTINUOUS, ref.label=c("FIG-AXES-POLAR-CONTINUOUS-1", "FIG-AXES-POLAR-CONTINUOUS-2"), echo=FALSE, fig.show="hold", fig.cap="Left: polar plot with line (notice the data range of the radius); right: with the radius representing a data range starting from zero", fig.width=3.5, fig.height=3.5}
+```{r FIG-AXES-POLAR-CONTINUOUS, ref.label=c("FIG-AXES-POLAR-CONTINUOUS-1", "FIG-AXES-POLAR-CONTINUOUS-2"), echo=FALSE, fig.show="hold", fig.cap="Polar plot with line (notice the data range of the radius) (left); With the radius representing a data range starting from zero (right)", fig.width=3.5, fig.height=3.5}
 ```
 
 The next problem is that the lowest and highest month values, 1 and 12, are shown at the same angle. We'll fix this by setting the *x* limits from 0 to 12, creating the graph on the left in Figure \@ref(fig:FIG-AXES-POLAR-CONTINUOUS2) (notice that using `xlim()` overrides the `scale_x_continuous()` in `p`, so it no longer displays breaks for each month; see Recipe \@ref(RECIPE-AXES-RANGE) for more information):
@@ -935,7 +935,7 @@ mdnew <- rbind(mdx, md)
 p %+% mdnew + coord_polar() + ylim(0, max(md$deaths))
 ```
 
-```{r FIG-AXES-POLAR-CONTINUOUS2, ref.label=c("FIG-AXES-POLAR-CONTINUOUS2-1", "FIG-AXES-POLAR-CONTINUOUS2-2"), echo=FALSE, fig.show="hold", fig.cap="Left: polar plot with theta representing x values from 0 to 12; right: the gap is filled in by adding a dummy data point for month 0", fig.width=3.5, fig.height=3.5}
+```{r FIG-AXES-POLAR-CONTINUOUS2, ref.label=c("FIG-AXES-POLAR-CONTINUOUS2-1", "FIG-AXES-POLAR-CONTINUOUS2-2"), echo=FALSE, fig.show="hold", fig.cap="Polar plot with theta representing x values from 0 to 12 (left); The gap is filled in by adding a dummy data point for month 0 (right)", fig.width=3.5, fig.height=3.5}
 ```
 
 > **Note**

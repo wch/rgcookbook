@@ -57,7 +57,7 @@ If you want to move the title inside the plotting area, you can use one of two m
 
 The second method is to instead use a text annotation, setting its *x* position to the middle of the *x* range and its *y* position to `Inf`, which places it at the top of the plotting region. This also requires a positive `vjust` value to bring the text fully inside the plotting region:
 
-```{r FIG-APPEARANCE-TITLE-INSIDE, fig.show="hold", fig.cap="Left: title with ggtitle and a negative `vjust()` value (note the extra space above the plotting area); right: with a text annotation at the top of the figure"}
+```{r FIG-APPEARANCE-TITLE-INSIDE, fig.show="hold", fig.cap="Title with ggtitle and a negative `vjust()` value (note the extra space above the plotting area) (left); With a text annotation at the top of the figure (right)"}
 # Move the title inside
 p + ggtitle("Age and Height of Schoolchildren") +
     theme(plot.title = element_text(vjust = -8))

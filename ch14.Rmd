@@ -256,7 +256,7 @@ While `CairoPNG()` does not guarantee identical rendering across platforms (font
 Changing the resolution affects the size (in pixels) of graphical objects like text, lines, and points. For example, a 6-by-6-inch image at 75 ppi has the same pixel dimensions as a 3-by-3-inch image at 150 ppi, but the appearance will be different, as shown in Figure \@ref(fig:FIG-OUTPUT-BITMAP-SIZE). Both of these images are 450×450 pixels. When displayed on a computer screen, they may display at approximately the same size, as they do here.
 
 
-```{r FIG-OUTPUT-BITMAP-SIZE, echo=FALSE, fig.cap="Left: 6×6 inch image at 75 ppi; right: 3×3 inch image at 150 ppi", fig.width=6}
+```{r FIG-OUTPUT-BITMAP-SIZE, echo=FALSE, fig.cap="6×6 inch image at 75 ppi (left); 3×3 inch image at 150 ppi (right)", fig.width=6}
 knitr::include_graphics("fig/output-ppi-size.png")
 ```
 

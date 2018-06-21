@@ -122,7 +122,7 @@ You want to add lines to a plot.
 
 For horizontal and vertical lines, use `geom_hline()` and `geom_vline()`, and for angled lines, use `geom_abline()` (Figure \@ref(fig:FIG-ANNOTATE-LINES)). For this example, we'll use the `heightweight` data set:
 
-```{r FIG-ANNOTATE-LINES, fig.show="hold", fig.cap="Left: horizontal and vertical lines; right: angled line", fig.width=3.5, fig.height=3.5}
+```{r FIG-ANNOTATE-LINES, fig.show="hold", fig.cap="horizontal and vertical lines (left); angled line (right)", fig.width=3.5, fig.height=3.5}
 library(gcookbook) # For the data set
 
 p <- ggplot(heightweight, aes(x = ageYear, y = heightIn, colour = sex)) + geom_point()
@@ -292,7 +292,7 @@ You want to add error bars to a graph.
 
 Use `geom_errorbar()` and map variables to the values for `ymin` and `ymax`. Adding the error bars is done the same way for bar graphs and line graphs, as shown in Figure \@ref(fig:FIG-ANNOTATE-ERRORBAR-BASIC) (notice that default *y* range is different for bars and lines, though):
 
-```{r FIG-ANNOTATE-ERRORBAR-BASIC, fig.show="hold", fig.cap="Left: error bars on a bar graph; right: on a line graph", fig.width=3.5, fig.height=3.5}
+```{r FIG-ANNOTATE-ERRORBAR-BASIC, fig.show="hold", fig.cap="error bars on a bar graph (left); on a line graph (right)", fig.width=3.5, fig.height=3.5}
 library(gcookbook) # For the data set
 # Take a subset of the cabbage_exp data for this example
 ce <- subset(cabbage_exp, Cultivar == "c39")
@@ -333,7 +333,7 @@ cabbage_exp
 
 The default dodge width for `geom_bar()` is 0.9, and you'll have to tell the error bars to be dodged the same width. If you don't specify the dodge width, it will default to dodging by the width of the error bars, which is usually less than the width of the bars (Figure \@ref(fig:FIG-ANNOTATE-ERRORBAR-GROUP-BAR)):
 
-```{r FIG-ANNOTATE-ERRORBAR-GROUP-BAR, fig.show="hold", fig.cap="Left: error bars on a grouped bar graph without dodging width specified; right: with dodging width specified", fig.width=3.5, fig.height=3.5}
+```{r FIG-ANNOTATE-ERRORBAR-GROUP-BAR, fig.show="hold", fig.cap="error bars on a grouped bar graph without dodging width specified (left); with dodging width specified (right)", fig.width=3.5, fig.height=3.5}
 # Bad: dodge width not specified
 ggplot(cabbage_exp, aes(x = Date, y = Weight, fill = Cultivar)) +
     geom_col(position = "dodge") +

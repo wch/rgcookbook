@@ -30,7 +30,7 @@ You want to remove the legend from a graph.
 
 Use `guides()`, and specify the scale that should have its legend removed (Figure \@ref(fig:FIG-LEGEND-REMOVE)):
 
-```{r FIG-LEGEND-REMOVE, fig.cap="Left: default appearance; right: with legend removed"}
+```{r FIG-LEGEND-REMOVE, fig.cap="Default appearance (left); With legend removed (right)"}
 # The base plot (with legend)
 p <- ggplot(PlantGrowth, aes(x = group, y = weight, fill = group)) + geom_boxplot()
 p
@@ -85,7 +85,7 @@ You want to move the legend from its default place on the right side.
 
 Use `theme(legend.position=...)`. It can be put on the top, left, right, or bottom by using one of those strings as the position (Figure \@ref(fig:FIG-LEGEND-POSITION), left):
 
-```{r FIG-LEGEND-POSITION, fig.cap="Left: legend on top; right: legend inside of graphing area"}
+```{r FIG-LEGEND-POSITION, fig.cap="Legend on top (left); Legend inside of graphing area (right)"}
 p <- ggplot(PlantGrowth, aes(x = group, y = weight, fill = group)) +
     geom_boxplot() +
     scale_fill_brewer(palette = "Pastel2")
@@ -113,7 +113,7 @@ Figure \@ref(fig:FIG-LEGEND-POSITION-JUSTIFICATION):
 p + theme(legend.position = c(1, 1), legend.justification = c(1, 1))
 ```
 
-```{r FIG-LEGEND-POSITION-JUSTIFICATION, ref.label=c("FIG-LEGEND-POSITION-JUSTIFICATION-1", "FIG-LEGEND-POSITION-JUSTIFICATION-2"), echo=FALSE, fig.cap="Left: legend in bottom-right corner; right: legend in top-right corner"}
+```{r FIG-LEGEND-POSITION-JUSTIFICATION, ref.label=c("FIG-LEGEND-POSITION-JUSTIFICATION-1", "FIG-LEGEND-POSITION-JUSTIFICATION-2"), echo=FALSE, fig.cap="Legend in bottom-right corner (left); Legend in top-right corner (right)"}
 ```
 
 
@@ -134,7 +134,7 @@ p + theme(legend.position = c(.85, .2)) +
     theme(legend.key = element_blank())           # Remove border around each item
 ```
 
-```{r FIG-LEGEND-POSITION-BACKGROUND, ref.label=c("FIG-LEGEND-POSITION-BACKGROUND-1", "FIG-LEGEND-POSITION-BACKGROUND-2"), echo=FALSE, fig.cap="Left: legend with opaque background and outline; right: with no background or outlines"}
+```{r FIG-LEGEND-POSITION-BACKGROUND, ref.label=c("FIG-LEGEND-POSITION-BACKGROUND-1", "FIG-LEGEND-POSITION-BACKGROUND-2"), echo=FALSE, fig.cap="Legend with opaque background and outline (left); With no background or outlines (right)"}
 ```
 
 
@@ -149,7 +149,7 @@ You want to change the order of the items in a legend.
 
 Set the limits in the scale to the desired order (Figure \@ref(fig:FIG-LEGEND-ORDER)):
 
-```{r FIG-LEGEND-ORDER, fig.cap="Left: default order for legend; right: modified order"}
+```{r FIG-LEGEND-ORDER, fig.cap="Default order for legend (left); Modified order (right)"}
 # The base plot
 p <- ggplot(PlantGrowth, aes(x = group, y = weight, fill = group)) + geom_boxplot()
 p
@@ -175,7 +175,7 @@ Or we could use a palette from RColorBrewer
 p + scale_fill_brewer(palette = "Pastel2", limits = c("trt1", "trt2", "ctrl"))
 ```
 
-```{r FIG-LEGEND-ORDER2, ref.label=c("FIG-LEGEND-ORDER2-1", "FIG-LEGEND-ORDER2-2"), echo=FALSE, fig.cap="Left: modified order with a grey palette; right: with a palette from RColorBrewer"}
+```{r FIG-LEGEND-ORDER2, ref.label=c("FIG-LEGEND-ORDER2-1", "FIG-LEGEND-ORDER2-2"), echo=FALSE, fig.cap="Modified order with a grey palette (left); With a palette from RColorBrewer (right)"}
 ```
 
 All the previous examples were for fill. If you use scales for other aesthetics, such as colour (for lines and points) or shape (for points), you must use the appropriate scale. Commonly used scales include:
@@ -213,7 +213,7 @@ You want to reverse the order of items in a legend.
 
 Add guides (`fill=guide_legend(reverse=TRUE)`) to reverse the order of the legend, as in Figure \@ref(fig:FIG-LEGEND-TITLE-REVERSE) (for other aesthetics, replace `fill` with the name of the aesthetic, such as `colour` or `size`):
 
-```{r FIG-LEGEND-TITLE-REVERSE, fig.cap="Left: default order for legend; right: reversed order"}
+```{r FIG-LEGEND-TITLE-REVERSE, fig.cap="Default order for legend (left); Reversed order (right)"}
 # The base plot
 p <- ggplot(PlantGrowth, aes(x = group, y = weight, fill = group)) + geom_boxplot()
 p
@@ -263,7 +263,7 @@ p + scale_fill_discrete(name = "Condition")
 
 If there are multiple variables mapped to aesthetics with a legend (those other than x and y), you can set the title of each individually. In the example here we'll use `\n` to add a line break in one of the titles (Figure \@ref(fig:FIG-LEGEND-TITLE-MULTI)):
 
-```{r FIG-LEGEND-TITLE-MULTI, fig.cap="Left: two legends with original titles; right: with new titles"}
+```{r FIG-LEGEND-TITLE-MULTI, fig.cap="Two legends with original titles (left); With new titles (right)"}
 library(gcookbook) # For the data set
 
 # Make the base plot
@@ -396,7 +396,7 @@ p + scale_fill_grey(start = .5, end = 1,
                     labels = c("Control", "Treatment 1", "Treatment 2"))
 ```
 
-```{r FIG-LEGEND-LABEL, ref.label=c("FIG-LEGEND-LABEL-1", "FIG-LEGEND-LABEL-2"), echo=FALSE, fig.cap="Left: manually specified legend labels with the default discrete scale; right: manually specified labels with a different scale"}
+```{r FIG-LEGEND-LABEL, ref.label=c("FIG-LEGEND-LABEL-1", "FIG-LEGEND-LABEL-2"), echo=FALSE, fig.cap="Manually specified legend labels with the default discrete scale (left); Manually specified labels with a different scale (right)"}
 ```
 
 
@@ -507,5 +507,5 @@ p + scale_fill_discrete(labels = c("Control", "Type 1\ntreatment",
           legend.key.height = unit(1, "cm"))
 ```
 
-```{r FIG-LEGEND-LABEL-MULTILINE, ref.label=c("FIG-LEGEND-LABEL-MULTILINE-1", "FIG-LEGEND-LABEL-MULTILINE-2"), echo=FALSE, fig.cap="Left: multiline legend labels; right: with increased key height and reduced line spacing"}
+```{r FIG-LEGEND-LABEL-MULTILINE, ref.label=c("FIG-LEGEND-LABEL-MULTILINE-1", "FIG-LEGEND-LABEL-MULTILINE-2"), echo=FALSE, fig.cap="Multiline legend labels (left); With increased key height and reduced line spacing (right)"}
 ```

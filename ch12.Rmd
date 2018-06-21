@@ -32,7 +32,7 @@ You want to set the color of some geoms in your graph.
 
 In the call to the geom, set the values of `colour` or `fill` (Figure \@ref(fig:FIG-COLORS-SETTING)):
 
-```{r FIG-COLORS-SETTING, fig.show="hold", fig.cap="Left: setting fill and colour; right: setting colour for points", message=FALSE}
+```{r FIG-COLORS-SETTING, fig.show="hold", fig.cap="Setting `fill` and `colour` (left); Setting `colour` for points (right)", message=FALSE}
 library(MASS) # For the data set
 ggplot(birthwt, aes(x = bwt)) + geom_histogram(fill = "red", colour = "black")
 
@@ -81,7 +81,7 @@ ggplot(mtcars, aes(x = wt, y = mpg, colour = cyl)) + geom_point()
 ggplot(mtcars, aes(x = wt, y = mpg)) + geom_point(aes(colour = cyl))
 ```
 
-```{r FIG-COLORS-MAPPING, echo=FALSE, fig.show="hold", fig.cap="Left: mapping a variable to fill; right: mapping a variable to colour for points"}
+```{r FIG-COLORS-MAPPING, echo=FALSE, fig.show="hold", fig.cap="Mapping a variable to `fill` (left); Mapping a variable to `colour` for points (right)"}
 library(gcookbook) # For the data set
 
 ggplot(cabbage_exp, aes(x = Date, y = Weight, fill = Cultivar)) +
@@ -153,7 +153,7 @@ Table: (\#tab:TABLE-DISCRETE-FILL-AND-COLOR-SCALES) Discrete fill and color scal
 
 In the example here we'll use the default palette (hue), and a ColorBrewer palette (Figure \@ref(fig:FIG-COLORS-PALETTE-DISCRETE)):
 
-```{r FIG-COLORS-PALETTE-DISCRETE, fig.show="hold", fig.cap="Left: default palette (using hue); right: a ColorBrewer palette", fig.width=4.5}
+```{r FIG-COLORS-PALETTE-DISCRETE, fig.show="hold", fig.cap="Default palette (using hue) (left); A ColorBrewer palette (right)", fig.width=4.5}
 library(gcookbook) # For the data set
 
 # Base plot
@@ -174,7 +174,7 @@ Changing a palette is a modification of the color (or fill) scale: it involves a
 
 With `scale_fill_hue()`, the colors are taken from around the color wheel in the HCL (hue-chroma-lightness) color space. The default lightness value is 65 on a scale from 0–100. This is good for filled areas, but it's a bit light for points and lines. To make the colors darker for points and lines, as in Figure \@ref(fig:FIG-COLORS-PALETTE-LIGHTNESS) (right), set the value of `l` (luminance/lightness):
 
-```{r FIG-COLORS-PALETTE-LIGHTNESS, fig.show="hold", fig.cap="Left: points with default lightness; right: with lightness set to 45", fig.width=4.5}
+```{r FIG-COLORS-PALETTE-LIGHTNESS, fig.show="hold", fig.cap="Points with default lightness (left); With lightness set to 45 (right)", fig.width=4.5}
 # Basic scatter plot
 h <- ggplot(heightweight, aes(x = ageYear, y = heightIn, colour = sex)) +
     geom_point()
@@ -203,7 +203,7 @@ p + scale_fill_brewer(palette = "Oranges")
 You can also use a palette of greys. This is useful for print when the
 output is in black and white. The default is to start at 0.2 and end at 0.8, on a scale from 0 (black) to 1 (white), but you can change the range, as shown in Figure \@ref(fig:FIG-COLORS-PALETTE-GREY).
 
-```{r FIG-COLORS-PALETTE-GREY, fig.show="hold", fig.cap="Left: using the default grey palette; right: a different grey palette", fig.width=4.5}
+```{r FIG-COLORS-PALETTE-GREY, fig.show="hold", fig.cap="Using the default grey palette (left); A different grey palette (right)", fig.width=4.5}
 p + scale_fill_grey()
 
 # Reverse the direction and use a different range of greys
@@ -230,7 +230,7 @@ You want to use different colors for a discrete mapped variable.
 
 In the example here, we'll manually define colors by specifying values with `scale_colour_manual()` (Figure \@ref(fig:FIG-COLORS-PALETTE-DISCRETE-MANUAL)). The colors can be named, or they can be specified with RGB values:
 
-```{r FIG-COLORS-PALETTE-DISCRETE-MANUAL, fig.show="hold", fig.cap="Left: scatter plot with named colors; right: with slightly different RGB colors", fig.width=4}
+```{r FIG-COLORS-PALETTE-DISCRETE-MANUAL, fig.show="hold", fig.cap="Scatter plot with named colors (left); With slightly different RGB colors (right)", fig.width=4}
 library(gcookbook) # For the data set
 
 # Base plot
