@@ -7,7 +7,8 @@ knitr::opts_chunk$set(
     comment = "#>",
     cache = TRUE,
     fig.show = "hold",
-    out.width = NULL
+    out.width = NULL,
+    fig.align = "center"
 )
 
 # Seems to be necessary for captions for multiple images in a single Figure.
