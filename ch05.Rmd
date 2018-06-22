@@ -1027,6 +1027,11 @@ countries_sp <-
 countries_sp + 
   annotate("text", x = 4350, y = 5.4, label = "Canada") +
   annotate("text", x = 7400, y = 6.8, label = "USA")
+
+countries_sp + 
+  annotate("text", x = 4350, y = 5.4, label = "Canada") +
+  annotate("text", x = 7400, y = 6.8, label = "USA")
+
 ```
 
 To automatically add the labels from your data (Figure \@ref(fig:FIG-SCATTER-LABEL), right), use `geom_text()` and map a column that is a factor or character vector to the label aesthetic. In this case, we'll use `Name`, and we'll make the font slightly smaller to reduce crowding. The default value for `size` is 5, which doesn't correspond directly to a point size:
@@ -1087,15 +1092,43 @@ It often makes sense to right- or left-justify the labels relative to the points
 
 ```{r FIG-SCATTER-LABEL-HJUST, fig.show="hold", fig.cap="A scatter plot with hjust=0 (left); With a little extra added to x (right)", fig.width=4.5, fig.height=4.5}
 countries_sp + 
-  geom_text(aes(label = Name), size = 3, hjust = 0)
+  geom_text(
+    aes(label = Name), 
+    size = 3, 
+    hjust = 0
+  )
 
 countries_sp + 
-  geom_text(aes(x = healthexp + 100, label = Name), size = 3, hjust = 0)
+  geom_text(
+    aes(x = healthexp + 100, label = Name), 
+    size = 3, 
+    hjust = 0
+  )
 ```
 
 > **Note**
 >
 > If you are using a logarithmic axis, instead of adding to x or y, you'll need to *multiply* the x or y value by a number to shift the labels a consistent amount.
+
+Besides right- or left-justifying all of your labels, you can also adjust the position of all of the labels at once is to use `position = position_nudge()`. This allows you to specify the amount of vertical or horizontal distance you want to move the labels. As you can see from the figures below (Figure \@ref(fig:FIG-SCATTER-LABEL-NUDGE), this strategy works best when there are fewer labels, or fewer points that can cause overlap with labels. Note that the units you specify with `x = ...` and `y = ...` correspond to the units of the x and y axis. 
+
+```{r FIG-SCATTER-LABEL-NUDGE, fig.show="hold", fig.cap="Original scatter plot (left); Scatter plot with labels nudged down and to the right (right)", fig.width=4.5, fig.height=4.5}
+
+countries_sp + 
+  geom_text(
+    aes(x = healthexp + 100, label = Name), 
+    size = 3, 
+    hjust = 0
+  )
+
+countries_sp + 
+  geom_text(
+    aes(x = healthexp + 100, label = Name), 
+    size = 3, 
+    hjust = 0,
+    position = position_nudge(x = 100, y = -0.2)
+  )
+```
 
 If you want to label just some of the points but want the placement to be handled automatically, you can add a new column to your data frame containing just the labels you want. Here's one way to do that: first we'll make a copy of the data we're using, then we'll copy the `Name` column into `plotname`, converting from a factor to a character vector, for reasons we'll see below.
 
@@ -1131,7 +1164,9 @@ ggplot(cdat, aes(x = healthexp, y = infmortality)) +
   xlim(2000, 10000)
 ```
 
-If any individual position adjustments are needed, you have a couple of options. One option is to copy the columns used for the *x* and *y* coordinates and modify the numbers for the individual items to move the text around. Make sure to use the original numbers for the coordinates of the points, of course! Another option is to save the output to a vector format such as PDF or SVG (see Recipes Recipe \@ref(RECIPE-OUTPUT-VECTOR) and Recipe \@ref(RECIPE-OUTPUT-VECTOR-SVG)), then edit it in a program like Illustrator or Inkscape.
+If any individual position adjustments are needed, you have a couple of options. One option is to copy the columns used for the *x* and *y* coordinates and modify the numbers for the individual items to move the text around. Make sure to use the original numbers for the coordinates of the points, of course! 
+
+Finally, another option is to save the output to a vector format such as PDF or SVG (see Recipes Recipe \@ref(RECIPE-OUTPUT-VECTOR) and Recipe \@ref(RECIPE-OUTPUT-VECTOR-SVG)), then edit it in a program like Illustrator or Inkscape.
 
 ### See Also
 
