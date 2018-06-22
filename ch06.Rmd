@@ -27,8 +27,7 @@ You want to make a histogram.
 Use `geom_histogram()` and map a continuous variable to x (Figure \@ref(fig:FIG-DISTRIBUTION-HIST-BASIC)):
 
 ```{r FIG-DISTRIBUTION-HIST-BASIC, fig.cap="A basic histogram"}
-faithful %>% 
-  ggplot(aes(x = waiting)) + 
+ggplot(faithful, aes(x = waiting)) + 
   geom_histogram()
 ```
 
@@ -57,15 +56,13 @@ In addition, the default colors -- a dark fill without an outline -- can make it
 ```{r FIG-DISTRIBUTION-HIST-WIDTH, fig.show="hold", fig.cap="Histogram with binwidth = 5 and with different colors (left); With 15 bins (right)", fig.width=3.5, fig.height=3.5}
 
 # Set the width of each bin to 5 (each bin will span 5 x-axis units)
-faithful %>% 
-  ggplot(aes(x = waiting)) +
+ggplot(faithful, aes(x = waiting)) +
   geom_histogram(binwidth = 5, fill = "white", colour = "black")
 
 # Divide the x range into 15 bins
 binsize <- diff(range(faithful$waiting))/15
 
-faithful %>% 
-  ggplot(aes(x = waiting)) +
+ggplot(faithful, aes(x = waiting)) +
   geom_histogram(binwidth = binsize, fill = "white", colour = "black")
 ```
 
@@ -74,8 +71,7 @@ Sometimes the appearance of the histogram will be very dependent on the width of
 ```{r FIG-DISTRIBUTION-HIST-BOUNDARY, fig.show="hold", fig.cap="Different appearance of histograms with the origin at 31 and 35", fig.width=3.5, fig.height=3.5}
 
 h <- 
-  faithful %>% 
-  ggplot(aes(x = waiting))  # Save a base ggplot object
+  ggplot(faithful, aes(x = waiting))  # Save a base ggplot object
 
 h + 
   geom_histogram(binwidth = 8, fill = "white", colour = "black", boundary = 31)
@@ -108,8 +104,7 @@ Use `geom_histogram()` and use facets for each group, as shown in Figure \@ref(f
 library(MASS) # Load the MASS package to access the birthwt data set 
 
 # Use smoke as the faceting variable
-birthwt %>% 
-  ggplot(aes(x = bwt)) + 
+ggplot(birthwt, aes(x = bwt)) + 
   geom_histogram(fill = "white", colour = "black") +
   facet_grid(smoke ~ .)
 ```
@@ -131,16 +126,15 @@ library(forcats) # Load the forcats package to help you work with factor variabl
 
 birthwt1 <- 
   birthwt %>% 
-  mutate(smoke = as.factor(smoke)) %>% # Convert smoke to a factor
-  mutate(smoke = fct_recode(smoke, 'No Smoke' = "0", 'Smoke' = "1"))
+  dplyr::mutate(smoke = as.factor(smoke)) %>% # Convert smoke to a factor
+  dplyr::mutate(smoke = fct_recode(smoke, 'No Smoke' = "0", 'Smoke' = "1"))
 
 ```
 
 Now when we plot our modified data frame, our desired labels appear (Figure \@ref(fig:FIG-DISTRIBUTION-MULTI-HISTOGRAM-FACET-LABELS)).
 
 ```{r FIG-DISTRIBUTION-MULTI-HISTOGRAM-FACET-LABELS, fig.cap = "Histograms with new facet labels"}
-birthwt1 %>% 
-  ggplot(aes(x = bwt)) + 
+ggplot(birthwt1, aes(x = bwt)) + 
   geom_histogram(fill = "white", colour = "black") +
   facet_grid(smoke ~ .)
 ```
@@ -148,8 +142,7 @@ birthwt1 %>%
 With facets, the axes have the same *y* scaling in each facet. If your groups have different sizes, it might be hard to compare the *shapes* of the distributions of each one. For example, see what happens when we facet the birth weights by `race` (Figure \@ref(fig:FIG-DISTRIBUTION-MULTI-HISTOGRAM-FACET-SCALESFREE), left):
 
 ```{r FIG-DISTRIBUTION-MULTI-HISTOGRAM-FACET-SCALESFREE-1, eval=FALSE}
-birthwt %>% 
-  ggplot(aes(x = bwt)) + 
+ggplot(birthwt, aes(x = bwt)) + 
   geom_histogram(fill = "white", colour = "black") +
   facet_grid(race ~ .)
 ```
@@ -157,8 +150,7 @@ birthwt %>%
 To allow the *y* scales to be resized independently (Figure \@ref(fig:FIG-DISTRIBUTION-MULTI-HISTOGRAM-FACET-SCALESFREE), right), use `scales = "free"`. Note that this will only allow the *y* scales to be free -- the *x* scales will still be fixed because the histograms are aligned with respect to that axis:
 
 ```{r FIG-DISTRIBUTION-MULTI-HISTOGRAM-FACET-SCALESFREE-2, eval=FALSE}
-birthwt %>% 
-  ggplot(aes(x = bwt)) + 
+ggplot(birthwt, aes(x = bwt)) + 
   geom_histogram(fill = "white", colour = "black") +
   facet_grid(race ~ ., scales = "free")
 ```
@@ -171,8 +163,7 @@ Another approach is to map the grouping variable to `fill`, as shown in Figure \
 ```{r FIG-DISTRIBUTION-MULTI-HISTOGRAM-FILL, fig.cap="Multiple histograms with different fill colors"}
 # Map smoke to fill, make the bars NOT stacked, and make them semitransparent
 
-birthwt1 %>% 
-  ggplot(aes(x = bwt, fill = smoke)) +
+ggplot(birthwt1, aes(x = bwt, fill = smoke)) +
   geom_histogram(position = "identity", alpha = 0.4)
 ```
 
@@ -191,8 +182,7 @@ You want to make a kernel density estimate curve.
 Use `geom_density()` and map a continuous variable to x (Figure \@ref(fig:FIG-DISTRIBUTION-DENSITY-BASIC)):
 
 ```{r FIG-DISTRIBUTION-DENSITY-BASIC-1, eval=FALSE}
-faithful %>% 
-  ggplot(aes(x = waiting)) + 
+ggplot(faithful, aes(x = waiting)) + 
   geom_density()
 ```
 
@@ -200,8 +190,7 @@ If you don't like the lines along the side and bottom, you can use `geom_line(st
 
 ```{r FIG-DISTRIBUTION-DENSITY-BASIC-2, eval=FALSE}
 # expand_limits() increases the y range to include the value 0
-faithful %>% 
-  ggplot(aes(x = waiting)) + 
+ggplot(faithful, aes(x = waiting)) + 
   geom_line(stat = "density") +
   expand_limits(y = 0)
 ```
@@ -234,11 +223,10 @@ ggplot(NULL, aes(x = w)) +
 A kernel density curve is an estimate of the population distribution, based on the sample data. The amount of smoothing depends on the *kernel bandwidth*: the larger the bandwidth, the more smoothing there is. The bandwidth can be set with the `adjust` parameter, which has a default value of 1. Figure \@ref(fig:FIG-DISTRIBUTION-DENSITY-ADJUST) shows what happens with a smaller and larger value of `adjust`:
 
 ```{r FIG-DISTRIBUTION-DENSITY-ADJUST, fig.cap="Density curves with adjust set to .25 (red), default value of 1 (black), and 2 (blue)", fig.width=3.5, fig.height=3.5}
-faithful %>% 
-  ggplot(aes(x = waiting)) +
-    geom_line(stat = "density") +
-    geom_line(stat = "density", adjust = .25, colour = "red") +
-    geom_line(stat = "density", adjust = 2, colour = "blue")
+ggplot(faithful, aes(x = waiting)) +
+  geom_line(stat = "density") +
+  geom_line(stat = "density", adjust = .25, colour = "red") +
+  geom_line(stat = "density", adjust = 2, colour = "blue")
 ```
 
 In this example, the *x* range is automatically set so that it contains the data, but this results in the edge of the curve getting clipped. To show more of the curve, set the *x* limits (Figure \@ref(fig:FIG-DISTRIBUTION-DENSITY-WIDTH)). We'll also add an 80% transparent fill, with `alpha = .2`:
@@ -248,18 +236,15 @@ and a semitransparent fill (left); In two parts, with `geom_density()` and
 `geom_line()` (right)
 
 ```{r FIG-DISTRIBUTION-DENSITY-WIDTH, fig.show="hold", fig.cap="(ref:cap-FIG-DISTRIBUTION-DENSITY-WIDTH)", fig.width=3.5, fig.height=3.5}
-faithful %>% 
-  ggplot(aes(x = waiting)) +
+ggplot(faithful, aes(x = waiting)) +
   geom_density(fill = "blue", alpha = .2) +
   xlim(35, 105)
 
 # This draws a blue polygon with geom_density(), then adds a line on top
-faithful %>% 
-  ggplot(aes(x = waiting)) +
+ggplot(faithful, aes(x = waiting)) +
   geom_density(fill = "blue", alpha = .2, colour = NA) +
   xlim(35, 105) +
   geom_line(stat = "density")
-
 ```
 
 If this edge-clipping happens with your data, it might mean that your curve is too smooth. If the curve is much wider than your data, it might not be the best model of your data, or it could be because you have a small data set.
@@ -267,8 +252,7 @@ If this edge-clipping happens with your data, it might mean that your curve is t
 To compare the theoretical and observed distributions of your data, you can overlay the density curve with the histogram. Since the *y* values for the density curve are small (the area under the curve always sums to 1), it would be barely visible if you overlaid it on a histogram without any transformation. To solve this problem, you can scale down the histogram to match the density curve with the mapping `y = ..density..`. Here we'll add `geom_histogram()` first, and then layer `geom_density()` on top (Figure \@ref(fig:FIG-DISTRIBUTION-DENSITY-HIST)):
 
 ```{r FIG-DISTRIBUTION-DENSITY-HIST, fig.cap="Density curve overlaid on a histogram"}
-faithful %>% 
-  ggplot(aes(x = waiting, y = ..density..)) +
+ggplot(faithful, aes(x = waiting, y = ..density..)) +
   geom_histogram(fill = "cornsilk", colour = "grey60", size = .2) +
   geom_density() +
   xlim(35, 105)
@@ -296,16 +280,14 @@ library(MASS) # Load the MASS package to access the birthwt data set
 
 birthwt1 <- 
   birthwt %>% 
-  mutate(smoke = as.factor(smoke)) # Convert smoke to a factor
+  dplyr::mutate(smoke = as.factor(smoke)) # Convert smoke to a factor
 
 # Map smoke to colour
-birthwt1 %>% 
-  ggplot(aes(x = bwt, colour = smoke)) + 
+ggplot(birthwt1, aes(x = bwt, colour = smoke)) + 
   geom_density()
 
 # Map smoke to fill and make the fill semitransparent by setting alpha
-birthwt1 %>% 
-  ggplot(aes(x = bwt, fill = smoke)) + 
+ggplot(birthwt1, aes(x = bwt, fill = smoke)) + 
   geom_density(alpha = .3)
 ```
 
@@ -324,8 +306,7 @@ We looked at the relationship between `smoke` (smoking) and `bwt` (birth weight 
 Another method for visualizing the distributions is to use facets, as shown in Figure \@ref(fig:FIG-DISTRIBUTION-MULTI-DENSITY-FACET). We can align the facets vertically or horizontally. Here we'll align them vertically so that it's easy to compare the two distributions:
 
 ```{r FIG-DISTRIBUTION-MULTI-DENSITY-FACET-1, eval=FALSE}
-birthwt1 %>% 
-  ggplot(aes(x = bwt)) + 
+ggplot(birthwt1, aes(x = bwt)) + 
   geom_density() + 
   facet_grid(smoke ~ .)
 ```
@@ -339,16 +320,15 @@ library(forcats) # Load the forcats package to help you work with factor variabl
 
 birthwt1 <- 
   birthwt %>% 
-  mutate(smoke = as.factor(smoke)) %>% # Convert smoke to a factor
-  mutate(smoke = fct_recode(smoke, 'No Smoke' = "0", 'Smoke' = "1"))
+  dplyr::mutate(smoke = as.factor(smoke)) %>% # Convert smoke to a factor
+  dplyr::mutate(smoke = fct_recode(smoke, 'No Smoke' = "0", 'Smoke' = "1"))
 ```
 
 Now when we plot our modified data frame, our desired labels appear (Figure
 \@ref(fig:FIG-DISTRIBUTION-MULTI-DENSITY-FACET), right):
 
 ```{r FIG-DISTRIBUTION-MULTI-DENSITY-FACET-3, eval=FALSE}
-birthwt1 %>% 
-  ggplot(aes(x = bwt)) + 
+ggplot(birthwt1, aes(x = bwt)) + 
   geom_density() + 
   facet_grid(smoke ~ .)
 ```
@@ -359,8 +339,7 @@ birthwt1 %>%
 If you want to see the histograms along with the density curves, the best option is to use facets, since other methods of visualizing both histograms in a single graph can be difficult to interpret. To do this, map `y = ..density..`, so that the histogram is scaled down to the height of the density curves. In this example, we'll also make the histogram bars a little less prominent by changing the colors (Figure \@ref(fig:FIG-DISTRIBUTION-MULTI-DENSITY-HIST)):
 
 ```{r FIG-DISTRIBUTION-MULTI-DENSITY-HIST, fig.cap="Density curves overlaid on histograms"}
-birthwt1 %>% 
-  ggplot(aes(x = bwt, y = ..density..)) +
+ggplot(birthwt1, aes(x = bwt, y = ..density..)) +
   geom_histogram(binwidth = 200, fill = "cornsilk", colour = "grey60", size = .2) +
   geom_density() +
   facet_grid(smoke ~ .)
@@ -379,7 +358,8 @@ You want to make a frequency polygon.
 Use geom_`freqpoly()` (Figure \@ref(fig:FIG-DISTRIBUTION-FREQPOLY)):
 
 ```{r FIG-DISTRIBUTION-FREQPOLY-1, eval=FALSE}
-ggplot(faithful, aes(x=waiting)) + geom_freqpoly()
+ggplot(faithful, aes(x=waiting)) + 
+  geom_freqpoly()
 ```
 
 ### Discussion
@@ -389,8 +369,7 @@ A frequency polygon appears similar to a kernel density estimate curve, but it s
 Like with a histogram, you can control the bin width for the frequency polygon (Figure \@ref(fig:FIG-DISTRIBUTION-FREQPOLY), right):
 
 ```{r FIG-DISTRIBUTION-FREQPOLY-2, eval=FALSE}
-faithful %>% 
-  ggplot(aes(x = waiting)) + 
+ggplot(faithful, aes(x = waiting)) + 
   geom_freqpoly(binwidth = 4)
 ```
 
@@ -403,8 +382,7 @@ Or, instead of setting the width of each bin directly, you can divide the *x* ra
 # Divide the x-axis range into 15 bins
 binsize <- diff(range(faithful$waiting))/15
 
-faithful %>% 
-  ggplot(aes(x = waiting)) + 
+ggplot(faithful, aes(x = waiting)) + 
   geom_freqpoly(binwidth = binsize)
 ```
 
@@ -429,8 +407,7 @@ Use `geom_boxplot()`, mapping a continuous variable to y and a discrete variable
 library(MASS) # Load the MASS package to access the birthwt data set
 
 # Use factor() to convert a numeric variable into a discrete variable
-birthwt %>% 
-  ggplot(aes(x = factor(race), y = bwt)) + 
+ggplot(birthwt, aes(x = factor(race), y = bwt)) + 
   geom_boxplot()
 ```
 
@@ -459,8 +436,7 @@ sumx <- summary(ds$x)
 iqr  <- sumx[["3rd Qu."]] - sumx[["1st Qu."]]
 
 p1 <-
-  ds %>% 
-  ggplot(aes(x = x)) + 
+  ggplot(ds, aes(x = x)) + 
   geom_histogram(aes(y = ..count../140), binwidth = 200, colour = "grey80", fill = "cornsilk", alpha = .5) + 
   geom_density(aes(y = ..scaled..), adjust = 1.5, colour = "grey70") +
   geom_vline(aes(xintercept = sumx[["1st Qu."]]), colour = "grey50") +
@@ -471,35 +447,35 @@ p1 <-
   annotate(
     "text", x = sumx[["Min."]], y = 0, label = "Minimum", 
     angle = 90, vjust = -0.2, hjust = 0, size = 4
-    ) +
+  ) +
   annotate(
     "text", x = sumx[["1st Qu."]], y = 0, label = "25th percentile", 
     angle = 90, vjust = -0.2, hjust = 0, size = 4
-    ) +
+  ) +
   annotate(
     "text", x = sumx[["Median"]], y = 0,  label = "Median", 
     angle = 90, vjust = -0.2, hjust = 0, size = 4
-    ) +
+  ) +
   annotate(
     "text", x = sumx[["3rd Qu."]], y = 0, label = "75th percentile", 
     angle = 90, vjust = -0.2, hjust = 0, size = 4
-    ) +
+  ) +
   geom_segment(
     aes(x = sumx[["Min."]], xend = sumx[["1st Qu."]], y = .75, yend = .75), 
     size = .2, arrow = arrow(ends = "both", length = unit(0.2,"cm"))
-    ) +
+  ) +
   annotate(
     "text", x = mean(c(sumx[["Min."]], sumx[["1st Qu."]])), y = .75, label = "To minimum", 
     vjust = -0.2, size = 4, lineheight = .8
-    ) +
+  ) +
   geom_segment(
     aes(x = sumx[["1st Qu."]], xend = sumx[["3rd Qu."]], y = .85, yend = .85), 
     size = .2, arrow = arrow(ends = "both", length = unit(0.2,"cm"))
-    ) +
+  ) +
   annotate(
     "text", x = mean(c(sumx[["1st Qu."]], sumx[["3rd Qu."]])), y = .85, label = "IQR",
     vjust = -0.2, size = 4
-    ) +
+  ) +
   geom_segment(
     aes(x = sumx[["3rd Qu."]], xend = sumx[["3rd Qu."]] + 1.5 * iqr, y = .75, yend = .75),
     size = .2, arrow = arrow(ends = "both", length = unit(0.2,"cm"))
@@ -516,8 +492,7 @@ p1 <-
   theme(plot.margin = unit(c(0,0,0,0), "lines"))
 
 p2 <-
-  ds %>% 
-  ggplot(aes(x = 1, y = x)) +
+  ggplot(ds, aes(x = 1, y = x)) +
   geom_boxplot(width = .5, outlier.size = 1.5) +
   coord_flip() +
   theme_bw() +
@@ -542,16 +517,14 @@ To change the width of the boxes, you can set width (Figure
 \@ref(fig:FIG-DISTRIBUTION-BOXPLOT-WIDTH-POINT), left):
 
 ```{r FIG-DISTRIBUTION-BOXPLOT-WIDTH-POINT-1, eval=FALSE}
-birthwt %>% 
-  ggplot(aes(x = factor(race), y = bwt)) + 
+ggplot(birthwt, aes(x = factor(race), y = bwt)) + 
   geom_boxplot(width = .5)
 ```
 
 If there are many outliers and there is overplotting, you can change the size and shape of the outlier points with `outlier.size` and `outlier.shape`. The default size is 2 and the default shape is 16. This will use smaller points, and hollow circles (Figure \@ref(fig:FIG-DISTRIBUTION-BOXPLOT-WIDTH-POINT), right):
 
 ```{r FIG-DISTRIBUTION-BOXPLOT-WIDTH-POINT-2, eval=FALSE}
-birthwt %>% 
-  ggplot(aes(x = factor(race), y = bwt)) +
+ggplot(birthwt, aes(x = factor(race), y = bwt)) +
   geom_boxplot(outlier.size = 1.5, outlier.shape = 21)
 ```
 
@@ -561,8 +534,7 @@ birthwt %>%
 To make a box plot of just a single group, we have to provide some arbitrary value for x; otherwise, ggplot won't know what *x* coordinate to use for the box plot. In this case, we'll set it to 1 and remove the x-axis tick markers and label (Figure \@ref(fig:FIG-DISTRIBUTION-BOXPLOT-SINGLE)):
 
 ```{r FIG-DISTRIBUTION-BOXPLOT-SINGLE, fig.cap="Box plot of a single group", fig.width=3.5, fig.height=3.5}
-birthwt %>% 
-  ggplot(aes(x = 1, y = bwt)) + 
+ggplot(birthwt, aes(x = 1, y = bwt)) + 
   geom_boxplot() +
   scale_x_continuous(breaks = NULL) +
   theme(axis.title.x = element_blank())
@@ -588,8 +560,7 @@ Use `geom_boxplot()` and set `notch = TRUE` (Figure
 ```{r FIG-DISTRIBUTION-BOXPLOT-NOTCH, fig.cap="A notched box plot"}
 library(MASS) # Load the MASS package to access the birthwt data set
 
-birthwt %>% 
-  ggplot(aes(x = factor(race), y = bwt)) + 
+ggplot(birthwt, aes(x = factor(race), y = bwt)) + 
   geom_boxplot(notch = TRUE)
 ```
 
@@ -620,8 +591,7 @@ Use `stat_summary()`. The mean is often shown with a diamond, so we'll use shape
 ```{r FIG-DISTRIBUTION-BOXPLOT-MEAN, fig.cap="Mean markers on a box plot"}
 library(MASS) # Load the MASS package to access the birthwt data set
 
-birthwt %>% 
-  ggplot(aes(x = factor(race), y = bwt)) + 
+ggplot(birthwt, aes(x = factor(race), y = bwt)) + 
   geom_boxplot() +
   stat_summary(fun.y = "mean", geom = "point", shape = 23, size = 3, fill = "white")
 ```
@@ -647,8 +617,7 @@ library(gcookbook) # Load the gcookbook package to access the heightweight data 
 
 # Create a base ggplot object using the heightweight data set
 p <- 
-  heightweight %>% 
-  ggplot(aes(x = sex, y = heightIn))
+  ggplot(heightwaes(x = sex, y = heightIn))
 
 p + 
   geom_violin()
