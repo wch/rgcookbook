@@ -13,7 +13,7 @@ source("utils.R", local = TRUE)
 Scatter Plots {#CHAPTER-SCATTER}
 =============
 
-Scatter plots are used to display the relationship between two continuous variables. In a scatter plot, each observation in a data set is represented by a point. Often, a scatter plot will also have a line showing the predicted values based on some statistical model. Adding this line is easy to do with R and the ggplot2 package, and can help to make sense of data when the trends aren't immediately obvious just by looking at the points.
+Scatter plots are used to display the relationship between two continuous variables. In a scatter plot, each observation in a data set is represented by a point. Often, a scatter plot will also have a line showing the predicted values based on some statistical model. Adding this line is easy to do with R and the `ggplot2` package, and can help to make sense of data when the trends aren't immediately obvious just by looking at the points.
 
 With large data sets, plotting every single observation in the data set can result in overplotting, when points overlap and obscure one another. To deal with the problem of overplotting, you'll probably want to summarize the data before displaying it. We'll also see how to do that in this chapter.
 
@@ -211,7 +211,7 @@ par(mar = c(0,0,0,0))
 pchShow(main = NULL)
 ```
 
-It's possible to have one variable represented by the shape of a point, and and another variable represented by the fill (empty or filled) of the point. To do this, you need to first choose point shapes that have both colour and fill, and set these in `scale_shape_manual`. You then need to choose a fill palette that includes `NA` and another color (the `NA` will result in a hollow shape) and se these in `scale_fill_manual`.
+It's possible to have one variable represented by the shape of a point, and and another variable represented by the fill (empty or filled) of the point. To do this, you need to first choose point shapes that have both colour and fill, and set these in `scale_shape_manual`. You then need to choose a fill palette that includes `NA` and another color (the `NA` will result in a hollow shape) and use these in `scale_fill_manual()`.
 
 For example, we'll take the `heightweight` data set and add another column that indicates whether the child weighed 100 pounds or more (Figure \@ref(fig:FIG-SCATTER-SHAPES-FILL)):
 
@@ -355,21 +355,21 @@ If there's a high degree of overplotting, there are a number of possible solutio
 The scatter plot in Figure \@ref(fig:FIG-SCATTER-OVERPLOT) contains about 54,000 points. They are heavily overplotted, making it impossible to get a sense of the relative density of points in different areas of the graph:
 
 ```{r FIG-SCATTER-OVERPLOT, dev="png", dpi=300, fig.cap="Overplotting, with about 54,000 points", fig.height=3}
-# We'll use the diamonds data set and create a base plot called `sp1`
-sp <- 
+# We'll use the diamonds data set and create a base plot called `diamonds_sp`
+diamonds_sp <- 
   ggplot(diamonds, aes(x = carat, y = price))
 
-sp + 
+diamonds_sp + 
   geom_point()
 ```
 
 We can make the points semitransparent using the `alpha` aesthetic, as in Figure \@ref(fig:FIG-SCATTER-OVERPLOT-ALPHA). Here, we'll make them 90% transparent and then 99% transparent, by setting `alpha = .1` and `alpha = .01`:
 
 ```{r FIG-SCATTER-OVERPLOT-ALPHA, dev="png", dpi=300, fig.show="hold", fig.cap="Semitransparent points with alpha=.1 (left); With alpha=.01 (right)", fig.height=3}
-sp + 
+diamonds_sp + 
   geom_point(alpha = .1)
 
-sp + 
+diamonds_sp + 
   geom_point(alpha = .01)
 ```
 
@@ -388,10 +388,10 @@ The default colors are somewhat difficult to distinguish because they don't vary
 (ref:cap-FIG-SCATTER-OVERPLOT-BIN2D) Binning data with `stat_bin2d()` (left); With more bins, manually specified colors, and legend breaks (right)
 
 ```{r FIG-SCATTER-OVERPLOT-BIN2D, fig.show="hold", fig.cap="(ref:cap-FIG-SCATTER-OVERPLOT-BIN2D)", fig.width=3.5, fig.height=3.5}
-sp + 
+diamonds_sp + 
   stat_bin2d()
 
-sp + 
+diamonds_sp + 
   stat_bin2d(bins = 50) +
   scale_fill_gradient(low = "lightblue", high = "red", limits = c(0, 6000))
 ```
@@ -404,11 +404,11 @@ Another alternative is to bin the data into hexagons instead of rectangles, with
 ```{r FIG-SCATTER-OVERPLOT-BINHEX, fig.show="hold", fig.cap="(ref:cap-FIG-SCATTER-OVERPLOT-BINHEX)", fig.width=3.5, fig.height=3.5}
 library(hexbin) # Load the hexbin library to access stat_binhex()
 
-sp + 
+diamonds_sp + 
   stat_binhex() +
   scale_fill_gradient(low = "lightblue", high = "red", limits = c(0, 8000))
 
-sp + 
+diamonds_sp + 
   stat_binhex() +
   scale_fill_gradient(
     low = "lightblue", high = "red", limits = c(0, 6000),
@@ -422,17 +422,17 @@ Overplotting can also occur when the data is *discrete* on one or both axes, as 
 
 ```{r FIG-SCATTER-OVERPLOT-JITTER, fig.show="hold", fig.cap="Data with a discrete x variable (left); Jittered (middle); Jittered horizontally only (right)", fig.width=3.5, fig.height=3.5}
 
-# We'll use the ChickWeight data set and create a base plot called `sp1`
-sp1 <- 
+# We'll use the ChickWeight data set and create a base plot called `cw_sp` (for ChickWeight scatter plot)
+cw_sp <- 
   ggplot(Chickweight, aes(x = Time, y = weight))
 
-sp1 + 
+cw_sp + 
   geom_point()
 
-sp1 + 
+cw_sp + 
   geom_point(position = "jitter")  # Could also use geom_jitter(), which is equivalent
 
-sp1 + 
+cw_sp + 
   geom_point(position = position_jitter(width = .5, height = 0))
 ```
 
@@ -441,10 +441,10 @@ When the data has one discrete axis and one continuous axis, it might make sense
 When we look at the `ChickWeight` data we know that we conceptually want to treat `Time` as a discrete variable. However since `Time` is taken as a numerical variable by default, ggplot doesn't know to group the data to form each boxplot box. If you don't tell ggplot how to group the data, you get a result like the graph on the right in Figure \@ref(fig:FIG-SCATTER-OVERPLOT-BOXPLOT). To tell it how to group the data, use `aes(group = ...)`. In this case, we'll group by each distinct value of `Time`:
 
 ```{r FIG-SCATTER-OVERPLOT-BOXPLOT, fig.show="hold", fig.cap="Grouping into box plots (left); What happens if you don't specify groups (right)", fig.width=3.5, fig.height=3.5}
-sp1 + 
+cw_sp + 
   geom_boxplot(aes(group = Time))
 
-sp1 + 
+cw_sp + 
   geom_boxplot() # Without groups
 ```
 
@@ -468,11 +468,11 @@ To add a linear regression line to a scatter plot, add `stat_smooth()` and tell 
 ```{r, eval=FALSE}
 library(gcookbook) # Load the gcookbook package to access the heightweight data set 
 
-# We'll use the heightweight data set and create a base plot called `sp`
-sp <- 
+# We'll use the heightweight data set and create a base plot called `hw_sp` (for heighweight scatter plot)
+hw_sp <- 
   ggplot(heightweight, aes(x = ageYear, y = heightIn))
 
-sp + 
+hw_sp + 
   geom_point() + 
   stat_smooth(method = lm)
 ```
@@ -481,12 +481,12 @@ By default, `stat_smooth()` also adds a 95% confidence region for the regression
 
 ```{r, eval=FALSE}
 # 99% confidence region
-sp + 
+hw_sp + 
   geom_point() + 
   stat_smooth(method = lm, level = 0.99)
 
 # No confidence region
-sp + 
+hw_sp + 
   geom_point() + 
   stat_smooth(method = lm, se = FALSE)
 ```
@@ -494,7 +494,7 @@ sp +
 The default color of the fit line is blue. This can be change by setting `colour`. As with any other line, the attributes `linetype` and `size` can also be set. To emphasize the line, you can make the dots less prominent by changing the `colour` of the points (Figure \@ref(fig:FIG-SCATTER-FIT-LM), bottom right):
 
 ```{r, eval=FALSE}
-sp + 
+hw_sp + 
   geom_point(colour = "grey60") +
   stat_smooth(method = lm, se = FALSE, colour = "black")
 ```
@@ -503,23 +503,23 @@ sp +
 
 library(gcookbook) # Load the gcookbook package to access the heightweight data set 
 
-# We'll use the heightweight data set and create a base plot called `sp`
-sp <- 
+# We'll use the heightweight data set and create a base plot called `hw_sp` (for heightweight scatter plot)
+hw_sp <- 
   ggplot(heightweight, aes(x = ageYear, y = heightIn))
 
-sp + 
+hw_sp + 
   geom_point() + 
   stat_smooth(method = lm)
 
-sp + 
+hw_sp + 
   geom_point() + 
   stat_smooth(method = lm, level = 0.99)
 
-sp + 
+hw_sp + 
   geom_point() + 
   stat_smooth(method = lm, se = FALSE)
 
-sp + 
+hw_sp + 
   geom_point(colour = "grey60") +
   stat_smooth(method = lm, se = FALSE, colour = "black")
 ```
@@ -529,66 +529,64 @@ sp +
 The linear regression line is not the only way of fitting a model to the data -- in fact, it's not even the default. If you add `stat_smooth()` without specifying the method, it will use a LOESS (locally weighted polynomial) curve by default, as shown in Figure \@ref(fig:FIG-SCATTER-FIT-LOESS):
 
 ```{r, eval=FALSE}
-sp + 
+hw_sp + 
   geom_point(colour = "grey60") + 
   stat_smooth()
 
 # Equivalent to:
-sp + 
+hw_sp + 
   geom_point(colour = "grey60") + 
   stat_smooth(method = loess)
 ```
 
 ```{r FIG-SCATTER-FIT-LOESS, echo=FALSE, fig.cap="A LOESS fit"}
-sp + 
+hw_sp + 
   geom_point(colour = "grey60") + 
   stat_smooth(method = loess)
 ```
 
 It may be useful to specify additional parameters for the modeling function, which in this case is `loess()`. If, for example, you wanted to use `loess(degree=1)`, you would call `stat_smooth(method=loess, method.args=list(degree=1))`. The same could be done for other modeling functions like `lm()` or `glm()`.
 
-Another common type of model fit is a logistic regression. Logistic regression isn't appropriate for `heightweight`, but it's perfect for the `biopsy` data set in the `MASS` package. In the `biopsy` data, there are nine different measured attributes of breast cancer biopsies, as well as the class of the tumor, which is either benign or malignant. To prepare the data for logistic regression, we must convert the factor `class`, with the levels `benign` and `malignant`, to a vector with numeric values of 0 and 1. We'll make a copy of the `biopsy` data frame, then store the numeric coded `class` in a column called `classn`:
+Another common type of model fit is a logistic regression. Logistic regression isn't appropriate for `heightweight`, but it's perfect for the `biopsy` data set in the `MASS` package. In the `biopsy` data, there are nine different measured attributes of breast cancer biopsies, as well as the class of the tumor, which is either benign or malignant. To prepare the data for logistic regression, we must convert the factor `class`, with the levels `benign` and `malignant`, to a vector with numeric values of 0 and 1. We'll make a copy of the `biopsy` data frame called `biopsy_mod`, then store the numeric coded `class` in a column called `classn`:
 
 ```{r}
 library(MASS) # Load the MASS package to access the biopsy data set 
 
-# Using the biopsy data set, create a new column that stores the factor `class`
-# as a numeric variable named `classn`. If `class` == "benign", set `classn` to
-# 0. If `class` == "malignant", set `classn` to 1. Save this new dataset as `b`.
+# Using the biopsy data set, create a new column that stores the factor `class` as a numeric variable named `classn`. If `class` == "benign", set `classn` to 0. If `class` == "malignant", set `classn` to 1. Save this new dataset as `biopsy_mod`.
 
-b <- 
+biopsy_mod <- 
   biopsy %>% 
   dplyr::mutate(
     classn = ifelse(class == "benign", 0, ifelse(class == "malignant", 1, NA))
     )
 
-b
+biopsy_mod
 ```
 
-Although there are many attributes we could examine, for this example we'll just look at the relationship of `V1` (clump thickness) and the `class` of the tumor. Because there is a large degree of overplotting, we'll jitter the points and make them semitransparent (`alpha=0.4`), hollow (`shape=21`), and slightly smaller (`size=1.5`). Then we'll add a fitted logistic regression line (Figure \@ref(fig:FIG-SCATTER-FIT-LOGISTIC)) by telling `stat_smooth()` to use the `glm()` function with `family=binomial`:
+Although there are many attributes we could examine, for this example we'll just look at the relationship of `V1` (clump thickness) and the `class` of the tumor. Because there is a large degree of overplotting, we'll jitter the points and make them semitransparent (`alpha = 0.4`), hollow (`shape = 21`), and slightly smaller (`size=1.5`). Then we'll add a fitted logistic regression line (Figure \@ref(fig:FIG-SCATTER-FIT-LOGISTIC)) by telling `stat_smooth()` to use the `glm()` function with `family = binomial`:
 
 ```{r FIG-SCATTER-FIT-LOGISTIC, fig.cap="A logistic model"}
-b %>% 
+biopsy_mod %>% 
   ggplot(aes(x = V1, y = classn)) +
   geom_point(
     position = position_jitter(width = 0.3, height = 0.06), 
     alpha = 0.4,
     shape = 21, 
     size = 1.5
-    ) +
-    stat_smooth(method = glm, method.args = list(family = binomial))
+  ) +
+  stat_smooth(method = glm, method.args = list(family = binomial))
 ```
 
-If your scatter plot has points grouped by a factor, and that factor is mapped to an aesthetic such as `colour` or `shape`, one fit line will be drawn for each factor level. First we'll make the base plot object `sps`, then we'll add the LOESS lines to it. We'll also make the points less prominent by making them semitransparent, using `alpha=.4` (Figure \@ref(fig:FIG-SCATTER-FIT-GROUP)):
+If your scatter plot has points grouped by a factor, and that factor is mapped to an aesthetic such as `colour` or `shape`, one fit line will be drawn for each factor level. First we'll make the base plot object `hw_sp`, then we'll add the LOESS lines to it. We'll also make the points less prominent by making them semitransparent, using `alpha=.4` (Figure \@ref(fig:FIG-SCATTER-FIT-GROUP)):
 
 ```{r, eval=FALSE}
-sps <- 
+hw_sp <- 
   heightweight %>% 
   ggplot(aes(x = ageYear, y = heightIn, colour = sex)) +
   geom_point() +
   scale_colour_brewer(palette = "Set1")
 
-sps + 
+hw_sp + 
   geom_smooth()
 ```
 
@@ -597,22 +595,22 @@ Notice that the blue line, for males, doesn't run all the way to the right side 
 If you want the lines to extrapolate from the data, as shown in the right-hand image of Figure \@ref(fig:FIG-SCATTER-FIT-GROUP), you must use a model method that allows extrapolation, like `lm()`, and pass `stat_smooth()` the option `fullrange=TRUE`:
 
 ```{r, eval=FALSE}
-sps + 
+hw_sp + 
   geom_smooth(method = lm, se = FALSE, fullrange = TRUE)
 ```
 
 ```{r FIG-SCATTER-FIT-GROUP, fig.show="hold", fig.cap="LOESS fit lines for each group (left); Extrapolated linear fit lines (right)", fig.width=3.5, fig.height=3.5}
 
-sps <- 
+hw_sp <- 
   heightweight %>% 
   ggplot(aes(x = ageYear, y = heightIn, colour = sex)) +
   geom_point() +
   scale_colour_brewer(palette = "Set1")
 
-sps + 
+hw_sp + 
   geom_smooth()
 
-sps + 
+hw_sp + 
   geom_smooth(method = lm, se = FALSE, fullrange = TRUE)
 ```
 
@@ -653,11 +651,12 @@ predicted
 We can now plot the data points along with the values predicted from the model (as you'll see in Figure \@ref(fig:FIG-SCATTER-FIT-MODEL)):
 
 ```{r eval=FALSE}
-sp <- 
+# Create a base plot called `hw_sp` (for heightweight scatter plot)
+hw_sp <- 
   ggplot(heightweight, aes(x = ageYear, y = heightIn)) +
   geom_point(colour = "grey40")
 
-sp + 
+hw_sp + 
   geom_line(data = predicted, size = 1)
 ```
 
@@ -682,7 +681,7 @@ predictvals <- function(model, xvar, yvar, xrange = NULL, samples = 100, ...) {
     else if (any(class(model) %in% "loess"))
       xrange <- range(model$x)
   }
-
+  
   newdata <- data.frame(x = seq(xrange[1], xrange[2], length.out = samples))
   names(newdata) <- xvar
   newdata[[yvar]] <- predict(model, newdata = newdata, ...)
@@ -703,7 +702,7 @@ Then we can call `predictvals()` on each model, and pass the resulting data fram
 lm_predicted    <- predictvals(modlinear, "ageYear", "heightIn")
 loess_predicted <- predictvals(modloess, "ageYear", "heightIn")
 
-sp + 
+hw_sp + 
   geom_line(data = lm_predicted, colour = "red", size = .8) +
   geom_line(data = loess_predicted, colour = "blue", size = .8)
 ```
@@ -711,46 +710,44 @@ sp +
 ```{r FIG-SCATTER-FIT-MODEL, fig.show="hold", fig.cap="A quadratic prediction line from an lm object (left); Prediction lines from linear (in red) and LOESS (in blue) models (right)", fig.width=3.5, fig.height=3.5}
 
 # From first block above
-sp <- 
+hw_sp <- 
   ggplot(heightweight, aes(x = ageYear, y = heightIn)) +
   geom_point(colour = "grey40")
 
-sp + 
+hw_sp + 
   geom_line(data = predicted, size = 1)
 
 # From second block above
 lm_predicted    <- predictvals(modlinear, "ageYear", "heightIn")
 loess_predicted <- predictvals(modloess, "ageYear", "heightIn")
 
-sp + 
+hw_sp + 
   geom_line(data = lm_predicted, colour = "red", size = .8) +
   geom_line(data = loess_predicted, colour = "blue", size = .8)
 ```
 
-For `glm` models use a nonlinear link function, you need to specify `type="response"` to the `predictvals()` function. This is because the default behavior of `glm` is to return predicted values in the scale of the linear predictors, instead of in the scale of the response (*y*) variable.
+For `glm` models use a nonlinear link function, you need to specify `type = "response"` to the `predictvals()` function. This is because the default behavior of `glm` is to return predicted values in the scale of the linear predictors, instead of in the scale of the response (*y*) variable.
 
 To illustrate this, we'll use the `biopsy` data set from the `MASS` package. As we did in Recipe \@ref(RECIPE-SCATTER-FITLINES), we'll use `V1` to predict `class`. Since logistic regressions require numeric values from 0 to 1, we need to convert the factor `class` to 0s and 1s:
 
 ```{r}
 library(MASS) # Load the MASS package to access the biopsy data set 
 
-# Using the biopsy data set, create a new column that stores the factor `class`
-# as a numeric variable named `classn`. If `class` == "benign", set `classn` to
-# 0. If `class` == "malignant", set `classn` to 1. Save this new dataset as `b`.
+# Using the biopsy data set, create a new column that stores the factor `class` as a numeric variable named `classn`. If `class` == "benign", set `classn` to 0. If `class` == "malignant", set `classn` to 1. Save this new dataset as `biopsy_mod`.
 
-b <- 
+biopsy_mod <- 
   biopsy %>% 
   dplyr::mutate(
     classn = ifelse(class == "benign", 0, ifelse(class == "malignant", 1, NA))
     )
 
-b
+biopsy_mod
 ```
 
 Next, we'll perform the logistic regression:
 
 ```{r}
-fitlogistic <- glm(classn ~ V1, b, family = binomial)
+fitlogistic <- glm(classn ~ V1, biopsy_mod, family = binomial)
 ```
 
 Finally, we'll make the graph with jittered points and the `fitlogistic` line. We'll make the line in a shade of blue by specifying a color in RGB values, and slightly thicker, with `size=1` (Figure \@ref(fig:FIG-SCATTER-FIT-MODEL-LOGISTIC)):
@@ -759,13 +756,13 @@ Finally, we'll make the graph with jittered points and the `fitlogistic` line. W
 # Get predicted values
 glm_predicted <- predictvals(fitlogistic, "V1", "classn", type = "response")
 
-ggplot(b, aes(x = V1, y = classn)) +
+ggplot(biopsy_mod, aes(x = V1, y = classn)) +
   geom_point(
     position = position_jitter(width = .3, height = .08), 
     alpha = 0.4,
     shape = 21, 
     size = 1.5
-    ) +
+  ) +
   geom_line(data = glm_predicted, colour = "#1177FF", size = 1)
 ```
 
@@ -779,23 +776,17 @@ You have already created a fitted regression model object for a data set, and yo
 
 ### Solution
 
-Use the `predictvals()` function from the previous recipe along with `dlply()` and `ldply()` from the `plyr` package.
+Use the `predictvals()` function from the previous recipe (\@ref(RECIPE-SCATTER-FITLINES-MODEL)) along with functions from the `dplyr` package, including `group_by()` and `do()`.
 
-With the `heightweight` data set, we'll make a linear model for each of the levels of `sex`, and put those model objects in a list. The model building is done with a function, `make_model()`, defined below. If you pass `make_model()` a data frame, the function will return an lm object. The model can be customized for your data.
+With the `heightweight` data set, we'll make a linear model for each of the levels of `sex`. The model building is done for each subset of the data frame by specifying the model computation we want within the `do()` function. 
 
-```{r}
-make_model <- function(data) {
-    lm(heightIn ~ ageYear, data)
-}
-```
-
-With this function, we can use the `dlply()` function to build a model for each subset of data. This will split the data frame into subsets by the grouping variable `sex`, and apply `make_model()` to each subset. In this case, the `heightweight` data will be split into two data frames, one for males and one for females, and `make_model()` will be run on each subset. With `dlply()`, the models are put into a list and the list is returned:
+The following code splits the `heightweight` data frame into two data frames, by the grouping variable `sex`. This creates a data frame subset for males and a data frame subset for females. We then apply `lm(heightIn ~ ageYear, .)` to each subset. The `.` in `lm(heightIn ~ ageYear)` represents the data frame we are piping in from the previous line -- in this case, the two data frame subsets we have just created. Finally, this code returns a data frame which contains a column, `model`, which is a list of the model outputs corresponding to each level of the grouping variable `sex`, female and male. 
 
 ```{r}
 library(gcookbook) # Load the gcookbook package to access the heightweight data set 
 library(dplyr)
 
-# Create a lm for each value of sex; this returns a data frame
+# Create an lm model object for each value of sex; this returns a data frame
 models <- 
   heightweight %>%
   group_by(sex) %>%
@@ -809,7 +800,7 @@ models
 models$model
 ```
 
-Now that we have the list of model objects, we can run the `predictvals()` defined in \@ref(RECIPE-SCATTER-FITLINES-MODEL) to get predicted values from each model, using the `ldply()` function:
+Now that we have the list of model objects, we can run the `predictvals()` as defined in \@ref(RECIPE-SCATTER-FITLINES-MODEL) to get the predicted values from each model:
 
 ```{r}
 predvals <- 
