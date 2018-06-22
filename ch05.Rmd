@@ -424,7 +424,7 @@ Overplotting can also occur when the data is *discrete* on one or both axes, as 
 
 # We'll use the ChickWeight data set and create a base plot called `cw_sp` (for ChickWeight scatter plot)
 cw_sp <- 
-  ggplot(Chickweight, aes(x = Time, y = weight))
+  ggplot(ChickWeight, aes(x = Time, y = weight))
 
 cw_sp + 
   geom_point()
