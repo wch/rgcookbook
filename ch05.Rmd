@@ -545,7 +545,7 @@ hw_sp +
   stat_smooth(method = loess)
 ```
 
-It may be useful to specify additional parameters for the modeling function, which in this case is `loess()`. If, for example, you wanted to use `loess(degree=1)`, you would call `stat_smooth(method=loess, method.args=list(degree=1))`. The same could be done for other modeling functions like `lm()` or `glm()`.
+It may be useful to specify additional parameters for the modeling function, which in this case is `loess()`. If, for example, you wanted to use `loess(degree = 1)`, you would call `stat_smooth(method = loess, method.args = list(degree = 1))`. The same could be done for other modeling functions like `lm()` or `glm()`.
 
 Another common type of model fit is a logistic regression. Logistic regression isn't appropriate for `heightweight`, but it's perfect for the `biopsy` data set in the `MASS` package. In the `biopsy` data, there are nine different measured attributes of breast cancer biopsies, as well as the class of the tumor, which is either benign or malignant. To prepare the data for logistic regression, we must convert the factor `class`, with the levels `benign` and `malignant`, to a vector with numeric values of 0 and 1. We'll make a copy of the `biopsy` data frame called `biopsy_mod`, then store the numeric coded `class` in a column called `classn`:
 
@@ -563,7 +563,7 @@ biopsy_mod <-
 biopsy_mod
 ```
 
-Although there are many attributes we could examine, for this example we'll just look at the relationship of `V1` (clump thickness) and the `class` of the tumor. Because there is a large degree of overplotting, we'll jitter the points and make them semitransparent (`alpha = 0.4`), hollow (`shape = 21`), and slightly smaller (`size=1.5`). Then we'll add a fitted logistic regression line (Figure \@ref(fig:FIG-SCATTER-FIT-LOGISTIC)) by telling `stat_smooth()` to use the `glm()` function with `family = binomial`:
+Although there are many attributes we could examine, for this example we'll just look at the relationship of `V1` (clump thickness) and the `class` of the tumor. Because there is a large degree of overplotting, we'll jitter the points and make them semitransparent (`alpha = 0.4`), hollow (`shape = 21`), and slightly smaller (`size = 1.5`). Then we'll add a fitted logistic regression line (Figure \@ref(fig:FIG-SCATTER-FIT-LOGISTIC)) by telling `stat_smooth()` to use the `glm()` function with `family = binomial`:
 
 ```{r FIG-SCATTER-FIT-LOGISTIC, fig.cap="A logistic model"}
 biopsy_mod %>% 
@@ -577,14 +577,14 @@ biopsy_mod %>%
   stat_smooth(method = glm, method.args = list(family = binomial))
 ```
 
-If your scatter plot has points grouped by a factor, and that factor is mapped to an aesthetic such as `colour` or `shape`, one fit line will be drawn for each factor level. First we'll make the base plot object `hw_sp`, then we'll add the LOESS lines to it. We'll also make the points less prominent by making them semitransparent, using `alpha=.4` (Figure \@ref(fig:FIG-SCATTER-FIT-GROUP)):
+If your scatter plot has points grouped by a factor, and that factor is mapped to an aesthetic such as `colour` or `shape`, one fit line will be drawn for each factor level. First we'll make the base plot object `hw_sp`, then we'll add the LOESS lines to it. We'll also make the points less prominent by making them semitransparent, using `alpha = .4` (Figure \@ref(fig:FIG-SCATTER-FIT-GROUP)):
 
 ```{r, eval=FALSE}
 hw_sp <- 
   heightweight %>% 
   ggplot(aes(x = ageYear, y = heightIn, colour = sex)) +
-  geom_point() +
-  scale_colour_brewer(palette = "Set1")
+    geom_point() +
+    scale_colour_brewer(palette = "Set1")
 
 hw_sp + 
   geom_smooth()
@@ -592,7 +592,7 @@ hw_sp +
 
 Notice that the blue line, for males, doesn't run all the way to the right side of the graph. There are two reasons for this. The first is that by default, `stat_smooth()` limits the prediction to within the range of the predictor data on the x-axis. The second is that even if it extrapolates, the `loess()` function only offers prediction within the *x* range of the data.
 
-If you want the lines to extrapolate from the data, as shown in the right-hand image of Figure \@ref(fig:FIG-SCATTER-FIT-GROUP), you must use a model method that allows extrapolation, like `lm()`, and pass `stat_smooth()` the option `fullrange=TRUE`:
+If you want the lines to extrapolate from the data, as shown in the right-hand image of Figure \@ref(fig:FIG-SCATTER-FIT-GROUP), you must use a model method that allows extrapolation, like `lm()`, and pass `stat_smooth()` the option `fullrange = TRUE`:
 
 ```{r, eval=FALSE}
 hw_sp + 
@@ -604,8 +604,8 @@ hw_sp +
 hw_sp <- 
   heightweight %>% 
   ggplot(aes(x = ageYear, y = heightIn, colour = sex)) +
-  geom_point() +
-  scale_colour_brewer(palette = "Set1")
+    geom_point() +
+    scale_colour_brewer(palette = "Set1")
 
 hw_sp + 
   geom_smooth()
@@ -654,7 +654,7 @@ We can now plot the data points along with the values predicted from the model (
 # Create a base plot called `hw_sp` (for heightweight scatter plot)
 hw_sp <- 
   ggplot(heightweight, aes(x = ageYear, y = heightIn)) +
-  geom_point(colour = "grey40")
+    geom_point(colour = "grey40")
 
 hw_sp + 
   geom_line(data = predicted, size = 1)
@@ -712,7 +712,7 @@ hw_sp +
 # From first block above
 hw_sp <- 
   ggplot(heightweight, aes(x = ageYear, y = heightIn)) +
-  geom_point(colour = "grey40")
+    geom_point(colour = "grey40")
 
 hw_sp + 
   geom_line(data = predicted, size = 1)
@@ -750,7 +750,7 @@ Next, we'll perform the logistic regression:
 fitlogistic <- glm(classn ~ V1, biopsy_mod, family = binomial)
 ```
 
-Finally, we'll make the graph with jittered points and the `fitlogistic` line. We'll make the line in a shade of blue by specifying a color in RGB values, and slightly thicker, with `size=1` (Figure \@ref(fig:FIG-SCATTER-FIT-MODEL-LOGISTIC)):
+Finally, we'll make the graph with jittered points and the `fitlogistic` line. We'll make the line in a shade of blue by specifying a color in RGB values, and slightly thicker, with `size = 1` (Figure \@ref(fig:FIG-SCATTER-FIT-MODEL-LOGISTIC)):
 
 ```{r FIG-SCATTER-FIT-MODEL-LOGISTIC, fig.cap="A fitted logistic model"}
 # Get predicted values
@@ -844,7 +844,7 @@ predvals <-
     xvar = "ageYear", 
     yvar = "heightIn", 
     xrange = range(heightweight$ageYear))
-    )
+  )
 ```
 
 Then we can plot it, the same as we did before:
@@ -892,13 +892,12 @@ hw_sp +
   annotate("text", x = 16.5, y = 52, label = "r^2=0.42")
 ```
 
-Instead of using a plain text string, it's also possible to enter formulas using R's math expression syntax, by using `parse=TRUE`:
+Instead of using a plain text string, it's also possible to enter formulas using R's math expression syntax, by using `parse = TRUE`:
 
 ```{r eval=FALSE}
 hw_sp + 
   annotate("text", x = 16.5, y = 52, label = "r^2 == 0.42", parse = TRUE)
 ```
-
 
 ```{r FIG-SCATTER-FIT-MODEL-TEXT, echo=FALSE, fig.show="hold", fig.cap="Plain text (left); Math expression (right)", fig.width=3.5, fig.height=3.5}
 pred <- predictvals(model, "ageYear", "heightIn")
@@ -948,7 +947,7 @@ eqn
 parse(text = eqn)
 ```
 
-Now that we have the expression string, we can add it to the plot. In this example we'll put the text in the bottom-right corner, by setting `x=Inf` and `y=-Inf` and using horizontal and vertical adjustments so that the text all fits inside the plotting area (Figure \@ref(fig:FIG-SCATTER-FIT-MODEL-TEXT-AUTO)):
+Now that we have the expression string, we can add it to the plot. In this example we'll put the text in the bottom-right corner, by setting `x = Inf` and `y = -Inf` and using horizontal and vertical adjustments so that the text all fits inside the plotting area (Figure \@ref(fig:FIG-SCATTER-FIT-MODEL-TEXT-AUTO)):
 
 ```{r FIG-SCATTER-FIT-MODEL-TEXT-AUTO, fig.cap="Scatter plot with automatically generated expression"}
 hw_sp + 
@@ -1075,7 +1074,7 @@ countries_sp +
 
 The automatic method for placing annotations using `geom_text()` centers each annotation on the *x* and *y* coordinates. You'll probably want to shift the text vertically, horizontally, or both.
 
-Setting `vjust=0` will make the baseline of the text on the same level as the point (Figure \@ref(fig:FIG-SCATTER-LABEL-VJUST), left), and setting vjust=1 will make the top of the text level with the point. This usually isn't enough, though -- you can increase or decrease `vjust` to shift the labels higher or lower, or you can add or subtract a bit to or from the y mapping to get the same effect (Figure \@ref(fig:FIG-SCATTER-LABEL-VJUST), right):
+Setting `vjust = 0` will make the baseline of the text on the same level as the point (Figure \@ref(fig:FIG-SCATTER-LABEL-VJUST), left), and setting `vjust = 1` will make the top of the text level with the point. This usually isn't enough, though -- you can increase or decrease `vjust` to shift the labels higher or lower, or you can add or subtract a bit to or from the y mapping to get the same effect (Figure \@ref(fig:FIG-SCATTER-LABEL-VJUST), right):
 
 ```{r FIG-SCATTER-LABEL-VJUST, fig.show="hold", fig.cap="A scatter plot with vjust=0 (left); With a little extra added to y (right)", fig.width=4.5, fig.height=4.5}
 countries_sp + 
@@ -1086,7 +1085,7 @@ countries_sp +
   geom_text(aes(y = infmortality + .1, label = Name), size = 3)
 ```
 
-It often makes sense to right- or left-justify the labels relative to the points. To left-justify, set `hjust=0` (Figure \@ref(fig:FIG-SCATTER-LABEL-HJUST), left), and to right-justify, set `hjust=1`. As was the case with `vjust`, the labels will still slightly overlap with the points. This time, though, it's not a good idea to try to fix it by increasing or decreasing `hjust`. Doing so will shift the labels a distance proportional to the length of the label, making longer labels move further than shorter ones. It's better to just set hjust to 0 or 1, and then add or subtract a bit to or from `x` (Figure \@ref(fig:FIG-SCATTER-LABEL-HJUST), right):
+It often makes sense to right- or left-justify the labels relative to the points. To left-justify, set `hjust = 0` (Figure \@ref(fig:FIG-SCATTER-LABEL-HJUST), left), and to right-justify, set `hjust = 1`. As was the case with `vjust`, the labels will still slightly overlap with the points. This time, though, it's not a good idea to try to fix it by increasing or decreasing `hjust`. Doing so will shift the labels a distance proportional to the length of the label, making longer labels move further than shorter ones. It's better to just set hjust to 0 or 1, and then add or subtract a bit to or from `x` (Figure \@ref(fig:FIG-SCATTER-LABEL-HJUST), right):
 
 ```{r FIG-SCATTER-LABEL-HJUST, fig.show="hold", fig.cap="A scatter plot with hjust=0 (left); With a little extra added to x (right)", fig.width=4.5, fig.height=4.5}
 countries_sp + 
@@ -1225,7 +1224,7 @@ hec_sp +
   geom_point(aes(y = as.numeric(as.factor(Hair)) - sqrt(count)/34), colour = "red", size = 1) 
 ```
 
-In this example we've used a few tricks to add the text labels under the circles. First, we used `vjust=1.3` to justify the top of text slightly below the *y* coordinate. Next, we wanted to set the *y* coordinate so that it is at the bottom of each circle. This requires a little wrangling and arithmetic: we need to first convert the levels of `Hair` and `Eye` into numeric values, which involves converting these variables from being a character vector to being a factor variable, and then converting them again into a numeric variable. We then take the *numeric* value of `Hair` and subtract a small value from it, where the value depends in some way on count. This actually requires taking the square root of count, since the radius has a linear relationship with the square root of `count`. The number that this value is divided by (34 in this case) is found by trial and error; it depends on the particular data values, radius, text size, and output image size.
+In this example we've used a few tricks to add the text labels under the circles. First, we used `vjust = 1.3` to justify the top of text slightly below the *y* coordinate. Next, we wanted to set the *y* coordinate so that it is at the bottom of each circle. This requires a little wrangling and arithmetic: we need to first convert the levels of `Hair` and `Eye` into numeric values, which involves converting these variables from being a character vector to being a factor variable, and then converting them again into a numeric variable. We then take the *numeric* value of `Hair` and subtract a small value from it, where the value depends in some way on count. This actually requires taking the square root of count, since the radius has a linear relationship with the square root of `count`. The number that this value is divided by (34 in this case) is found by trial and error; it depends on the particular data values, radius, text size, and output image size.
 
 To help find the correct *y* offset, we can add guide points in red and adjusted the value until they lined up with the bottom of each circle. Once we have the correct value, we can place the text and remove the points.
 
@@ -1341,7 +1340,7 @@ panel.lm <- function (x, y, col = par("col"), bg = NA, pch = par("pch"),
 
 This time the default line color is black instead of red, though you can change it here (and with `panel.smooth`) by setting `col.smooth` when you call `pairs()`.
 
-We'll also use small points in the visualization, so that we can distinguish them a bit better (Figure \@ref(fig:FIG-SCATTER-SPLOM-PANELS2)). This is done by setting `pch="."`:
+We'll also use small points in the visualization, so that we can distinguish them a bit better (Figure \@ref(fig:FIG-SCATTER-SPLOM-PANELS2)). This is done by setting `pch = "."`:
 
 ```{r FIG-SCATTER-SPLOM-PANELS2, fig.cap="Scatter plot matrix with smaller points and linear fit lines", fig.width=7, fig.height=7}
 c2009 %>% 
