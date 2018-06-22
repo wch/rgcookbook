@@ -616,8 +616,6 @@ hw_sp +
 
 In this example with the `heightweight` data set, the default settings for `stat_smooth()` (with `loess` and no extrapolation) may make more sense than the extrapolated linear predictions, because humans don't grow linearly and we don't grow forever.
 
-> TODO: Explain `geom_smooth` vs. `stat_smooth`.
-
 
 Adding Fitted Lines from an Existing Model {#RECIPE-SCATTER-FITLINES-MODEL}
 ------------------------------------------
@@ -1124,8 +1122,6 @@ cdat %>%
   dplyr::select(Name, plotname)
 ```
 
-TODO: Print first 2 and last 3 rows of data. via chunk option?
-
 Now we can make the plot (Figure \@ref(fig:FIG-SCATTER-LABEL-SELECT)). This time, we'll also expand the *x* range so that the text will fit:
 
 ```{r FIG-SCATTER-LABEL-SELECT, fig.cap="Scatter plot with selected labels and expanded x range"}
@@ -1154,8 +1150,6 @@ Creating a Balloon Plot {#RECIPE-SCATTER-BALLOON}
 You want to make a balloon plot, where the area of the dots is proportional to their numerical value.
 
 ### Solution
-
-TODO: Check if the content from size/color recipe should be moved here.
 
 Use `geom_point()` with `scale_size_area()`. For this example, we'll filter the data set `countries` to only include data from the year 2009, for certain countries we have specified in `countrylist`:
 
@@ -1271,16 +1265,6 @@ c2009 %>%
 
 ### Discussion
 
-We didn't use ggplot here because it doesn't make scatter plot matrices (at least, not well).
-
-> TODO: look more into ggally?
-> Instead, you may want to use the `ggpairs()` function from the `GGally` package. 
-> Not sure why this doesn't work: 
-> c2009 %>% 
->  as.tibble() %>% 
->  select(-Name) %>% 
->  GGally::ggpairs()
-
 You can also use customized functions for the panels. To show the correlation coefficient of each pair of variables instead of a scatter plot, we'll define the function `panel.cor`. This will also show higher correlations in a larger font. Don't worry about the details for now -- just paste this code into your R session or script:
 
 ```{r}
@@ -1359,4 +1343,6 @@ The size of the points can also be controlled using the `cex` parameter. The def
 
 To create a correlation matrix, see Recipe \@ref(RECIPE-MISCGRAPH-CORRMATRIX).
 
-The `ggpairs()` function from the `GGally` package can also make scatter plot matrices.
+It is worth noting that we didn't use ggplot here because it doesn't make scatter plot matrices (at least, not well).  
+
+Other packages like `GGally` have been developed as extensions to ggplot to fill in this gap. The `ggpairs()` function from the `GGally` package makes scatter plot matrices, for example.
