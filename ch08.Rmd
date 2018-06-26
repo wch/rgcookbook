@@ -117,7 +117,7 @@ With the box plots in these examples, if you restrict the *y* range so that some
 
 With a coordinate transform, the data is not clipped; in essence, it zooms in or out to the specified range. Figure \@ref(fig:FIG-AXES-RANGE-SCALE-COORD) shows the difference between the two methods:
 
-```{r FIG-AXES-RANGE-SCALE-COORD, fig.show="hold", fig.cap='Smaller y range using a scale (data has been dropped, so the box plots have changed shape; left); "Zooming in" using a coordinate transform' (right)}
+```{r FIG-AXES-RANGE-SCALE-COORD, fig.show="hold", fig.cap='Smaller y range using a scale (data has been dropped, so the box plots have changed shape; left); "Zooming in" using a coordinate transform (right)'}
 pg_plot + 
   scale_y_continuous(limits = c(5, 6.5))  # Same as using ylim()
 
