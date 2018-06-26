@@ -79,7 +79,7 @@ p +
     x = 4.5, y = 66,
     label = "Group 2", 
     alpha = .1
-    )           
+  )           
 ```
 
 In Figure \@ref(fig:FIG-ANNOTATE-TEXT-GEOM-OVERPLOT), each text label is 90% transparent, making it clear which one is overplotted. The overplotting can lead to output with aliased (jagged) edges when outputting to a bitmap.
@@ -310,7 +310,7 @@ p +
     "rect", 
     xmin = 1950, xmax = 1980, ymin = -1, ymax = 1, 
     alpha = .1,fill = "blue"
-    )
+  )
 ```
 
 ### Discussion
@@ -386,14 +386,14 @@ ce_mod <-
 
 # With a bar graph
 ggplot(ce_mod, aes(x = Date, y = Weight)) +
-    geom_col(fill = "white", colour = "black") +
-    geom_errorbar(aes(ymin = Weight - se, ymax = Weight + se), width = .2)
+  geom_col(fill = "white", colour = "black") +
+  geom_errorbar(aes(ymin = Weight - se, ymax = Weight + se), width = .2)
 
 # With a line graph
 ggplot(ce_mod, aes(x = Date, y = Weight)) +
-    geom_line(aes(group = 1)) +
-    geom_point(size = 4) +
-    geom_errorbar(aes(ymin = Weight - se, ymax = Weight + se), width = .2)
+  geom_line(aes(group = 1)) +
+  geom_point(size = 4) +
+  geom_errorbar(aes(ymin = Weight - se, ymax = Weight + se), width = .2)
 ```
 
 ### Discussion
@@ -422,21 +422,21 @@ The default dodge width for `geom_bar()` is 0.9, and you'll have to tell the err
 ```{r FIG-ANNOTATE-ERRORBAR-GROUP-BAR, fig.show="hold", fig.cap="error bars on a grouped bar graph without dodging width specified (left); with dodging width specified (right)", fig.width=3.5, fig.height=3.5}
 # Bad: dodge width not specified
 ggplot(cabbage_exp, aes(x = Date, y = Weight, fill = Cultivar)) +
-    geom_col(position = "dodge") +
-    geom_errorbar(
-      aes(ymin = Weight - se, ymax = Weight + se), 
-      position = "dodge", 
-      width = .2
-    )
+  geom_col(position = "dodge") +
+  geom_errorbar(
+    aes(ymin = Weight - se, ymax = Weight + se), 
+    position = "dodge", 
+    width = .2
+  )
 
 # Good: dodge width set to same as bar width (0.9)
 ggplot(cabbage_exp, aes(x = Date, y = Weight, fill = Cultivar)) +
-    geom_col(position = "dodge") +
-    geom_errorbar(
-      aes(ymin = Weight - se, ymax = Weight + se),
-      position = position_dodge(0.9), 
-      width = .2
-    )
+  geom_col(position = "dodge") +
+  geom_errorbar(
+    aes(ymin = Weight - se, ymax = Weight + se),
+    position = position_dodge(0.9), 
+    width = .2
+  )
 ```
 
 > **Note**
@@ -451,15 +451,15 @@ Additionally, you should dodge all the geometric elements so that they will alig
 pd <- position_dodge(.3)  # Save the dodge spec because we use it repeatedly
 
 ggplot(cabbage_exp, aes(x = Date, y = Weight, colour = Cultivar, group = Cultivar)) +
-    geom_errorbar(
-      aes(ymin = Weight - se, ymax = Weight + se),
-      width = .2, 
-      size = 0.25, 
-      colour = "black", 
-      position = pd
-      ) +
-    geom_line(position = pd) +
-    geom_point(position = pd, size = 2.5)
+  geom_errorbar(
+    aes(ymin = Weight - se, ymax = Weight + se),
+    width = .2, 
+    size = 0.25, 
+    colour = "black", 
+    position = pd
+  ) +
+  geom_line(position = pd) +
+  geom_point(position = pd, size = 2.5)
 
 # Thinner error bar lines with size = 0.25, and larger points with size = 2.5
 ```
@@ -515,12 +515,12 @@ This method can be used to display information about the data in each facet, as 
 # equation, and the r^2 value.
 # These strings will be treated as R math expressions
 lm_labels <- function(dat) {
-    mod <- lm(hwy ~ displ, data = dat)
-    formula <- sprintf("italic(y) == %.2f %+.2f * italic(x)",
-                       round(coef(mod)[1], 2), round(coef(mod)[2], 2))
-    r <- cor(dat$displ, dat$hwy)
-    r2 <- sprintf("italic(R^2) == %.2f", r^2)
-    data.frame(formula = formula, r2 = r2, stringsAsFactors = FALSE)
+  mod <- lm(hwy ~ displ, data = dat)
+  formula <- sprintf("italic(y) == %.2f %+.2f * italic(x)",
+                     round(coef(mod)[1], 2), round(coef(mod)[2], 2))
+  r <- cor(dat$displ, dat$hwy)
+  r2 <- sprintf("italic(R^2) == %.2f", r^2)
+  data.frame(formula = formula, r2 = r2, stringsAsFactors = FALSE)
 }
 
 library(dplyr)
