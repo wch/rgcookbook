@@ -159,7 +159,7 @@ ggplot(birthwt, aes(x = bwt)) +
 ```{r FIG-DISTRIBUTION-MULTI-HISTOGRAM-FACET-SCALESFREE, ref.label=c("FIG-DISTRIBUTION-MULTI-HISTOGRAM-FACET-SCALESFREE-1", "FIG-DISTRIBUTION-MULTI-HISTOGRAM-FACET-SCALESFREE-2"), echo=FALSE, fig.show="hold", fig.cap='Histograms with the default fixed scales (left); With scales = "free" (right)', fig.width=3.5, fig.height=3.5}
 ```
 
-Another approach is to map the grouping variable to `fill`, as shown in Figure \@ref(fig:FIG-DISTRIBUTION-MULTI-HISTOGRAM-FILL). The grouping variable must be a factor or a character vector. In the `birthwt` data set, the desired grouping variable, `smoke`, is stored as a number, so we’ll use the `birthwt1` data set we created above, in which smoke is a factor:
+Another approach is to map the grouping variable to `fill`, as shown in Figure \@ref(fig:FIG-DISTRIBUTION-MULTI-HISTOGRAM-FILL). The grouping variable must be a factor or a character vector. In the `birthwt` data set, the desired grouping variable, `smoke`, is stored as a number, so we’ll use the `birthwt_mod` data set we created above, in which smoke is a factor:
 
 ```{r FIG-DISTRIBUTION-MULTI-HISTOGRAM-FILL, fig.cap="Multiple histograms with different fill colors"}
 # Map smoke to fill, make the bars NOT stacked, and make them semitransparent
@@ -315,7 +315,7 @@ ggplot(birthwt_mod, aes(x = bwt)) +
 One problem with the faceted graph is that the facet labels are just 0 and 1, and there's no label indicating that those values are for smoke. To change the labels, we need to change the names of the factor levels. First we'll take a look at the factor levels, then we'll assign new factor level names:
 
 ```{r FIG-DISTRIBUTION-MULTI-DENSITY-FACET-2, eval=FALSE}
-levels(birthwt1$smoke)
+levels(birthwt_mod$smoke)
 
 library(forcats) # Load the forcats package to help you work with factor variables
 
