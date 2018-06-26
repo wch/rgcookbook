@@ -18,7 +18,7 @@ knitr::opts_chunk$set(fig.width=3.5, fig.height=3.5)
 Using Colors in Plots {#CHAPTER-COLORS}
 =====================
 
-In ggplot2's implementation of the grammar of graphics, color is an aesthetic, just like *x* position, *y* position, and size. If color is just another aesthetic, why does it deserve its own chapter? The reason is that color is a more complicated aesthetic than the others. Instead of simply moving geoms left and right or making them larger and smaller, when you use color, there are many degrees of freedom and many more choices to make. What palette should you use for discrete values? Should you use a gradient with several different hues? How do you choose colors that can be interpreted accurately by those with color-vision deficiencies? In this chapter, I'll address these issues.
+In ggplot2's implementation of the grammar of graphics, `color` is an aesthetic, just like *x* position, *y* position, and `size`. If color is just another aesthetic, why does it deserve its own chapter? The reason is that color is a more complicated aesthetic than the others. Instead of simply moving geoms left and right or making them larger and smaller, when you use color, there are many degrees of freedom and many more choices to make. What palette should you use for discrete values? Should you use a gradient with several different hues? How do you choose colors that can be interpreted accurately by those with color-vision deficiencies? In this chapter, I'll address these issues.
 
 
 Setting the Colors of Objects {#RECIPE-COLORS-SETTING}
@@ -33,10 +33,13 @@ You want to set the color of some geoms in your graph.
 In the call to the geom, set the values of `colour` or `fill` (Figure \@ref(fig:FIG-COLORS-SETTING)):
 
 ```{r FIG-COLORS-SETTING, fig.show="hold", fig.cap="Setting `fill` and `colour` (left); Setting `colour` for points (right)", message=FALSE}
-library(MASS) # For the data set
-ggplot(birthwt, aes(x = bwt)) + geom_histogram(fill = "red", colour = "black")
+library(MASS)  # Load the MASS package to access the birthwt data set 
 
-ggplot(mtcars, aes(x = wt, y = mpg)) + geom_point(colour = "red")
+ggplot(birthwt, aes(x = bwt)) + 
+  geom_histogram(fill = "red", colour = "black")
+
+ggplot(mtcars, aes(x = wt, y = mpg)) + 
+  geom_point(colour = "red")
 ```
 
 ### Discussion
@@ -66,28 +69,31 @@ You want to use a variable (column from a data frame) to control the color of ge
 In the call to the geom, inside of `aes()`, set the value of `colour` or `fill` to the name of one of the columns in the data (Figure \@ref(fig:FIG-COLORS-MAPPING)):
 
 ```{r eval=FALSE}
-library(gcookbook) # For the data set
+library(gcookbook)  # Load the gcookbook package to access the cabbage_exp data set 
 
 # These both have the same effect
 ggplot(cabbage_exp, aes(x = Date, y = Weight, fill = Cultivar)) +
-    geom_bar(colour = "black", position = "dodge")
+  geom_bar(colour = "black", position = "dodge")
 
 ggplot(cabbage_exp, aes(x = Date, y = Weight)) +
-    geom_bar(aes(fill = Cultivar), colour = "black", position = "dodge")
+  geom_bar(aes(fill = Cultivar), colour = "black", position = "dodge")
 
 # These both have the same effect
-ggplot(mtcars, aes(x = wt, y = mpg, colour = cyl)) + geom_point()
+ggplot(mtcars, aes(x = wt, y = mpg, colour = cyl)) + 
+  geom_point()
 
-ggplot(mtcars, aes(x = wt, y = mpg)) + geom_point(aes(colour = cyl))
+ggplot(mtcars, aes(x = wt, y = mpg)) + 
+  geom_point(aes(colour = cyl))
 ```
 
-```{r FIG-COLORS-MAPPING, echo=FALSE, fig.show="hold", fig.cap="Mapping a variable to `fill` (left); Mapping a variable to `colour` for points (right)"}
-library(gcookbook) # For the data set
+```{r FIG-COLORS-MAPPING, echo=FALSE, fig.show="hold", message=FALSE, fig.cap="Mapping a variable to `fill` (left); Mapping a variable to `colour` for points (right)"}
+library(gcookbook)  # Load the gcookbook package to access the cabbage_exp data set 
 
 ggplot(cabbage_exp, aes(x = Date, y = Weight, fill = Cultivar)) +
-    geom_col(colour = "black", position = "dodge")
+  geom_col(colour = "black", position = "dodge")
 
-ggplot(mtcars, aes(x = wt, y = mpg, colour = cyl)) + geom_point()
+ggplot(mtcars, aes(x = wt, y = mpg, colour = cyl)) + 
+  geom_point()
 ```
 
 When the mapping is specified in `ggplot()` it is used as the default mapping, which is inherited by all the geoms. Within a geom, the default mappings can be overridden.
@@ -104,12 +110,17 @@ In the `mtcars` example, `cyl` is numeric, so it is treated as a continuous vari
 
 ```{r FIG-COLORS-MAPPING-FACTOR, echo=FALSE, fig.show="hold", fig.cap="Mapping to colour with a continuous variable converted to a factor"}
 # Convert to factor in call to ggplot()
-ggplot(mtcars, aes(x = wt, y = mpg, colour = factor(cyl))) + geom_point()
+ggplot(mtcars, aes(x = wt, y = mpg, colour = factor(cyl))) + 
+  geom_point()
 
 # Another method: Convert to factor in the data
-m <- mtcars              # Make a copy of mtcars
-m$cyl <- factor(m$cyl)   # Convert cyl to a factor
-ggplot(m, aes(x = wt, y = mpg, colour = cyl)) + geom_point()
+library(dplyr)
+mtcars_mod <- 
+  mtcars %>% 
+  mutate(cyl = as.factor(cyl))  # Convert cyl to a factor
+
+ggplot(mtcars_mod, aes(x = wt, y = mpg, colour = cyl)) + 
+  geom_point()
 ```
 
 ### See Also
@@ -153,19 +164,22 @@ Table: (\#tab:TABLE-DISCRETE-FILL-AND-COLOR-SCALES) Discrete fill and color scal
 
 In the example here we'll use the default palette (hue), and a ColorBrewer palette (Figure \@ref(fig:FIG-COLORS-PALETTE-DISCRETE)):
 
-```{r FIG-COLORS-PALETTE-DISCRETE, fig.show="hold", fig.cap="Default palette (using hue) (left); A ColorBrewer palette (right)", fig.width=4.5}
-library(gcookbook) # For the data set
+```{r FIG-COLORS-PALETTE-DISCRETE, fig.show="hold", fig.cap="Default palette (using hue; left); A ColorBrewer palette (right)", fig.width=4.5}
+library(gcookbook)   # Load the gcookbook package to access the uspopage data set 
 
-# Base plot
-p <- ggplot(uspopage, aes(x = Year, y = Thousands, fill = AgeGroup)) + geom_area()
+# Create the base plot
+uspopage_plot <- 
+  ggplot(uspopage, aes(x = Year, y = Thousands, fill = AgeGroup)) + 
+  geom_area()
 
 # These three all have the same effect
-p
-# p + scale_fill_discrete()
-# p + scale_fill_hue()
+uspopage_plot
+# uspopage_plot + scale_fill_discrete()
+# uspopage_plot + scale_fill_hue()
 
 # ColorBrewer palette
-p + scale_fill_brewer()
+uspopage_plot + 
+  scale_fill_brewer()
 ```
 
 ### Discussion
@@ -175,39 +189,41 @@ Changing a palette is a modification of the color (or fill) scale: it involves a
 With `scale_fill_hue()`, the colors are taken from around the color wheel in the HCL (hue-chroma-lightness) color space. The default lightness value is 65 on a scale from 0–100. This is good for filled areas, but it's a bit light for points and lines. To make the colors darker for points and lines, as in Figure \@ref(fig:FIG-COLORS-PALETTE-LIGHTNESS) (right), set the value of `l` (luminance/lightness):
 
 ```{r FIG-COLORS-PALETTE-LIGHTNESS, fig.show="hold", fig.cap="Points with default lightness (left); With lightness set to 45 (right)", fig.width=4.5}
-# Basic scatter plot
-h <- ggplot(heightweight, aes(x = ageYear, y = heightIn, colour = sex)) +
-    geom_point()
+# Create the base scatter plot
+hw_splot <- 
+  ggplot(heightweight, aes(x = ageYear, y = heightIn, colour = sex)) +
+  geom_point()
 
 # Default lightness = 65
-h
+hw_splot
 
 # Slightly darker
-h + scale_colour_hue(l = 45)
+hw_splot + 
+  scale_colour_hue(l = 45)
 ```
 
-
 The ColorBrewer package provides a number of palettes. You can generate a graphic showing all of them, as shown in Figure \@ref(fig:FIG-COLORS-PALETTE-BREWER):
-
 ```{r FIG-COLORS-PALETTE-BREWER, fig.cap="All the ColorBrewer palettes", fig.height=8, fig.width=8}
 library(RColorBrewer)
 display.brewer.all()
 ```
-
 The ColorBrewer palettes can be selected by name. For example, this will use the Oranges palette (Figure \@ref(fig:FIG-COLORS-PALETTE-BREWER-NAME)):
 
 ```{r FIG-COLORS-PALETTE-BREWER-NAME, fig.cap="Using a named ColorBrewer palette", fig.width=4.5}
-p + scale_fill_brewer(palette = "Oranges")
+hw_splot + 
+  scale_fill_brewer(palette = "Oranges")
 ```
 
 You can also use a palette of greys. This is useful for print when the
 output is in black and white. The default is to start at 0.2 and end at 0.8, on a scale from 0 (black) to 1 (white), but you can change the range, as shown in Figure \@ref(fig:FIG-COLORS-PALETTE-GREY).
 
 ```{r FIG-COLORS-PALETTE-GREY, fig.show="hold", fig.cap="Using the default grey palette (left); A different grey palette (right)", fig.width=4.5}
-p + scale_fill_grey()
+hw_splot + 
+  scale_fill_grey()
 
 # Reverse the direction and use a different range of greys
-p + scale_fill_grey(start = 0.7, end = 0)
+hw_splot + 
+  scale_fill_grey(start = 0.7, end = 0)
 ```
 
 ### See Also
@@ -231,16 +247,20 @@ You want to use different colors for a discrete mapped variable.
 In the example here, we'll manually define colors by specifying values with `scale_colour_manual()` (Figure \@ref(fig:FIG-COLORS-PALETTE-DISCRETE-MANUAL)). The colors can be named, or they can be specified with RGB values:
 
 ```{r FIG-COLORS-PALETTE-DISCRETE-MANUAL, fig.show="hold", fig.cap="Scatter plot with named colors (left); With slightly different RGB colors (right)", fig.width=4}
-library(gcookbook) # For the data set
+library(gcookbook)  # Load the gcookbook package to access the heightweight data set 
 
-# Base plot
-h <- ggplot(heightweight, aes(x = ageYear, y = heightIn, colour = sex)) + geom_point()
+# Create the base plot
+hw_plot <- 
+  ggplot(heightweight, aes(x = ageYear, y = heightIn, colour = sex)) + 
+  geom_point()
 
 # Using color names
-h + scale_colour_manual(values = c("red", "blue"))
+hw_plot + 
+  scale_colour_manual(values = c("red", "blue"))
 
 # Using RGB values
-h + scale_colour_manual(values = c("#CC6666", "#7777DD"))
+hw_plot + 
+  scale_colour_manual(values = c("#CC6666", "#7777DD"))
 ```
 
 For fill scales, use `scale_fill_manual()` instead.
@@ -258,7 +278,8 @@ If the variable is a character vector, not a factor, it will automatically be co
 It's possible to specify the colors in a different order by using a named vector:
 
 ```{r eval=FALSE}
-h + scale_colour_manual(values = c(m = "blue", f = "red"))
+hw_plot + 
+  scale_colour_manual(values = c(m = "blue", f = "red"))
 ```
 
 There is a large set of named colors in R, which you can see by running `color()`. Some basic color names are useful: "white", "black", "grey80", "red", "blue", "darkred", and so on. There are many other named colors, but their names are generally not very informative (I certainly have no idea what "thistle3" and "seashell" look like), so it's often easier to use numeric RGB values for specifying colors.
@@ -288,27 +309,30 @@ You want to use colors that can be distinguished by colorblind viewers.
 Use the palette defined here (`cb_palette`) with `scale_fill_manual()` (Figure \@ref(fig:FIG-COLORS-PALETTE-DISCRETE-COLORBLIND)):
 
 ```{r FIG-COLORS-PALETTE-DISCRETE-COLORBLIND, fig.show="hold", fig.cap="A plot with the colorblind-friendly palette", fig.width=4.5}
-library(gcookbook) # For the data set
+library(gcookbook)  # Load the gcookbook package to access the uspopage data set 
 
-# Base plot
-p <- ggplot(uspopage, aes(x = Year, y = Thousands, fill = AgeGroup)) + geom_area()
+# Create the base plot
+uspopage_plot <- 
+  ggplot(uspopage, aes(x = Year, y = Thousands, fill = AgeGroup)) + 
+  geom_area()
 
 # The palette with grey:
 cb_palette <- c("#999999", "#E69F00", "#56B4E9", "#009E73", "#F0E442",
                 "#0072B2", "#D55E00", "#CC79A7")
 
 # Add it to the plot
-p + scale_fill_manual(values = cb_palette)
+uspopage_plot + 
+  scale_fill_manual(values = cb_palette)
 ```
 
 A chart of the colors is shown in Figure \@ref(fig:FIG-COLORS-PALETTE-DISCRETE-COLORBLIND-CHART).
 
-```{r FIG-COLORS-PALETTE-DISCRETE-COLORBLIND-CHART, echo=FALSE, fig.cap="Colorblind palette with RGB values"}
+```{r FIG-COLORS-PALETTE-DISCRETE-COLORBLIND-CHART, echo=FALSE, fig.cap="Colorblind palette with RGB values",  fig.width=4.5}
 knitr::include_graphics("fig/colorblind_palette.png")
 ```
 In some cases it may be better to use black instead of grey. To do this, replace the `#999999` with `#000000` or `"black"`:
 
-```{r}
+```{r, eval=FALSE}
 c("#000000", "#E69F00", "#56B4E9", "#009E73", "#F0E442", "#0072B2", "#D55E00",
   "#CC79A7")
 ```
@@ -339,27 +363,34 @@ In the example here, we'll specify the colors for a continuous variable using va
 
 (ref:cap-FIG-COLORS-PALETTE-CONTINUOUS) Clockwise from top left: default colors, two-color gradient with `scale_colour_gradient()`, three-color gradient with midpoint with `scale_colour_gradient2()`, four-color gradient with `scale_colour_gradientn()`
 
-```{r FIG-COLORS-PALETTE-CONTINUOUS, fig.show="hold", fig.cap="(ref:cap-FIG-COLORS-PALETTE-CONTINUOUS)", fig.width=4}
-library(gcookbook) # For the data set
+```{r FIG-COLORS-PALETTE-CONTINUOUS, fig.show="hold", message=FALSE, fig.cap="(ref:cap-FIG-COLORS-PALETTE-CONTINUOUS)", fig.width=4}
+library(gcookbook)  # Load the gcookbook package to access the heightweight data set 
 
-# Base plot
-p <- ggplot(heightweight, aes(x = ageYear, y = heightIn, colour = weightLb)) +
-     geom_point(size = 3)
+# Create the base plot
+hw_plot <- 
+  ggplot(heightweight, aes(x = ageYear, y = heightIn, colour = weightLb)) +
+  geom_point(size = 3)
 
-p
+hw_plot
 
 # With a gradient between two colors
-p + scale_colour_gradient(low = "black", high = "white")
+hw_plot + 
+  scale_colour_gradient(low = "black", high = "white")
 
 # A gradient of n colors
-p + scale_colour_gradientn(colours = c("darkred", "orange", "yellow", "white"))
+hw_plot + 
+  scale_colour_gradientn(colours = c("darkred", "orange", "yellow", "white"))
 
 # A gradient with a white midpoint
 library(scales)
-p + scale_colour_gradient2(low = muted("red"), mid = "white", high = muted("blue"),
-    midpoint = 110)
+hw_plot + 
+  scale_colour_gradient2(
+    low = muted("red"), 
+    mid = "white", 
+    high = muted("blue"),
+    midpoint = 110
+  )
 ```
-
 
 For fill scales, use `scale_fill_xxx()` versions instead, where `xxx` is one of `gradient`, `gradient2`, or `gradientn`.
 
@@ -403,20 +434,24 @@ You want to set the color of a shaded region based on the *y* value.
 Add a column that categorizes the *y* values, then map that column to fill. In this example, we’ll first categorize the values as positive or negative:
 
 ```{r}
-library(gcookbook) # For the data set
-cb <- subset(climate, Source=="Berkeley")
-cb$valence[cb$Anomaly10y >= 0] <- "pos"
-cb$valence[cb$Anomaly10y < 0]  <- "neg"
-cb
+library(gcookbook)  # Load the gcookbook package to access the climate data set
+library(dplyr)
+
+climate_mod <- 
+  climate %>% 
+  filter(Source == "Berkeley") %>% 
+  mutate(valence = ifelse(Anomaly10y >= 0, "pos", "neg"))
+
+climate_mod
 ```
 
 Once we've categorized the values as positive or negative, we can make the plot, mapping valence to the fill color, as shown in Figure \@ref(fig:FIG-COLORS-AREA-VALUE):
 
 ```{r FIG-COLORS-AREA-VALUE, fig.cap="Mapping valence to fill color-notice the red area under the zero line around 1950", fig.width=10}
-ggplot(cb, aes(x = Year, y = Anomaly10y)) +
-    geom_area(aes(fill = valence)) +
-    geom_line() +
-    geom_hline(yintercept = 0)
+ggplot(climate_mod, aes(x = Year, y = Anomaly10y)) +
+  geom_area(aes(fill = valence)) +
+  geom_line() +
+  geom_hline(yintercept = 0)
 ```
 
 ### Discussion
@@ -425,7 +460,7 @@ If you look closely at the figure, you'll notice that there are some stray shade
 
 ```{r}
 # approx() returns a list with x and y vectors
-interp <- approx(cb$Year, cb$Anomaly10y, n = 1000)
+interp <- approx(climate_mod$Year, climate_mod$Anomaly10y, n = 1000)
 
 # Put in a data frame and recalculate valence
 cbi <- data.frame(Year = interp$x, Anomaly10y = interp$y)
@@ -439,9 +474,9 @@ Now we can plot the interpolated data (Figure \@ref(fig:FIG-COLORS-AREA-VALUE-IN
 
 ```{r FIG-COLORS-AREA-VALUE-INTERPOLATED, fig.cap="Shaded regions with interpolated data", fig.width=10}
 ggplot(cbi, aes(x = Year, y = Anomaly10y)) +
-    geom_area(aes(fill = valence), alpha = .4) +
-    geom_line() +
-    geom_hline(yintercept = 0) +
-    scale_fill_manual(values = c("#CCEEFF", "#FFDDDD"), guide = FALSE) +
-    scale_x_continuous(expand = c(0, 0))
+  geom_area(aes(fill = valence), alpha = .4) +
+  geom_line() +
+  geom_hline(yintercept = 0) +
+  scale_fill_manual(values = c("#CCEEFF", "#FFDDDD"), guide = FALSE) +
+  scale_x_continuous(expand = c(0, 0))
 ```

@@ -171,19 +171,19 @@ You want to add lines to a plot.
 For horizontal and vertical lines, use `geom_hline()` and `geom_vline()`, and for angled lines, use `geom_abline()` (Figure \@ref(fig:FIG-ANNOTATE-LINES)). For this example, we'll use the `heightweight` data set:
 
 ```{r FIG-ANNOTATE-LINES, fig.show="hold", fig.cap="horizontal and vertical lines (left); angled line (right)", fig.width=3.5, fig.height=3.5}
-library(gcookbook) # For the data set
+library(gcookbook)  # Load the gcookbook package to access the heightweight data set 
 
-p <- 
+hw_plot <- 
   ggplot(heightweight, aes(x = ageYear, y = heightIn, colour = sex)) + 
   geom_point()
 
 # Add horizontal and vertical lines
-p + 
+hw_plot + 
   geom_hline(yintercept = 60) + 
   geom_vline(xintercept = 14)
 
 # Add angled line
-p + 
+hw_plot + 
   geom_abline(intercept = 37.4, slope = 1.75)
 ```
 
@@ -203,7 +203,7 @@ hw_means <-
 
 hw_means
 
-p + 
+hw_plot + 
   geom_hline(
     data = hw_means, 
     aes(yintercept = heightIn, colour = sex), 
@@ -342,7 +342,7 @@ pg_mod <-
 Then we'll plot this data with specified colors, and hiding the legend (Figure \@ref(fig:FIG-ANNOTATE-HIGHLIGHT)):
 
 ```{r FIG-ANNOTATE-HIGHLIGHT, fig.cap="Highlighting one item"}
-ggplot(pg, aes(x = group, y = weight, fill = hl)) + 
+ggplot(pg_mod, aes(x = group, y = weight, fill = hl)) + 
   geom_boxplot() +
   scale_fill_manual(values = c("grey85", "#FFDDCC"), guide = FALSE)
 ```
@@ -490,7 +490,7 @@ Create a new data frame with the faceting variable(s), and a value to use in eac
 
 ```{r FIG-ANNOTATE-FACET, fig.show="hold", fig.cap="Top: different annotations in each facet; bottom: the same annotation in each facet", fig.width=7, fig.height=3}
 # Create the base plot
-p <- 
+mpg_plot <- 
   ggplot(mpg, aes(x = displ, y = hwy)) + 
   geom_point() + 
   facet_grid(. ~ drv)
@@ -498,11 +498,11 @@ p <-
 # A data frame with labels for each facet
 f_labels <- data.frame(drv = c("4", "f", "r"), label = c("4wd", "Front", "Rear"))
 
-p + 
+mpg_plot + 
   geom_text(x = 6, y = 40, aes(label = label), data = f_labels)
 
 # If you use annotate(), the label will appear in all facets
-p + 
+mpg_plot + 
   annotate("text", x = 6, y = 42, label = "label text")
 ```
 
@@ -532,7 +532,7 @@ labels <-
 labels
 
 # Plot with formula and R^2 values
-p + 
+mpg_plot + 
   geom_smooth(method = lm, se = FALSE) +
   geom_text(data = labels, aes(label = formula), x = 3, y = 40, parse = TRUE, hjust = 0) + 
   geom_text(x = 3, y = 35, aes(label = r2), data = labels, parse = TRUE, hjust = 0)
