@@ -170,7 +170,7 @@ ggplot(heightweight, aes(x = ageYear, y = heightIn)) +
 
 ggplot(heightweight, aes(x = ageYear, y = heightIn, shape = sex)) +
   geom_point(size = 3) +
-  scale_shape_manual(values = c(1, 4))
+  scale_shape_manual(values = c(1, 4)) 
 ```
 
 ### Discussion
@@ -354,13 +354,27 @@ If there's a high degree of overplotting, there are a number of possible solutio
 
 The scatter plot in Figure \@ref(fig:FIG-SCATTER-OVERPLOT) contains about 54,000 points. They are heavily overplotted, making it impossible to get a sense of the relative density of points in different areas of the graph:
 
-```{r FIG-SCATTER-OVERPLOT, dev="png", dpi=300, fig.cap="Overplotting, with about 54,000 points", fig.height=3}
+```{r, eval=FALSE}
 # We'll use the diamonds data set and create a base plot called `diamonds_sp`
 diamonds_sp <- 
-  ggplot(diamonds, aes(x = carat, y = price))
+  ggplot(diamonds, aes(x = carat, y = price)) 
 
 diamonds_sp + 
   geom_point()
+
+```
+
+```{r FIG-SCATTER-OVERPLOT, echo=FALSE, dev="png", dpi=300, fig.cap="Overplotting, with about 54,000 points", fig.height=3}
+# We'll use the diamonds data set and create a base plot called `diamonds_sp`
+diamonds_sp <- 
+  ggplot(diamonds, aes(x = carat, y = price)) 
+
+diamonds_sp + 
+  geom_point() +
+  theme(
+    axis.text = element_text(size = 6),
+    axis.title = element_text(size = 8)
+    ) 
 ```
 
 We can make the points semitransparent using the `alpha` aesthetic, as in Figure \@ref(fig:FIG-SCATTER-OVERPLOT-ALPHA). Here, we'll make them 90% transparent and then 99% transparent, by setting `alpha = .1` and `alpha = .01`:
@@ -387,13 +401,30 @@ The default colors are somewhat difficult to distinguish because they don't vary
 
 (ref:cap-FIG-SCATTER-OVERPLOT-BIN2D) Binning data with `stat_bin2d()` (left); With more bins, manually specified colors, and legend breaks (right)
 
-```{r FIG-SCATTER-OVERPLOT-BIN2D, fig.show="hold", fig.cap="(ref:cap-FIG-SCATTER-OVERPLOT-BIN2D)", fig.width=3.5, fig.height=3.5}
+```{r, eval=FALSE}
 diamonds_sp + 
   stat_bin2d()
 
 diamonds_sp + 
   stat_bin2d(bins = 50) +
   scale_fill_gradient(low = "lightblue", high = "red", limits = c(0, 6000))
+```
+
+```{r FIG-SCATTER-OVERPLOT-BIN2D, echo=FALSE, fig.show="hold", fig.cap="(ref:cap-FIG-SCATTER-OVERPLOT-BIN2D)", fig.width=3.5, fig.height=3.5}
+diamonds_sp + 
+  stat_bin2d() +
+  theme(
+    axis.text = element_text(size = 6),
+    axis.title = element_text(size = 8)
+  ) 
+
+diamonds_sp + 
+  stat_bin2d(bins = 50) +
+  scale_fill_gradient(low = "lightblue", high = "red", limits = c(0, 6000)) +
+  theme(
+    axis.text = element_text(size = 6),
+    axis.title = element_text(size = 8)
+  ) 
 ```
 
 Another alternative is to bin the data into hexagons instead of rectangles, with `stat_binhex()` (Figure \@ref(fig:FIG-SCATTER-OVERPLOT-BINHEX)). It works just like `stat_bin2d()`. To use `stat_binhex()`, you must first install the hexbin package, with the command `install.packages("hexbin")`:
