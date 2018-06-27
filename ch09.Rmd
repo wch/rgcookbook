@@ -33,14 +33,18 @@ Set title with `ggtitle()`, as shown in Figure \@ref(fig:FIG-APPEARANCE-TITLE):
 (ref:cap-FIG-APPEARANCE-TITLE) Left: scatter plot with a title added; right: with a `\n` for a newline
 
 ```{r FIG-APPEARANCE-TITLE, fig.show="hold", fig.cap="(ref:cap-FIG-APPEARANCE-TITLE)"}
-library(gcookbook) # For the data set
+library(gcookbook)  # Load the gcookbook package to access the heightweight data set
 
-p <- ggplot(heightweight, aes(x = ageYear, y = heightIn)) + geom_point()
+hw_plot <- 
+  ggplot(heightweight, aes(x = ageYear, y = heightIn)) + 
+  geom_point()
 
-p + ggtitle("Age and Height of Schoolchildren")
+hw_plot + 
+  ggtitle("Age and Height of Schoolchildren")
 
 # Use \n for a newline
-p + ggtitle("Age and Height\nof Schoolchildren")
+hw_plot + 
+  ggtitle("Age and Height\nof Schoolchildren")
 ```
 
 ### Discussion
@@ -50,7 +54,8 @@ p + ggtitle("Age and Height\nof Schoolchildren")
 You can add a subtitle by providing a string as the second argument of `ggtitle()`. By default it will display with slightly smaller text than the main title.
 
 ```{r FIG-APPEARANCE-TITLE-SUBTITLE, fig.show="hold", fig.cap="With a subtitle"}
-p + ggtitle("Age and Height of Schoolchildren", "11.5 to 17.5 years old")
+hw_plot + 
+  ggtitle("Age and Height of Schoolchildren", "11.5 to 17.5 years old")
 ```
 
 If you want to move the title inside the plotting area, you can use one of two methods, both of which are a little bit of a hack (Figure \@ref(fig:FIG-APPEARANCE-TITLE-INSIDE)). The first method is to use `ggtitle()` with a negative `vjust` value. The drawback of this method is that it still reserves blank space above the plotting region for the title.
@@ -59,12 +64,19 @@ The second method is to instead use a text annotation, setting its *x* position 
 
 ```{r FIG-APPEARANCE-TITLE-INSIDE, fig.show="hold", fig.cap="Title with ggtitle and a negative `vjust()` value (note the extra space above the plotting area) (left); With a text annotation at the top of the figure (right)"}
 # Move the title inside
-p + ggtitle("Age and Height of Schoolchildren") +
-    theme(plot.title = element_text(vjust = -8))
+hw_plot + 
+  ggtitle("Age and Height of Schoolchildren") +
+  theme(plot.title = element_text(vjust = -8))
 
 # Use a text annotation instead
-p + annotate("text", x = mean(range(heightweight$ageYear)), y = Inf,
-             label = "Age and Height of Schoolchildren", vjust = 1.5, size = 4.5)
+hw_plot + 
+  annotate(
+    "text", 
+    x = mean(range(heightweight$ageYear)), y = Inf,
+    label = "Age and Height of Schoolchildren", 
+    vjust = 1.5, 
+    size = 4.5
+  )
 ```
 
 
@@ -80,18 +92,32 @@ You want to change the appearance of text in a plot.
 To set the appearance of theme items such as the title, axis labels, and axis tick marks, use theme() and set the item with `element_text()`. For example, `axis.title.x` controls the appearance of the x-axis label and `plot.title` controls the appearance of the title text (Figure \@ref(fig:FIG-APPEARANCE-TEXT-APPEARANCE-THEME)):
 
 ```{r FIG-APPEARANCE-TEXT-APPEARANCE-THEME, fig.show="hold", fig.cap='Left: `axis.title.x`; right: `plot.title`'}
-library(gcookbook) # For the data set
+library(gcookbook)  # Load the gcookbook package to access the heightweight data set 
 
 # Base plot
-p <- ggplot(heightweight, aes(x = ageYear, y = heightIn)) + geom_point()
+hw_plot <- 
+  ggplot(heightweight, aes(x = ageYear, y = heightIn)) + 
+  geom_point()
 
 # Controlling appearance of theme items
-p + theme(axis.title.x = element_text(size = 16, lineheight = .9, family = "Times",
-                                    face = "bold.italic", colour = "red"))
+hw_plot + 
+  theme(axis.title.x = element_text(
+    size = 16, 
+    lineheight = .9, 
+    family = "Times",
+    face = "bold.italic", 
+    colour = "red")
+  )
 
-p + ggtitle("Age and Height\nof Schoolchildren") +
-    theme(plot.title = element_text(size = rel(1.5), lineheight = .9, family = "Times",
-                                  face = "bold.italic", colour = "red"))
+hw_plot + 
+  ggtitle("Age and Height\nof Schoolchildren") +
+  theme(plot.title = element_text(
+    size = rel(1.5), 
+    lineheight = .9, 
+    family = "Times",
+    face = "bold.italic",
+    colour = "red")
+  )
 
 # rel(1.5) means that the font will be 1.5 times the base font size of the theme.
 # For theme elements, font size is in points.
@@ -100,13 +126,22 @@ p + ggtitle("Age and Height\nof Schoolchildren") +
 To set the appearance of text geoms (text that's in the plot itself, with `geom_text()` or `annotate()`), set the text properties. For example (Figure \@ref(fig:FIG-APPEARANCE-TEXT-APPEARANCE-GEOM)):
 
 
-(ref:cap-FIG-APPEARANCE-TEXT-APPEARANCE-GEOM) Left: `annotate("text")`; right: `geom_text()`
+(ref:cap-FIG-APPEARANCE-TEXT-APPEARANCE-GEOM) `annotate("text")` (left); `geom_text()` (right)
 
 ```{r FIG-APPEARANCE-TEXT-APPEARANCE-GEOM, fig.show="hold", fig.cap="(ref:cap-FIG-APPEARANCE-TEXT-APPEARANCE-GEOM)"}
-p + annotate("text", x = 15, y = 53, label = "Some text", size = 7, family = "Times",
-        fontface = "bold.italic", colour = "red")
+hw_plot + 
+  annotate(
+    "text", 
+    x = 15, y = 53, 
+    label = "Some text", 
+    size = 7, 
+    family = "Times",
+    fontface = "bold.italic", 
+    colour = "red"
+  )
 
-p + geom_text(aes(label = weightLb), size = 4, family = "Times", colour = "red")
+hw_plot + 
+  geom_text(aes(label = weightLb), size = 4, family = "Times", colour = "red")
 
 # For text geoms, font size is in mm
 ```
@@ -192,20 +227,20 @@ Table: (\#tab:TABLE-APPEARANCE-THEME-TEXT-ELEMENTS) Theme items that control tex
 
 ```{r FIG-APPEARANCE-TEXT-APPEARANCE-PROPERTIES, fig.cap="Aligning with `hjust` and `vjust`, and spacing with `lineheight`", echo=FALSE, fig.width=8, fig.height=4}
 ggplot(data.frame()) +
-    geom_vline(xintercept=1, linetype="dashed", colour="red") +
-    annotate("text", x=1, y=1,    label="hjust=1",   hjust=1) +
-    annotate("text", x=1, y=0.75, label="hjust=0.5", hjust=0.5) +
-    annotate("text", x=1, y=0.5,  label="hjust=0",   hjust=0) +
-    geom_hline(yintercept=2, linetype="dashed", colour="red") +
-    annotate("text", x=2.5, y=2, label="vjust=1",   vjust=1) +
-    annotate("text", x=2,   y=2, label="vjust=0.5", vjust=0.5) +
-    annotate("text", x=1.5, y=2, label="vjust=0",   vjust=0) +
-    annotate("text", x=1.75, y=1, label="spacing with\nlineheight=0.9", lineheight=0.9) +
-    annotate("text", x=2.5, y=1, label="spacing with\nlineheight=1", lineheight=1) +
-    annotate("text", x=3.25, y=1, label="spacing with\nlineheight=1.2", lineheight=1.2) +
-    xlim(0.5, 3.5) + ylim(0,2.5)
+  geom_vline(xintercept = 1, linetype = "dashed", colour = "red") +
+  annotate("text", x = 1, y = 1,    label = "hjust = 1",   hjust = 1) +
+  annotate("text", x = 1, y = 0.75, label = "hjust = 0.5", hjust = 0.5) +
+  annotate("text", x = 1, y = 0.5,  label = "hjust = 0",   hjust = 0) +
+  geom_hline(yintercept = 2, linetype = "dashed", colour = "red") +
+  annotate("text", x = 2.5, y = 2, label = "vjust = 1",   vjust = 1) +
+  annotate("text", x = 2,   y = 2, label = "vjust = 0.5", vjust = 0.5) +
+  annotate("text", x = 1.5, y = 2, label = "vjust = 0",   vjust = 0) +
+  annotate("text", x = 1.75, y = 1, label = "spacing with\nlineheight = 0.9", lineheight = 0.9) +
+  annotate("text", x = 2.5, y = 1, label = "spacing with\nlineheight = 1", lineheight = 1) +
+  annotate("text", x = 3.25, y = 1, label = "spacing with\nlineheight = 1.2", lineheight = 1.2) +
+  xlim(0.5, 3.5) + 
+  ylim(0, 2.5)
 ```
-
 
 Using Themes {#RECIPE-APPEARANCE-THEME}
 ------------
@@ -221,16 +256,20 @@ To use a premade theme, add `theme_bw()` or `theme_grey()` (Figure \@ref(fig:FIG
 (ref:cap-FIG-APPEARANCE-THEME) Left: scatter plot with `theme_grey()` (the default); right: with `theme_bw()`
 
 ```{r FIG-APPEARANCE-THEME, fig.show="hold", fig.cap="(ref:cap-FIG-APPEARANCE-THEME)"}
-library(gcookbook) # For the data set
+library(gcookbook)  # Load the gcookbook package to access the heightweight data set 
 
-# Base plot
-p <- ggplot(heightweight, aes(x = ageYear, y = heightIn)) + geom_point()
+# Create the base plot
+hw_plot <- 
+  ggplot(heightweight, aes(x = ageYear, y = heightIn)) + 
+  geom_point()
 
 # Grey theme (the default)
-p + theme_grey()
+hw_plot + 
+  theme_grey()
 
 # Black-and-white theme
-p + theme_bw()
+hw_plot + 
+  theme_bw()
 ```
 
 ### Discussion
@@ -242,7 +281,8 @@ The two included themes are `theme_grey()` and `theme_bw()`, but it is also poss
 You can set the base font family and size with either of the included themes (the default base font family is Helvetica, and the default size is 12):
 
 ```{r, eval=FALSE}
-p + theme_grey(base_size = 16, base_family = "Times")
+hw_plot + 
+  theme_grey(base_size = 16, base_family = "Times")
 ```
 
 You can set the default theme for the current R session with `theme_set()`, although it's generally not a good idea to set options globally because it may affect other plots that are unrelated to your current project:
@@ -252,7 +292,7 @@ You can set the default theme for the current R session with `theme_set()`, alth
 theme_set(theme_bw())
 
 # This will use theme_bw()
-p
+hw_plot
 
 # Reset the default theme back to theme_grey()
 theme_set(theme_grey())
@@ -279,39 +319,49 @@ You want to change the appearance of theme elements.
 To modify a theme, add `theme()` with a corresponding `element_`*xx* object. These include `element_line`, `element_rect`, and `element_text`. The following code shows how to modify many of the commonly used theme properties (Figure \@ref(fig:FIG-APPEARANCE-THEME-MODIFY)):
 
 ```{r FIG-APPEARANCE-THEME-MODIFY, fig.show="hold", fig.cap="Clockwise from top left: modifying theme properties for the plotting area, the legend, the facets, and the text items"}
-library(gcookbook) # For the data set
+library(gcookbook)  # Load the gcookbook package to access the heightweight data set 
 
-# Base plot
-p <- ggplot(heightweight, aes(x = ageYear, y = heightIn, colour = sex)) + geom_point()
+# Create the base plot
+hw_plot <- 
+  ggplot(heightweight, aes(x = ageYear, y = heightIn, colour = sex)) + 
+  geom_point()
 
 # Options for the plotting area
-p + theme(
+hw_plot + 
+  theme(
     panel.grid.major = element_line(colour = "red"),
     panel.grid.minor = element_line(colour = "red", linetype = "dashed", size = 0.2),
     panel.background = element_rect(fill = "lightblue"),
-    panel.border = element_rect(colour = "blue", fill = NA, size = 2))
+    panel.border = element_rect(colour = "blue", fill = NA, size = 2)
+  )
 
 # Options for text items
-p + ggtitle("Plot title here") +
-    theme(
+hw_plot + 
+  ggtitle("Plot title here") +
+  theme(
     axis.title.x = element_text(colour = "red", size = 14),
     axis.text.x  = element_text(colour = "blue"),
     axis.title.y = element_text(colour = "red", size = 14, angle = 90),
     axis.text.y  = element_text(colour = "blue"),
-    plot.title = element_text(colour = "red", size = 20, face = "bold"))
+    plot.title = element_text(colour = "red", size = 20, face = "bold")
+  )
 
 # Options for the legend
-p + theme(
+hw_plot + 
+  theme(
     legend.background = element_rect(fill = "grey85", colour = "red", size = 1),
     legend.title = element_text(colour = "blue", face = "bold", size = 14),
     legend.text = element_text(colour = "red"),
-    legend.key = element_rect(colour = "blue", size = 0.25))
+    legend.key = element_rect(colour = "blue", size = 0.25)
+  )
 
 # Options for facets
-p + facet_grid(sex ~ .) + theme(
+hw_plot + 
+  facet_grid(sex ~ .) + 
+  theme(
     strip.background = element_rect(fill = "pink"),
-    strip.text.y = element_text(size = 14, angle = -90, face = "bold"))
-    # strip.text.x is the same, but for horizontal facets
+    strip.text.y = element_text(size = 14, angle = -90, face = "bold")
+  )  # strip.text.x is the same, but for horizontal facets
 ```
 
 ### Discussion
@@ -320,10 +370,14 @@ If you want to use a saved theme and tweak a few parts of it with `theme()`, the
 
 ```{r eval=FALSE}
 # theme() has no effect if before adding a complete theme
-p + theme(axis.title.x = element_text(colour = "red")) + theme_bw()
+hw_plot + 
+  theme(axis.title.x = element_text(colour = "red")) + 
+  theme_bw()
 
 # theme() works if after a complete theme
-p + theme_bw() + theme(axis.title.x = element_text(colour = "red", size = 12))
+hw_plot + 
+  theme_bw() + 
+  theme(axis.title.x = element_text(colour = "red", size = 12))
 ```
 
 Many of the commonly used theme properties are shown in Table \@ref(tab:TABLE-APPEARANCE-THEME-ELEMENTS).
@@ -439,18 +493,24 @@ You want to create your own theme.
 You can create your own theme by adding elements to an existing theme (Figure \@ref(fig:FIG-APPEARANCE-THEME-SAVE)):
 
 ```{r FIG-APPEARANCE-THEME-SAVE, fig.cap="A modified default theme"}
-library(gcookbook) # For the data set
+library(gcookbook) # Load the gcookbook package to access the heightweight data set 
 
 # Start with theme_bw() and modify a few things
-mytheme <- theme_bw() +
-    theme(text       = element_text(colour = "red"),
-          axis.title = element_text(size = rel(1.25)))
+mytheme <- 
+  theme_bw() +
+  theme(
+    text = element_text(colour = "red"),
+    axis.title = element_text(size = rel(1.25))
+  )
 
-# Base plot
-p <- ggplot(heightweight, aes(x = ageYear, y = heightIn)) + geom_point()
+# Create the base plot
+hw_plot <- 
+  ggplot(heightweight, aes(x = ageYear, y = heightIn)) + 
+  geom_point()
 
-# Plot with modified theme
-p + mytheme
+# Plot with the modified theme we created
+hw_plot + 
+  mytheme
 ```
 
 ### Discussion
@@ -474,12 +534,17 @@ You want to hide the grid lines in a plot.
 The major grid lines (those that align with the tick marks) are controlled with `panel.grid.major`. The minor grid lines (the ones between the major lines) are controlled with `panel.grid.minor`. This will hide them both, as shown in Figure \@ref(fig:FIG-APPEARANCE-HIDE-GRIDLINES) (left):
 
 ```{r FIG-APPEARANCE-HIDE-GRIDLINES-1, eval=FALSE}
-library(gcookbook) # For the data set
+library(gcookbook)  # Load the gcookbook package to access the heightweight data set 
 
-p <- ggplot(heightweight, aes(x = ageYear, y = heightIn)) + geom_point()
+hw_plot <- 
+  ggplot(heightweight, aes(x = ageYear, y = heightIn)) + 
+  geom_point()
 
-p + theme(panel.grid.major = element_blank(),
-          panel.grid.minor = element_blank())
+hw_plot + 
+  theme(
+    panel.grid.major = element_blank(),
+    panel.grid.minor = element_blank()
+  )
 ```
 
 ### Discussion
@@ -488,13 +553,19 @@ It's possible to hide just the vertical or horizontal grid lines, as shown in th
 
 ```{r FIG-APPEARANCE-HIDE-GRIDLINES-2, eval=FALSE}
 # Hide the vertical grid lines (which intersect with the x-axis)
-p + theme(panel.grid.major.x = element_blank(),
-          panel.grid.minor.x = element_blank())
+hw_plot + 
+  theme(
+    panel.grid.major.x = element_blank(),
+    panel.grid.minor.x = element_blank()
+  )
 
 # Hide the horizontal grid lines (which intersect with the y-axis)
-p + theme(panel.grid.major.y = element_blank(),
-          panel.grid.minor.y = element_blank())
+hw_plot + 
+  theme(
+    panel.grid.major.y = element_blank(),
+    panel.grid.minor.y = element_blank()
+  )
 ```
 
-```{r FIG-APPEARANCE-HIDE-GRIDLINES, ref.label=c("FIG-APPEARANCE-HIDE-GRIDLINES-1", "FIG-APPEARANCE-HIDE-GRIDLINES-2"), echo=FALSE, fig.show="hold", fig.cap="Left: no grid lines; middle: no vertical lines; right: no horizontal lines", fig.height=2.5, fig.width=2.5}
+```{r FIG-APPEARANCE-HIDE-GRIDLINES, ref.label=c("FIG-APPEARANCE-HIDE-GRIDLINES-1", "FIG-APPEARANCE-HIDE-GRIDLINES-2"), echo=FALSE, fig.show="hold", fig.cap="No grid lines (left); No vertical lines (middle); No horizontal lines (right)", fig.height=2.5, fig.width=2.5}
 ```
