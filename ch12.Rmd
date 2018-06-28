@@ -68,6 +68,8 @@ You want to use a variable (column from a data frame) to control the color of ge
 
 In the call to the geom, inside of `aes()`, set the value of `colour` or `fill` to the name of one of the columns in the data (Figure \@ref(fig:FIG-COLORS-MAPPING)):
 
+TODO: Fix warning about `seq.default`
+
 ```{r eval=FALSE}
 library(gcookbook)  # Load the gcookbook package to access the cabbage_exp data set 
 
@@ -326,6 +328,8 @@ uspopage_plot +
 ```
 
 A chart of the colors is shown in Figure \@ref(fig:FIG-COLORS-PALETTE-DISCRETE-COLORBLIND-CHART).
+
+TODO: Fix figure width
 
 ```{r FIG-COLORS-PALETTE-DISCRETE-COLORBLIND-CHART, echo=FALSE, fig.cap="Colorblind palette with RGB values",  fig.width=4.5}
 knitr::include_graphics("fig/colorblind_palette.png")

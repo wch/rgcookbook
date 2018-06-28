@@ -196,6 +196,8 @@ pg_plot +
 
 You can also use this method to display a subset of the items on the axis. This will show only `ctrl` and `trt1` (Figure \@ref(fig:FIG-AXES-ORDER-MANUAL), right):
 
+TODO: Add note explaining the warning here.
+
 ```{r FIG-AXES-ORDER-MANUAL-2, eval=FALSE}
 pg_plot + 
   scale_x_discrete(limits = c("ctrl","trt1"))
@@ -501,6 +503,8 @@ The `hjust` and `vjust` settings specify the horizontal alignment (left/center/r
 ### Discussion
 
 Besides rotation, other text properties, such as size, style (bold/italic/normal), and the font family (such as Times or Helvetica) can be set with `element_text()`, as shown in Figure \@ref(fig:FIG-AXES-TICK-LABEL-FONT):
+
+TODO: Check for fonts
 
 ```{r FIG-AXES-TICK-LABEL-FONT, fig.cap="X-axis tick labels with manually specified appearance"}
 pg_plot + 
