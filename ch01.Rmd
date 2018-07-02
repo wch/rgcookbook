@@ -105,7 +105,7 @@ Run `update.packages()`:
 update.packages()
 ```
 
-It will prompt you for each package that can be upgraded. If you want it to upgrade all packages without asking, use `ask=FALSE`:
+It will prompt you for each package that can be upgraded. If you want it to upgrade all packages without asking, use `ask = FALSE`:
 
 ```{r, eval=FALSE}
 update.packages(ask = FALSE)
@@ -163,10 +163,11 @@ By default, strings in the data are treated as factors. Suppose this is your dat
 "","Student",NA,21
 ```
 
-The resulting data frame will store `First` and `Last` as *factors*, though it makes more sense in this case to treat them as strings (or *character vectors* in R terminology). To differentiate this, use `stringsAsFactors=FALSE`. If there are any columns that should be treated as factors, you can then convert them individually:
+The resulting data frame will store `First` and `Last` as *factors*, though it makes more sense in this case to treat them as strings (or *character vectors* in R terminology). To differentiate this, use `stringsAsFactors = FALSE`. If there are any columns that should be treated as factors, you can then convert them individually:
 
 ```{r, eval=FALSE}
 data <- read.csv("datafile.csv", stringsAsFactors = FALSE)
+
 # Convert to factor
 data$Sex <- factor(data$Sex)
 str(data)

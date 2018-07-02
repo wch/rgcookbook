@@ -47,15 +47,18 @@ With ggplot2, you can get a similar result using the `ggplot()` function (Figure
 
 ```{r FIG-QUICK-SCATTER-GGPLOT, fig.cap='Scatter plot with ggplot2', out.width="70%"}
 library(ggplot2)
-ggplot(mtcars, aes(x = wt, y = mpg)) + geom_point()
+
+ggplot(mtcars, aes(x = wt, y = mpg)) + 
+  geom_point()
 ```
 
 The first part, `ggplot()`, tell is to create a plot object, and the second part, `geom_point()`, tells it to add a layer of points to the plot.
 
-The usual way to use `ggplot()` is to pass it a data frame (`mtcars`) and then tell it which columns to use for the x and y values. If you want to pass it two vectors for x and y values, you can use `data=NULL`, and then pass it the vectors. Keep in mind that ggplot2 is designed to work with data frames as the data source, not individual vectors, and that using it this way will only allow you to use a limited part of its capabilities.
+The usual way to use `ggplot()` is to pass it a data frame (`mtcars`) and then tell it which columns to use for the x and y values. If you want to pass it two vectors for x and y values, you can use `data = NULL`, and then pass it the vectors. Keep in mind that ggplot2 is designed to work with data frames as the data source, not individual vectors, and that using it this way will only allow you to use a limited part of its capabilities.
 
 ```{r, eval=FALSE}
-ggplot(data = NULL, aes(x = mtcars$wt, y = mtcars$mpg)) + geom_point()
+ggplot(data = NULL, aes(x = mtcars$wt, y = mtcars$mpg)) + 
+  geom_point()
 ```
 
 It is common to see `ggplot()` commands spread across multiple lines, so you may see the above code also written like this:
@@ -74,14 +77,14 @@ You want to create a line graph.
 
 ### Solution
 
-To make a line graph using `plot()` (Figure \@ref(fig:FIG-QUICK-LINE-BASE), left), pass it a vector of x values and a vector of y values, and use `type="l"`:
+To make a line graph using `plot()` (Figure \@ref(fig:FIG-QUICK-LINE-BASE), left), pass it a vector of x values and a vector of y values, and use `type = "l"`:
 
 ```{r eval=FALSE}
 plot(pressure$temperature, pressure$pressure, type = "l")
 ```
 
 ```{r FIG-QUICK-LINE-BASE, echo=FALSE, small.mar=TRUE, fig.show="hold", fig.cap="Line graph with base graphics (left); With points and another line (right)"}
-plot(pressure$temperature, pressure$pressure, type="l")
+plot(pressure$temperature, pressure$pressure, type = "l")
 
 # This code should be the same as the following block, but there's a problem: 
 # knitr won't show the output of the previous plot() if this line is exactly 
@@ -107,23 +110,27 @@ With ggplot2, you can get a similar result using `geom_line()` (Figure \@ref(fig
 
 ```{r eval=FALSE}
 library(ggplot2)
-ggplot(pressure, aes(x = temperature, y = pressure)) + geom_line()
+ggplot(pressure, aes(x = temperature, y = pressure)) + 
+  geom_line()
 ```
 
 ```{r FIG-QUICK-LINE-GGPLOT, echo=FALSE, fig.show="hold", fig.cap="Line graph with `ggplot()` (left); With points added (right)"}
 
-ggplot(pressure, aes(x = temperature, y = pressure)) + geom_line()
+ggplot(pressure, aes(x = temperature, y = pressure)) + 
+  geom_line()
 
 # Equivalent to:
-ggplot(pressure, aes(x=temperature, y=pressure)) + geom_line() + geom_point()
+ggplot(pressure, aes(x = temperature, y = pressure)) + 
+  geom_line() + 
+  geom_point()
 ```
 
 As with scatter plots, you can pass you data in vectors instead of in a data frame (but this will limit the things you can do later with the plot):
 
 ```{r eval=FALSE}
-ggplot(pressure, aes(x=temperature, y=pressure)) +
-    geom_line() +
-    geom_point()
+ggplot(pressure, aes(x = temperature, y = pressure)) +
+  geom_line() +
+  geom_point()
 ```
 
 > **Note**
@@ -157,7 +164,7 @@ barplot(BOD$demand, names.arg = BOD$Time)
 
 
 ```{r FIG-QUICK-BAR-BASE, echo=FALSE, small.mar=TRUE, fig.show="hold", fig.cap="Bar graph of values with base graphics (left); Bar graph of counts (right)"}
-barplot(BOD$demand, names.arg=BOD$Time)
+barplot(BOD$demand, names.arg = BOD$Time)
 
 barplot(table(mtcars$cyl))
 ```
@@ -185,10 +192,12 @@ library(ggplot2)
 
 # Bar graph of values. This uses the BOD data frame, with the
 # "Time" column for x values and the "demand" column for y values.
-ggplot(BOD, aes(x = Time, y = demand)) + geom_col()
+ggplot(BOD, aes(x = Time, y = demand)) + 
+  geom_col()
 
 # Convert the x variable to a factor, so that it is treated as discrete
-ggplot(BOD, aes(x = factor(Time), y = demand)) + geom_col()
+ggplot(BOD, aes(x = factor(Time), y = demand)) + 
+  geom_col()
 ```
 
 ggplot2 can also be used to plot the *count* of the number of data rows in each category (Figure \@ref(fig:FIG-QUICK-BAR-GGPLOT-COUNT)). Once again, notice the difference between a continuous x-axis and a discrete one. For some kinds of data, it may make more sense to convert the continuous x variable to a discrete one, with the `factor()` function.
@@ -199,15 +208,17 @@ ggplot2 can also be used to plot the *count* of the number of data rows in each 
 # Bar graph of counts This uses the mtcars data frame, with the "cyl" column for
 # x position. The y position is calculated by counting the number of rows for
 # each value of cyl.
-ggplot(mtcars, aes(x = cyl)) + geom_bar()
+ggplot(mtcars, aes(x = cyl)) + 
+  geom_bar()
 
 # Bar graph of counts
-ggplot(mtcars, aes(x = factor(cyl))) + geom_bar()
+ggplot(mtcars, aes(x = factor(cyl))) + 
+  geom_bar()
 ```
 
 > **Note**
 >
-> In previous versions of ggplot2, the recommended way to create a bar graph of values was to use `geom_bar(stat="identity")`. As of ggplot2 2.2.0, there is a `geom_col()` function which does the same thing.
+> In previous versions of ggplot2, the recommended way to create a bar graph of values was to use `geom_bar(stat = "identity")`. As of ggplot2 2.2.0, there is a `geom_col()` function which does the same thing.
 
 ### See Also
 
@@ -236,10 +247,12 @@ With the ggplot2, you can get a similar result using `geom_histogram()` (Figure 
 
 ```{r FIG-QUICK-HIST-GGPLOT, fig.show="hold", fig.cap="ggplot2 histogram with default bin width (left); With wider bins (right)"}
 library(ggplot2)
-ggplot(mtcars, aes(x = mpg)) + geom_histogram()
+ggplot(mtcars, aes(x = mpg)) + 
+  geom_histogram()
 
 # With wider bins
-ggplot(mtcars, aes(x = mpg)) + geom_histogram(binwidth = 4)
+ggplot(mtcars, aes(x = mpg)) + 
+  geom_histogram(binwidth = 4)
 ```
 
 When you create a histogram without specifying the bin width, `ggplot()` prints out a message telling you that it's defaulting to 30 bins, and to pick a better bin width. This is because it's important to explore your data using different bin widths; the default of 30 may or may not show you something useful about your data.
@@ -288,20 +301,24 @@ With the ggplot2 package, you can get a similar result (Figure \@ref(fig:FIG-QUI
 
 ```{r eval=FALSE}
 library(ggplot2)
-ggplot(ToothGrowth, aes(x = supp, y = len)) + geom_boxplot()
+ggplot(ToothGrowth, aes(x = supp, y = len)) + 
+  geom_boxplot()
 ```
 
 
 ```{r FIG-QUICK-BOXPLOT-GGPLOT, echo=FALSE, fig.show="hold", fig.cap="Box plot with `ggplot()` (left); With multiple grouping variables (right)"}
-ggplot(ToothGrowth, aes(supp, len)) + geom_boxplot()
+ggplot(ToothGrowth, aes(supp, len)) + 
+  geom_boxplot()
 
-ggplot(ToothGrowth, aes(x = interaction(supp, dose), y = len)) + geom_boxplot()
+ggplot(ToothGrowth, aes(x = interaction(supp, dose), y = len)) + 
+  geom_boxplot()
 ```
 
 It's also possible to make box plots for multiple variables, by combining the variables with `interaction()`, as in Figure \@ref(fig:FIG-QUICK-BOXPLOT-GGPLOT):
 
 ```{r eval=FALSE}
-ggplot(ToothGrowth, aes(x = interaction(supp, dose), y = len)) + geom_boxplot()
+ggplot(ToothGrowth, aes(x = interaction(supp, dose), y = len)) + 
+  geom_boxplot()
 ```
 
 > **Note**
@@ -332,30 +349,28 @@ curve(x^3 - 5*x, from = -4, to = 4)
 ```{r FIG-QUICK-FUNCTION-BASE, echo=FALSE, small.mar=TRUE, fig.show="hold", fig.cap="Function curve with base graphics (left); With user-defined function (right)"}
 curve(x^3 - 5*x, from = -4, to = 4)
 
-
 # Plot a user-defined function
 myfun <- function(xvar) {
-    1 / (1 + exp(-xvar + 10))
+  1 / (1 + exp(-xvar + 10))
 }
 curve(myfun(x), from = 0, to = 20)
 # Add a line:
 curve(1 - myfun(x), add = TRUE, col = "red")
 ```
 
-
-You can plot any function that takes a numeric vector as input and returns a numeric vector, including functions that you define yourself.  Using `add=TRUE` will add a curve to the previously created plot:
+You can plot any function that takes a numeric vector as input and returns a numeric vector, including functions that you define yourself.  Using `add = TRUE` will add a curve to the previously created plot:
 
 ```{r eval=FALSE}
 # Plot a user-defined function
 myfun <- function(xvar) {
-    1 / (1 + exp(-xvar + 10))
+  1 / (1 + exp(-xvar + 10))
 }
 curve(myfun(x), from = 0, to = 20)
 # Add a line:
 curve(1 - myfun(x), add = TRUE, col = "red")
 ```
 
-With ggplot2, you can get a similar result (Figure \@ref(fig:FIG-QUICK-FUNCTION-GGPLOT)), by using `stat_function(geom="line")` and passing it a function that takes a numeric vector as input and returns a numeric vector:
+With ggplot2, you can get a similar result (Figure \@ref(fig:FIG-QUICK-FUNCTION-GGPLOT)), by using `stat_function(geom = "line")` and passing it a function that takes a numeric vector as input and returns a numeric vector:
 
 ```{r FIG-QUICK-FUNCTION-GGPLOT, fig.cap="A function curve with ggplot2", out.width="70%"}
 library(ggplot2)
