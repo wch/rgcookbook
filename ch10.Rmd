@@ -101,11 +101,11 @@ pg_plot +
   theme(legend.position = "top")
 ```
 
-The legend can also be placed inside the graphing area by specifying a coordinate position, as in `legend.position = c(1, 0)` (Figure \@ref(fig:FIG-LEGEND-POSITION), right). The coordinate space starts at (0, 0) in the bottom left and goes to (1, 1) in the top right.
+The legend can also be placed inside the graphing area by specifying a coordinate position, as in `legend.position = c(.8, .3)` (Figure \@ref(fig:FIG-LEGEND-POSITION), right). The coordinate space starts at (0, 0) in the bottom left and goes to (1, 1) in the top right.
 
 ```{r FIG-LEGEND-POSITION-2, eval=FALSE}
 pg_plot +
-  theme(legend.position = c(1, 0))
+  theme(legend.position = c(.8, .3))
 ```
 
 

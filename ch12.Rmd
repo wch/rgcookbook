@@ -110,7 +110,7 @@ str(cabbage_exp)
 
 In the `mtcars` example, `cyl` is numeric, so it is treated as a continuous variable. Because of this, even though the actual values of `cyl` include only 4, 6, and 8, the legend has entries for the intermediate values 5 and 7. To make ggplot treat `cyl` as a categorical variable, you can convert it to a factor in the call to `ggplot()` (Figure \@ref(fig:FIG-COLORS-MAPPING-FACTOR), left), or you can modify the data so that the column is a character vector or factor (Figure \@ref(fig:FIG-COLORS-MAPPING-FACTOR), right):
 
-```{r FIG-COLORS-MAPPING-FACTOR, fig.show="hold", fig.cap="Converting `cyl` to a factor within the call to ggplot (left); Converting `cyl to a factor by modifying the dataframe (right)"}
+```{r FIG-COLORS-MAPPING-FACTOR, fig.show="hold", fig.cap="Converting `cyl` to a factor, within the call to ggplot (left); By modifying the dataframe (right)"}
 # Convert to factor in call to ggplot()
 ggplot(mtcars, aes(x = wt, y = mpg, colour = factor(cyl))) + 
   geom_point()
@@ -172,7 +172,7 @@ Table: (\#tab:TABLE-DISCRETE-FILL-AND-COLOR-SCALES) Discrete fill and color scal
 
 In the example here we'll use the default palette (hue), a viridis palette, and a ColorBrewer palette (Figure \@ref(fig:FIG-COLORS-PALETTE-DISCRETE)):
 
-```{r FIG-COLORS-PALETTE-DISCRETE, message=FALSE, fig.show="hold", fig.cap="Default palette (using hue; top); A viridis palette (middle); A ColorBrewer palette (bottom)", fig.width=4}
+```{r FIG-COLORS-PALETTE-DISCRETE, message=FALSE, fig.show="hold", fig.cap="Default palette (using hue; top left); A viridis palette (top right); A ColorBrewer palette (bottom)", fig.width=4}
 library(gcookbook)  # Load the gcookbook package to access the uspopage data set 
 library(viridis)  # Load the viridis package to access the viridis palette
 
@@ -218,7 +218,7 @@ hw_splot +
 
 The viridis package contains a set of color scales that are each designed to span as wide a palette as possible, making for colorful and pretty color scales that also make it easier to see differences in your data. These scales are also designed to be perceptually uniform, printable in grey scale, and easier to read by those with colorblindness. Here is an example from the [introduction page to viridis](https://cran.r-project.org/web/packages/viridis/vignettes/intro-to-viridis.html) (Figure \@ref(fig:FIG-COLORS-PALETTE-VIRIDIS)):
 
-```{r FIG-COLORS-PALETTE-VIRIDIS, warning=FALSE, echo=FALSE, fig.cap="Example of viridis color palette", fig.height=4, fig.width=4}
+```{r FIG-COLORS-PALETTE-VIRIDIS, warning=FALSE, echo=FALSE, fig.cap="Example of viridis color palette", fig.height=5, fig.width=5}
 ggplot(data.frame(x = rnorm(10000), y = rnorm(10000)), aes(x = x, y = y)) +
   geom_hex() + 
   coord_fixed() +
@@ -323,6 +323,7 @@ Here are some rules of thumb for specifying and adjusting RGB colors:
 * The opposites of RGB are CMY: Cyan, Magenta, and Yellow. Higher values for the red channel make it more red, and lower values make it more cyan. The same is true for the pairs green and magenta, and blue and yellow.
 
 
+
 You may want to manually select colors based on the color scales in the viridis package, as described in Recipe \@ref(RECIPE-COLORS-PALETTE-DISCRETE). You can do so by specifying the number of discrete categories you have within the `viridis()` function. This will generate the RBG hexadecimals. You can similarly generate the RBG values for the other color scales in the viridis package: "magma", "plasma", "inferno", and "cividis". 
 
 ```{r}
@@ -344,7 +345,7 @@ You want to use colors that can be distinguished by colorblind viewers.
 
 ### Solution
 
-Use the color scales in the viridis package, as described in Recipe \@ref(RECIPE-COLORS-PALETTE-DISCRETE) and Recipe \@ref(RECIPE-COLORS-PALETTE-DISCRETE-MANUAL) and shown in Figure \@ref(fig:FIG-COLORS-PALETTE-DISCRETE-COLORBLIND-VIRIDIS):
+Use the color scales in the viridis package, as described in Recipe \@ref(RECIPE-COLORS-PALETTE-DISCRETE) and Recipe \@ref(RECIPE-COLORS-PALETTE-DISCRETE-MANUAL), and shown in Figure \@ref(fig:FIG-COLORS-PALETTE-DISCRETE-COLORBLIND-VIRIDIS):
 
 ```{r FIG-COLORS-PALETTE-DISCRETE-COLORBLIND-VIRIDIS, fig.show="hold", fig.cap="A plot with the colorblind-friendly viridis palette", fig.width=4.5}
 library(gcookbook)  # Load the gcookbook package to access the uspopage data set 
