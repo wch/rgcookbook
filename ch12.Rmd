@@ -108,9 +108,9 @@ In the `cabbage_exp` example, the variable `Cultivar` is mapped to `fill`. The `
 str(cabbage_exp)
 ```
 
-In the `mtcars` example, `cyl` is numeric, so it is treated as a continuous variable. Because of this, even though the actual values of `cyl` include only 4, 6, and 8, the legend has entries for the intermediate values 5 and 7. To make ggplot treat `cyl` as a categorical variable, you can convert it to a factor in the call to `ggplot()`, or you can modify the data so that the column is a character vector or factor (Figure \@ref(fig:FIG-COLORS-MAPPING-FACTOR)):
+In the `mtcars` example, `cyl` is numeric, so it is treated as a continuous variable. Because of this, even though the actual values of `cyl` include only 4, 6, and 8, the legend has entries for the intermediate values 5 and 7. To make ggplot treat `cyl` as a categorical variable, you can convert it to a factor in the call to `ggplot()` (Figure \@ref(fig:FIG-COLORS-MAPPING-FACTOR), left), or you can modify the data so that the column is a character vector or factor (Figure \@ref(fig:FIG-COLORS-MAPPING-FACTOR), right):
 
-```{r FIG-COLORS-MAPPING-FACTOR, fig.show="hold", fig.cap="Mapping to colour with a continuous variable converted to a factor"}
+```{r FIG-COLORS-MAPPING-FACTOR, fig.show="hold", fig.cap="Converting `cyl` to a factor within the call to ggplot (left); Converting `cyl to a factor by modifying the dataframe (right)"}
 # Convert to factor in call to ggplot()
 ggplot(mtcars, aes(x = wt, y = mpg, colour = factor(cyl))) + 
   geom_point()
@@ -157,11 +157,12 @@ Table: (\#tab:TABLE-DISCRETE-FILL-AND-COLOR-SCALES) Discrete fill and color scal
 +-------------------------+---------------------------+-----------------------+
 | `scale_fill_grey()`     | `scale_colour_grey()`     | Greyscale palette     |
 +-------------------------+---------------------------+-----------------------+
-| `scale_fill_viridis()`  | `scale_colour_viridis()   | Viridis palettes,     |
+| `scale_fill_viridis()`  | `scale_colour_viridis()   | Viridis palettes are  |
 |                         |                           | designed to be        |
 |                         |                           | colorful, uniform,    |
-|                         |                           | robust to colorblindness|
-|                         |                           | and grey scale printing|
+|                         |                           | do well with grey scale|
+|                         |                           | printing, and robust to|
+|                         |                           | colorblindness        |
 +-------------------------+---------------------------+-----------------------+
 | `scale_fill_brewer()`   | `scale_colour_brewer()`   | ColorBrewer palettes  |
 +-------------------------+---------------------------+-----------------------+
@@ -169,9 +170,9 @@ Table: (\#tab:TABLE-DISCRETE-FILL-AND-COLOR-SCALES) Discrete fill and color scal
 |                         |                           | colors                |
 +-------------------------+---------------------------+-----------------------+
 
-In the example here we'll use the default palette (hue), a Viridis palette, and a ColorBrewer palette (Figure \@ref(fig:FIG-COLORS-PALETTE-DISCRETE)):
+In the example here we'll use the default palette (hue), a viridis palette, and a ColorBrewer palette (Figure \@ref(fig:FIG-COLORS-PALETTE-DISCRETE)):
 
-```{r FIG-COLORS-PALETTE-DISCRETE, fig.show="hold", fig.cap="Default palette (using hue; left); A ColorBrewer palette (right)", fig.width=4.5}
+```{r FIG-COLORS-PALETTE-DISCRETE, message=FALSE, fig.show="hold", fig.cap="Default palette (using hue; top); A viridis palette (middle); A ColorBrewer palette (bottom)", fig.width=4}
 library(gcookbook)  # Load the gcookbook package to access the uspopage data set 
 library(viridis)  # Load the viridis package to access the viridis palette
 
@@ -215,24 +216,27 @@ hw_splot +
   scale_colour_hue(l = 45)
 ```
 
-The viridis package contains a set of color scales that are each designed to span as wide a palette as possible, making for colorful and pretty color scales that also make it easier to see differences in your data. These scales are also designed to be perceptually uniform, printable in grey scale, and easier to read by those with colorblindness. Here is an example from this [introduction page to viridis](https://cran.r-project.org/web/packages/viridis/vignettes/intro-to-viridis.html) (Figure \@ref(fig:FIG-COLORS-PALETTE-VIRIDIS)):
+The viridis package contains a set of color scales that are each designed to span as wide a palette as possible, making for colorful and pretty color scales that also make it easier to see differences in your data. These scales are also designed to be perceptually uniform, printable in grey scale, and easier to read by those with colorblindness. Here is an example from the [introduction page to viridis](https://cran.r-project.org/web/packages/viridis/vignettes/intro-to-viridis.html) (Figure \@ref(fig:FIG-COLORS-PALETTE-VIRIDIS)):
 
-```{r FIG-COLORS-PALETTE-VIRIDIS, echo=FALSE, fig.cap="Example of viridis color palette", fig.height=8, fig.width=8}
+```{r FIG-COLORS-PALETTE-VIRIDIS, warning=FALSE, echo=FALSE, fig.cap="Example of viridis color palette", fig.height=4, fig.width=4}
 ggplot(data.frame(x = rnorm(10000), y = rnorm(10000)), aes(x = x, y = y)) +
-  geom_hex() + coord_fixed() +
-  scale_fill_viridis() + theme_bw()
+  geom_hex() + 
+  coord_fixed() +
+  scale_fill_viridis() + 
+  theme_bw()
 ```
 
 The ColorBrewer package provides a number of palettes. You can generate a graphic showing all of them, as shown in Figure \@ref(fig:FIG-COLORS-PALETTE-BREWER):
-```{r FIG-COLORS-PALETTE-BREWER, fig.cap="All the ColorBrewer palettes", fig.height=6, fig.width=8}
+```{r FIG-COLORS-PALETTE-BREWER, fig.cap="All the ColorBrewer palettes", fig.height=8, fig.width=8}
 library(RColorBrewer)
 display.brewer.all()
 ```
-The ColorBrewer palettes can be selected by name. For example, this will use the "Greens" palette (Figure \@ref(fig:FIG-COLORS-PALETTE-BREWER-NAME)):
+The ColorBrewer palettes can be selected by name. For example, this will use the "Oranges" palette (Figure \@ref(fig:FIG-COLORS-PALETTE-BREWER-NAME)):
 
 ```{r FIG-COLORS-PALETTE-BREWER-NAME, fig.cap="Using a named ColorBrewer palette", fig.width=4}
 hw_splot + 
-  scale_colour_brewer(palette = "Greens")
+  scale_colour_brewer(palette = "Oranges") +
+  theme_bw()
 ```
 
 You can also use a palette of greys. This is useful for print when the output is in black and white. The default is to start at 0.2 and end at 0.8, on a scale from 0 (black) to 1 (white), but you can change the range, as shown in Figure \@ref(fig:FIG-COLORS-PALETTE-GREY).
@@ -267,7 +271,7 @@ You want to use different colors for a discrete mapped variable.
 
 In the example here, we'll manually define colors by specifying values with `scale_colour_manual()` (Figure \@ref(fig:FIG-COLORS-PALETTE-DISCRETE-MANUAL)). The colors can be named, or they can be specified with RGB values:
 
-```{r FIG-COLORS-PALETTE-DISCRETE-MANUAL, fig.show="hold", fig.cap="Scatter plot with named colors (left); With slightly different RGB colors (right)", fig.width=4}
+```{r FIG-COLORS-PALETTE-DISCRETE-MANUAL, fig.show="hold", fig.cap="Scatter plot with named colors (top left); With slightly different RGB colors (top right); With colors from the viridis color scale (bottom)", fig.width=4}
 library(gcookbook)  # Load the gcookbook package to access the heightweight data set 
 
 # Create the base plot
@@ -319,7 +323,7 @@ Here are some rules of thumb for specifying and adjusting RGB colors:
 * The opposites of RGB are CMY: Cyan, Magenta, and Yellow. Higher values for the red channel make it more red, and lower values make it more cyan. The same is true for the pairs green and magenta, and blue and yellow.
 
 
-You may want to manually select colors based on the color scales in the viridis package, as described in Recipe \@ref (#RECIPE-COLORS-PALETTE-DISCRETE). You can do so by specifying the number of discrete categories you have within the `viridis()` function. This will generate the RBG hexadecimals. You can similarly generate the RBG values for the other color scales in the viridis package: "magma", "plasma", "inferno", and "cividis". 
+You may want to manually select colors based on the color scales in the viridis package, as described in Recipe \@ref(RECIPE-COLORS-PALETTE-DISCRETE). You can do so by specifying the number of discrete categories you have within the `viridis()` function. This will generate the RBG hexadecimals. You can similarly generate the RBG values for the other color scales in the viridis package: "magma", "plasma", "inferno", and "cividis". 
 
 ```{r}
 viridis(2)  ## Specifying 2 discrete categories with the viridis color scale
@@ -340,7 +344,7 @@ You want to use colors that can be distinguished by colorblind viewers.
 
 ### Solution
 
-Use the color scales in the viridis package, as described in Recipe \@ref (#RECIPE-COLORS-PALETTE-DISCRETE) and Recipe \@ref (#RECIPE-COLORS-PALETTE-DISCRETE-MANUAL) and shown in Figure \@ref(fig:FIG-COLORS-PALETTE-DISCRETE-COLORBLIND-VIRIDIS):
+Use the color scales in the viridis package, as described in Recipe \@ref(RECIPE-COLORS-PALETTE-DISCRETE) and Recipe \@ref(RECIPE-COLORS-PALETTE-DISCRETE-MANUAL) and shown in Figure \@ref(fig:FIG-COLORS-PALETTE-DISCRETE-COLORBLIND-VIRIDIS):
 
 ```{r FIG-COLORS-PALETTE-DISCRETE-COLORBLIND-VIRIDIS, fig.show="hold", fig.cap="A plot with the colorblind-friendly viridis palette", fig.width=4.5}
 library(gcookbook)  # Load the gcookbook package to access the uspopage data set 
@@ -358,7 +362,6 @@ uspopage_plot +
 You can also use the palette defined below (`cb_palette`) with `scale_fill_manual()` (Figure \@ref(fig:FIG-COLORS-PALETTE-DISCRETE-COLORBLIND-MANUAL)):
 
 ```{r FIG-COLORS-PALETTE-DISCRETE-COLORBLIND-MANUAL, fig.show="hold", fig.cap="Manually specifying a colorblind-friendly palette", fig.width=4.5}
-
 # Creating a colorblind-friendly palette manually
 cb_palette <- c("#999999", "#E69F00", "#56B4E9", "#009E73", "#F0E442",
                 "#0072B2", "#D55E00", "#CC79A7")
@@ -459,7 +462,7 @@ Table: (\#tab:TABLE-CONTINUOUS-COLOR-SCALES) Continuous fill and color scales
 |                          |                            | colors, equally       |
 |                          |                            | spaced                |
 +--------------------------+----------------------------+-----------------------+
- 
+
 Notice that we used the `muted()` function in the examples. This is a function from the scales package that returns an RGB value that is a less-saturated version of the color chosen.
 
 ### See Also
