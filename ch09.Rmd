@@ -30,7 +30,7 @@ You want to set the title of a graph.
 
 Set title with `ggtitle()`, as shown in Figure \@ref(fig:FIG-APPEARANCE-TITLE):
 
-(ref:cap-FIG-APPEARANCE-TITLE) Left: scatter plot with a title added; right: with a `\n` for a newline
+(ref:cap-FIG-APPEARANCE-TITLE) Scatter plot with a title added (left); With a `\n` for a newline (right)
 
 ```{r FIG-APPEARANCE-TITLE, fig.show="hold", fig.cap="(ref:cap-FIG-APPEARANCE-TITLE)"}
 library(gcookbook)  # Load the gcookbook package to access the heightweight data set
@@ -102,22 +102,16 @@ hw_plot <-
 # Controlling appearance of theme items
 hw_plot + 
   theme(axis.title.x = element_text(
-    size = 16, 
-    lineheight = .9, 
-    family = "Times",
-    face = "bold.italic", 
-    colour = "red")
-  )
+    size = 16, lineheight = .9, 
+    family = "Times", face = "bold.italic", colour = "red"
+  ))
 
 hw_plot + 
   ggtitle("Age and Height\nof Schoolchildren") +
   theme(plot.title = element_text(
-    size = rel(1.5), 
-    lineheight = .9, 
-    family = "Times",
-    face = "bold.italic",
-    colour = "red")
-  )
+    size = rel(1.5), lineheight = .9, 
+    family = "Times", face = "bold.italic", colour = "red"
+  ))
 
 # rel(1.5) means that the font will be 1.5 times the base font size of the theme.
 # For theme elements, font size is in points.
@@ -134,10 +128,7 @@ hw_plot +
     "text", 
     x = 15, y = 53, 
     label = "Some text", 
-    size = 7, 
-    family = "Times",
-    fontface = "bold.italic", 
-    colour = "red"
+    size = 7, family = "Times", fontface = "bold.italic", colour = "red"
   )
 
 hw_plot + 
