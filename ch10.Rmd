@@ -89,9 +89,9 @@ You want to move the legend from its default place on the right side.
 
 ### Solution
 
-Use `theme(legend.position = ...)`. It can be put on the top, left, right, or bottom by using one of those strings as the position (Figure \@ref(fig:FIG-LEGEND-POSITION), left):
+Use `theme(legend.position = ...)`. It can be put on the top, left, right, or bottom by using one of those strings as the position (Figure \@ref(fig:FIG-LEGEND-POSITION), left).
 
-```{r FIG-LEGEND-POSITION, fig.cap="Legend on top (left); Legend inside of graphing area (right)"}
+```{r FIG-LEGEND-POSITION-1, eval=FALSE}
 pg_plot <- 
   ggplot(PlantGrowth, aes(x = group, y = weight, fill = group)) +
   geom_boxplot() +
@@ -101,7 +101,17 @@ pg_plot +
   theme(legend.position = "top")
 ```
 
-The legend can also be placed inside the graphing area by specifying a coordinate position, as in `legend.position = c(1,0)` (Figure \@ref(fig:FIG-LEGEND-POSITION), right). The coordinate space starts at (0, 0) in the bottom left and goes to (1, 1) in the top right.
+The legend can also be placed inside the graphing area by specifying a coordinate position, as in `legend.position = c(1, 0)` (Figure \@ref(fig:FIG-LEGEND-POSITION), right). The coordinate space starts at (0, 0) in the bottom left and goes to (1, 1) in the top right.
+
+```{r FIG-LEGEND-POSITION-2, eval=FALSE}
+pg_plot +
+  theme(legend.position = c(1, 0))
+```
+
+
+```{r FIG-LEGEND-POSITION, ref.label=c("FIG-LEGEND-POSITION-1", "FIG-LEGEND-POSITION-2"), echo=FALSE, fig.cap="Legend on top (left); Legend inside of graphing area (right)"}
+```
+
 
 ### Discussion
 
@@ -144,9 +154,9 @@ pg_plot +
   theme(legend.key = element_blank())           # Remove border around each item
 ```
 
-(ref:cap-FIG-LEGEND-POSITION-BACKGROUND) Legend with opaque background and outline (left); With no background or outlines (right)
+(ref:FIG-LEGEND-POSITION-BACKGROUND) Legend with opaque background and outline (left); With no background or outlines (right)
 
-```{r cap-FIG-LEGEND-POSITION-BACKGROUND, ref.label=c("FIG-LEGEND-POSITION-BACKGROUND-1", "FIG-LEGEND-POSITION-BACKGROUND-2"), echo=FALSE, fig.cap="(ref:cap-FIG-FACET-LABEL-TEXT-LABELLER)", fig.width=3}
+```{r FIG-LEGEND-POSITION-BACKGROUND, ref.label=c("FIG-LEGEND-POSITION-BACKGROUND-1", "FIG-LEGEND-POSITION-BACKGROUND-2"), echo=FALSE, fig.cap="(ref:cap-FIG-FACET-LABEL-TEXT-LABELLER)", fig.width=3}
 ```
 
 
@@ -229,7 +239,7 @@ You want to reverse the order of items in a legend.
 
 ### Solution
 
-Add guides (`fill=guide_legend(reverse=TRUE)`) to reverse the order of the legend, as in Figure \@ref(fig:FIG-LEGEND-TITLE-REVERSE) (for other aesthetics, replace `fill` with the name of the aesthetic, such as `colour` or `size`):
+Add guides (`fill = guide_legend(reverse = TRUE)`) to reverse the order of the legend, as in Figure \@ref(fig:FIG-LEGEND-TITLE-REVERSE) (for other aesthetics, replace `fill` with the name of the aesthetic, such as `colour` or `size`):
 
 ```{r FIG-LEGEND-TITLE-REVERSE, fig.cap="Default order for legend (left); Reversed order (right)"}
 # Create the base plot
@@ -390,7 +400,7 @@ You want to remove a legend title.
 
 ### Solution
 
-Add `guides(fill=guide_legend(title=NULL))` to remove the title from a legend, as in Figure \@ref(fig:FIG-LEGEND-TITLE-REMOVE) (for other aesthetics, replace `fill` with the name of the aesthetic, such as `colour` or `size`):
+Add `guides(fill = guide_legend(title = NULL))` to remove the title from a legend, as in Figure \@ref(fig:FIG-LEGEND-TITLE-REMOVE) (for other aesthetics, replace `fill` with the name of the aesthetic, such as `colour` or `size`):
 
 ```{r FIG-LEGEND-TITLE-REMOVE, fig.cap="Box plot with no legend title"}
 ggplot(PlantGrowth, aes(x = group, y = weight, fill = group)) +
@@ -457,7 +467,7 @@ pg_plot +
 
 If you have one variable mapped to two separate aesthetics, the default is to have a single legend that combines both. If you want to change the legend labels, you must change them for both scales; otherwise you will end up with two separate legends, as shown in Figure \@ref(fig:FIG-LEGEND-LABEL-MULTI-APPEARANCE):
 
-```{r FIG-LEGEND-LABEL-MULTI-APPEARANCE, fig.cap="Left: a variable mapped to `shape` and `colour`; middle: with new labels for `shape`; right: with new labels for both `shape` and colour`"}
+```{r FIG-LEGEND-LABEL-MULTI-APPEARANCE, fig.cap="A variable mapped to `shape` and `colour` (top left); With new labels for `shape` (top right); With new labels combining both `shape` and colour` (bottom)"}
 # Create the base plot
 hw_plot <- 
   ggplot(heightweight, aes(x = ageYear, y = heightIn, shape = sex, colour = sex)) +
