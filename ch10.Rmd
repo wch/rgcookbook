@@ -108,7 +108,6 @@ pg_plot +
   theme(legend.position = c(.8, .3))
 ```
 
-
 ```{r FIG-LEGEND-POSITION, ref.label=c("FIG-LEGEND-POSITION-1", "FIG-LEGEND-POSITION-2"), echo=FALSE, fig.cap="Legend on top (left); Legend inside of graphing area (right)"}
 ```
 
