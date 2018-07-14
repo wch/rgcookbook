@@ -404,6 +404,42 @@ You want to combine several plots into one graphic output.
 
 ### Solution
 
-The patchwork package can be used 
+The patchwork package can be used to combine several plots - specifically ggplots - into the same graphic. Once you use patchwork to stich your plots together, you can output the combined graphic into any number of formats, as outlined in the preceeding recipes.
+
+You will first need to install the package using the following command (the latest [installation instructions](https://github.com/thomasp85/patchwork) can be found on github):
+
+```{r}
+# install.packages("devtools")
+devtools::install_github("thomasp85/patchwork")
+```
+
+Once you have installed patchwork, you can start stiching plots together (Figure \@ref(fig:FIG-OUTPUT-PATCHWORK)).
+```{r FIG-OUTPUT-PATCHWORK, fig.show="hold", fig.cap="Combining two plots together using `patchwork()`"}
+library(patchwork)
+
+plot1 <- 
+  ggplot(PlantGrowth, aes(x = weight)) + 
+  geom_histogram(bins = 20)
+
+plot2 <- 
+  ggplot(PlantGrowth, aes(x = group, y = weight, group = group)) + 
+  geom_boxplot()
+
+plot1 + plot2
+```
 
 ### Discussion
+
+Patchwork also allows you to determine how you want to lay out the ggplots in relation to each other, by adding a `plot_layout()` call. You can use this call to determine the number of columns you want the pplots to be arranged in, and the size of the plots (Figure \@ref(fig:FIG-OUTPUT-PATCHWORK-LAYOUT)):
+
+```{r FIG-OUTPUT-PATCHWORK-LAYOUT, fig.show="hold", fig.cap="Using `plot_layout()` to specify that the plots should be arranged in 2 columns (left); specifying the heights of each plot (right)"}
+plot1 + plot2 + 
+  plot_layout(ncol = 2)
+
+plot1 + plot2 + 
+  plot_layout(ncol = 1, heights = c(1, 4))
+```
+
+### See Also
+
+For more on additional patchwork features, see <https://github.com/thomasp85/patchwork>.
