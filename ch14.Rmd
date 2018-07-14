@@ -20,6 +20,7 @@ Output for Presentation {#CHAPTER-OUTPUT}
 
 Broadly speaking, visualizations of data serve two purposes: discovery and communication. In the discovery phase, you'll create exploratory graphics, and when you do this, it's important to be able try out different things quickly. In the communication phase, you'll present your graphics to others. When you do that, you'll need to tweak the appearance of the graphics (which I've written about in previous chapters), and you'll usually need to put them somewhere other than on your computer screen. This chapter is about that last part: *saving* your graphics so that they can be presented in documents.
 
+
 Outputting to PDF Vector Files {#RECIPE-OUTPUT-VECTOR}
 ------------------------------
 
@@ -154,7 +155,7 @@ Sometimes you need to make final tweaks to the appearance of a graph for present
 
 Font support can be a problem when you open a PDF file with Inkscape. Normally, point objects drawn with the PDF device will be written as symbols from the Zapf Dingbats font. This can be problematic if you want to open the file in an editor like Illustrator or Inkscape; for example, points may appear as the letter *q*, as in Figure \@ref(fig:FIG-OUTPUT-EDIT-VECTOR-DINGBATS), because that is the corresponding letter for a solid bullet in Zapf Dingbats.
 
-```{r FIG-OUTPUT-EDIT-VECTOR-DINGBATS, echo=FALSE, fig.cap="Bad conversion of point symbols after opening in Inkscape-also notice that the spacing of the fonts is slightly off"}
+```{r FIG-OUTPUT-EDIT-VECTOR-DINGBATS, echo=FALSE, fig.cap="Bad conversion of point symbols after opening in Inkscape-also notice that the spacing of the fonts is slightly off", fig.width=2.5, fig.height=2.5}
 knitr::include_graphics("fig/output-q.png")
 ```
 
@@ -219,7 +220,7 @@ plot(mtcars$wt, mtcars$mpg)
 dev.off()
 ```
 
-```{r FIG-OUTPUT-BITMAP-RES, echo=FALSE, fig.cap="From left to right: PNG output at 72, 150, and 300 ppi (actual size)", fig.width=3.6}
+```{r FIG-OUTPUT-BITMAP-RES, echo=FALSE, fig.cap="From left to right: PNG output at 72, 150, and 300 ppi (actual size)", fig.width=3.5}
 knitr::include_graphics("fig/output-ppi.png")
 ```
 
@@ -315,7 +316,7 @@ ggsave("myplot.pdf", width = 4, height = 4)
 embed_fonts("myplot.pdf")
 ```
 
-```{r FIG-OUTPUT-FONTS-PDF, echo=FALSE, fig.cap="PDF output with embedded font Impact", fig.width=4}
+```{r FIG-OUTPUT-FONTS-PDF, echo=FALSE, fig.cap="PDF output with embedded font Impact", fig.width=2.5}
 knitr::include_graphics("fig/output-fonts-pdf.png")
 ```
 
@@ -383,7 +384,7 @@ ggplot(mtcars, aes(x = wt, y = mpg)) + geom_point() +
 ggsave("myplot.png", width = 4, height = 4, dpi = 300)
 ```
 
-```{r FIG-OUTPUT-FONTS-PNG, echo=FALSE, fig.cap="PNG output with font Georgia Italic", fig.width=4}
+```{r FIG-OUTPUT-FONTS-PNG, echo=FALSE, fig.cap="PNG output with font Georgia Italic", fig.width=2.5}
 knitr::include_graphics("fig/output-fonts-png.png")
 ```
 
@@ -392,3 +393,17 @@ knitr::include_graphics("fig/output-fonts-png.png")
 Fonts are handled in a completely different way for bitmaps than they are for PDF files.
 
 On Windows, for bitmap output it is necessary to register each font manually with R (extrafont makes this much easier). On Mac OS X and Linux, the fonts should already be available for bitmap output; it isn't necessary to register them manually.
+
+
+Combining Several Plots into the Same Graphic  {#RECIPE-COMBINE-GGPLOT}
+------------------------------
+
+### Problem
+
+You want to combine several plots into one graphic output.
+
+### Solution
+
+The patchwork package can be used 
+
+### Discussion
