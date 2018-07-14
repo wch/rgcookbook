@@ -160,14 +160,17 @@ ggplot(mpg, aes(x = displ, y = hwy)) +
   facet_grid(drv ~ .)
 
 # Right plot (modified labels)
-mpg %>% 
+mpg_mod1 <- 
+  mpg %>% 
+  # Rename 4 to 4wd, f to Front, r to Rear
   mutate(drv = fct_recode(
     drv,
     `4wd` = "4", 
     Front = "f",
     Rear = "r"
-  )) %>% 
-  ggplot(aes(x = displ, y = hwy)) + 
+  ))
+
+ggplot(mpg_mod1, aes(x = displ, y = hwy)) + 
   geom_point() + 
   facet_grid(drv ~ .)
 ```
