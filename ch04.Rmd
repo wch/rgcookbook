@@ -489,7 +489,7 @@ Instead of a shaded region, you can also use dotted lines to represent the upper
 
 ```{r FIG-LINE-GRAPH-REGION-LINES, fig.cap="A line graph with dotted lines representing a confidence region", fig.width=8, out.width="100%"}
 # With a dotted line for upper and lower bounds
-ggplot(clim, aes(x = Year, y = Anomaly10y)) +
+ggplot(climate_mod, aes(x = Year, y = Anomaly10y)) +
   geom_line(aes(y = Anomaly10y - Unc10y), colour = "grey50", linetype = "dotted") +
   geom_line(aes(y = Anomaly10y + Unc10y), colour = "grey50", linetype = "dotted") +
   geom_line()
