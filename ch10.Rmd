@@ -45,7 +45,7 @@ pg_plot +
 
 ### Discussion
 
-Another way to remove a legend is to set `guide=FALSE` in the scale. This will result in the exact same output as the preceding code:
+Another way to remove a legend is to set `guide = FALSE` in the scale. This will result in the exact same output as the preceding code:
 
 ```{r eval=FALSE}
 # Remove the legend for fill
@@ -128,23 +128,25 @@ pg_plot +
 
 When placing the legend inside of the graphing area, it may be helpful to add an opaque border to set it apart (Figure \@ref(fig:FIG-LEGEND-POSITION-BACKGROUND), left):
 
-```{r FIG-LEGEND-POSITION-BACKGROUND-1}
+```{r FIG-LEGEND-POSITION-BACKGROUND-1, eval=FALSE}
 pg_plot + 
   theme(legend.position = c(.85, .2)) +
   theme(legend.background = element_rect(fill = "white", colour = "black"))
 ```
 
-You can also remove the border around its elements so that itblends in
+You can also remove the border around its elements so that it blends in
 (Figure \@ref(fig:FIG-LEGEND-POSITION-BACKGROUND), right):
 
-```{r FIG-LEGEND-POSITION-BACKGROUND-2}
+```{r FIG-LEGEND-POSITION-BACKGROUND-2, eval=FALSE}
 pg_plot + 
   theme(legend.position = c(.85, .2)) +
   theme(legend.background = element_blank()) +  # Remove overall border
   theme(legend.key = element_blank())           # Remove border around each item
 ```
 
-```{r FIG-LEGEND-POSITION-BACKGROUND, ref.label=c("FIG-LEGEND-POSITION-BACKGROUND-1", "FIG-LEGEND-POSITION-BACKGROUND-2"), echo=FALSE, fig.cap="Legend with opaque background and outline (left); With no background or outlines (right)"}
+(ref:cap-FIG-LEGEND-POSITION-BACKGROUND) Legend with opaque background and outline (left); With no background or outlines (right)
+
+```{r cap-FIG-LEGEND-POSITION-BACKGROUND, ref.label=c("FIG-LEGEND-POSITION-BACKGROUND-1", "FIG-LEGEND-POSITION-BACKGROUND-2"), echo=FALSE, fig.cap="(ref:cap-FIG-FACET-LABEL-TEXT-LABELLER)", fig.width=3}
 ```
 
 
@@ -331,7 +333,7 @@ hw_plot +
   guides(fill = guide_legend(title = "Condition"))
 ```
 
-```{r FIG-LEGEND-TITLE-MULTI-SAME, ref.label=c("FIG-LEGEND-TITLE-MULTI-SAME-1", "FIG-LEGEND-TITLE-MULTI-SAME-2", "FIG-LEGEND-TITLE-MULTI-SAME-3"), echo=FALSE, fig.cap="Left: default legend with a variable mapped to shape and colour; middle: with shape renamed; right: with both shape and colour renamed"}
+```{r FIG-LEGEND-TITLE-MULTI-SAME, ref.label=c("FIG-LEGEND-TITLE-MULTI-SAME-1", "FIG-LEGEND-TITLE-MULTI-SAME-2", "FIG-LEGEND-TITLE-MULTI-SAME-3"), echo=FALSE, fig.cap="Default legend with a variable mapped to shape and colour (left); With shape renamed (middle); With both shape and colour renamed (right)"}
 ```
 
 
@@ -344,7 +346,7 @@ You want to change the appearance of a legend title's text.
 
 ### Solution
 
-Use theme(`legend.title=element_text()`) (Figure \@ref(fig:FIG-LEGEND-TITLE-APPEARANCE)):
+Use theme(`legend.title = element_text()`) (Figure \@ref(fig:FIG-LEGEND-TITLE-APPEARANCE)):
 
 ```{r FIG-LEGEND-TITLE-APPEARANCE, fig.cap="Customized legend title appearance"}
 pg_plot <- 
