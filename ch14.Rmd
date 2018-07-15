@@ -155,7 +155,7 @@ Sometimes you need to make final tweaks to the appearance of a graph for present
 
 Font support can be a problem when you open a PDF file with Inkscape. Normally, point objects drawn with the PDF device will be written as symbols from the Zapf Dingbats font. This can be problematic if you want to open the file in an editor like Illustrator or Inkscape; for example, points may appear as the letter *q*, as in Figure \@ref(fig:FIG-OUTPUT-EDIT-VECTOR-DINGBATS), because that is the corresponding letter for a solid bullet in Zapf Dingbats.
 
-```{r FIG-OUTPUT-EDIT-VECTOR-DINGBATS, echo=FALSE, fig.cap="Bad conversion of point symbols after opening in Inkscape-also notice that the spacing of the fonts is slightly off", fig.width=2.5, fig.height=2.5}
+```{r FIG-OUTPUT-EDIT-VECTOR-DINGBATS, echo=FALSE, fig.cap="Bad conversion of point symbols after opening in Inkscape -- also notice that the spacing of the fonts is slightly off", fig.width=2.5, fig.height=2.5}
 knitr::include_graphics("fig/output-q.png")
 ```
 
