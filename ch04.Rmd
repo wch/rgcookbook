@@ -140,23 +140,23 @@ You want to make a line graph with more than one line.
 In addition to the variables mapped to the x- and y-axes, map another (discrete) variable to colour or linetype, as shown in Figure \@ref(fig:FIG-LINE-GRAPH-MULTI-LINE-COLOR-TYPE):
 
 ```{r FIG-LINE-GRAPH-MULTI-LINE-COLOR-TYPE, fig.show="hold", fig.cap="A variable mapped to colour (left); A variable mapped to linetype (right)"}
-library(gcookbook) # Load the gcookbook package to access the tg data set
+library(gcookbook) # Load the gcookbook package to access the ToothGrowth data set
 
 # Map supp to colour
-ggplot(tg, aes( x = dose, y = length, colour = supp)) + 
+ggplot(ToothGrowth, aes(x = dose, y = len, colour = supp)) + 
   geom_line()
 
 # Map supp to linetype
-ggplot(tg, aes(x = dose, y = length, linetype = supp)) + 
+ggplot(ToothGrowth, aes(x = dose, y = len, linetype = supp)) + 
   geom_line()
 ```
 
 ### Discussion
 
-The `tg` data has three columns, including the factor `supp`, which we mapped to `colour` and `linetype`:
+The `ToothGrowth` data has three columns, including the factor `supp`, which we mapped to `colour` and `linetype`:
 
 ```{r}
-tg
+ToothGrowth
 ```
 
 > **Note**
@@ -166,14 +166,14 @@ tg
 Line graphs can be used with a continuous or categorical variable on the x-axis. Sometimes the variable mapped to the x-axis is *conceived* of as being categorical, even when it's stored as a number. In the example here, there are three values of dose: 0.5, 1.0, and 2.0. You may want to treat these as categories rather than values on a continuous scale. To do this, convert `dose` to a factor (Figure \@ref(fig:FIG-LINE-GRAPH-MULTI-LINE-FACTOR)):
 
 ```{r FIG-LINE-GRAPH-MULTI-LINE-FACTOR, fig.cap="Line graph with continuous x variable converted to a factor"}
-ggplot(tg, aes(x = factor(dose), y = length, colour = supp, group = supp)) + 
+ggplot(ToothGrowth, aes(x = factor(dose), y = len, colour = supp, group = supp)) + 
   geom_line()
 ```
 
 Notice the use of `group = supp`. Without this statement, ggplot won't know how to group the data together to draw the lines, and it will give an error:
 
 ```{r eval=FALSE}
-ggplot(tg, aes(x = factor(dose), y = length, colour = supp)) + geom_line()
+ggplot(ToothGrowth, aes(x = factor(dose), y = len, colour = supp)) + geom_line()
 #> geom_path: Each group consists of only one observation. Do you need to
 #> adjust the group aesthetic?
 ```
@@ -181,7 +181,7 @@ ggplot(tg, aes(x = factor(dose), y = length, colour = supp)) + geom_line()
 Another common problem when the incorrect grouping is used is that you will see a jagged sawtooth pattern, as in Figure \@ref(fig:FIG-LINE-GRAPH-MULTI-LINE-SAWTOOTH):
 
 ```{r FIG-LINE-GRAPH-MULTI-LINE-SAWTOOTH, fig.cap="A sawtooth pattern indicates improper grouping"}
-ggplot(tg, aes(x = dose, y = length)) + 
+ggplot(ToothGrowth, aes(x = dose, y = len)) + 
   geom_line()
 ```
 
@@ -194,11 +194,11 @@ This happens because there are multiple data points at each *y* location, and gg
 If your plot has points along with the lines, you can also map variables to properties of the points, such as shape and fill (Figure \@ref(fig:FIG-LINE-GRAPH-MULTI-LINE-SHAPE-FILL)):
 
 ```{r FIG-LINE-GRAPH-MULTI-LINE-SHAPE-FILL, fig.show="hold", fig.cap="Line graph with different shapes (left); With different colors (right)"}
-ggplot(tg, aes(x = dose, y = length, shape = supp)) + 
+ggplot(ToothGrowth, aes(x = dose, y = len, shape = supp)) + 
   geom_line() +
   geom_point(size = 4)  # Make the points a little larger
 
-ggplot(tg, aes(x = dose, y = length, fill = supp)) + 
+ggplot(ToothGrowth, aes(x = dose, y = len, fill = supp)) + 
   geom_line() +
   geom_point(size = 4, shape = 21)  # Also use a point with a color fill
 ```
@@ -206,7 +206,7 @@ ggplot(tg, aes(x = dose, y = length, fill = supp)) +
 Sometimes points will overlap. In these cases, you may want to *dodge* them, which means their positions will be adjusted left and right (Figure \@ref(fig:FIG-LINE-GRAPH-MULTI-LINE-DODGE)). When doing so, you must also dodge the lines, or else only the points will move and they will be misaligned. You must also specify how far they should move when dodged:
 
 ```{r FIG-LINE-GRAPH-MULTI-LINE-DODGE, fig.cap="Dodging to avoid overlapping points"}
-ggplot(tg, aes(x = dose, y = length, shape = supp)) +
+ggplot(ToothGrowth, aes(x = dose, y = len, shape = supp)) +
   geom_line(position = position_dodge(0.2)) +           # Dodge lines by 0.2
   geom_point(position = position_dodge(0.2), size = 4)  # Dodge points by 0.2
 ```
@@ -233,9 +233,9 @@ ggplot(BOD, aes(x = Time, y = demand)) +
 If there is more than one line, setting the aesthetic properties will affect all of the lines. On the other hand, *mapping* variables to the properties, as we saw in Recipe \@ref(RECIPE-LINE-GRAPH-MULTIPLE-LINE), will result in each line looking different. The default colors aren't the most appealing, so you may want to use a different palette, as shown in Figure \@ref(fig:FIG-LINE-GRAPH-MULTI-LINE-PALETTE), by using `scale_colour_brewer()` or `scale_colour_manual()`:
 
 ```{r FIG-LINE-GRAPH-MULTI-LINE-PALETTE, fig.cap="Using a palette from RColorBrewer"}
-library(gcookbook)  # Load the gcookbook package to access the tg data set
+library(gcookbook)  # Load the gcookbook package to access the ToothGrowth data set
 
-ggplot(tg, aes(x = dose, y = length, colour = supp)) +
+ggplot(ToothGrowth, aes(x = dose, y = len, colour = supp)) +
   geom_line() +
   scale_colour_brewer(palette = "Set1")
 ```
@@ -247,11 +247,11 @@ To set a single constant color for all the lines, specify colour outside of `aes
 ```{r FIG-LINE-GRAPH-MULTI-LINE-CONSTANT-AES, fig.show="hold", fig.cap="Line graph with constant size and color (left); With `supp` mapped to `colour`, and with points added (right)"}
 # If both lines have the same properties, you need to specify a variable to
 # use for grouping
-ggplot(tg, aes(x = dose, y = length, group = supp)) +
+ggplot(ToothGrowth, aes(x = dose, y = len, group = supp)) +
   geom_line(colour = "darkgreen", size = 1.5)
 
 # Since supp is mapped to colour, it will automatically be used for grouping
-ggplot(tg, aes(x = dose, y = length, colour = supp)) +
+ggplot(ToothGrowth, aes(x = dose, y = len, colour = supp)) +
   geom_line(linetype = "dashed") +
   geom_point(shape = 22, size = 3, fill = "white")
 ```
@@ -293,12 +293,12 @@ If the points and lines have different colors, you should specify the points aft
 For multiple lines, we saw in Recipe \@ref(RECIPE-LINE-GRAPH-MULTIPLE-LINE) how to draw differently colored points for each group by mapping variables to aesthetic properties of points, inside of `aes()`. The default colors are not very appealing, so you may want to use a different palette, using `scale_colour_brewer()` or `scale_colour_manual()`. To set a single constant shape or size for all the points, as in Figure \@ref(fig:FIG-LINE-GRAPH-MULTI-LINE-POINT-PALETTE), specify shape or size outside of `aes()`:
 
 ```{r FIG-LINE-GRAPH-MULTI-LINE-POINT-PALETTE, fig.cap="Line graph with manually specified fills of black and white, and a slight dodge"}
-library(gcookbook)  # Load the gcookbook package to access the tg data set
+library(gcookbook)  # Load the gcookbook package to access the ToothGrowth data set
 
 # Save the position_dodge specification because we'll use it multiple times
 pd <- position_dodge(0.2)
 
-ggplot(tg, aes(x = dose, y = length, fill = supp)) +
+ggplot(ToothGrowth, aes(x = dose, y = len, fill = supp)) +
   geom_line(position = pd) +
   geom_point(shape = 21, size = 3, position = pd) +
   scale_fill_manual(values = c("black","white"))
