@@ -139,7 +139,9 @@ You want to select a color palette that can also be distinguished by colorblind 
 
 Use the color scales in the viridis package. 
 
-The viridis package contains a set of color scales that are each designed to span as wide a palette as possible, making for colorful and pretty color scales that also make it easier to see differences in your data. These scales are also designed to be perceptually uniform, printable in grey scale, and easier to read by those with colorblindness. Here is an example from the introduction page to viridis (https://cran.r-project.org/web/packages/viridis/vignettes/intro-to-viridis.html; Figure \@ref(fig:FIG-COLORS-PALETTE-VIRIDIS)):
+The viridis package contains a set of beautiful color scales that are each designed to span as wide a palette as possible, making it easier to see differences in your data. These scales are also designed to be perceptually uniform, printable in grey scale, and easier to read by those with colorblindness. 
+
+Here is an example from the introduction page to viridis (https://cran.r-project.org/web/packages/viridis/vignettes/intro-to-viridis.html; Figure \@ref(fig:FIG-COLORS-PALETTE-VIRIDIS)):
 
 ```{r FIG-COLORS-PALETTE-VIRIDIS, warning=FALSE, echo=FALSE, fig.cap="Example of viridis color palette", fig.height=5, fig.width=5}
 ggplot(data.frame(x = rnorm(10000), y = rnorm(10000)), aes(x = x, y = y)) +
@@ -168,7 +170,7 @@ uspopage_plot +
 
 About 8 percent of males and 0.5 percent of females have some form of color-vision deficiency, so there's a good chance that someone in your audience will be among them. There are many different forms of color blindness - the palettes that are mentioned in this book are designed to enable people with any of the most common forms of color-vision deficiency to distinguish the colors. (Monochromacy, or total colorblindness, is rare. Those who have it can only see differences in brightness.)
 
-The viridis color scales come loaded with the newest version of ggplot2 (3.0.0). There are also other color palettes that are friendly to users with color blindness, such as those in cetcolor package (link below.) 
+The viridis color scales come loaded with the newest version of ggplot2 (3.0.0). There are also other color palettes that are friendly to users with color blindness, such as those in cetcolor package (see below). 
 
 ### See Also
 
@@ -208,7 +210,7 @@ Table: (\#tab:TABLE-DISCRETE-FILL-AND-COLOR-SCALES) Discrete fill and color scal
 +-------------------------+---------------------------+-----------------------+
 | `scale_fill_grey()`     | `scale_colour_grey()`     | Greyscale palette     |
 +-------------------------+---------------------------+-----------------------+
-| `scale_fill_viridis_d()`  | `scale_colour_viridis_d()`| Viridis palettes    |
+| `scale_fill_viridis_d()`| `scale_colour_viridis_d()` |  Viridis palettes    |
 +-------------------------+---------------------------+-----------------------+
 | `scale_fill_brewer()`   | `scale_colour_brewer()`   | ColorBrewer palettes  |
 +-------------------------+---------------------------+-----------------------+
