@@ -1,0 +1,65 @@
+---
+output:
+  bookdown::html_document2:
+    fig_caption: yes
+editor_options:
+  chunk_output_type: console
+---
+
+```{r echo = FALSE, cache = FALSE}
+source("utils.R", local = TRUE)
+```
+
+ggplot2 and plotting basics {#CHAPTER-GGPLOT2-BASICS}
+========
+
+Most of the recipes in this book involve the ggplot2 package, which has quickly become one of the main packages used in the R community for plots and graphics. 
+
+Since ggplot2 was first created (and subsequently updated) by Hadley Wickham, the package has attracted many users in the R community because of its versatility, clear and consistent interface, and beautiful output. The name ggplot2 comes from from Leland Wilkinson's *grammar of graphics*, which provides a formal, structured perspective on how to describe data graphics, and serves as the conceptual foundation for the design of ggplot2.
+
+There are a number of other graphing packages that exist that can do some things that ggplot2 can't do, or do better than ggplot2. There are other things that ggplot2 can do, but that specialized packages are better suited to handling. I've listed some of these other packages in \@ref(#CHAPTER-GGPLOT2). For most purposes, though, I believe that ggplot2 gives the best return on time invested, and it provides beautiful, publication-ready results.
+
+This chapter provides a brief introduction to using ggplot2, so that you'll have a better understanding of how ggplot2 plots are constructed, and how the syntax works. This is just the surface though. If you're interested in a deeper understanding of ggplot2, I encourage you to read the materials in \@ref(CHAPTER-GGPLOT2)! 
+
+
+Building a ggplot2
+--------------------
+
+### Problem
+
+You want to build a plot using ggplot2.
+
+### Solution
+
+Determine the kind of data you want to plot, and use ggplot2 syntax to construct a plot. 
+
+In the example below, we are trying to plot two continuous variables on the *x* and *y* axes. There are different ways that we could plot this data, including with points and a line running through the points:  
+
+```{r}
+ggplot(pressure, aes(x = temperature, y = pressure)) + 
+  geom_point() +
+  geom_line()
+```
+
+### Discussion
+
+There is a specific logic and syntax to building ggplot2 plots. The first thing that you want to do is to think through the kind of data that you have. 
+
+The `summary()` command will give you... 
+
+```{r, eval=FALSE}
+```
+
+You can consult the ggplot2 cheatsheet oneline for more kdeas on how to plot your data: LINK.
+
+Secondly, there is a specific syntax to building a ggplot. As you go through this book you'll quickly notice that each ggplot typically starts with a line that looks like this:
+
+```{r, eval=FALSE}
+ggplot(pressure, aes(x = temperature, y = pressure))
+```
+
+This very first line has several purposes. The first is that it signals that we are starting to build a ggplot - any subsequent addition to this first line is indicated with a `+` sign. 
+
+Secondly, this first line indicates the dataset that the data for the plot comes from. The dataset is always the first input into the line - in this case, our dataset is called `pressure`.
+
+Finally, this line indicates what variables should be used in the plot, and how. This information is contained within `aes()`, which stands for "aesthetic" parameters of the plot.  
