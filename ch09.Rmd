@@ -53,7 +53,7 @@ hw_plot +
 
 You can add a subtitle by providing a string as the second argument of `ggtitle()`. By default it will display with slightly smaller text than the main title.
 
-```{r FIG-APPEARANCE-TITLE-SUBTITLE, fig.show="hold", fig.cap="With a subtitle"}
+```{r FIG-APPEARANCE-TITLE-SUBTITLE, fig.show="hold", fig.cap="Scatter plot with a subtitle"}
 hw_plot + 
   ggtitle("Age and Height of Schoolchildren", "11.5 to 17.5 years old")
 ```
@@ -162,12 +162,12 @@ Table: (\#tab:TABLE-APPEARANCE-PROPERTIES) Text properties of theme elements and
 |                      |                      | in mm for geoms)      |
 +----------------------+----------------------+-----------------------+
 | `hjust`              | `hjust`              | Horizontal alignment: |
-|                      |                      | 0=left, 0.5=center,   |
-|                      |                      | 1=right               |
+|                      |                      | 0 = left, 0.5 = center,|
+|                      |                      | 1 = right             |
 +----------------------+----------------------+-----------------------+
 | `vjust`              | `vjust`              | Vertical alignment:   |
-|                      |                      | 0=bottom, 0.5=middle, |
-|                      |                      | 1=top                 |
+|                      |                      | 0 = bottom, 0.5 = middle,|
+|                      |                      | 1 = top               |
 +----------------------+----------------------+-----------------------+
 | `angle`              | `angle`              | Angle in degrees      |
 +----------------------+----------------------+-----------------------+
@@ -271,7 +271,7 @@ hw_plot +
 
 Another theme included in ggplot2 is `theme_void()`, which makes all plot elements blank and only shows your data (Figure \@ref(fig:FIG-APPEARANCE-THEME-VOID). This is especially useful if you don't want any default theme settings, and instead want a blank slate on which to choose your own theme elements.
 
-```{r FIG-APPEARANCE-THEME-VOID, fig.show="hold", fig.cap="(ref:cap-FIG-APPEARANCE-THEME)"}
+```{r FIG-APPEARANCE-THEME-VOID, fig.show="hold", fig.cap="Scatter plot with `theme_void()`"}
 hw_plot + 
   theme_void()
 ```
@@ -463,7 +463,7 @@ Table: (\#tab:TABLE-APPEARANCE-THEME-ELEMENTS) Theme items that control text app
 | `panel.grid.minor.y` | Minor grid lines,    | `element_line()`      |
 |                      | horizontal           |                       |
 +----------------------+----------------------+-----------------------+
-| `plot.background`    | Background of the    | `element_rect(fill="white", colour=NA)`  |
+| `plot.background`    | Background of the    | `element_rect(fill = "white", colour = NA)`|
 |                      | entire plot          |                       |
 +----------------------+----------------------+-----------------------+
 | `plot.title`         | Title text           | `element_text()`      |
