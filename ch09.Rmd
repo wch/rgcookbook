@@ -162,11 +162,11 @@ Table: (\#tab:TABLE-APPEARANCE-PROPERTIES) Text properties of theme elements and
 |                      |                      | in mm for geoms)      |
 +----------------------+----------------------+-----------------------+
 | `hjust`              | `hjust`              | Horizontal alignment: |
-|                      |                      | 0 = left, 0.5 = center,|
+|                      |                      | 0 = left, 0.5 = center, |
 |                      |                      | 1 = right             |
 +----------------------+----------------------+-----------------------+
 | `vjust`              | `vjust`              | Vertical alignment:   |
-|                      |                      | 0 = bottom, 0.5 = middle,|
+|                      |                      | 0 = bottom, 0.5 = middle, |
 |                      |                      | 1 = top               |
 +----------------------+----------------------+-----------------------+
 | `angle`              | `angle`              | Angle in degrees      |
@@ -463,7 +463,7 @@ Table: (\#tab:TABLE-APPEARANCE-THEME-ELEMENTS) Theme items that control text app
 | `panel.grid.minor.y` | Minor grid lines,    | `element_line()`      |
 |                      | horizontal           |                       |
 +----------------------+----------------------+-----------------------+
-| `plot.background`    | Background of the    | `element_rect(fill = "white", colour = NA)`|
+| `plot.background`    | Background of the    | `element_rect(fill = "white", colour = NA)` |
 |                      | entire plot          |                       |
 +----------------------+----------------------+-----------------------+
 | `plot.title`         | Title text           | `element_text()`      |
