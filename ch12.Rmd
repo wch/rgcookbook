@@ -33,12 +33,12 @@ You want to set the color of some geoms in your graph.
 In the call to the geom, set the values of `colour` or `fill` (Figure \@ref(fig:FIG-COLORS-SETTING)):
 
 ```{r FIG-COLORS-SETTING, fig.show="hold", fig.cap="Setting `fill` and `colour` (left); Setting `colour` for points (right)", message=FALSE}
-library(MASS)  # Load the MASS package to access the birthwt data set 
+library(MASS)  # Load the MASS package to access the birthwt data set
 
-ggplot(birthwt, aes(x = bwt)) + 
+ggplot(birthwt, aes(x = bwt)) +
   geom_histogram(fill = "red", colour = "black")
 
-ggplot(mtcars, aes(x = wt, y = mpg)) + 
+ggplot(mtcars, aes(x = wt, y = mpg)) +
   geom_point(colour = "red")
 ```
 
@@ -69,7 +69,7 @@ You want to use a variable (column from a data frame) to control the color of ge
 In the call to the geom, inside of `aes()`, set the value of `colour` or `fill` to the name of one of the columns in the data (Figure \@ref(fig:FIG-COLORS-MAPPING)):
 
 ```{r eval=FALSE}
-library(gcookbook)  # Load the gcookbook package to access the cabbage_exp data set 
+library(gcookbook)  # Load the gcookbook package to access the cabbage_exp data set
 
 # These both have the same effect
 ggplot(cabbage_exp, aes(x = Date, y = Weight, fill = Cultivar)) +
@@ -79,20 +79,20 @@ ggplot(cabbage_exp, aes(x = Date, y = Weight)) +
   geom_bar(aes(fill = Cultivar), colour = "black", position = "dodge")
 
 # These both have the same effect
-ggplot(mtcars, aes(x = wt, y = mpg, colour = cyl)) + 
+ggplot(mtcars, aes(x = wt, y = mpg, colour = cyl)) +
   geom_point()
 
-ggplot(mtcars, aes(x = wt, y = mpg)) + 
+ggplot(mtcars, aes(x = wt, y = mpg)) +
   geom_point(aes(colour = cyl))
 ```
 
 ```{r FIG-COLORS-MAPPING, echo=FALSE, fig.show="hold", message=FALSE, fig.cap="Mapping a variable to `fill` (left); Mapping a variable to `colour` for points (right)"}
-library(gcookbook)  # Load the gcookbook package to access the cabbage_exp data set 
+library(gcookbook)  # Load the gcookbook package to access the cabbage_exp data set
 
 ggplot(cabbage_exp, aes(x = Date, y = Weight, fill = Cultivar)) +
   geom_col(colour = "black", position = "dodge")
 
-ggplot(mtcars, aes(x = wt, y = mpg, colour = cyl)) + 
+ggplot(mtcars, aes(x = wt, y = mpg, colour = cyl)) +
   geom_point()
 ```
 
@@ -110,16 +110,16 @@ In the `mtcars` example, `cyl` is numeric, so it is treated as a continuous vari
 
 ```{r FIG-COLORS-MAPPING-FACTOR, fig.show="hold", fig.cap="Converting `cyl` to a factor, within the call to ggplot (left); By modifying the dataframe (right)"}
 # Convert to factor in call to ggplot()
-ggplot(mtcars, aes(x = wt, y = mpg, colour = factor(cyl))) + 
+ggplot(mtcars, aes(x = wt, y = mpg, colour = factor(cyl))) +
   geom_point()
 
 # Another method: Convert to factor in the data
 library(dplyr)
-mtcars_mod <- 
-  mtcars %>% 
+mtcars_mod <-
+  mtcars %>%
   mutate(cyl = as.factor(cyl))  # Convert cyl to a factor
 
-ggplot(mtcars_mod, aes(x = wt, y = mpg, colour = cyl)) + 
+ggplot(mtcars_mod, aes(x = wt, y = mpg, colour = cyl)) +
   geom_point()
 ```
 
@@ -219,12 +219,12 @@ Table: (\#tab:TABLE-DISCRETE-FILL-AND-COLOR-SCALES) Discrete fill and color scal
 In the example here we'll use the default palette (hue), a viridis palette, and a ColorBrewer palette (Figure \@ref(fig:FIG-COLORS-PALETTE-DISCRETE)):
 
 ```{r FIG-COLORS-PALETTE-DISCRETE, message=FALSE, fig.show="hold", fig.cap="Default palette (using hue; top left); A viridis palette (top right); A ColorBrewer palette (bottom)", fig.width=4}
-library(gcookbook)  # Load the gcookbook package to access the uspopage data set 
+library(gcookbook)  # Load the gcookbook package to access the uspopage data set
 library(viridis)  # Load the viridis package to access the viridis palette
 
 # Create the base plot
-uspopage_plot <- 
-  ggplot(uspopage, aes(x = Year, y = Thousands, fill = AgeGroup)) + 
+uspopage_plot <-
+  ggplot(uspopage, aes(x = Year, y = Thousands, fill = AgeGroup)) +
   geom_area()
 
 # These four specifications all have the same effect
@@ -235,10 +235,10 @@ uspopage_plot
 
 # Viridis palette
 uspopage_plot +
-  scale_fill_viridis(discrete = TRUE) 
+  scale_fill_viridis(discrete = TRUE)
 
 # ColorBrewer palette
-uspopage_plot + 
+uspopage_plot +
   scale_fill_brewer()
 ```
 
@@ -250,7 +250,7 @@ With `scale_fill_hue()`, the colors are taken from around the color wheel in the
 
 ```{r FIG-COLORS-PALETTE-LIGHTNESS, fig.show="hold", fig.cap="Points with default lightness (left); With lightness set to 45 (right)", fig.width=4}
 # Create the base scatter plot
-hw_splot <- 
+hw_splot <-
   ggplot(heightweight, aes(x = ageYear, y = heightIn, colour = sex)) +
   geom_point()
 
@@ -258,11 +258,11 @@ hw_splot <-
 hw_splot
 
 # Slightly darker, set lightness = 45
-hw_splot + 
+hw_splot +
   scale_colour_hue(l = 45)
 ```
 
-The viridis package provides a number of color scales that make it easy to see differences across your data. See Recipe \@ref(RECIPE-COLORS-PALETTE-DISCRETE-COLORBLIND) for more details and examples. 
+The viridis package provides a number of color scales that make it easy to see differences across your data. See Recipe \@ref(RECIPE-COLORS-PALETTE-DISCRETE-COLORBLIND) for more details and examples.
 
 The ColorBrewer package provides a number of palettes. You can generate a graphic showing all of them, as shown in Figure \@ref(fig:FIG-COLORS-PALETTE-BREWER):
 
@@ -279,7 +279,7 @@ display.brewer.all()
 The ColorBrewer palettes can be selected by name. For example, this will use the "Oranges" palette (Figure \@ref(fig:FIG-COLORS-PALETTE-BREWER-NAME)):
 
 ```{r FIG-COLORS-PALETTE-BREWER-NAME, fig.cap="Using a named ColorBrewer palette", fig.width=4}
-hw_splot + 
+hw_splot +
   scale_colour_brewer(palette = "Oranges") +
   theme_bw()
 ```
@@ -287,11 +287,11 @@ hw_splot +
 You can also use a palette of greys. This is useful for print when the output is in black and white. The default is to start at 0.2 and end at 0.8, on a scale from 0 (black) to 1 (white), but you can change the range, as shown in Figure \@ref(fig:FIG-COLORS-PALETTE-GREY).
 
 ```{r FIG-COLORS-PALETTE-GREY, fig.show="hold", fig.cap="Using the default grey palette (left); A different grey palette (right)", fig.width=4}
-hw_splot + 
+hw_splot +
   scale_colour_grey()
 
 # Reverse the direction and use a different range of greys
-hw_splot + 
+hw_splot +
   scale_colour_grey(start = 0.7, end = 0)
 ```
 
@@ -317,23 +317,23 @@ You want to use different colors for a discrete mapped variable.
 In the example here, we'll manually define colors by specifying values with `scale_colour_manual()` (Figure \@ref(fig:FIG-COLORS-PALETTE-DISCRETE-MANUAL)). The colors can be named, or they can be specified with RGB values:
 
 ```{r FIG-COLORS-PALETTE-DISCRETE-MANUAL, fig.show="hold", fig.cap="Scatter plot with named colors (top left); With slightly different RGB colors (top right); With colors from the viridis color scale (bottom)", fig.width=4}
-library(gcookbook)  # Load the gcookbook package to access the heightweight data set 
+library(gcookbook)  # Load the gcookbook package to access the heightweight data set
 
 # Create the base plot
-hw_plot <- 
-  ggplot(heightweight, aes(x = ageYear, y = heightIn, colour = sex)) + 
+hw_plot <-
+  ggplot(heightweight, aes(x = ageYear, y = heightIn, colour = sex)) +
   geom_point()
 
 # Using color names
-hw_plot + 
+hw_plot +
   scale_colour_manual(values = c("red", "blue"))
 
 # Using RGB values
-hw_plot + 
+hw_plot +
   scale_colour_manual(values = c("#CC6666", "#7777DD"))
 
 # Using RGB values based on the viridis color scale
-hw_plot + 
+hw_plot +
   scale_colour_manual(values = c("#440154FF", "#FDE725FF")) +
   theme_bw()
 ```
@@ -353,7 +353,7 @@ If the variable is a character vector, not a factor, it will automatically be co
 It's possible to specify the colors in a different order by using a named vector:
 
 ```{r eval=FALSE}
-hw_plot + 
+hw_plot +
   scale_colour_manual(values = c(m = "blue", f = "red"))
 ```
 
@@ -380,7 +380,7 @@ inferno(5)  ## Specifying 5 discrete categories with the inferno color scale
 
 A [chart of RGB color codes](http://html-color-codes.com).
 
- 
+
 Using a Manually Defined Palette for a Continuous Variable {#RECIPE-COLORS-PALETTE-CONTINUOUS}
 ----------------------------------------------------------
 
@@ -395,29 +395,29 @@ In the example here, we'll specify the colors for a continuous variable using va
 (ref:cap-FIG-COLORS-PALETTE-CONTINUOUS) Clockwise from top left: default colors, two-color gradient with `scale_colour_gradient()`, three-color gradient with midpoint with `scale_colour_gradient2()`, four-color gradient with `scale_colour_gradientn()`
 
 ```{r FIG-COLORS-PALETTE-CONTINUOUS, fig.show="hold", message=FALSE, fig.cap="(ref:cap-FIG-COLORS-PALETTE-CONTINUOUS)", fig.width=4}
-library(gcookbook)  # Load the gcookbook package to access the heightweight data set 
+library(gcookbook)  # Load the gcookbook package to access the heightweight data set
 
 # Create the base plot
-hw_plot <- 
+hw_plot <-
   ggplot(heightweight, aes(x = ageYear, y = heightIn, colour = weightLb)) +
   geom_point(size = 3)
 
 hw_plot
 
 # With a gradient between two colors
-hw_plot + 
+hw_plot +
   scale_colour_gradient(low = "black", high = "white")
 
 # A gradient of n colors
-hw_plot + 
+hw_plot +
   scale_colour_gradientn(colours = c("darkred", "orange", "yellow", "white"))
 
 # A gradient with a white midpoint
 library(scales)
-hw_plot + 
+hw_plot +
   scale_colour_gradient2(
-    low = muted("red"), 
-    mid = "white", 
+    low = muted("red"),
+    mid = "white",
     high = muted("blue"),
     midpoint = 110
   )
@@ -470,9 +470,9 @@ Add a column that categorizes the *y* values, then map that column to fill. In t
 library(gcookbook)  # Load the gcookbook package to access the climate data set
 library(dplyr)
 
-climate_mod <- 
-  climate %>% 
-  filter(Source == "Berkeley") %>% 
+climate_mod <-
+  climate %>%
+  filter(Source == "Berkeley") %>%
   mutate(valence = ifelse(Anomaly10y >= 0, "pos", "neg"))
 
 climate_mod
@@ -497,7 +497,7 @@ interp <- approx(climate_mod$Year, climate_mod$Anomaly10y, n = 1000)
 
 # Put in a data frame and recalculate valence
 cbi <-
-  data.frame(Year = interp$x, Anomaly10y = interp$y) %>% 
+  data.frame(Year = interp$x, Anomaly10y = interp$y) %>%
   mutate(valence = ifelse(Anomaly10y >= 0, "pos", "neg"))
 ```
 
