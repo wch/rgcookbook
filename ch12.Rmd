@@ -73,10 +73,10 @@ library(gcookbook)  # Load the gcookbook package to access the cabbage_exp data 
 
 # These both have the same effect
 ggplot(cabbage_exp, aes(x = Date, y = Weight, fill = Cultivar)) +
-  geom_bar(colour = "black", position = "dodge")
+  geom_col(colour = "black", position = "dodge")
 
 ggplot(cabbage_exp, aes(x = Date, y = Weight)) +
-  geom_bar(aes(fill = Cultivar), colour = "black", position = "dodge")
+  geom_col(aes(fill = Cultivar), colour = "black", position = "dodge")
 
 # These both have the same effect
 ggplot(mtcars, aes(x = wt, y = mpg, colour = cyl)) +
