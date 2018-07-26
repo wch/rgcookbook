@@ -137,32 +137,32 @@ You want to select a color palette that can also be distinguished by colorblind 
 
 ### Solution
 
-Use the color scales in the viridis package. 
+Use the color scales in the viridis package.
 
-The viridis package contains a set of beautiful color scales that are each designed to span as wide a palette as possible, making it easier to see differences in your data. These scales are also designed to be perceptually uniform, printable in grey scale, and easier to read by those with colorblindness. 
+The viridis package contains a set of beautiful color scales that are each designed to span as wide a palette as possible, making it easier to see differences in your data. These scales are also designed to be perceptually uniform, printable in grey scale, and easier to read by those with colorblindness.
 
 Here is an example from the introduction page to viridis (https://cran.r-project.org/web/packages/viridis/vignettes/intro-to-viridis.html; Figure \@ref(fig:FIG-COLORS-PALETTE-VIRIDIS)):
 
 ```{r FIG-COLORS-PALETTE-VIRIDIS, warning=FALSE, echo=FALSE, fig.cap="Example of viridis color palette", fig.height=5, fig.width=5}
 ggplot(data.frame(x = rnorm(10000), y = rnorm(10000)), aes(x = x, y = y)) +
-  geom_hex() + 
+  geom_hex() +
   coord_fixed() +
-  scale_fill_viridis_c() + 
+  scale_fill_viridis_c() +
   theme_bw()
 ```
 
 The viridis color scales can be implemented for data that is both continuous and discrete in nature. You will need to add `scale_fill_viridis_c()` to your plot if your data is continuous. If your data is discrete you will need to use `scale_fill_viridis_d()` instead, as in Figure \@ref(fig:FIG-COLORS-PALETTE-DISCRETE-COLORBLIND-VIRIDIS) below:
 
 ```{r FIG-COLORS-PALETTE-DISCRETE-COLORBLIND-VIRIDIS, fig.show="hold", fig.cap="A plot with the colorblind-friendly viridis palette", fig.width=4.5}
-library(gcookbook)  # Load the gcookbook package to access the uspopage data set 
+library(gcookbook)  # Load the gcookbook package to access the uspopage data set
 
 # Create the base plot
-uspopage_plot <- 
-  ggplot(uspopage, aes(x = Year, y = Thousands, fill = AgeGroup)) + 
+uspopage_plot <-
+  ggplot(uspopage, aes(x = Year, y = Thousands, fill = AgeGroup)) +
   geom_area()
 
 # Add the viridis color scale
-uspopage_plot + 
+uspopage_plot +
   scale_fill_viridis_d()
 ```
 
@@ -170,15 +170,13 @@ uspopage_plot +
 
 About 8 percent of males and 0.5 percent of females have some form of color-vision deficiency, so there's a good chance that someone in your audience will be among them. There are many different forms of color blindness - the palettes that are mentioned in this book are designed to enable people with any of the most common forms of color-vision deficiency to distinguish the colors. (Monochromacy, or total colorblindness, is rare. Those who have it can only see differences in brightness.)
 
-The viridis color scales come loaded with the newest version of ggplot2 (3.0.0). There are also other color palettes that are friendly to users with color blindness, such as those in cetcolor package (see below). 
+The viridis color scales come with the current version of ggplot2 (3.0.0). There are also other color palettes that are friendly to users with color blindness, such as those in cetcolor package (see below).
 
 ### See Also
 
 To see more on the different viridis palettes, see `?scales::viridis_pal`.
 
-The cetcolor scales: <http://thecoatlessprofessor.com/software-releases/cetcolor-v0.2.0-released-cet-perceptually-uniform-color-maps-with-support-for-colour-blind-users-and-short-names>. 
-
-More information on colorblindness: <http://jfly.iam.u-tokyo.ac.jp/color>.
+The cetcolor scales: <https://github.com/coatless/cetcolor>.
 
 The Color Oracle program (<http://colororacle.org>) can simulate how things on your screen appear to someone with color vision deficiency, but keep in mind that the simulation isn't perfect. In my informal testing, I viewed an image with simulated red-green deficiency, and I could distinguish the colors just fine -- but others with actual red-green deficiency viewed the same image and couldn't tell the colors apart!
 
@@ -370,9 +368,10 @@ Here are some rules of thumb for specifying and adjusting RGB colors:
 * The opposites of RGB are CMY: Cyan, Magenta, and Yellow. Higher values for the red channel make it more red, and lower values make it more cyan. The same is true for the pairs green and magenta, and blue and yellow.
 
 
-You may want to manually select colors based on the color scales in the viridis package, as described in Recipe \@ref(RECIPE-COLORS-PALETTE-DISCRETE). You can do so by specifying the number of discrete categories you have within the `viridis()` function. This will generate the RBG hexadecimals. You can similarly generate the RBG values for the other color scales in the viridis package: "magma", "plasma", "inferno", and "cividis". 
+You may want to manually select colors based on the color scales in the viridis package, as described in Recipe \@ref(RECIPE-COLORS-PALETTE-DISCRETE). You can do so by calling `viridis()` and passing it the number of discrete categories you have. This will generate the RGB hexadecimal values. You can similarly generate the RGB values for the other color scales in the viridis package: "magma", "plasma", "inferno", and "cividis".
 
 ```{r}
+library(viridis)
 viridis(2)  ## Specifying 2 discrete categories with the viridis color scale
 inferno(5)  ## Specifying 5 discrete categories with the inferno color scale
 ```
