@@ -239,7 +239,7 @@ With `ggsave()`, you don't need to print the ggplot object, and if there is an e
 
 > **Note**
 >
-> Although the argument name is dpi, it really controls the *pixels* per inch (ppi), not the *dots* per inch. When a grey pixel is rendered in print, it is output with many smaller dots of black ink-and so print output has more dots per inch than pixels per inch.
+> Although the argument name is `dpi`, it really controls the *pixels* per inch (ppi), not the *dots* per inch. When a grey pixel is rendered in print, it is output with many smaller dots of black ink-and so print output has more dots per inch than pixels per inch.
 
 ### Discussion
 
@@ -337,6 +337,8 @@ Embedding fonts with R can be a tricky process, but the extrafont package handle
 > As of this writing, extrafont will only import TrueType (*.ttf*) fonts, but it may support other common formats, such as OpenType (*.otf*), in the future.
 
 ### See Also
+
+Showtext is another package for using different fonts in R graphics. It supports TrueType, OpenType, PostScript Type 1 fonts, and makes it easy to download web fonts. However, it currently does not work correctly with the RStudio viewer pane. See <https://cran.r-project.org/web/packages/showtext/vignettes/introduction.html>.
 
 For more on controlling text appearance, see Recipe \@ref(RECIPE-APPEARANCE-TEXT-APPEARANCE).
 
