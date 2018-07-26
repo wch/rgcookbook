@@ -404,7 +404,7 @@ You want to combine several plots into one graphic output.
 
 ### Solution
 
-The patchwork package can be used to combine several ggplot2 plots into the one graphic. Once you use patchwork to stich your plots together, you can output the combined graphic into any number of formats, as outlined in the preceeding recipes.
+The patchwork package can be used to combine several ggplot2 plots into one graphic.
 
 As of this writing, the patchwork package is not available on CRAN, so you need to install it using the devtools package. (The latest [installation instructions](https://github.com/thomasp85/patchwork) can be found on the project's GitHub page).
 
@@ -445,6 +445,9 @@ plot1 + plot2 + plot3 +
 plot1 + plot2 +
   plot_layout(ncol = 1, heights = c(1, 4))
 ```
+
+In the future, patchwork may be available on CRAN, in which case it can be installed using the usual `install.packages()`.
+
 ### See Also
 
 For more on additional patchwork features, see <https://github.com/thomasp85/patchwork>.
