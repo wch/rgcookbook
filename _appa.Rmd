@@ -253,9 +253,9 @@ ggplot(dat, aes(x=xval, y=yval))
 This creates a ggplot object using the data frame dat. It also specifies
 default *aesthetic mappings* within aes():
 
--   x=xval maps the column xval to the *x* position.
+-   x = xval maps the column xval to the *x* position.
 
--   y=yval maps the column yval to the *y* position.
+-   y = yval maps the column yval to the *y* position.
 
 After we've given ggplot() the data frame and the aesthetic
 mappings, there's one more critical component: we need to tell it

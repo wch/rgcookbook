@@ -13,7 +13,7 @@ source("utils.R", local = TRUE)
 Scatter Plots {#CHAPTER-SCATTER}
 =============
 
-Scatter plots are used to display the relationship between two continuous variables. In a scatter plot, each observation in a data set is represented by a point. Often, a scatter plot will also have a line showing the predicted values based on some statistical model. Adding this line is easy to do with R and the `ggplot2` package, and can help to make sense of data when the trends aren't immediately obvious just by looking at the points.
+Scatter plots are used to display the relationship between two continuous variables. In a scatter plot, each observation in a data set is represented by a point. Often, a scatter plot will also have a line showing the predicted values based on some statistical model. Adding this line is easy to do with R and the ggplot2 package, and can help to make sense of data when the trends aren't immediately obvious just by looking at the points.
 
 With large data sets, plotting every single observation in the data set can result in overplotting, when points overlap and obscure one another. To deal with the problem of overplotting, you'll probably want to summarize the data before displaying it. We'll also see how to do that in this chapter.
 
@@ -189,21 +189,21 @@ pchShow <- function(extras = c("*",".", "o","O","0","+","-","|","%","#"),
 {
   nex <- length(extras)
   np  <- 26 + nex
-  ipch <- 0:(np-1)
+  ipch <- 0:(np - 1)
   k <- floor(sqrt(np))
   dd <- c(-1,1)/2
   rx <- dd + range(ix <- ipch %/% k)
-  ry <- dd + range(iy <- 3 + (k-1)- ipch %% k)
+  ry <- dd + range(iy <- 3 + (k - 1) - ipch %% k)
   pch <- as.list(ipch) # list with integers & strings
-  if(nex > 0) pch[26+ 1:nex] <- as.list(extras)
-  plot(rx, ry, type="n", axes = FALSE, xlab = "", ylab = "",
+  if (nex > 0) pch[26 + 1:nex] <- as.list(extras)
+  plot(rx, ry, type ="n", axes = FALSE, xlab = "", ylab = "",
     main = main)
   abline(v = ix, h = iy, col = "lightgray", lty = "dotted")
-  for(i in 1:np) {
+  for (i in 1:np) {
     pc <- pch[[i]]
     ## 'col' symbols with a 'bg'-colored interior (where available) :
     points(ix[i], iy[i], pch = pc, col = col, bg = bg, cex = cex)
-    if(cextext > 0)
+    if (cextext > 0)
       text(ix[i] - 0.3, iy[i], pc, col = coltext, cex = cextext)
   }
 }
@@ -277,7 +277,7 @@ Humans can easily perceive small differences in spatial position, so we can inte
 
 There is another consideration when mapping a variable to `size`, which is that the results can be perceptually misleading. While the largest dots in Figure \@ref(fig:FIG-SCATTER-CONTINUOUS-COLOR-SIZE) are about 36 times the size of the smallest ones, they are only supposed to represent about 3.5 times the weight of the smallest dots.
 
-This relative misrepresentation of size happens because the default values in `ggplot2` for the diameter of points ranges from 1 to 6mm, regardless of the actual data values. For example, if the data values range from 0 to 10, the smallest value of 0 will be represented on the plot with a point that is 1mm wide, while the largest value of 10 will be represented on the plot with a point that is 6mm wide. Similarly, if the data values range from 100 to 110, the smallest value of 100 will still be represented by a point that is 1mm wide, and the largest value of 110 will be represented by a point that is 6mm wide. Thus regardless of the actual data values, the largest point will have a diameter that is 6 times the diameter of the smallest point, and will be 36 times the area.
+This relative misrepresentation of size happens because the default values in ggplot2 for the diameter of points ranges from 1 to 6mm, regardless of the actual data values. For example, if the data values range from 0 to 10, the smallest value of 0 will be represented on the plot with a point that is 1mm wide, while the largest value of 10 will be represented on the plot with a point that is 6mm wide. Similarly, if the data values range from 100 to 110, the smallest value of 100 will still be represented by a point that is 1mm wide, and the largest value of 110 will be represented by a point that is 6mm wide. Thus regardless of the actual data values, the largest point will have a diameter that is 6 times the diameter of the smallest point, and will be 36 times the area.
 
 If it is important for the size of the points to accurately reflect the proportional differences of your data values, you should first decide if you want the diameter of the points to represent the data values, or if you want to area of the points to represent the data values. Figure \@ref(fig:FIG-SCATTER-SIZE-AREA) shows the difference between these representations.
 
@@ -375,7 +375,7 @@ diamonds_sp +
   theme(
     axis.text = element_text(size = 6),
     axis.title = element_text(size = 8)
-    )
+  )
 ```
 
 We can make the points semitransparent using the `alpha` aesthetic, as in Figure \@ref(fig:FIG-SCATTER-OVERPLOT-ALPHA). Here, we'll make them 90% transparent and then 99% transparent, by setting `alpha = .1` and `alpha = .01`:

@@ -34,7 +34,7 @@ Use `facet_grid()` or `facet_wrap()`, and specify the variables on which to spli
 
 With `facet_grid()`, you can specify a variable to split the data into vertical subpanels, and another variable to split it into horizontal subpanels (Figure \@ref(fig:FIG-FACET-FACET-GRID)):
 
-```{r FIG-FACET-FACET-GRID, fig.cap="Faceting horizontally by drv (top); Faceting vertically by cyl (bottom left); Faceting in both directions, with both variables (bottom right)", fig.width=6, fig.height=4}
+```{r FIG-FACET-FACET-GRID, fig.cap="Faceting horizontally by drv (top); Faceting vertically by cyl (middle); Faceting in both directions, with both variables (bottom)", fig.width=6, fig.height=4}
 # Create the base plot
 mpg_plot <- 
   ggplot(mpg, aes(x = displ, y = hwy)) + 
@@ -92,7 +92,7 @@ You want subplots with different ranges or items on their axes.
 
 Set the scales to "free_x", "free_y", or "free" (Figure \@ref(fig:FIG-FACET-FACET-FREE)):
 
-```{r FIG-FACET-FACET-FREE, fig.cap="Top: with free y scales; bottom: with free x and y scales", fig.width=7, fig.height=5}
+```{r FIG-FACET-FACET-FREE, fig.cap="With free y scales (top); With free x and y scales (bottom)", fig.width=6, fig.height=4}
 # Create the base plot
 mpg_plot <- 
   ggplot(mpg, aes(x = displ, y = hwy)) + 
@@ -129,7 +129,7 @@ You want to change the text of facet labels.
 
 Change the names of the factor levels (Figure \@ref(fig:FIG-FACET-LABEL-TEXT)):
 
-```{r FIG-FACET-LABEL-TEXT, fig.cap="Default facet labels (left); Modified facet labels (right)", fig.width=2.5}
+```{r, eval=FALSE}
 library(dplyr)
 library(forcats)  # Load the forcats library to help you rename the factor levels
 
@@ -150,6 +150,31 @@ ggplot(mpg_mod1, aes(x = displ, y = hwy)) +
   facet_grid(drv ~ .)
 ```
 
+```{r FIG-FACET-LABEL-TEXT, echo=FALSE, fig.show="hold", fig.cap="Default facet labels (left); Modified facet labels (right)", fig.width=2.5}
+library(dplyr)
+library(forcats)  # Load the forcats library to help you rename the factor levels
+
+# Left plot (unmodified labels)
+ggplot(mpg, aes(x = displ, y = hwy)) + 
+  geom_point() + 
+  facet_grid(drv ~ .)
+
+# Right plot (modified labels)
+mpg_mod1 <- 
+  mpg %>% 
+  # Rename 4 to 4wd, f to Front, r to Rear
+  mutate(drv = fct_recode(
+    drv,
+    `4wd` = "4", 
+    Front = "f",
+    Rear = "r"
+  ))
+
+ggplot(mpg_mod1, aes(x = displ, y = hwy)) + 
+  geom_point() + 
+  facet_grid(drv ~ .)
+```
+
 ### Discussion
 
 Unlike with scales where you can set the labels, to set facet labels you must change the data values. Also, at the time of this writing, there is no way to show the name of the faceting variable as a header for the facets, so it can be useful to use descriptive facet labels.
@@ -162,12 +187,9 @@ ggplot(mpg_mod1, aes(x = displ, y = hwy)) +
   facet_grid(drv ~ ., labeller = label_both)
 ```
 
-Another useful labeller is label_parsed(), which takes strings
-and treats them as R math expressions
-(Figure \@ref(fig:FIG-FACET-LABEL-TEXT-LABELLER), right):
+Another useful labeller is label_parsed(), which takes strings and treats them as R math expressions (Figure \@ref(fig:FIG-FACET-LABEL-TEXT-LABELLER), right):
 
 ```{r FIG-FACET-LABEL-TEXT-LABELLER-2, eval=FALSE}
-
 library(dplyr)
 library(forcats)  # Load the forcats library to help you rename the factor levels
 
@@ -222,9 +244,7 @@ ggplot(cabbage_exp, aes(x = Cultivar, y = Weight)) +
 
 ### Discussion
 
-Using `rel(1.5)` makes the label text 1.5 times the size of the base text
-size for the theme. Using `size = 1` for the background makes the outline of
-the facets 1 mm thick.
+Using `rel(1.5)` makes the label text 1.5 times the size of the base text size for the theme. Using `size = 1` for the background makes the outline of the facets 1 mm thick.
 
 ### See Also
 

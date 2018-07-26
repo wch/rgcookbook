@@ -68,8 +68,6 @@ You want to use a variable (column from a data frame) to control the color of ge
 
 In the call to the geom, inside of `aes()`, set the value of `colour` or `fill` to the name of one of the columns in the data (Figure \@ref(fig:FIG-COLORS-MAPPING)):
 
-TODO: Fix warning about `seq.default`
-
 ```{r eval=FALSE}
 library(gcookbook)  # Load the gcookbook package to access the cabbage_exp data set 
 
@@ -108,9 +106,9 @@ In the `cabbage_exp` example, the variable `Cultivar` is mapped to `fill`. The `
 str(cabbage_exp)
 ```
 
-In the `mtcars` example, `cyl` is numeric, so it is treated as a continuous variable. Because of this, even though the actual values of `cyl` include only 4, 6, and 8, the legend has entries for the intermediate values 5 and 7. To make ggplot treat `cyl` as a categorical variable, you can convert it to a factor in the call to `ggplot()`, or you can modify the data so that the column is a character vector or factor (Figure \@ref(fig:FIG-COLORS-MAPPING-FACTOR)):
+In the `mtcars` example, `cyl` is numeric, so it is treated as a continuous variable. Because of this, even though the actual values of `cyl` include only 4, 6, and 8, the legend has entries for the intermediate values 5 and 7. To make ggplot treat `cyl` as a categorical variable, you can convert it to a factor in the call to `ggplot()` (Figure \@ref(fig:FIG-COLORS-MAPPING-FACTOR), left), or you can modify the data so that the column is a character vector or factor (Figure \@ref(fig:FIG-COLORS-MAPPING-FACTOR), right):
 
-```{r FIG-COLORS-MAPPING-FACTOR, echo=FALSE, fig.show="hold", fig.cap="Mapping to colour with a continuous variable converted to a factor"}
+```{r FIG-COLORS-MAPPING-FACTOR, fig.show="hold", fig.cap="Converting `cyl` to a factor, within the call to ggplot (left); By modifying the dataframe (right)"}
 # Convert to factor in call to ggplot()
 ggplot(mtcars, aes(x = wt, y = mpg, colour = factor(cyl))) + 
   geom_point()
@@ -128,6 +126,61 @@ ggplot(mtcars_mod, aes(x = wt, y = mpg, colour = cyl)) +
 ### See Also
 
 You may also want to change the colors that are used in the scale. For continuous data, see Recipe \@ref(RECIPE-COLORS-PALETTE-CONTINUOUS). For discrete data, see Recipe \@ref(RECIPE-COLORS-PALETTE-DISCRETE) and Recipe \@ref(RECIPE-COLORS-PALETTE-DISCRETE-MANUAL).
+
+
+Using a Colorblind-Friendly Palette {#RECIPE-COLORS-PALETTE-DISCRETE-COLORBLIND}
+-----------------------------------
+
+### Problem
+
+You want to select a color palette that can also be distinguished by colorblind viewers.
+
+### Solution
+
+Use the color scales in the viridis package. 
+
+The viridis package contains a set of beautiful color scales that are each designed to span as wide a palette as possible, making it easier to see differences in your data. These scales are also designed to be perceptually uniform, printable in grey scale, and easier to read by those with colorblindness. 
+
+Here is an example from the introduction page to viridis (https://cran.r-project.org/web/packages/viridis/vignettes/intro-to-viridis.html; Figure \@ref(fig:FIG-COLORS-PALETTE-VIRIDIS)):
+
+```{r FIG-COLORS-PALETTE-VIRIDIS, warning=FALSE, echo=FALSE, fig.cap="Example of viridis color palette", fig.height=5, fig.width=5}
+ggplot(data.frame(x = rnorm(10000), y = rnorm(10000)), aes(x = x, y = y)) +
+  geom_hex() + 
+  coord_fixed() +
+  scale_fill_viridis_c() + 
+  theme_bw()
+```
+
+The viridis color scales can be implemented for data that is both continuous and discrete in nature. You will need to add `scale_fill_viridis_c()` to your plot if your data is continuous. If your data is discrete you will need to use `scale_fill_viridis_d()` instead, as in Figure \@ref(fig:FIG-COLORS-PALETTE-DISCRETE-COLORBLIND-VIRIDIS) below:
+
+```{r FIG-COLORS-PALETTE-DISCRETE-COLORBLIND-VIRIDIS, fig.show="hold", fig.cap="A plot with the colorblind-friendly viridis palette", fig.width=4.5}
+library(gcookbook)  # Load the gcookbook package to access the uspopage data set 
+
+# Create the base plot
+uspopage_plot <- 
+  ggplot(uspopage, aes(x = Year, y = Thousands, fill = AgeGroup)) + 
+  geom_area()
+
+# Add the viridis color scale
+uspopage_plot + 
+  scale_fill_viridis_d()
+```
+
+### Discussion
+
+About 8 percent of males and 0.5 percent of females have some form of color-vision deficiency, so there's a good chance that someone in your audience will be among them. There are many different forms of color blindness - the palettes that are mentioned in this book are designed to enable people with any of the most common forms of color-vision deficiency to distinguish the colors. (Monochromacy, or total colorblindness, is rare. Those who have it can only see differences in brightness.)
+
+The viridis color scales come loaded with the newest version of ggplot2 (3.0.0). There are also other color palettes that are friendly to users with color blindness, such as those in cetcolor package (see below). 
+
+### See Also
+
+To see more on the different viridis palettes, see `?scales::viridis_pal`.
+
+The cetcolor scales: <http://thecoatlessprofessor.com/software-releases/cetcolor-v0.2.0-released-cet-perceptually-uniform-color-maps-with-support-for-colour-blind-users-and-short-names>. 
+
+More information on colorblindness: <http://jfly.iam.u-tokyo.ac.jp/color>.
+
+The Color Oracle program (<http://colororacle.org>) can simulate how things on your screen appear to someone with color vision deficiency, but keep in mind that the simulation isn't perfect. In my informal testing, I viewed an image with simulated red-green deficiency, and I could distinguish the colors just fine -- but others with actual red-green deficiency viewed the same image and couldn't tell the colors apart!
 
 
 Using a Different Palette for a Discrete Variable {#RECIPE-COLORS-PALETTE-DISCRETE}
@@ -157,27 +210,34 @@ Table: (\#tab:TABLE-DISCRETE-FILL-AND-COLOR-SCALES) Discrete fill and color scal
 +-------------------------+---------------------------+-----------------------+
 | `scale_fill_grey()`     | `scale_colour_grey()`     | Greyscale palette     |
 +-------------------------+---------------------------+-----------------------+
+| `scale_fill_viridis_d()`| `scale_colour_viridis_d()` |  Viridis palettes    |
++-------------------------+---------------------------+-----------------------+
 | `scale_fill_brewer()`   | `scale_colour_brewer()`   | ColorBrewer palettes  |
 +-------------------------+---------------------------+-----------------------+
 | `scale_fill_manual()`   | `scale_colour_manual()`   | Manually specified    |
 |                         |                           | colors                |
 +-------------------------+---------------------------+-----------------------+
 
+In the example here we'll use the default palette (hue), a viridis palette, and a ColorBrewer palette (Figure \@ref(fig:FIG-COLORS-PALETTE-DISCRETE)):
 
-In the example here we'll use the default palette (hue), and a ColorBrewer palette (Figure \@ref(fig:FIG-COLORS-PALETTE-DISCRETE)):
-
-```{r FIG-COLORS-PALETTE-DISCRETE, fig.show="hold", fig.cap="Default palette (using hue; left); A ColorBrewer palette (right)", fig.width=4.5}
-library(gcookbook)   # Load the gcookbook package to access the uspopage data set 
+```{r FIG-COLORS-PALETTE-DISCRETE, message=FALSE, fig.show="hold", fig.cap="Default palette (using hue; top left); A viridis palette (top right); A ColorBrewer palette (bottom)", fig.width=4}
+library(gcookbook)  # Load the gcookbook package to access the uspopage data set 
+library(viridis)  # Load the viridis package to access the viridis palette
 
 # Create the base plot
 uspopage_plot <- 
   ggplot(uspopage, aes(x = Year, y = Thousands, fill = AgeGroup)) + 
   geom_area()
 
-# These three all have the same effect
+# These four specifications all have the same effect
 uspopage_plot
 # uspopage_plot + scale_fill_discrete()
 # uspopage_plot + scale_fill_hue()
+# uspopage_plot + scale_color_viridis()
+
+# Viridis palette
+uspopage_plot +
+  scale_fill_viridis(discrete = TRUE) 
 
 # ColorBrewer palette
 uspopage_plot + 
@@ -190,7 +250,7 @@ Changing a palette is a modification of the color (or fill) scale: it involves a
 
 With `scale_fill_hue()`, the colors are taken from around the color wheel in the HCL (hue-chroma-lightness) color space. The default lightness value is 65 on a scale from 0–100. This is good for filled areas, but it's a bit light for points and lines. To make the colors darker for points and lines, as in Figure \@ref(fig:FIG-COLORS-PALETTE-LIGHTNESS) (right), set the value of `l` (luminance/lightness):
 
-```{r FIG-COLORS-PALETTE-LIGHTNESS, fig.show="hold", fig.cap="Points with default lightness (left); With lightness set to 45 (right)", fig.width=4.5}
+```{r FIG-COLORS-PALETTE-LIGHTNESS, fig.show="hold", fig.cap="Points with default lightness (left); With lightness set to 45 (right)", fig.width=4}
 # Create the base scatter plot
 hw_splot <- 
   ggplot(heightweight, aes(x = ageYear, y = heightIn, colour = sex)) +
@@ -199,33 +259,42 @@ hw_splot <-
 # Default lightness = 65
 hw_splot
 
-# Slightly darker
+# Slightly darker, set lightness = 45
 hw_splot + 
   scale_colour_hue(l = 45)
 ```
 
+The viridis package provides a number of color scales that make it easy to see differences across your data. See Recipe \@ref(RECIPE-COLORS-PALETTE-DISCRETE-COLORBLIND) for more details and examples. 
+
 The ColorBrewer package provides a number of palettes. You can generate a graphic showing all of them, as shown in Figure \@ref(fig:FIG-COLORS-PALETTE-BREWER):
-```{r FIG-COLORS-PALETTE-BREWER, fig.cap="All the ColorBrewer palettes", fig.height=8, fig.width=8}
+
+```{r FIG-COLORS-PALETTE-BREWER, echo=FALSE, fig.cap="All the ColorBrewer palettes", fig.height=8, fig.width=8}
+library(RColorBrewer)
+par(mar = c(0, 1, 0, 0))
+display.brewer.all()
+```
+
+```{r, eval=FALSE}
 library(RColorBrewer)
 display.brewer.all()
 ```
-The ColorBrewer palettes can be selected by name. For example, this will use the Oranges palette (Figure \@ref(fig:FIG-COLORS-PALETTE-BREWER-NAME)):
+The ColorBrewer palettes can be selected by name. For example, this will use the "Oranges" palette (Figure \@ref(fig:FIG-COLORS-PALETTE-BREWER-NAME)):
 
-```{r FIG-COLORS-PALETTE-BREWER-NAME, fig.cap="Using a named ColorBrewer palette", fig.width=4.5}
+```{r FIG-COLORS-PALETTE-BREWER-NAME, fig.cap="Using a named ColorBrewer palette", fig.width=4}
 hw_splot + 
-  scale_fill_brewer(palette = "Oranges")
+  scale_colour_brewer(palette = "Oranges") +
+  theme_bw()
 ```
 
-You can also use a palette of greys. This is useful for print when the
-output is in black and white. The default is to start at 0.2 and end at 0.8, on a scale from 0 (black) to 1 (white), but you can change the range, as shown in Figure \@ref(fig:FIG-COLORS-PALETTE-GREY).
+You can also use a palette of greys. This is useful for print when the output is in black and white. The default is to start at 0.2 and end at 0.8, on a scale from 0 (black) to 1 (white), but you can change the range, as shown in Figure \@ref(fig:FIG-COLORS-PALETTE-GREY).
 
-```{r FIG-COLORS-PALETTE-GREY, fig.show="hold", fig.cap="Using the default grey palette (left); A different grey palette (right)", fig.width=4.5}
+```{r FIG-COLORS-PALETTE-GREY, fig.show="hold", fig.cap="Using the default grey palette (left); A different grey palette (right)", fig.width=4}
 hw_splot + 
-  scale_fill_grey()
+  scale_colour_grey()
 
 # Reverse the direction and use a different range of greys
 hw_splot + 
-  scale_fill_grey(start = 0.7, end = 0)
+  scale_colour_grey(start = 0.7, end = 0)
 ```
 
 ### See Also
@@ -234,6 +303,7 @@ See Recipe \@ref(RECIPE-LEGEND-REVERSE) for more information about reversing the
 
 To select colors manually, see Recipe \@ref(RECIPE-COLORS-PALETTE-DISCRETE-MANUAL).
 
+For more about viridis, see <https://cran.r-project.org/web/packages/viridis/vignettes/intro-to-viridis.html>.
 For more about ColorBrewer, see <http://colorbrewer2.org>.
 
 
@@ -248,7 +318,7 @@ You want to use different colors for a discrete mapped variable.
 
 In the example here, we'll manually define colors by specifying values with `scale_colour_manual()` (Figure \@ref(fig:FIG-COLORS-PALETTE-DISCRETE-MANUAL)). The colors can be named, or they can be specified with RGB values:
 
-```{r FIG-COLORS-PALETTE-DISCRETE-MANUAL, fig.show="hold", fig.cap="Scatter plot with named colors (left); With slightly different RGB colors (right)", fig.width=4}
+```{r FIG-COLORS-PALETTE-DISCRETE-MANUAL, fig.show="hold", fig.cap="Scatter plot with named colors (top left); With slightly different RGB colors (top right); With colors from the viridis color scale (bottom)", fig.width=4}
 library(gcookbook)  # Load the gcookbook package to access the heightweight data set 
 
 # Create the base plot
@@ -263,6 +333,11 @@ hw_plot +
 # Using RGB values
 hw_plot + 
   scale_colour_manual(values = c("#CC6666", "#7777DD"))
+
+# Using RGB values based on the viridis color scale
+hw_plot + 
+  scale_colour_manual(values = c("#440154FF", "#FDE725FF")) +
+  theme_bw()
 ```
 
 For fill scales, use `scale_fill_manual()` instead.
@@ -294,66 +369,19 @@ Here are some rules of thumb for specifying and adjusting RGB colors:
 * To get a shade of grey, set all the channels to the same value.
 * The opposites of RGB are CMY: Cyan, Magenta, and Yellow. Higher values for the red channel make it more red, and lower values make it more cyan. The same is true for the pairs green and magenta, and blue and yellow.
 
+
+You may want to manually select colors based on the color scales in the viridis package, as described in Recipe \@ref(RECIPE-COLORS-PALETTE-DISCRETE). You can do so by specifying the number of discrete categories you have within the `viridis()` function. This will generate the RBG hexadecimals. You can similarly generate the RBG values for the other color scales in the viridis package: "magma", "plasma", "inferno", and "cividis". 
+
+```{r}
+viridis(2)  ## Specifying 2 discrete categories with the viridis color scale
+inferno(5)  ## Specifying 5 discrete categories with the inferno color scale
+```
+
 ### See Also
 
 A [chart of RGB color codes](http://html-color-codes.com).
 
  
-Using a Colorblind-Friendly Palette {#RECIPE-COLORS-PALETTE-DISCRETE-COLORBLIND}
------------------------------------
-
-### Problem
-
-You want to use colors that can be distinguished by colorblind viewers.
-
-### Solution
-
-Use the palette defined here (`cb_palette`) with `scale_fill_manual()` (Figure \@ref(fig:FIG-COLORS-PALETTE-DISCRETE-COLORBLIND)):
-
-```{r FIG-COLORS-PALETTE-DISCRETE-COLORBLIND, fig.show="hold", fig.cap="A plot with the colorblind-friendly palette", fig.width=4.5}
-library(gcookbook)  # Load the gcookbook package to access the uspopage data set 
-
-# Create the base plot
-uspopage_plot <- 
-  ggplot(uspopage, aes(x = Year, y = Thousands, fill = AgeGroup)) + 
-  geom_area()
-
-# The palette with grey:
-cb_palette <- c("#999999", "#E69F00", "#56B4E9", "#009E73", "#F0E442",
-                "#0072B2", "#D55E00", "#CC79A7")
-
-# Add it to the plot
-uspopage_plot + 
-  scale_fill_manual(values = cb_palette)
-```
-
-A chart of the colors is shown in Figure \@ref(fig:FIG-COLORS-PALETTE-DISCRETE-COLORBLIND-CHART).
-
-TODO: Fix figure width
-
-```{r FIG-COLORS-PALETTE-DISCRETE-COLORBLIND-CHART, echo=FALSE, fig.cap="Colorblind palette with RGB values",  fig.width=4.5}
-knitr::include_graphics("fig/colorblind_palette.png")
-```
-In some cases it may be better to use black instead of grey. To do this, replace the `#999999` with `#000000` or `"black"`:
-
-```{r, eval=FALSE}
-c("#000000", "#E69F00", "#56B4E9", "#009E73", "#F0E442", "#0072B2", "#D55E00",
-  "#CC79A7")
-```
-
-### Discussion
-
-About 8 percent of males and 0.5 percent of females have some form of color-vision deficiency, so there's a good chance that someone in your audience will be among them.
-
-There are many different forms of color blindness. The palette here is designed to enable people with any of the most common forms of color-vision deficiency to distinguish the colors. (Monochromacy, or total colorblindness, is rare. Those who have it can only see differences in brightness.)
-
-### See Also
-
-The [source of this palette](http://jfly.iam.u-tokyo.ac.jp/color/).
-
-The [Color Oracle program](http://colororacle.org) can simulate how things on your screen appear to someone with color vision deficiency, but keep in mind that the simulation isn't perfect. In my informal testing, I viewed an image with simulated red-green deficiency, and I could distinguish the colors just fine--but others with actual red-green deficiency viewed the same image and couldn't tell the colors apart!
-
-
 Using a Manually Defined Palette for a Continuous Variable {#RECIPE-COLORS-PALETTE-CONTINUOUS}
 ----------------------------------------------------------
 
@@ -418,7 +446,9 @@ Table: (\#tab:TABLE-CONTINUOUS-COLOR-SCALES) Continuous fill and color scales
 |                          |                            | colors, equally       |
 |                          |                            | spaced                |
 +--------------------------+----------------------------+-----------------------+
- 
+|`scale_fill_viridis_c()`  | `scale_colour_viridis_c()` | Viridis palettes      |
++--------------------------+----------------------------+-----------------------+
+
 Notice that we used the `muted()` function in the examples. This is a function from the scales package that returns an RGB value that is a less-saturated version of the color chosen.
 
 ### See Also
@@ -467,9 +497,9 @@ If you look closely at the figure, you'll notice that there are some stray shade
 interp <- approx(climate_mod$Year, climate_mod$Anomaly10y, n = 1000)
 
 # Put in a data frame and recalculate valence
-cbi <- data.frame(Year = interp$x, Anomaly10y = interp$y)
-cbi$valence[cbi$Anomaly10y >= 0] <- "pos"
-cbi$valence[cbi$Anomaly10y < 0]  <- "neg"
+cbi <-
+  data.frame(Year = interp$x, Anomaly10y = interp$y) %>% 
+  mutate(valence = ifelse(Anomaly10y >= 0, "pos", "neg"))
 ```
 
 It would be more precise (and more complicated) to interpolate exactly where the line crosses zero, but `approx()` works fine for the purposes here.

@@ -557,4 +557,4 @@ Text geoms aren't the only kind that can be added individually for each facet. A
 
 See Recipe \@ref(RECIPE-ANNOTATE-TEXT-MATH) for more about using math expressions in plots.
 
-If you want to make prediction lines from your own model objects, instead of having `ggplot2` do it for you with `stat_smooth()`, see Recipe \@ref(RECIPE-SCATTER-FITLINES-MODEL-MULTI).
+If you want to make prediction lines from your own model objects, instead of having ggplot2 do it for you with `stat_smooth()`, see Recipe \@ref(RECIPE-SCATTER-FITLINES-MODEL-MULTI).

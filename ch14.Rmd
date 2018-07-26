@@ -20,6 +20,7 @@ Output for Presentation {#CHAPTER-OUTPUT}
 
 Broadly speaking, visualizations of data serve two purposes: discovery and communication. In the discovery phase, you'll create exploratory graphics, and when you do this, it's important to be able try out different things quickly. In the communication phase, you'll present your graphics to others. When you do that, you'll need to tweak the appearance of the graphics (which I've written about in previous chapters), and you'll usually need to put them somewhere other than on your computer screen. This chapter is about that last part: *saving* your graphics so that they can be presented in documents.
 
+
 Outputting to PDF Vector Files {#RECIPE-OUTPUT-VECTOR}
 ------------------------------
 
@@ -56,16 +57,20 @@ If you are creating plots from a script and it throws an error while creating on
 If you are creating a plot with ggplot2, using `ggsave()` can be a little simpler. You can store the ggplot object in a variable, and then call `ggsave()` on it:
 
 ```{r eval=FALSE}
-p <- ggplot(mtcars, aes(x = wt, y = mpg)) + geom_point()
+plot1 <- 
+  ggplot(mtcars, aes(x = wt, y = mpg)) + 
+  geom_point()
 
 # Default is inches, but you can specify unit
-ggsave("myplot.pdf", p, width = 8, height = 8, units = "cm")
+ggsave("myplot.pdf", plot1, width = 8, height = 8, units = "cm")
 ```
 
 Another way of using it is to skip the variable, and just call `ggsave()` after calling `ggplot()`. It will save the last ggplot object:
 
 ```{r eval=FALSE}
-ggplot(mtcars, aes(x = wt, y = mpg)) + geom_point()
+ggplot(mtcars, aes(x = wt, y = mpg)) + 
+  geom_point()
+
 ggsave("myplot.pdf", width = 8, height = 8, units = "cm")
 ```
 
@@ -150,11 +155,11 @@ Sometimes you need to make final tweaks to the appearance of a graph for present
 
 Font support can be a problem when you open a PDF file with Inkscape. Normally, point objects drawn with the PDF device will be written as symbols from the Zapf Dingbats font. This can be problematic if you want to open the file in an editor like Illustrator or Inkscape; for example, points may appear as the letter *q*, as in Figure \@ref(fig:FIG-OUTPUT-EDIT-VECTOR-DINGBATS), because that is the corresponding letter for a solid bullet in Zapf Dingbats.
 
-```{r FIG-OUTPUT-EDIT-VECTOR-DINGBATS, echo=FALSE, fig.cap="Bad conversion of point symbols after opening in Inkscape-also notice that the spacing of the fonts is slightly off"}
+```{r FIG-OUTPUT-EDIT-VECTOR-DINGBATS, echo=FALSE, fig.cap="Bad conversion of point symbols after opening in Inkscape -- also notice that the spacing of the fonts is slightly off", fig.width=2.5, fig.height=2.5}
 knitr::include_graphics("fig/output-q.png")
 ```
 
-To avoid this problem, set `useDingbats=FALSE`. This will make the circles be drawn as circles instead of as font characters:
+To avoid this problem, set `useDingbats = FALSE`. This will make the circles be drawn as circles instead of as font characters:
 
 ```{r eval=FALSE}
 pdf("myplot.pdf", width = 4, height = 4, useDingbats = FALSE)
@@ -215,7 +220,7 @@ plot(mtcars$wt, mtcars$mpg)
 dev.off()
 ```
 
-```{r FIG-OUTPUT-BITMAP-RES, echo=FALSE, fig.cap="From left to right: PNG output at 72, 150, and 300 ppi (actual size)", fig.width=3.6}
+```{r FIG-OUTPUT-BITMAP-RES, echo=FALSE, fig.cap="From left to right: PNG output at 72, 150, and 300 ppi (actual size)", fig.width=3.5}
 knitr::include_graphics("fig/output-ppi.png")
 ```
 
@@ -254,7 +259,6 @@ dev.off()
 While `CairoPNG()` does not guarantee identical rendering across platforms (fonts may not be exactly the same), it does support features like antialiasing and alpha.
 
 Changing the resolution affects the size (in pixels) of graphical objects like text, lines, and points. For example, a 6-by-6-inch image at 75 ppi has the same pixel dimensions as a 3-by-3-inch image at 150 ppi, but the appearance will be different, as shown in Figure \@ref(fig:FIG-OUTPUT-BITMAP-SIZE). Both of these images are 450×450 pixels. When displayed on a computer screen, they may display at approximately the same size, as they do here.
-
 
 ```{r FIG-OUTPUT-BITMAP-SIZE, echo=FALSE, fig.cap="6×6 inch image at 75 ppi (left); 3×3 inch image at 150 ppi (right)", fig.width=6}
 knitr::include_graphics("fig/output-ppi-size.png")
@@ -302,16 +306,17 @@ Figure \@ref(fig:FIG-OUTPUT-FONTS-PDF):
 
 ```{r eval=FALSE}
 library(ggplot2)
+
 ggplot(mtcars, aes(x = wt, y = mpg)) + geom_point() +
-    ggtitle("Title text goes here") +
-    theme(text = element_text(size = 16, family = "Impact"))
+  ggtitle("Title text goes here") +
+  theme(text = element_text(size = 16, family = "Impact"))
 
 ggsave("myplot.pdf", width = 4, height = 4)
 
 embed_fonts("myplot.pdf")
 ```
 
-```{r FIG-OUTPUT-FONTS-PDF, echo=FALSE, fig.cap="PDF output with embedded font Impact", fig.width=4}
+```{r FIG-OUTPUT-FONTS-PDF, echo=FALSE, fig.cap="PDF output with embedded font Impact", fig.width=2.5}
 knitr::include_graphics("fig/output-fonts-pdf.png")
 ```
 
@@ -362,6 +367,7 @@ After the one-time setup is done, there are tasks you need to do in each R sessi
 
 ```{r eval=FALSE}
 library(extrafont)
+
 # Register the fonts for Windows
 loadfonts("win")
 ```
@@ -370,14 +376,15 @@ Finally, you can create each output file or display graphs on screen, as in Figu
 
 ```{r eval=FALSE}
 library(ggplot2)
+
 ggplot(mtcars, aes(x = wt, y = mpg)) + geom_point() +
-    ggtitle("Title text goes here") +
-    theme(text = element_text(size = 16, family = "Georgia", face = "italic"))
+  ggtitle("Title text goes here") +
+  theme(text = element_text(size = 16, family = "Georgia", face = "italic"))
 
 ggsave("myplot.png", width = 4, height = 4, dpi = 300)
 ```
 
-```{r FIG-OUTPUT-FONTS-PNG, echo=FALSE, fig.cap="PNG output with font Georgia Italic", fig.width=4}
+```{r FIG-OUTPUT-FONTS-PNG, echo=FALSE, fig.cap="PNG output with font Georgia Italic", fig.width=2.5}
 knitr::include_graphics("fig/output-fonts-png.png")
 ```
 
@@ -386,3 +393,58 @@ knitr::include_graphics("fig/output-fonts-png.png")
 Fonts are handled in a completely different way for bitmaps than they are for PDF files.
 
 On Windows, for bitmap output it is necessary to register each font manually with R (extrafont makes this much easier). On Mac OS X and Linux, the fonts should already be available for bitmap output; it isn't necessary to register them manually.
+
+
+Combining Several Plots into the Same Graphic  {#RECIPE-COMBINE-GGPLOT}
+------------------------------
+
+### Problem
+
+You want to combine several plots into one graphic output.
+
+### Solution
+
+The patchwork package can be used to combine several plots - specifically ggplots - into the same graphic. Once you use patchwork to stich your plots together, you can output the combined graphic into any number of formats, as outlined in the preceeding recipes.
+
+You will first need to install the package using the following commands (the latest [installation instructions](https://github.com/thomasp85/patchwork) can be found on github):
+
+```{r}
+# install.packages("devtools")
+# devtools::install_github("thomasp85/patchwork")
+```
+
+Once you have installed patchwork, you can start stiching plots together (Figure \@ref(fig:FIG-OUTPUT-PATCHWORK)).
+```{r FIG-OUTPUT-PATCHWORK, fig.show="hold", fig.cap="Combining two plots together using `patchwork()`", fig.height=4, fig.width=7}
+library(patchwork)
+
+plot1 <- 
+  ggplot(PlantGrowth, aes(x = weight)) + 
+  geom_histogram(bins = 20)
+
+plot2 <- 
+  ggplot(PlantGrowth, aes(x = group, y = weight, group = group)) + 
+  geom_boxplot()
+
+plot1 + plot2
+```
+
+### Discussion
+
+Patchwork also allows you to determine how you want to lay out the ggplots in relation to each other, by adding a `plot_layout()` call. You can use this call to determine the number of columns you want the pplots to be arranged in (Figure \@ref(fig:FIG-OUTPUT-PATCHWORK-COLS)), and the size of the plots (Figure \@ref(fig:FIG-OUTPUT-PATCHWORK-HEIGHT)):
+
+```{r FIG-OUTPUT-PATCHWORK-COLS, fig.show="hold", fig.cap="Using `plot_layout()` to specify that the plots should be arranged in 2 columns", fig.height=7, fig.width=7}
+plot3 <- 
+  ggplot(PlantGrowth, aes(x = weight, fill = group)) + 
+  geom_histogram(bins = 20, position = "dodge")
+
+plot1 + plot2 + plot3 +
+  plot_layout(ncol = 2)
+```
+
+```{r FIG-OUTPUT-PATCHWORK-HEIGHT, fig.show="hold", fig.cap="Using `plot_layout()` to specify the heights of each plot "}
+plot1 + plot2 + 
+  plot_layout(ncol = 1, heights = c(1, 4))
+```
+### See Also
+
+For more on additional patchwork features, see <https://github.com/thomasp85/patchwork>.
