@@ -163,15 +163,18 @@ ggplot(heightweight, aes(x = ageYear, y = heightIn, shape = sex)) +
   scale_shape_manual(values = c(1, 4))
 ```
 
-```{r FIG-SCATTER-SHAPES, echo=FALSE, fig.show="hold", fig.cap="Scatter plot with the shape aesthetic set to a custom value (left); With a variable mapped to shape, using a custom shape palette (right)", fig.width=3.5, fig.height=3.5}
+```{r FIG-SCATTER-SHAPES, echo=FALSE, fig.show="hold", fig.cap="Scatter plot with the shape aesthetic set to a custom value (left); With a variable mapped to shape, using a custom shape palette (right)", fig.width=8, fig.height=3.5}
 library(gcookbook) # Load the gcookbook package to access the heightweight data set
 
-ggplot(heightweight, aes(x = ageYear, y = heightIn)) +
+p1 <- ggplot(heightweight, aes(x = ageYear, y = heightIn)) +
   geom_point(shape = 3)
 
-ggplot(heightweight, aes(x = ageYear, y = heightIn, shape = sex)) +
+p2 <- ggplot(heightweight, aes(x = ageYear, y = heightIn, shape = sex)) +
   geom_point(size = 3) +
   scale_shape_manual(values = c(1, 4))
+
+library(patchwork)
+p1 + plot_spacer() + p2 + plot_layout(widths = c(5, 1, 5))
 ```
 
 ### Discussion
