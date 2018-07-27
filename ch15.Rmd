@@ -786,28 +786,31 @@ hw
 See Recipe \@ref(RECIPE-DATAPREP-CALCULATE-GROUP) for how to perform group-wise transformations on data.
 
 
-Calculating New Columns by Group {#RECIPE-DATAPREP-CALCULATE-GROUP}
+Calculating New Columns based on a Grouping Column {#RECIPE-DATAPREP-CALCULATE-GROUP}
 -------------------------------
 
 ### Problem
 
-You want to calculate columns by performing operations on groups of data, as specified by a grouping column.
+You want to create new columns that are the result of calculations performed on groups of data, as specified by a grouping column.
 
 ### Solution
 
-Use `group_by()` from the dplyr package to specify the grouping variable, and then specify the operations in `mutate()`:
+Use `group_by()` from the **dplyr** package to specify the grouping variable, and then specify the operations in `mutate()`:
 
 ```{r}
-library(MASS) # For the data set
+library(MASS)  # Load the MASS package to access the cabbages data set 
 library(dplyr)
+
 cabbages %>%
-    group_by(Cult) %>%
-    mutate(DevWt = HeadWt - mean(HeadWt))
+  group_by(Cult) %>%
+  mutate(DevWt = HeadWt - mean(HeadWt))
 ```
+
+Note that this returns a new data frame, so if you want to save the output you'll need to save over the original.
 
 ### Discussion
 
-Let's take a closer look at the `cabbages` data set. It has two grouping variables (factors): `Cult`, which has levels c39 and c52, and `Date`, which has levels d16, d20, and d21. It also has two measured numeric variables, `HeadWt` and `VitC`:
+Let's take a closer look at the `cabbages` data set. It has two grouping variables (factors): `Cult`, which has levels `c39` and `c52`, and `Date`, which has levels `d16`, `d20`, and `d21.` It also has two measured numeric variables, `HeadWt` and `VitC`:
 
 ```{r}
 cabbages
@@ -822,40 +825,40 @@ mutate(cabbages, DevWt = HeadWt - mean(HeadWt))
 You'll often want to do separate operations like this for each group, where the groups are specified by one or more grouping variables. Suppose, for example, we want to normalize the data within each group by finding the deviation of each case from the mean *within the group*, where the groups are specified by `Cult`. In these cases, we can use `group_by()` and `mutate()` together:
 
 ```{r}
-library(dplyr)
-cb <- cabbages %>%
-    group_by(Cult) %>%
-    mutate(DevWt = HeadWt - mean(HeadWt))
+cb <- 
+  cabbages %>%
+  group_by(Cult) %>%
+  mutate(DevWt = HeadWt - mean(HeadWt))
 ```
 
 First it groups cabbages based on the value of `Cult`. There are two levels of `Cult`, `c39` and `c52`. It then applies the `mutate()` function to each data frame.
 
-The before and after results are shown in
-Figure \@ref(fig:FIG-DATAPREP-CALCULATE-GROUP):
+The before and after results are shown in Figure \@ref(fig:FIG-DATAPREP-CALCULATE-GROUP):
 
 ```{r FIG-DATAPREP-CALCULATE-GROUP, fig.show="hold", fig.cap="Before normalizing (left); After normalizing (right)"}
 # The data before normalizing
-ggplot(cb, aes(x=Cult, y=HeadWt)) + geom_boxplot()
+ggplot(cb, aes(x = Cult, y = HeadWt)) + 
+  geom_boxplot()
 
 # After normalizing
-ggplot(cb, aes(x=Cult, y=DevWt)) + geom_boxplot()
+ggplot(cb, aes(x = Cult, y = DevWt)) + 
+  geom_boxplot()
 ```
 
-You can also group the data frame on multiple variables and perform operations on multiple variables. This will group by `Cult` and `Date`, forming a group for each distinct combination of the two variables, and then it will calculate the deviation from the mean of `HeadWt` and `VitC` within each group:
+You can also group the data frame on multiple variables and perform operations on multiple variables. The following code groups the data by `Cult` and `Date`, forming a group for each distinct combination of the two variables. After forming these groups, the code will calculate the deviation of `HeadWt` and `VitC` from the mean of each group:
 
 ```{r}
 cabbages %>%
-    group_by(Cult, Date) %>%
-    mutate(
-        DevWt = HeadWt - mean(HeadWt),
-        DevVitC = VitC - mean(VitC)
-    )
+  group_by(Cult, Date) %>%
+  mutate(
+    DevWt = HeadWt - mean(HeadWt),
+    DevVitC = VitC - mean(VitC)
+  )
 ```
 
 ### See Also
 
 To summarize data by groups, see Recipe \@ref(RECIPE-DATAPREP-SUMMARIZE).
-
 
 
 Summarizing Data by Groups {#RECIPE-DATAPREP-SUMMARIZE}
