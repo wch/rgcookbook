@@ -194,30 +194,45 @@ You want to delete a column from a data frame.
 
 ### Solution
 
-Assign `NULL` to that column:
+Use `select()` and specify the columns you want to drop by using `-` (a minus sign). Note that this returns a new data frame, so if you want to save the output you'll need to save over the original, as in these examples.
 
 ```{r eval=FALSE}
-data$badcol <- NULL
+tg_mod <-
+  ToothGrowth %>% 
+  select(-len)
 ```
 
 ### Discussion
 
-You can also use the `subset()` function and put a `-` (minus sign) in front of the column(s) to drop:
+You can list multiple columns that you want to drop at the same time, or conversely specify only the columns that you want to keep. The following two pieces of code are thus equivalent: 
 
 ```{r eval=FALSE}
-# Return data without badcol
-data <- subset(data, select = -badcol)
+# Remove both len and supp from ToothGrowth
+tg_mod <-
+  ToothGrowth %>% 
+  select(-len, -supp)
 
-# Exclude badcol and othercol
-data <- subset(data, select = c(-badcol, -othercol))
+# is equivalent to the following code, which specifies that we only want to keep dose
+tg_mod <-
+  ToothGrowth %>% 
+  select(dose)
 ```
 
-The Tidyverse way of dropping columns is to use `select()` instead of `subset()`.
+One note is to make sure that you don't use `select()` to both drop and keep columns within the same command. If you do, only the first command will be observed. You can try this out by comparing the results of the code below
 
 ```{r eval=FALSE}
-data <- select(data, -badcol, -othercol)
-```
+# Note that these two pieces of code do not give you the same thing! 
 
+# This code acts as if the last line reads as `select(-len)`
+tg_mod <-
+  ToothGrowth %>% 
+  select(-len, supp)
+
+# This code acts as if the last line reads as `select(supp)`
+tg_mod <-
+  ToothGrowth %>% 
+  select(supp, -len)
+```
 
 ### See Also
 
