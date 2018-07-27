@@ -313,70 +313,46 @@ You want to get a subset of a data frame.
 
 ### Solution
 
-Use the `subset()` function. It can be used to pull out rows that satisfy a set of conditions and to select particular columns.
+Use `filter()` to get the rows, and `select()` to get out the columns you want. These operations can be chained together using the `%>%` operator. These functions return new data frame, so if you want to save the output you'll need to save over the original.
 
 We'll use the `climate` data set for the examples here:
 
 ```{r}
-library(gcookbook) # For the data set
+library(gcookbook) # Load the gcookbook package to access the climate data set 
 climate
 ```
 
-The following will pull out only rows where `Source` is `"Berkeley"` and only the columns named `Year` and `Anomaly10y`:
+Let's that say that only want to keep rows where `Source` is `"Berkeley"` and where the year is inclusive of and between 1900 and 2000. You can do so with the `filter()` function:
+
+```{r eval=FALSE}
+climate %>% 
+  filter(Source == "Berkeley" & Year >= 1900 & Year <= 2000)
+```
+
+What if you now only want to keep the two columns named `Year` and `Anomaly10y`? As we saw in \@ref(RECIPE-DATAPREP-DELETE-COL), we can use `select()`:
 
 ```{r}
-subset(climate, Source == "Berkeley", select = c(Year, Anomaly10y))
+climate %>% 
+  select(Year, Anomaly10y)
+```
+
+These operations can be chained together using the `%>%` operator, such that the two examples above can be combined as follows:
+
+```{r}
+climate %>%
+  filter(Source == "Berkeley" & Year >= 1900 & Year <= 2000) %>%
+  select(Year, Anomaly10y)
 ```
 
 ### Discussion
-
-It is possible to use multiple selection criteria, by using the `|` (OR) and `&` (AND) operators. For example, this will pull out only those rows where source is `"Berkeley"`, between the years 1900 and 2000:
-
-```{r}
-subset(climate, Source == "Berkeley" & Year >= 1900 & Year <= 2000,
-       select = c(Year, Anomaly10y))
-```
-
-You can also get a subset of data by indexing into the data frame with square brackets, although this approach is somewhat less elegant. The following code has the same effect as the code we just saw. The part before the comma picks out the rows, and the part after the comma picks out the columns:
-
-```{r eval=FALSE}
-climate[climate$Source=="Berkeley" & climate$Year >= 1900 & climate$Year <= 2000,
-        c("Year", "Anomaly10y")]
-```
-
-If you grab just a single column this way, it will be returned as a vector instead of a data frame. To prevent this, use drop=FALSE, as in:
-
-```{r eval=FALSE}
-climate[climate$Source=="Berkeley" & climate$Year >= 1900 & climate$Year <= 2000,
-        c("Year", "Anomaly10y"), drop=FALSE]
-```
-
-Finally, it's also possible to pick out rows and columns by their numeric position. This gets the second and fifth columns of the first 100 rows:
-
-```{r eval=FALSE}
-climate[1:100, c(2, 5)]
-```
-
-I generally recommend indexing using names rather than numbers when possible. It makes the code easier to understand when you're collaborating with others or when you come back to it months or years after writing it, and it makes the code less likely to break when there are changes to the data, such as when columns are added or removed.
-
-
-The tidyverse way: Use `select()` to get out the columns you want, and `filter()` to get the rows. These operations can be chained together using the `%>%` operator.
-
-```{r eval=FALSE}
-climate %>%
-    filter(Source == "Berkeley" & Year >= 1900 & Year <= 2000) %>%
-    select(Year, Anomaly10y)
-
-# The code above is equivalent to:
-climate <- filter(climate, Source == "Berkeley" & Year >= 1900 & Year <= 2000)
-climate <- select(climate, Year, Anomaly10y)
-```
 
 The `filter()` function picks out rows based on a condition. If you want to pick out rows based on their numeric position, use the `slice()` function:
 
 ```{r eval=FALSE}
 slice(climate, 1:100)
 ```
+
+I generally recommend indexing using names rather than numbers when possible. It makes the code easier to understand when you're collaborating with others or when you come back to it months or years after writing it, and it makes the code less likely to break when there are changes to the data, such as when columns are added or removed.
 
 
 Changing the Order of Factor Levels {#RECIPE-DATAPREP-FACTOR-REORDER}
