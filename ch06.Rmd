@@ -71,8 +71,7 @@ Sometimes the appearance of the histogram will be very dependent on the width of
 ```{r FIG-DISTRIBUTION-HIST-BOUNDARY, fig.show="hold", fig.cap="Different appearance of histograms with the origin at 31 and 35", fig.width=3.5, fig.height=3.5}
 
 # Save a base plot called `faithful_p` (for faithful plot)
-faithful_p <-
-  ggplot(faithful, aes(x = waiting))
+faithful_p <- ggplot(faithful, aes(x = waiting))
 
 faithful_p +
   geom_histogram(binwidth = 8, fill = "white", colour = "black", boundary = 31)
@@ -125,8 +124,7 @@ One problem with the faceted graph is that the facet labels are just 0 and 1, an
 ```{r}
 library(forcats) # Load the forcats package to help you work with factor variables
 
-birthwt_mod <-
-  birthwt %>%
+birthwt_mod <- birthwt %>%
   mutate(smoke = as.factor(smoke)) %>% # Convert smoke to a factor
   mutate(smoke = fct_recode(smoke, 'No Smoke' = "0", 'Smoke' = "1"))
 
@@ -279,8 +277,7 @@ Use `geom_density()`, and map the grouping variable to an aesthetic like `colour
 
 library(MASS) # Load the MASS package to access the birthwt data set
 
-birthwt_mod <-
-  birthwt %>%
+birthwt_mod <- birthwt %>%
   mutate(smoke = as.factor(smoke)) # Convert smoke to a factor
 
 # Map smoke to colour
@@ -319,8 +316,7 @@ levels(birthwt_mod$smoke)
 
 library(forcats) # Load the forcats package to help you work with factor variables
 
-birthwt_mod <-
-  birthwt %>%
+birthwt_mod <- birthwt %>%
   mutate(smoke = as.factor(smoke)) %>% # Convert smoke to a factor
   mutate(smoke = fct_recode(smoke, 'No Smoke' = "0", 'Smoke' = "1"))
 ```
@@ -436,8 +432,7 @@ max <- max(ds$x)
 sumx <- summary(ds$x)
 iqr  <- sumx[["3rd Qu."]] - sumx[["1st Qu."]]
 
-p1 <-
-  ggplot(ds, aes(x = x)) +
+p1 <- ggplot(ds, aes(x = x)) +
   geom_histogram(aes(y = ..count../140), binwidth = 200, colour = "grey80", fill = "cornsilk", alpha = .5) +
   geom_density(aes(y = ..scaled..), adjust = 1.5, colour = "grey70") +
   geom_vline(aes(xintercept = sumx[["1st Qu."]]), colour = "grey50") +
@@ -492,8 +487,7 @@ p1 <-
   theme(panel.border = element_rect(fill = NA, colour = NA)) +
   theme(plot.margin = unit(c(0,0,0,0), "lines"))
 
-p2 <-
-  ggplot(ds, aes(x = 1, y = x)) +
+p2 <- ggplot(ds, aes(x = 1, y = x)) +
   geom_boxplot(width = .5, outlier.size = 1.5) +
   coord_flip() +
   theme_bw() +
@@ -617,8 +611,7 @@ Use `geom_violin()` (Figure \@ref(fig:FIG-DISTRIBUTION-VIOLIN-BASIC)):
 library(gcookbook) # Load the gcookbook package to access the heightweight data set
 
 # Create a base plot using the heightweight data set called `hw_p` (for heightweight plot)
-hw_p <-
-  ggplot(heightweight, aes(x = sex, y = heightIn))
+hw_p <- ggplot(heightweight, aes(x = sex, y = heightIn))
 
 hw_p +
   geom_violin()
@@ -690,13 +683,11 @@ Use `geom_dotplot()`. For this example (Figure \@ref(fig:FIG-DISTRIBUTION-DOTPLO
 library(gcookbook)# Load the gcookbook package to access the countries data set
 
 # Save a modified data set that only includes 2009 data for countries that spent > 2000 USD per capita
-c2009 <-
-  countries %>%
+c2009 <- countries %>%
   filter(Year == 2009 & healthexp > 2000)
 
 # Create a base ggplot object using `c2009`, called `c2009_p` (for c2009 plot)
-c2009_p <-
-  c2009 %>%
+c2009_p <- c2009 %>%
   ggplot(aes(x = infmortality))
 
 c2009_p +
@@ -806,8 +797,7 @@ Use `stat_density2d()`. This makes a 2D kernel density estimate from the data. F
 
 ```{r FIG-DISTRIBUTION-DENSITY2D-1, eval=FALSE}
 # Save a base plot object called `faithful_p` (for faithful plot)
-faithful_p <-
-  faithful %>%
+faithful_p <- faithful %>%
   ggplot(aes(x = eruptions, y = waiting))
 
 faithful_p +

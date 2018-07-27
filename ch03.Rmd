@@ -34,7 +34,7 @@ Use `ggplot()` with `geom_col()` and specify what variables you want on the x- a
 
 ```{r FIG-BAR-GRAPH-BASIC-BAR, fig.cap='Bar graph of values with a discrete x-axis'}
 library(gcookbook)  # Load the gcookbook package to access the pg_mean data set
-ggplot(pg_mean, aes(x = group, y = weight)) + 
+ggplot(pg_mean, aes(x = group, y = weight)) +
   geom_col()
 ```
 
@@ -54,11 +54,11 @@ BOD
 # Time is numeric (continuous)
 str(BOD)
 
-ggplot(BOD, aes(x = Time, y = demand)) + 
+ggplot(BOD, aes(x = Time, y = demand)) +
   geom_col()
 
 # Convert Time to a discrete (categorical) variable with factor()
-ggplot(BOD, aes(x = factor(Time), y = demand)) + 
+ggplot(BOD, aes(x = factor(Time), y = demand)) +
   geom_col()
 ```
 
@@ -160,7 +160,7 @@ Use `geom_bar()` without mapping anything to `y` (Figure \@ref(fig:FIG-BAR-GRAPH
 
 ```{r FIG-BAR-GRAPH-COUNT, fig.cap="Bar graph of counts"}
 # Equivalent to using geom_bar(stat = "bin")
-ggplot(diamonds, aes(x = cut)) + 
+ggplot(diamonds, aes(x = cut)) +
   geom_bar()
 ```
 
@@ -178,11 +178,11 @@ In this example, the variable on the x-axis is discrete. If we use a continuous 
 
 ```{r FIG-BAR-GRAPH-COUNT-CONTINUOUS, echo=FALSE, fig.show="hold", fig.cap='Left: bar graph of counts on a continuous axis; right: a histogram', fig.width=3.5, fig.height=3.5}
 # Bar graph of counts
-ggplot(diamonds, aes(x = carat)) + 
+ggplot(diamonds, aes(x = carat)) +
   geom_bar()
 
 # Histogram
-ggplot(diamonds, aes(x = carat)) + 
+ggplot(diamonds, aes(x = carat)) +
   geom_histogram()
 ```
 
@@ -217,9 +217,8 @@ First, take the top 10 states:
 library(gcookbook) # Load the gcookbook package to access the uspopchange data set
 library(dplyr)
 
-upc <-
-  uspopchange %>% 
-  arrange(desc(Change)) %>% 
+upc <- uspopchange %>%
+  arrange(desc(Change)) %>%
   slice(1:10)
 
 upc
@@ -269,9 +268,8 @@ We'll use a subset of the climate data and create a new column called pos, which
 library(gcookbook) # Load the gcookbook package to access the climate data set
 library(dplyr)
 
-climate_sub <- 
-  climate %>% 
-  filter(Source == "Berkeley" & Year >= 1900) %>% 
+climate_sub <- climate %>%
+  filter(Source == "Berkeley" & Year >= 1900) %>%
   mutate(pos = Anomaly10y >= 0)
 
 climate_sub
@@ -513,8 +511,7 @@ library(dplyr)
 cabbage_exp
 
 # Do a group-wise transform(), splitting on "Date"
-ce <- 
-  cabbage_exp %>%
+ce <- cabbage_exp %>%
   group_by(Date) %>%
   mutate(percent_weight = Weight / sum(Weight) * 100)
 
@@ -601,7 +598,7 @@ For grouped bar graphs, you also need to specify position=position_dodge() and g
 ggplot(cabbage_exp, aes(x = Date, y = Weight, fill = Cultivar)) +
   geom_col(position = "dodge") +
   geom_text(
-    aes(label = Weight), 
+    aes(label = Weight),
     colour = "white", size = 3,
     vjust = 1.5, position = position_dodge(.9)
   )
@@ -613,8 +610,7 @@ Putting labels on stacked bar graphs requires finding the cumulative sum for eac
 library(dplyr)
 
 # Sort by the Date and Cultivar columns
-ce <- 
-  cabbage_exp %>% 
+ce <- cabbage_exp %>%
   arrange(Date, rev(Cultivar))
 ```
 
@@ -622,8 +618,7 @@ Once we make sure the data is sorted properly, we'll use `group_by()` to chunk i
 
 ```{r FIG-BAR-LABEL-STACKED, fig.cap="Labels on stacked bars"}
 # Get the cumulative sum
-ce <- 
-  ce %>%
+ce <- ce %>%
   group_by(Date) %>%
   mutate(label_y = cumsum(Weight))
 
@@ -641,13 +636,11 @@ When using labels, changes to the stacking order are best done by modifying the 
 To put the labels in the middle of each bar (Figure \@ref(fig:FIG-BAR-LABEL-STACKED-MIDDLE)), there must be an adjustment to the cumulative sum, and the *y* offset in `geom_bar()` can be removed:
 
 ```{r FIG-BAR-LABEL-STACKED-MIDDLE, fig.cap="Labels in the middle of stacked bars"}
-ce <- 
-  cabbage_exp %>% 
+ce <- cabbage_exp %>%
   arrange(Date, rev(Cultivar))
 
 # Calculate y position, placing it in the middle
-ce <- 
-  ce %>%
+ce <- ce %>%
   group_by(Date) %>%
   mutate(label_y = cumsum(Weight) - 0.5 * Weight)
 
@@ -689,7 +682,7 @@ The simplest way to create a dot plot (as shown in Figure \@ref(fig:FIG-BAR-GRAP
 library(gcookbook) # Load the gcookbook package to access the tophitters2001 data set
 tophit <- tophitters2001[1:25, ] # Take the top 25 from the tophitters data set
 
-ggplot(tophit, aes(x = avg, y = name)) + 
+ggplot(tophit, aes(x = avg, y = name)) +
   geom_point()
 ```
 

@@ -222,8 +222,7 @@ For example, we'll take the `heightweight` data set and add another column that 
 ```{r FIG-SCATTER-SHAPES-FILL, fig.cap="A variable mapped to shape and another mapped to fill"}
 # Using the heightweight data set, create a new column that indicates if the
 # child weighs < 100 or >= 100 pounds. We'll save this modified dataset as 'hw'.
-hw <-
-  heightweight %>%
+hw <- heightweight %>%
   mutate(weightgroup = ifelse(weightLb < 100, "< 100", ">= 100"))
 
 # Specify shapes with fill and color, and specify fill colors that includes an empty (NA) color
@@ -360,8 +359,7 @@ The scatter plot in Figure \@ref(fig:FIG-SCATTER-OVERPLOT) contains about 54,000
 
 ```{r, eval=FALSE}
 # We'll use the diamonds data set and create a base plot called `diamonds_sp`
-diamonds_sp <-
-  ggplot(diamonds, aes(x = carat, y = price))
+diamonds_sp <- ggplot(diamonds, aes(x = carat, y = price))
 
 diamonds_sp +
   geom_point()
@@ -370,8 +368,7 @@ diamonds_sp +
 
 ```{r FIG-SCATTER-OVERPLOT, echo=FALSE, dev="png", dpi=300, fig.cap="Overplotting, with about 54,000 points", fig.height=3}
 # We'll use the diamonds data set and create a base plot called `diamonds_sp`
-diamonds_sp <-
-  ggplot(diamonds, aes(x = carat, y = price))
+diamonds_sp <- ggplot(diamonds, aes(x = carat, y = price))
 
 diamonds_sp +
   geom_point() +
@@ -458,8 +455,7 @@ Overplotting can also occur when the data is *discrete* on one or both axes, as 
 ```{r FIG-SCATTER-OVERPLOT-JITTER, fig.show="hold", fig.cap="Data with a discrete x variable (left); Jittered (middle); Jittered horizontally only (right)", fig.width=3.5, fig.height=3.5}
 
 # We'll use the ChickWeight data set and create a base plot called `cw_sp` (for ChickWeight scatter plot)
-cw_sp <-
-  ggplot(ChickWeight, aes(x = Time, y = weight))
+cw_sp <- ggplot(ChickWeight, aes(x = Time, y = weight))
 
 cw_sp +
   geom_point()
@@ -504,8 +500,7 @@ To add a linear regression line to a scatter plot, add `stat_smooth()` and tell 
 library(gcookbook) # Load the gcookbook package to access the heightweight data set
 
 # We'll use the heightweight data set and create a base plot called `hw_sp` (for heighweight scatter plot)
-hw_sp <-
-  ggplot(heightweight, aes(x = ageYear, y = heightIn))
+hw_sp <- ggplot(heightweight, aes(x = ageYear, y = heightIn))
 
 hw_sp +
   geom_point() +
@@ -539,8 +534,7 @@ hw_sp +
 library(gcookbook) # Load the gcookbook package to access the heightweight data set
 
 # We'll use the heightweight data set and create a base plot called `hw_sp` (for heightweight scatter plot)
-hw_sp <-
-  ggplot(heightweight, aes(x = ageYear, y = heightIn))
+hw_sp <- ggplot(heightweight, aes(x = ageYear, y = heightIn))
 
 hw_sp +
   geom_point() +
@@ -589,8 +583,7 @@ library(MASS) # Load the MASS package to access the biopsy data set
 
 # Using the biopsy data set, create a new column that stores the factor `class` as a numeric variable named `classn`. If `class` == "benign", set `classn` to 0. If `class` == "malignant", set `classn` to 1. Save this new dataset as `biopsy_mod`.
 
-biopsy_mod <-
-  biopsy %>%
+biopsy_mod <- biopsy %>%
   mutate(
     classn = ifelse(class == "benign", 0, ifelse(class == "malignant", 1, NA))
     )
@@ -615,8 +608,7 @@ biopsy_mod %>%
 If your scatter plot has points grouped by a factor, and that factor is mapped to an aesthetic such as `colour` or `shape`, one fit line will be drawn for each factor level. First we'll make the base plot object `hw_sp`, then we'll add the LOESS lines to it. We'll also make the points less prominent by making them semitransparent, using `alpha = .4` (Figure \@ref(fig:FIG-SCATTER-FIT-GROUP)):
 
 ```{r, eval=FALSE}
-hw_sp <-
-  heightweight %>%
+hw_sp <- heightweight %>%
   ggplot(aes(x = ageYear, y = heightIn, colour = sex)) +
     geom_point() +
     scale_colour_brewer(palette = "Set1")
@@ -636,8 +628,7 @@ hw_sp +
 
 ```{r FIG-SCATTER-FIT-GROUP, fig.show="hold", fig.cap="LOESS fit lines for each group (left); Extrapolated linear fit lines (right)", fig.width=3.5, fig.height=3.5}
 
-hw_sp <-
-  heightweight %>%
+hw_sp <- heightweight %>%
   ggplot(aes(x = ageYear, y = heightIn, colour = sex)) +
     geom_point() +
     scale_colour_brewer(palette = "Set1")
@@ -685,8 +676,7 @@ We can now plot the data points along with the values predicted from the model (
 
 ```{r eval=FALSE}
 # Create a base plot called `hw_sp` (for heightweight scatter plot)
-hw_sp <-
-  ggplot(heightweight, aes(x = ageYear, y = heightIn)) +
+hw_sp <- ggplot(heightweight, aes(x = ageYear, y = heightIn)) +
     geom_point(colour = "grey40")
 
 hw_sp +
@@ -743,8 +733,7 @@ hw_sp +
 ```{r FIG-SCATTER-FIT-MODEL, fig.show="hold", fig.cap="A quadratic prediction line from an lm object (left); Prediction lines from linear (in red) and LOESS (in blue) models (right)", fig.width=3.5, fig.height=3.5}
 
 # From first block above
-hw_sp <-
-  ggplot(heightweight, aes(x = ageYear, y = heightIn)) +
+hw_sp <- ggplot(heightweight, aes(x = ageYear, y = heightIn)) +
     geom_point(colour = "grey40")
 
 hw_sp +
@@ -768,8 +757,7 @@ library(MASS) # Load the MASS package to access the biopsy data set
 
 # Using the biopsy data set, create a new column that stores the factor `class` as a numeric variable named `classn`. If `class` == "benign", set `classn` to 0. If `class` == "malignant", set `classn` to 1. Save this new dataset as `biopsy_mod`.
 
-biopsy_mod <-
-  biopsy %>%
+biopsy_mod <- biopsy %>%
   mutate(
     classn = ifelse(class == "benign", 0, ifelse(class == "malignant", 1, NA))
     )
@@ -820,8 +808,7 @@ library(gcookbook) # Load the gcookbook package to access the heightweight data 
 library(dplyr)
 
 # Create an lm model object for each value of sex; this returns a data frame
-models <-
-  heightweight %>%
+models <- heightweight %>%
   group_by(sex) %>%
   do(model = lm(heightIn ~ ageYear, .)) %>%
   ungroup()
@@ -836,8 +823,7 @@ models$model
 Now that we have the list of model objects, we can run the `predictvals()` as defined in \@ref(RECIPE-SCATTER-FITLINES-MODEL) to get the predicted values from each model:
 
 ```{r}
-predvals <-
-  models %>%
+predvals <- models %>%
   group_by(sex) %>%
   do(predictvals(.$model[[1]], xvar = "ageYear", yvar = "heightIn"))
 ```
@@ -869,8 +855,7 @@ The `group_by()` and `do()` calls are used for splitting the data into parts, ru
 With the preceding code, the *x* range of the predicted values for each group spans the *x* range of each group, and no further; for the males, the prediction line stops at the oldest male, while for females, the prediction line continues further right, to the oldest female. To form prediction lines that have the same *x* range across all groups, we can simply pass in `xrange`, like this:
 
 ```{r}
-predvals <-
-  models %>%
+predvals <- models %>%
   group_by(sex) %>%
   do(predictvals(
     .$model[[1]],
@@ -916,8 +901,7 @@ This shows that the *r^2* value is 0.4249. We'll create a graph and manually add
 pred <- predictvals(model, "ageYear", "heightIn")
 
 # We will save a base plot called `hw_sp` (for heighweight scatter plot)
-hw_sp <-
-  ggplot(heightweight, aes(x = ageYear, y = heightIn)) +
+hw_sp <- ggplot(heightweight, aes(x = ageYear, y = heightIn)) +
     geom_point() +
     geom_line(data = pred)
 
@@ -935,8 +919,7 @@ hw_sp +
 ```{r FIG-SCATTER-FIT-MODEL-TEXT, echo=FALSE, fig.show="hold", fig.cap="Plain text (left); Math expression (right)", fig.width=3.5, fig.height=3.5}
 pred <- predictvals(model, "ageYear", "heightIn")
 
-hw_sp <-
-  ggplot(heightweight, aes(x = ageYear, y = heightIn)) +
+hw_sp <- ggplot(heightweight, aes(x = ageYear, y = heightIn)) +
     geom_point() +
     geom_line(data = pred)
 
@@ -966,8 +949,7 @@ It's possible to automatically extract values from the model object and build an
 # The %.3g and %.2g are replaced with numbers with 3 significant digits and 2
 # significant digits, respectively. The numbers are supplied after the string.
 
-eqn <-
-  sprintf(
+eqn <- sprintf(
     "italic(y) == %.3g + %.3g * italic(x) * ',' ~~ italic(r)^2 ~ '=' ~ %.2g",
     coef(model)[1],
     coef(model)[2],
@@ -1053,8 +1035,7 @@ countries %>%
 We'll save the basic scatter plot object in `countries_sp` (for countries scatter plot) and add then add our annotations to it. To manually add annotations, use `annotate()`, and specify the coordinates and label (Figure \@ref(fig:FIG-SCATTER-LABEL), left). It may require some trial-and-error tweaking to get the labels positioned just right:
 
 ```{r, eval=FALSE}
-countries_sp <-
-  countries %>%
+countries_sp <- countries %>%
   filter(Year == 2009, healthexp > 2000) %>%
   ggplot(aes(x = healthexp, y = infmortality)) +
     geom_point()
@@ -1079,8 +1060,7 @@ countries_sp +
 ```{r FIG-SCATTER-LABEL, echo=FALSE, fig.show="hold", fig.cap="A scatter plot with manually labeled points (left); With automatically labeled points and a smaller font (right)", fig.width=4.5, fig.height=4.5}
 
 # First block
-countries_sp <-
-  countries %>%
+countries_sp <- countries %>%
   filter(Year == 2009, healthexp > 2000) %>%
   ggplot(aes(x = healthexp, y = infmortality)) +
     geom_point()
@@ -1168,8 +1148,7 @@ countries_sp +
 If you want to label just some of the points but want the placement to be handled automatically, you can add a new column to your data frame containing just the labels you want. Here's one way to do that: first we'll make a copy of the data we're using, then we'll copy the `Name` column into `plotname`, converting from a factor to a character vector, for reasons we'll see below.
 
 ```{r}
-cdat <-
-  countries %>%
+cdat <- countries %>%
   filter(Year == 2009, healthexp > 2000) %>%
   mutate(plotname = as.character(Name))
 ```
@@ -1177,12 +1156,10 @@ cdat <-
 Now that `plotname` is a character vector, we can use an `ifelse()` function and the `%in%` operator to identify if each row of `plotname` matches the list of names we want to show on our plot, which we have specified manually below. The `%in%` operator returns a logical vector that allows us to specify within the `ifelse()` function that we want to replace all values of `plotname` that do not match one of our specified names with a blank string.
 
 ```{r}
-countrylist <-
-  c("Canada", "Ireland", "United Kingdom", "United States", "New Zealand",
-    "Iceland", "Japan", "Luxembourg", "Netherlands", "Switzerland")
+countrylist <- c("Canada", "Ireland", "United Kingdom", "United States",
+  "New Zealand", "Iceland", "Japan", "Luxembourg", "Netherlands", "Switzerland")
 
-cdat <-
-  cdat %>%
+cdat <- cdat %>%
   mutate(plotname = ifelse(plotname %in% countrylist, plotname, ""))
 
 # Take a look at the resulting `plotname` variable, as compared to the original `Name` variable
@@ -1226,12 +1203,10 @@ Use `geom_point()` with `scale_size_area()`. For this example, we'll filter the 
 ```{r}
 library(gcookbook) # Load the gcookbook package to access the countries data set
 
-countrylist <-
-  c("Canada", "Ireland", "United Kingdom", "United States", "New Zealand",
-    "Iceland", "Japan", "Luxembourg", "Netherlands", "Switzerland")
+countrylist <- c("Canada", "Ireland", "United Kingdom", "United States",
+  "New Zealand", "Iceland", "Japan", "Luxembourg", "Netherlands", "Switzerland")
 
-cdat <-
-  countries %>%
+cdat <- countries %>%
   filter(Year == 2009, Name %in% countrylist)
 
 cdat
@@ -1241,8 +1216,7 @@ If we just map `GDP` to `size`, the value of `GDP` gets mapped to the *radius* o
 
 ```{r FIG-SCATTER-BALLOON, fig.show="hold", fig.cap="Balloon plot with value mapped to radius (left); With value mapped to area (right)", fig.width=4.5, fig.height=3.5}
 # Create a base plot using the cdat data frame. We will call this base plot `cdat_sp` (for cdat scatter plot)
-cdat_sp <-
-  ggplot(cdat, aes(x = healthexp, y = infmortality, size = GDP)) +
+cdat_sp <- ggplot(cdat, aes(x = healthexp, y = infmortality, size = GDP)) +
     geom_point(shape = 21, colour = "black", fill = "cornsilk")
 
 # GDP mapped to radius (default with scale_size_continuous)
@@ -1262,16 +1236,14 @@ The example here is a scatter plot, but that is not the only way to use balloon 
 library(tidyverse) # Load the tidyverse package to transform HairEyeColor from tables into long format (tibble)
 
 # Create a data frame that adds up counts for males and females
-hec <-
-  HairEyeColor %>%
+hec <- HairEyeColor %>%
 # Convert to long format
   as.tibble() %>%
   group_by(Hair, Eye) %>%
   summarize(count = sum(n))
 
 # Creating the base balloon plot `hec_sp` (for HairEyeColor scatter plot)
-hec_sp <-
-  ggplot(hec, aes(x = Eye, y = Hair)) +
+hec_sp <- ggplot(hec, aes(x = Eye, y = Hair)) +
     geom_point(aes(size = count), shape = 21, colour = "black", fill = "cornsilk") +
     scale_size_area(max_size = 20, guide = FALSE) +
     geom_text(aes(
@@ -1317,8 +1289,7 @@ For this example, we'll use a subset of the `countries` data. We'll pull out the
 ```{r}
 library(gcookbook) # Load the gcookbook package to access the countries data set
 
-c2009 <-
-  countries %>%
+c2009 <- countries %>%
   filter(Year == 2009) %>%
   select(Name, GDP, laborrate, healthexp, infmortality)
 

@@ -57,8 +57,7 @@ If you are creating plots from a script and it throws an error while creating on
 If you are creating a plot with ggplot2, using `ggsave()` can be a little simpler. You can store the ggplot object in a variable, and then call `ggsave()` on it:
 
 ```{r eval=FALSE}
-plot1 <-
-  ggplot(mtcars, aes(x = wt, y = mpg)) +
+plot1 <- ggplot(mtcars, aes(x = wt, y = mpg)) +
   geom_point()
 
 # Default is inches, but you can specify unit
@@ -419,12 +418,10 @@ Once you have installed patchwork, you can start stiching plots together (Figure
 ```{r FIG-OUTPUT-PATCHWORK, fig.show="hold", fig.cap="Combining two plots together using `patchwork()`", fig.height=4, fig.width=7}
 library(patchwork)
 
-plot1 <-
-  ggplot(PlantGrowth, aes(x = weight)) +
+plot1 <- ggplot(PlantGrowth, aes(x = weight)) +
   geom_histogram(bins = 20)
 
-plot2 <-
-  ggplot(PlantGrowth, aes(x = group, y = weight, group = group)) +
+plot2 <- ggplot(PlantGrowth, aes(x = group, y = weight, group = group)) +
   geom_boxplot()
 
 plot1 + plot2
@@ -435,8 +432,7 @@ plot1 + plot2
 Patchwork also allows you to determine how you want to lay out the ggplots in relation to each other, by adding a `plot_layout()` call. You can use this call to determine the number of columns you want the pplots to be arranged in (Figure \@ref(fig:FIG-OUTPUT-PATCHWORK-COLS)), and the size of the plots (Figure \@ref(fig:FIG-OUTPUT-PATCHWORK-HEIGHT)):
 
 ```{r FIG-OUTPUT-PATCHWORK-COLS, fig.show="hold", fig.cap="Using `plot_layout()` to specify that the plots should be arranged in 2 columns", fig.height=7, fig.width=7}
-plot3 <-
-  ggplot(PlantGrowth, aes(x = weight, fill = group)) +
+plot3 <- ggplot(PlantGrowth, aes(x = weight, fill = group)) +
   geom_histogram(bins = 20, position = "dodge")
 
 plot1 + plot2 + plot3 +

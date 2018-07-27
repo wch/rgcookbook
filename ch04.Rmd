@@ -35,7 +35,7 @@ You want to make a basic line graph.
 Use `ggplot()` with `geom_line()`, and specify which variables you mapped to x and y (Figure \@ref(fig:FIG-LINE-GRAPH-BASIC-LINE)):
 
 ```{r FIG-LINE-GRAPH-BASIC-LINE, fig.cap="Basic line graph"}
-ggplot(BOD, aes(x = Time, y = demand)) + 
+ggplot(BOD, aes(x = Time, y = demand)) +
   geom_line()
 ```
 
@@ -53,7 +53,7 @@ Line graphs can be made with discrete (categorical) or continuous (numeric) vari
 BOD1 <- BOD  # Make a copy of the data
 BOD1$Time <- factor(BOD1$Time)
 
-ggplot(BOD1, aes(x = Time, y = demand, group = 1)) + 
+ggplot(BOD1, aes(x = Time, y = demand, group = 1)) +
   geom_line()
 ```
 
@@ -63,19 +63,19 @@ With ggplot2, the default *y* range of a line graph is just enough to include th
 
 ```{r eval=F}
 # These have the same result
-ggplot(BOD, aes(x = Time, y = demand)) + 
-  geom_line() + 
+ggplot(BOD, aes(x = Time, y = demand)) +
+  geom_line() +
   ylim(0, max(BOD$demand))
 
-ggplot(BOD, aes(x = Time, y = demand)) + 
-  geom_line() + 
+ggplot(BOD, aes(x = Time, y = demand)) +
+  geom_line() +
   expand_limits(y = 0)
 ```
 
 ```{r FIG-LINE-GRAPH-BASIC-LINE-YLIM, echo=FALSE, fig.cap="Line graph with manually set y range"}
 # This code block is so that it generates just one of the plots from above
-ggplot(BOD, aes(x = Time, y = demand)) + 
-  geom_line() + 
+ggplot(BOD, aes(x = Time, y = demand)) +
+  geom_line() +
   expand_limits(y = 0)
 ```
 
@@ -96,8 +96,8 @@ You want to add points to a line graph.
 Add `geom_point()` (Figure \@ref(fig:FIG-LINE-GRAPH-POINT)):
 
 ```{r FIG-LINE-GRAPH-POINT, fig.cap="Line graph with points"}
-ggplot(BOD, aes(x = Time, y = demand)) + 
-  geom_line() + 
+ggplot(BOD, aes(x = Time, y = demand)) +
+  geom_line() +
   geom_point()
 ```
 
@@ -110,13 +110,13 @@ In the `worldpop` data set, the intervals between each data point are not consis
 ```{r FIG-LINE-GRAPH-POINTS-INTERVAL, fig.show="hold", fig.cap='Top: points indicate where each data point is; bottom: the same data with a log y-axis', fig.height=2}
 library(gcookbook) # Load the gcookbook package to access the worldpop data set
 
-ggplot(worldpop, aes(x = Year, y = Population)) + 
-  geom_line() + 
+ggplot(worldpop, aes(x = Year, y = Population)) +
+  geom_line() +
   geom_point()
 
 # Same with a log y-axis
-ggplot(worldpop, aes(x = Year, y = Population)) + 
-  geom_line() + 
+ggplot(worldpop, aes(x = Year, y = Population)) +
+  geom_line() +
   geom_point() +
   scale_y_log10()
 ```
@@ -143,11 +143,11 @@ In addition to the variables mapped to the x- and y-axes, map another (discrete)
 library(gcookbook) # Load the gcookbook package to access the tg data set
 
 # Map supp to colour
-ggplot(tg, aes( x = dose, y = length, colour = supp)) + 
+ggplot(tg, aes( x = dose, y = length, colour = supp)) +
   geom_line()
 
 # Map supp to linetype
-ggplot(tg, aes(x = dose, y = length, linetype = supp)) + 
+ggplot(tg, aes(x = dose, y = length, linetype = supp)) +
   geom_line()
 ```
 
@@ -166,7 +166,7 @@ tg
 Line graphs can be used with a continuous or categorical variable on the x-axis. Sometimes the variable mapped to the x-axis is *conceived* of as being categorical, even when it's stored as a number. In the example here, there are three values of dose: 0.5, 1.0, and 2.0. You may want to treat these as categories rather than values on a continuous scale. To do this, convert `dose` to a factor (Figure \@ref(fig:FIG-LINE-GRAPH-MULTI-LINE-FACTOR)):
 
 ```{r FIG-LINE-GRAPH-MULTI-LINE-FACTOR, fig.cap="Line graph with continuous x variable converted to a factor"}
-ggplot(tg, aes(x = factor(dose), y = length, colour = supp, group = supp)) + 
+ggplot(tg, aes(x = factor(dose), y = length, colour = supp, group = supp)) +
   geom_line()
 ```
 
@@ -181,7 +181,7 @@ ggplot(tg, aes(x = factor(dose), y = length, colour = supp)) + geom_line()
 Another common problem when the incorrect grouping is used is that you will see a jagged sawtooth pattern, as in Figure \@ref(fig:FIG-LINE-GRAPH-MULTI-LINE-SAWTOOTH):
 
 ```{r FIG-LINE-GRAPH-MULTI-LINE-SAWTOOTH, fig.cap="A sawtooth pattern indicates improper grouping"}
-ggplot(tg, aes(x = dose, y = length)) + 
+ggplot(tg, aes(x = dose, y = length)) +
   geom_line()
 ```
 
@@ -194,11 +194,11 @@ This happens because there are multiple data points at each *y* location, and gg
 If your plot has points along with the lines, you can also map variables to properties of the points, such as shape and fill (Figure \@ref(fig:FIG-LINE-GRAPH-MULTI-LINE-SHAPE-FILL)):
 
 ```{r FIG-LINE-GRAPH-MULTI-LINE-SHAPE-FILL, fig.show="hold", fig.cap="Line graph with different shapes (left); With different colors (right)"}
-ggplot(tg, aes(x = dose, y = length, shape = supp)) + 
+ggplot(tg, aes(x = dose, y = length, shape = supp)) +
   geom_line() +
   geom_point(size = 4)  # Make the points a little larger
 
-ggplot(tg, aes(x = dose, y = length, fill = supp)) + 
+ggplot(tg, aes(x = dose, y = length, fill = supp)) +
   geom_line() +
   geom_point(size = 4, shape = 21)  # Also use a point with a color fill
 ```
@@ -323,13 +323,12 @@ Use `geom_area()` to get a shaded area, as in Figure \@ref(fig:FIG-LINE-GRAPH-AR
 
 ```{r FIG-LINE-GRAPH-AREA, fig.cap="Graph with a shaded area", fig.width=8, fig.height=1.5, out.width="100%"}
 # Convert the sunspot.year data set into a data frame for this example
-sunspotyear <- 
-  data.frame(
+sunspotyear <- data.frame(
     Year     = as.numeric(time(sunspot.year)),
     Sunspots = as.numeric(sunspot.year)
   )
 
-ggplot(sunspotyear, aes(x = Year, y = Sunspots)) + 
+ggplot(sunspotyear, aes(x = Year, y = Sunspots)) +
   geom_area()
 ```
 
@@ -371,7 +370,7 @@ Use `geom_area()` andmap a factor to fill (Figure \@ref(fig:FIG-LINE-GRAPH-STACK
 ```{r FIG-LINE-GRAPH-STACKED-AREA, fig.cap="Stacked area graph", fig.width=6, out.width="75%"}
 library(gcookbook) # Load the gcookbook package to access the uspopage data set
 
-ggplot(uspopage, aes(x = Year, y = Thousands, fill = AgeGroup)) + 
+ggplot(uspopage, aes(x = Year, y = Thousands, fill = AgeGroup)) +
   geom_area()
 ```
 
@@ -466,8 +465,7 @@ library(gcookbook) # Load the gcookbook package to access the climate data set
 library(dplyr)
 
 # Grab a subset of the climate data
-climate_mod <- 
-  climate %>%
+climate_mod <- climate %>%
   filter(Source == "Berkeley") %>%
   select(Year, Anomaly10y, Unc10y)
 

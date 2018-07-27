@@ -321,21 +321,21 @@ Use `filter()` to get the rows, and `select()` to get out the columns you want. 
 We'll use the `climate` data set for the examples here:
 
 ```{r}
-library(gcookbook) # Load the gcookbook package to access the climate data set 
+library(gcookbook) # Load the gcookbook package to access the climate data set
 climate
 ```
 
 Let's that say that only want to keep rows where `Source` is `"Berkeley"` and where the year is inclusive of and between 1900 and 2000. You can do so with the `filter()` function:
 
 ```{r eval=FALSE}
-climate %>% 
+climate %>%
   filter(Source == "Berkeley" & Year >= 1900 & Year <= 2000)
 ```
 
 What if you now only want to keep the two columns named `Year` and `Anomaly10y`? As we saw in \@ref(RECIPE-DATAPREP-DELETE-COL), we can use `select()`:
 
 ```{r}
-climate %>% 
+climate %>%
   select(Year, Anomaly10y)
 ```
 
@@ -422,7 +422,7 @@ library(forcats)
 fct_reorder(iss$spray, iss$count, .fun = mean)
 ```
 
-Notice that the original levels were `ABCDEF`, while the reordered levels are `CEDABF`. What we've done is reorder the levels of `spray` based on the mean value of `count` for each level of `spray`. 
+Notice that the original levels were `ABCDEF`, while the reordered levels are `CEDABF`. What we've done is reorder the levels of `spray` based on the mean value of `count` for each level of `spray`.
 
 ### Discussion
 
@@ -550,7 +550,7 @@ sizes
 To remove them, use `fct_drop` from the forcats package`. This returns a new factor, so if you want to save the output you'll need to save over the original.
 
 ```{r}
-fct_drop(sizes)
+sizes_mod <- fct_drop(sizes)
 sizes_mod
 ```
 
@@ -644,8 +644,7 @@ For the examples here, we'll add a new variable to the `PlantGrowth` data set. W
 ```{r}
 library(dplyr)
 
-pg_mod <-
-  PlantGrowth %>% 
+pg_mod <- PlantGrowth %>%
   mutate(treatment = ifelse(group == "ctrl", "no", "yes"))
 pg_mod
 ```
@@ -653,23 +652,21 @@ pg_mod
 Since the input was a factor, it returns a factor. If you want to get a character vector instead, use `as.character()`:
 
 ```{r}
-pg_mod <-
-  PlantGrowth %>% 
+pg_mod <- PlantGrowth %>%
   mutate(trt = as.character(ifelse(group == "ctrl", "no", "yes")))
 ```
 
 ### Discussion
 
-Note that the `ifelse()` function used in the two code chunks above will assign `"yes"` to `treatment` for any value of `group` that isn't `"ctrl"`, including any value that isn't `"trt1"` or `"trt2"`. To specify that only rows where `group` is `"trt1"` or `"trt2"` should be marked as `"yes"`, we can embed another `ifelse()` function and use the `%in%` operator: 
+Note that the `ifelse()` function used in the two code chunks above will assign `"yes"` to `treatment` for any value of `group` that isn't `"ctrl"`, including any value that isn't `"trt1"` or `"trt2"`. To specify that only rows where `group` is `"trt1"` or `"trt2"` should be marked as `"yes"`, we can embed another `ifelse()` function and use the `%in%` operator:
 ```{r, eval=FALSE}
-pg_mod <-
-  PlantGrowth %>% 
+pg_mod <- PlantGrowth %>%
   mutate(treatment = ifelse(group == "ctrl", "no", ifelse(
     group %in% c("trt1", "trt2"), "yes", NA))
   )
 ```
 
-The code above tells us that if `group == "ctrl"`, `"no"` will be assigned to `treatment`. If `group` does not equal `"ctrl"`, we go to the second `ifelse()`, which tells us that if `group` matches any value in `c("trt1", "trt2")`, `"yes"` will be assigned to `treatment`. If the value of `group` fails both of these condition, `NA` will be assigned to `treatment`. 
+The code above tells us that if `group == "ctrl"`, `"no"` will be assigned to `treatment`. If `group` does not equal `"ctrl"`, we go to the second `ifelse()`, which tells us that if `group` matches any value in `c("trt1", "trt2")`, `"yes"` will be assigned to `treatment`. If the value of `group` fails both of these condition, `NA` will be assigned to `treatment`.
 
 ### See Also
 
@@ -741,8 +738,7 @@ This will convert `heightIn` to centimeters and store it in a new column, `heigh
 
 ```{r}
 library(dplyr)
-hw <- 
-  hw %>% 
+hw <- hw %>%
   mutate(heightCm = heightIn * 2.54)
 hw
 ```
@@ -752,8 +748,7 @@ hw
 You can use `mutate()` to transform multiple columns at once:
 
 ```{r}
-hw <- 
-  hw %>% 
+hw <- hw %>%
   mutate(
     heightCm = heightIn * 2.54,
     weightKg = weightLb / 2.204
@@ -764,8 +759,7 @@ hw
 It is also possible to calculate a new column based on multiple columns:
 
 ```{r eval=FALSE}
-hw <- 
-  hw %>% 
+hw <- hw %>%
   mutate(bmi = weightKg / (heightCm / 100)^2)
 ```
 
@@ -774,8 +768,7 @@ With `mutate()`, the columns are added sequentially. That means that we can refe
 ```{r}
 hw <- heightweight
 
-hw <- 
-  hw %>% 
+hw <- hw %>%
   mutate(
     heightCm = heightIn * 2.54,
     weightKg = weightLb / 2.204,
@@ -801,7 +794,7 @@ You want to create new columns that are the result of calculations performed on 
 Use `group_by()` from the dplyr package to specify the grouping variable, and then specify the operations in `mutate()`:
 
 ```{r}
-library(MASS)  # Load the MASS package to access the cabbages data set 
+library(MASS)  # Load the MASS package to access the cabbages data set
 library(dplyr)
 
 cabbages %>%
@@ -828,8 +821,7 @@ mutate(cabbages, DevWt = HeadWt - mean(HeadWt))
 You'll often want to do separate operations like this for each group, where the groups are specified by one or more grouping variables. Suppose, for example, we want to normalize the data within each group by finding the deviation of each case from the mean *within the group*, where the groups are specified by `Cult`. In these cases, we can use `group_by()` and `mutate()` together:
 
 ```{r}
-cb <- 
-  cabbages %>%
+cb <- cabbages %>%
   group_by(Cult) %>%
   mutate(DevWt = HeadWt - mean(HeadWt))
 ```
@@ -840,11 +832,11 @@ The before and after results are shown in Figure \@ref(fig:FIG-DATAPREP-CALCULAT
 
 ```{r FIG-DATAPREP-CALCULATE-GROUP, fig.show="hold", fig.cap="Before normalizing (left); After normalizing (right)"}
 # The data before normalizing
-ggplot(cb, aes(x = Cult, y = HeadWt)) + 
+ggplot(cb, aes(x = Cult, y = HeadWt)) +
   geom_boxplot()
 
 # After normalizing
-ggplot(cb, aes(x = Cult, y = DevWt)) + 
+ggplot(cb, aes(x = Cult, y = DevWt)) +
   geom_boxplot()
 ```
 
@@ -1114,16 +1106,16 @@ This function will perform all the steps of calculating the standard deviation, 
 ```{r}
 summarySE <- function(data = NULL, measurevar, groupvars = NULL, na.rm = FALSE,
                       conf.interval = .95, .drop = TRUE) {
-  
+
   # New version of length which can handle NA's: if na.rm==T, don't count them
   length2 <- function(x, na.rm = FALSE) {
     if (na.rm) sum(!is.na(x))
     else       length(x)
   }
-  
+
   groupvars  <- rlang::syms(groupvars)
   measurevar <- rlang::sym(measurevar)
-  
+
   datac <- data %>%
     dplyr::group_by(!!!groupvars) %>%
     dplyr::summarise(
@@ -1139,7 +1131,7 @@ summarySE <- function(data = NULL, measurevar, groupvars = NULL, na.rm = FALSE,
     dplyr::ungroup() %>%
     # Rearrange the columns so that sd, se, ci are last
     dplyr::select(seq_len(ncol(.) - 4), ncol(.) - 2, sd, se, ci)
-  
+
   datac
 }
 ```

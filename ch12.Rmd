@@ -115,8 +115,7 @@ ggplot(mtcars, aes(x = wt, y = mpg, colour = factor(cyl))) +
 
 # Another method: Convert to factor in the data
 library(dplyr)
-mtcars_mod <-
-  mtcars %>%
+mtcars_mod <- mtcars %>%
   mutate(cyl = as.factor(cyl))  # Convert cyl to a factor
 
 ggplot(mtcars_mod, aes(x = wt, y = mpg, colour = cyl)) +
@@ -157,8 +156,7 @@ The viridis color scales can be implemented for data that is both continuous and
 library(gcookbook)  # Load the gcookbook package to access the uspopage data set
 
 # Create the base plot
-uspopage_plot <-
-  ggplot(uspopage, aes(x = Year, y = Thousands, fill = AgeGroup)) +
+uspopage_plot <- ggplot(uspopage, aes(x = Year, y = Thousands, fill = AgeGroup)) +
   geom_area()
 
 # Add the viridis color scale
@@ -223,8 +221,7 @@ library(gcookbook)  # Load the gcookbook package to access the uspopage data set
 library(viridis)  # Load the viridis package to access the viridis palette
 
 # Create the base plot
-uspopage_plot <-
-  ggplot(uspopage, aes(x = Year, y = Thousands, fill = AgeGroup)) +
+uspopage_plot <- ggplot(uspopage, aes(x = Year, y = Thousands, fill = AgeGroup)) +
   geom_area()
 
 # These four specifications all have the same effect
@@ -250,8 +247,7 @@ With `scale_fill_hue()`, the colors are taken from around the color wheel in the
 
 ```{r FIG-COLORS-PALETTE-LIGHTNESS, fig.show="hold", fig.cap="Points with default lightness (left); With lightness set to 45 (right)", fig.width=4}
 # Create the base scatter plot
-hw_splot <-
-  ggplot(heightweight, aes(x = ageYear, y = heightIn, colour = sex)) +
+hw_splot <- ggplot(heightweight, aes(x = ageYear, y = heightIn, colour = sex)) +
   geom_point()
 
 # Default lightness = 65
@@ -320,8 +316,7 @@ In the example here, we'll manually define colors by specifying values with `sca
 library(gcookbook)  # Load the gcookbook package to access the heightweight data set
 
 # Create the base plot
-hw_plot <-
-  ggplot(heightweight, aes(x = ageYear, y = heightIn, colour = sex)) +
+hw_plot <- ggplot(heightweight, aes(x = ageYear, y = heightIn, colour = sex)) +
   geom_point()
 
 # Using color names
@@ -398,8 +393,7 @@ In the example here, we'll specify the colors for a continuous variable using va
 library(gcookbook)  # Load the gcookbook package to access the heightweight data set
 
 # Create the base plot
-hw_plot <-
-  ggplot(heightweight, aes(x = ageYear, y = heightIn, colour = weightLb)) +
+hw_plot <- ggplot(heightweight, aes(x = ageYear, y = heightIn, colour = weightLb)) +
   geom_point(size = 3)
 
 hw_plot
@@ -470,8 +464,7 @@ Add a column that categorizes the *y* values, then map that column to fill. In t
 library(gcookbook)  # Load the gcookbook package to access the climate data set
 library(dplyr)
 
-climate_mod <-
-  climate %>%
+climate_mod <- climate %>%
   filter(Source == "Berkeley") %>%
   mutate(valence = ifelse(Anomaly10y >= 0, "pos", "neg"))
 
@@ -496,8 +489,7 @@ If you look closely at the figure, you'll notice that there are some stray shade
 interp <- approx(climate_mod$Year, climate_mod$Anomaly10y, n = 1000)
 
 # Put in a data frame and recalculate valence
-cbi <-
-  data.frame(Year = interp$x, Anomaly10y = interp$y) %>%
+cbi <- data.frame(Year = interp$x, Anomaly10y = interp$y) %>%
   mutate(valence = ifelse(Anomaly10y >= 0, "pos", "neg"))
 ```
 

@@ -36,20 +36,19 @@ With `facet_grid()`, you can specify a variable to split the data into vertical 
 
 ```{r FIG-FACET-FACET-GRID, fig.cap="Faceting horizontally by drv (top); Faceting vertically by cyl (middle); Faceting in both directions, with both variables (bottom)", fig.width=6, fig.height=4}
 # Create the base plot
-mpg_plot <- 
-  ggplot(mpg, aes(x = displ, y = hwy)) + 
+mpg_plot <- ggplot(mpg, aes(x = displ, y = hwy)) +
   geom_point()
 
 # Faceted by drv, in vertically arranged subpanels
-mpg_plot + 
+mpg_plot +
   facet_grid(drv ~ .)
 
 # Faceted by cyl, in horizontally arranged subpanels
-mpg_plot + 
+mpg_plot +
   facet_grid(. ~ cyl)
 
 # Split by drv (vertical) and cyl (horizontal)
-mpg_plot + 
+mpg_plot +
   facet_grid(drv ~ cyl)
 ```
 
@@ -59,7 +58,7 @@ With `facet_wrap()`, the subplots are laid out horizontally and wrap around, lik
 ```{r FIG-FACET-FACET-WRAP, fig.cap="(ref:cap-FIG-FACET-FACET-WRAP)"}
 # Facet on class
 # Note that there is nothing before the tilde
-mpg_plot + 
+mpg_plot +
   facet_wrap( ~ class)
 ```
 
@@ -69,10 +68,10 @@ With `facet_wrap()`, the default is to use the same number of rows and columns. 
 
 ```{r, eval=FALSE}
 # These will have the same result: 2 rows and 4 cols
-mpg_plot + 
+mpg_plot +
   facet_wrap( ~ class, nrow = 2)
 
-mpg_plot + 
+mpg_plot +
   facet_wrap( ~ class, ncol = 4)
 ```
 
@@ -94,16 +93,15 @@ Set the scales to "free_x", "free_y", or "free" (Figure \@ref(fig:FIG-FACET-FACE
 
 ```{r FIG-FACET-FACET-FREE, fig.cap="With free y scales (top); With free x and y scales (bottom)", fig.width=6, fig.height=4}
 # Create the base plot
-mpg_plot <- 
-  ggplot(mpg, aes(x = displ, y = hwy)) + 
+mpg_plot <- ggplot(mpg, aes(x = displ, y = hwy)) +
   geom_point()
 
 # With free y scales
-mpg_plot + 
+mpg_plot +
   facet_grid(drv ~ cyl, scales = "free_y")
 
 # With free x and y scales
-mpg_plot + 
+mpg_plot +
   facet_grid(drv ~ cyl, scales = "free")
 ```
 
@@ -134,19 +132,18 @@ library(dplyr)
 library(forcats)  # Load the forcats library to help you rename the factor levels
 
 # Make a modified copy of the original data called `mpg_mod1`
-mpg_mod1 <- 
-  mpg %>% 
+mpg_mod1 <- mpg %>%
   # Rename 4 to 4wd, f to Front, r to Rear
   mutate(drv = fct_recode(
     drv,
-    `4wd` = "4", 
+    `4wd` = "4",
     Front = "f",
     Rear = "r"
   ))
 
 # Plot the new data
-ggplot(mpg_mod1, aes(x = displ, y = hwy)) + 
-  geom_point() + 
+ggplot(mpg_mod1, aes(x = displ, y = hwy)) +
+  geom_point() +
   facet_grid(drv ~ .)
 ```
 
@@ -155,23 +152,22 @@ library(dplyr)
 library(forcats)  # Load the forcats library to help you rename the factor levels
 
 # Left plot (unmodified labels)
-ggplot(mpg, aes(x = displ, y = hwy)) + 
-  geom_point() + 
+ggplot(mpg, aes(x = displ, y = hwy)) +
+  geom_point() +
   facet_grid(drv ~ .)
 
 # Right plot (modified labels)
-mpg_mod1 <- 
-  mpg %>% 
+mpg_mod1 <- mpg %>%
   # Rename 4 to 4wd, f to Front, r to Rear
   mutate(drv = fct_recode(
     drv,
-    `4wd` = "4", 
+    `4wd` = "4",
     Front = "f",
     Rear = "r"
   ))
 
-ggplot(mpg_mod1, aes(x = displ, y = hwy)) + 
-  geom_point() + 
+ggplot(mpg_mod1, aes(x = displ, y = hwy)) +
+  geom_point() +
   facet_grid(drv ~ .)
 ```
 
@@ -182,7 +178,7 @@ Unlike with scales where you can set the labels, to set facet labels you must ch
 With `facet_grid()` but not `facet_wrap()`, at this time), it's possible to use a labeller function to set the labels. The labeller function `label_both()` will print out both the name of the variable and the value of the variable in each facet (Figure \@ref(fig:FIG-FACET-LABEL-TEXT-LABELLER), left):
 
 ```{r FIG-FACET-LABEL-TEXT-LABELLER-1, eval=FALSE}
-ggplot(mpg_mod1, aes(x = displ, y = hwy)) + 
+ggplot(mpg_mod1, aes(x = displ, y = hwy)) +
   geom_point() +
   facet_grid(drv ~ ., labeller = label_both)
 ```
@@ -194,17 +190,16 @@ library(dplyr)
 library(forcats)  # Load the forcats library to help you rename the factor levels
 
 # Make a modified copy of the original data called `mpg_mod`
-mpg_mod2 <- 
-  mpg %>% 
+mpg_mod2 <- mpg %>%
   # Rename 4 to 4wd, f to Front, r to Rear
   mutate(drv = fct_recode(
     drv,
-    `4^{wd}` = "4", 
+    `4^{wd}` = "4",
     `- Front %.% e^{pi * i}` = "f",
     `4^{wd} - Front` = "r"
   ))
 
-ggplot(mpg_mod2, aes(x = displ, y = hwy)) + 
+ggplot(mpg_mod2, aes(x = displ, y = hwy)) +
   geom_point() +
   facet_grid(drv ~ ., labeller = label_parsed)
 ```
@@ -231,9 +226,9 @@ You want to change the appearance of facet labels and headers.
 With the theming system, set `strip.text` to control the text appearance and `strip.background` to control the background appearance (Figure \@ref(fig:FIG-FACET-LABEL-APPEARANCE)):
 
 ```{r FIG-FACET-LABEL-APPEARANCE, fig.cap="Customized appearance for facet labels", fig.height=3}
-library(gcookbook)  # Load the gcookbook package to access the cabbage_exp data set 
+library(gcookbook)  # Load the gcookbook package to access the cabbage_exp data set
 
-ggplot(cabbage_exp, aes(x = Cultivar, y = Weight)) + 
+ggplot(cabbage_exp, aes(x = Cultivar, y = Weight)) +
   geom_col() +
   facet_grid(. ~ Date) +
   theme(

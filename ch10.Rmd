@@ -32,14 +32,13 @@ Use `guides()`, and specify the scale that should have its legend removed (Figur
 
 ```{r FIG-LEGEND-REMOVE, fig.cap="Default appearance (left); With legend removed (right)"}
 # Create the base plot (with legend)
-pg_plot <- 
-  ggplot(PlantGrowth, aes(x = group, y = weight, fill = group)) + 
+pg_plot <- ggplot(PlantGrowth, aes(x = group, y = weight, fill = group)) +
   geom_boxplot()
 
 pg_plot
 
 # Remove the legend for fill
-pg_plot + 
+pg_plot +
   guides(fill = FALSE)
 ```
 
@@ -49,14 +48,14 @@ Another way to remove a legend is to set `guide = FALSE` in the scale. This will
 
 ```{r eval=FALSE}
 # Remove the legend for fill
-pg_plot + 
+pg_plot +
   scale_fill_discrete(guide = FALSE)
 ```
 
 Yet another way to remove the legend is to use the theming system. If you have more than one aesthetic mapping with a legend (`color` and `shape`, for example), this will remove legends for all of them:
 
 ```{r eval=FALSE}
-pg_plot + 
+pg_plot +
   theme(legend.position = "none")
 ```
 
@@ -92,12 +91,11 @@ You want to move the legend from its default place on the right side.
 Use `theme(legend.position = ...)`. It can be put on the top, left, right, or bottom by using one of those strings as the position (Figure \@ref(fig:FIG-LEGEND-POSITION), left).
 
 ```{r FIG-LEGEND-POSITION-1, eval=FALSE}
-pg_plot <- 
-  ggplot(PlantGrowth, aes(x = group, y = weight, fill = group)) +
+pg_plot <- ggplot(PlantGrowth, aes(x = group, y = weight, fill = group)) +
   geom_boxplot() +
   scale_fill_brewer(palette = "Pastel2")
 
-pg_plot + 
+pg_plot +
   theme(legend.position = "top")
 ```
 
@@ -119,7 +117,7 @@ You can also use `legend.justification` to set which *part* of the legend box is
 For example, this will place the bottom-right corner of the legend (1, 0) in the bottom-right corner of the graphing area (1, 0):
 
 ```{r FIG-LEGEND-POSITION-JUSTIFICATION-1, eval=FALSE}
-pg_plot + 
+pg_plot +
   theme(legend.position = c(1, 0), legend.justification = c(1, 0))
 ```
 
@@ -128,7 +126,7 @@ corner of the graphing area, as in the graph on the right in
 Figure \@ref(fig:FIG-LEGEND-POSITION-JUSTIFICATION):
 
 ```{r FIG-LEGEND-POSITION-JUSTIFICATION-2, eval=FALSE}
-pg_plot + 
+pg_plot +
   theme(legend.position = c(1, 1), legend.justification = c(1, 1))
 ```
 
@@ -138,7 +136,7 @@ pg_plot +
 When placing the legend inside of the graphing area, it may be helpful to add an opaque border to set it apart (Figure \@ref(fig:FIG-LEGEND-POSITION-BACKGROUND), left):
 
 ```{r FIG-LEGEND-POSITION-BACKGROUND-1, eval=FALSE}
-pg_plot + 
+pg_plot +
   theme(legend.position = c(.85, .2)) +
   theme(legend.background = element_rect(fill = "white", colour = "black"))
 ```
@@ -147,7 +145,7 @@ You can also remove the border around its elements so that it blends in
 (Figure \@ref(fig:FIG-LEGEND-POSITION-BACKGROUND), right):
 
 ```{r FIG-LEGEND-POSITION-BACKGROUND-2, eval=FALSE}
-pg_plot + 
+pg_plot +
   theme(legend.position = c(.85, .2)) +
   theme(legend.background = element_blank()) +  # Remove overall border
   theme(legend.key = element_blank())           # Remove border around each item
@@ -172,14 +170,13 @@ Set the limits in the scale to the desired order (Figure \@ref(fig:FIG-LEGEND-OR
 
 ```{r FIG-LEGEND-ORDER, fig.cap="Default order for legend (left); Modified order (right)"}
 # Create the base plot
-pg_plot <- 
-  ggplot(PlantGrowth, aes(x = group, y = weight, fill = group)) + 
+pg_plot <- ggplot(PlantGrowth, aes(x = group, y = weight, fill = group)) +
   geom_boxplot()
 
 pg_plot
 
 # Change the order of items
-pg_plot + 
+pg_plot +
   scale_fill_discrete(limits = c("trt1", "trt2", "ctrl"))
 ```
 
@@ -190,7 +187,7 @@ Note that the order of the items on the x-axis did not change. To do that, you w
 In the preceding example, group was mapped to the fill aesthetic. By default this uses `scale_fill_discrete()` (which is the sameas `scale_fill_hue()`), which maps the factor levels to colors that are equally spaced around the color wheel. We could have used a different `scale_fill_`**`xxx`**`()`, though. For example, we could use a grey palette (Figure \@ref(fig:FIG-LEGEND-ORDER2), left):
 
 ```{r FIG-LEGEND-ORDER2-1, eval=FALSE}
-pg_plot + 
+pg_plot +
   scale_fill_grey(start = .5, end = 1, limits = c("trt1", "trt2", "ctrl"))
 ```
 
@@ -198,7 +195,7 @@ Or we could use a palette from RColorBrewer
 (Figure \@ref(fig:FIG-LEGEND-ORDER2), right):
 
 ```{r FIG-LEGEND-ORDER2-2, eval=FALSE}
-pg_plot + 
+pg_plot +
   scale_fill_brewer(palette = "Pastel2", limits = c("trt1", "trt2", "ctrl"))
 ```
 
@@ -242,14 +239,13 @@ Add guides (`fill = guide_legend(reverse = TRUE)`) to reverse the order of the l
 
 ```{r FIG-LEGEND-TITLE-REVERSE, fig.cap="Default order for legend (left); Reversed order (right)"}
 # Create the base plot
-pg_plot <- 
-  ggplot(PlantGrowth, aes(x = group, y = weight, fill = group)) + 
+pg_plot <- ggplot(PlantGrowth, aes(x = group, y = weight, fill = group)) +
   geom_boxplot()
 
 pg_plot
 
 # Reverse the legend order
-pg_plot + 
+pg_plot +
   guides(fill = guide_legend(reverse = TRUE))
 ```
 
@@ -275,8 +271,7 @@ Use `labs()` and set the value of `fill`, `colour`, `shape`, or whatever aesthet
 
 ```{r FIG-LEGEND-TITLE, fig.cap='With the legend title set to "Condition"'}
 # Create the base plot
-pg_plot <- 
-  ggplot(PlantGrowth, aes(x = group, y = weight, fill = group)) + 
+pg_plot <- ggplot(PlantGrowth, aes(x = group, y = weight, fill = group)) +
   geom_boxplot()
 
 pg_plot
@@ -300,24 +295,22 @@ If there are multiple variables mapped to aesthetics with a legend (those other 
 ```{r FIG-LEGEND-TITLE-MULTI, fig.cap="Two legends with original titles (left); With new titles (right)"}
 library(gcookbook)  # Load the gcookbook package to access the heightweight data set
 
-# Load the gcookbook package to access the heightweight data set 
-hw_plot <- 
-  ggplot(heightweight, aes(x = ageYear, y = heightIn, colour = sex)) +
+# Load the gcookbook package to access the heightweight data set
+hw_plot <- ggplot(heightweight, aes(x = ageYear, y = heightIn, colour = sex)) +
   geom_point(aes(size = weightLb)) +
   scale_size_continuous(range = c(1, 4))
 
 hw_plot
 
 # With new legend titles
-hw_plot + 
+hw_plot +
   labs(colour = "Male/Female", size = "Weight\n(pounds)")
 ```
 
 If you have one variable mapped to two separate aesthetics, the default is to have a single legend that combines both. For example, if we map `sex` to both `shape` and `weight`, there will be just one legend (Figure \@ref(fig:FIG-LEGEND-TITLE-MULTI-SAME), left):
 
 ```{r FIG-LEGEND-TITLE-MULTI-SAME-1, eval=FALSE}
-hw_plot2 <- 
-  ggplot(heightweight, aes(x = ageYear, y = heightIn, shape = sex, colour = sex)) +
+hw_plot2 <- ggplot(heightweight, aes(x = ageYear, y = heightIn, shape = sex, colour = sex)) +
   geom_point()
 
 hw_plot2
@@ -327,18 +320,18 @@ To change the title (Figure \@ref(fig:FIG-LEGEND-TITLE-MULTI-SAME), right), you 
 
 ```{r FIG-LEGEND-TITLE-MULTI-SAME-2, eval=FALSE}
 # Change just shape
-hw_plot2 + 
+hw_plot2 +
   labs(shape = "Male/Female")
 
 # Change both shape and colour
-hw_plot2 + 
+hw_plot2 +
   labs(shape = "Male/Female", colour = "Male/Female")
 ```
 
 It is also possible to control the legend title with the `guides()` function. It's a little more verbose, but it can be useful when you're already using it to control other properties:
 
 ```{r FIG-LEGEND-TITLE-MULTI-SAME-3, eval=FALSE}
-hw_plot + 
+hw_plot +
   guides(fill = guide_legend(title = "Condition"))
 ```
 
@@ -358,15 +351,14 @@ You want to change the appearance of a legend title's text.
 Use theme(`legend.title = element_text()`) (Figure \@ref(fig:FIG-LEGEND-TITLE-APPEARANCE)):
 
 ```{r FIG-LEGEND-TITLE-APPEARANCE, fig.cap="Customized legend title appearance"}
-pg_plot <- 
-  ggplot(PlantGrowth, aes(x = group, y = weight, fill = group)) + 
+pg_plot <- ggplot(PlantGrowth, aes(x = group, y = weight, fill = group)) +
   geom_boxplot()
 
-pg_plot + 
+pg_plot +
   theme(legend.title = element_text(
-    face = "italic", 
-    family = "Times", 
-    colour = "red", 
+    face = "italic",
+    family = "Times",
+    colour = "red",
     size = 14)
   )
 ```
@@ -376,11 +368,11 @@ pg_plot +
 It's also possible to specify the legend title's appearance via `guides()`, but this method can be a bit verbose. This has the same effect as the previous code:
 
 ```{r, eval=FALSE}
-pg_plot + 
+pg_plot +
   guides(fill = guide_legend(title.theme = element_text(
     face = "italic",
-    family = "times", 
-    colour = "red", 
+    family = "times",
+    colour = "red",
     size = 14))
   )
 ```
@@ -428,15 +420,14 @@ You want to change the text of labels in a legend.
 Set the labels in the scale (Figure \@ref(fig:FIG-LEGEND-LABEL), left):
 
 ```{r FIG-LEGEND-LABEL-1, eval=FALSE}
-library(gcookbook)  # Load the gcookbook package to access the PlantGrowth data set 
+library(gcookbook)  # Load the gcookbook package to access the PlantGrowth data set
 
 # The base plot
-pg_plot <- 
-  ggplot(PlantGrowth, aes(x = group, y = weight, fill = group)) + 
+pg_plot <- ggplot(PlantGrowth, aes(x = group, y = weight, fill = group)) +
   geom_boxplot()
 
 # Change the legend labels
-pg_plot + 
+pg_plot +
   scale_fill_discrete(labels = c("Control", "Treatment 1", "Treatment 2"))
 ```
 
@@ -447,7 +438,7 @@ Note that the labels on the x-axis did not change. To do that, you would have to
 In the preceding example, group was mapped to the fill aesthetic. By default this uses `scale_fill_discrete()`, which maps the factor levels to colors that are equally spaced around the color wheel (the same as `scale_fill_hue()`). There are other fill scales we could use, and setting the labels works the same way. For example, to produce the graph on the right in Figure \@ref(fig:FIG-LEGEND-LABEL):
 
 ```{r FIG-LEGEND-LABEL-2, eval=FALSE}
-pg_plot + 
+pg_plot +
   scale_fill_grey(start = .5, end = 1, labels = c("Control", "Treatment 1", "Treatment 2"))
 ```
 
@@ -457,9 +448,9 @@ pg_plot +
 If you are also changing the order of items in the legend, the labels are matched to the items by position. In this example we'll change the item order, and make sure to set the labels in the same order (Figure \@ref(fig:FIG-LEGEND-LABEL-ORDER)):
 
 ```{r FIG-LEGEND-LABEL-ORDER, fig.cap="Modified legend label order and manually specified labels (note that the x-axis labels and their order are unchanged)"}
-pg_plot + 
+pg_plot +
   scale_fill_discrete(
-    limits = c("trt1", "trt2", "ctrl"), 
+    limits = c("trt1", "trt2", "ctrl"),
     labels = c("Treatment 1", "Treatment 2", "Control")
   )
 ```
@@ -468,18 +459,17 @@ If you have one variable mapped to two separate aesthetics, the default is to ha
 
 ```{r FIG-LEGEND-LABEL-MULTI-APPEARANCE, fig.cap="A variable mapped to `shape` and `colour` (top left); With new labels for `shape` (top right); With new labels combining both `shape` and colour` (bottom)"}
 # Create the base plot
-hw_plot <- 
-  ggplot(heightweight, aes(x = ageYear, y = heightIn, shape = sex, colour = sex)) +
+hw_plot <- ggplot(heightweight, aes(x = ageYear, y = heightIn, shape = sex, colour = sex)) +
   geom_point()
 
 hw_plot
 
 # Change the labels for one scale
-hw_plot + 
+hw_plot +
   scale_shape_discrete(labels = c("Female", "Male"))
 
 # Change the labels for both scales
-hw_plot + 
+hw_plot +
   scale_shape_discrete(labels = c("Female", "Male")) +
   scale_colour_discrete(labels = c("Female", "Male"))
 ```
@@ -515,16 +505,15 @@ Use `theme(legend.text=element_text())` (Figure \@ref(fig:FIG-LEGEND-LABEL-APPEA
 
 ```{r FIG-LEGEND-LABEL-APPEARANCE, fig.cap="Customized legend label appearance"}
 # Create the base plot
-pg_plot <- 
-  ggplot(PlantGrowth, aes(x = group, y = weight, fill = group)) + 
+pg_plot <- ggplot(PlantGrowth, aes(x = group, y = weight, fill = group)) +
   geom_boxplot()
 
 # Change the legend label appearance
-pg_plot + 
+pg_plot +
   theme(legend.text = element_text(
-    face = "italic", 
-    family = "Times", 
-    colour = "red", 
+    face = "italic",
+    family = "Times",
+    colour = "red",
     size = 14)
   )
 ```
@@ -535,11 +524,11 @@ It's also possible to specify the legend label appearance via `guides()`, althou
 
 ```{r eval=FALSE}
 # Changes the legend title text for the fill legend
-pg_plot + 
+pg_plot +
   guides(fill = guide_legend(title.theme = element_text(
     face = "italic",
-    family = "times", 
-    colour = "red", 
+    family = "times",
+    colour = "red",
     size = 14))
   )
 ```
@@ -561,12 +550,11 @@ You want to use legend labels that have more than one line of text.
 Set the labels in the scale, using `\n` to represent a newline. In this example, we'll use `scale_fill_discrete()` to control the legend for the fill scale (Figure \@ref(fig:FIG-LEGEND-LABEL-MULTILINE), left):
 
 ```{r FIG-LEGEND-LABEL-MULTILINE-1, eval=FALSE}
-pg_plot <- 
-  ggplot(PlantGrowth, aes(x = group, y = weight, fill = group)) + 
+pg_plot <- ggplot(PlantGrowth, aes(x = group, y = weight, fill = group)) +
   geom_boxplot()
 
 # Labels that have more than one line
-pg_plot + 
+pg_plot +
   scale_fill_discrete(labels = c("Control", "Type 1\ntreatment", "Type 2\ntreatment"))
 ```
 
@@ -577,7 +565,7 @@ As you can see in the version on the left in Figure \@ref(fig:FIG-LEGEND-LABEL-M
 ```{r FIG-LEGEND-LABEL-MULTILINE-2, eval=FALSE}
 library(grid)
 
-pg_plot + 
+pg_plot +
   scale_fill_discrete(labels = c("Control", "Type 1\ntreatment", "Type 2\ntreatment")) +
   theme(legend.text = element_text(lineheight = .8), legend.key.height = unit(1, "cm"))
 ```
