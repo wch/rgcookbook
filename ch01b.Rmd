@@ -134,7 +134,9 @@ ggplot(mpg, aes(x = class, y = hwy)) +
   geom_violin()
 ```
 
-Beyond adding the data itself, the `+` ggplot operator can be used to add other layers and modifications to the plot (e.g. Figure \@ref(fig:FIG-GGPLOT2-BASE-THEME)). The rest of this book goes through many of these options. One of the strengths of ggplot2 is that while it is incredibly customizable, the syntax and the process of adding layers to your plot remains consistent across the different types of modifications you can make.
+Beyond adding the data itself, the `+` ggplot operator can be used to add other layers and modifications to the plot (e.g. Figure \@ref(fig:FIG-GGPLOT2-BASE-THEME)). The best practice for making your code readable (for others, and your future self!) is to make sure that each layer (each line that ends with `+`) is a new line of code. Following this code style will make it easy to quickly see what layers make up your plot, to make changes to specific layers, or to quickly switch the order of layers.
+
+The rest of this book goes through many of these options. One of the strengths of ggplot2 is that while it is incredibly customizable, the syntax and the process of adding layers to your plot remains consistent across the different types of modifications you can make. 
 
 ```{r FIG-GGPLOT2-BASE-THEME, small.mar=TRUE, fig.show="hold", fig.cap="Default bar plot (left); Adding a layer of modification that changes the theme of the plot (right)"}
 ggplot(mpg, aes(x = class, y = hwy)) +
@@ -150,3 +152,5 @@ Finally, keep in mind that there are always better and worse ways to represent y
 ### See Also
 
 You can consult the ggplot2 cheatsheet oneline for more ideas on how to plot your data: <https://github.com/rstudio/cheatsheets/raw/master/data-visualization-2.1.pdf>.
+
+For more on recommended code style: <http://style.tidyverse.org/>.
