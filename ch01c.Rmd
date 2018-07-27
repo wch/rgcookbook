@@ -12,3 +12,27 @@ source("utils.R", local = TRUE)
 
 tidyverse and basic data prep {#CHAPTER-TIDYVERSE-BASICS}
 ========
+
+
+## pipes
+
+The first thing for any ggplot is that we need to specify what data should be 
+used to make the plot. We do so by using what is called a "pipe", which works as 
+follows:
+
+```{r}
+# The following two lines of code mean the exact same thing:
+names(iris)
+# or this:
+iris %>% 
+  names()
+
+# In other words, using the pipe ( %>% ) basically takes the first line, and 
+# "pipes" it in as the first input of the function on the next line.
+# So iris %>% names() basically tells the computer, take iris and put it in as 
+# the first input for the names function, which is the equivalent of names(iris)
+
+```
+
+Now that we know how piping works, let's create a simple histogram of the 
+variable `Sepal.Length`. 
