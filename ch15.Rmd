@@ -105,6 +105,14 @@ str(ToothGrowth)
 
 This tells us that `ToothGrowth` is a data frame with three columns, `len`, `supp`, and `dose`. `len` and `dose` contain numeric values, while `supp` is a factor with two levels.
 
+Another useful function is the `summary()` function:
+
+```{r}
+summary(ToothGrowth)
+```
+
+Instead of showing you the first few values of each column as `str()` does, `summary()` provides basic descriptive statistics (the minimum, maximum, median, mean, and first & third quartile values) for numeric variables, and tells you the number of values corresponding to each character value or factor level if it is a character or factor variable.
+
 ### Discussion
 
 The `str()` function is very useful for finding out more about data structures. One common source of problems is a data frame where one of the columns is a character vector instead of a factor, or vice versa. This can cause puzzling issues with analyses or graphs.
@@ -124,6 +132,17 @@ ToothGrowth$supp
 # From new data frame (character)
 tg$supp
 ```
+
+Note that you can also use the `class()` function to get information about the data set object itself (rather than about each of the variables contained within the dataframe), or to get information about a specific variable within a dataframe:
+
+```{r}
+# Get information about the overall data frame
+class(ToothGrowth)
+# Get information about a particular variable
+class(ToothGrowth$len)
+```
+
+Whereas `str()` and `summary()` give you information about both the type of object as well as some other descriptive information, `class()` will only give you information about the object type.
 
 
 
