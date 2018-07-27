@@ -717,8 +717,7 @@ cut(pg$weight, breaks = c(0, 5, 6, Inf), right = FALSE)
 To recode a categorical variable to another categorical variable, see Recipe \@ref(RECIPE-DATAPREP-RECODE-CATEGORICAL).
 
 
-
-Calculating New Columns {#RECIPE-DATAPREP-CALCULATE}
+Creating New Columns using Calculations Based on Existing Columns  {#RECIPE-DATAPREP-CALCULATE}
 -----------------------
 
 ### Problem
@@ -727,10 +726,10 @@ You want to calculate a new column of values in a data frame.
 
 ### Solution
 
-Reference the new column with the `$` operator, and assign some values to it. For this example, we'll use a copy of the `heightweight` data set:
+Use `mutate()` from the **dplyr** package. For this example, we'll use a copy of the `heightweight` data set:
 
 ```{r}
-library(gcookbook) # For the data set
+library(gcookbook) # Load the gcookbook package to access the heightweight data set
 hw <- heightweight # Make a copy of the data to work on
 hw
 ```
@@ -738,48 +737,53 @@ hw
 This will convert `heightIn` to centimeters and store it in a new column, `heightCm`:
 
 ```{r}
-hw$heightCm <- hw$heightIn * 2.54
+library(dplyr)
+hw <- 
+  hw %>% 
+  mutate(heightCm = heightIn * 2.54)
 hw
 ```
 
 ### Discussion
 
-The tidyverse way: use `mutate()` from the dplyr package. You only need to specify the data frame once, as the first argument to the function, meaning these provide a cleaner syntax, especially if you are transforming multiple column:
+You can use `mutate()` to transform multiple columns at once:
 
 ```{r}
-library(dplyr)
-hw <- mutate(hw,
+hw <- 
+  hw %>% 
+  mutate(
     heightCm = heightIn * 2.54,
     weightKg = weightLb / 2.204
-)
+  )
 hw
 ```
 
 It is also possible to calculate a new column based on multiple columns:
 
 ```{r eval=FALSE}
-# These both have the same effect
-hw <- mutate(hw, bmi = weightKg / (heightCm / 100)^2)
-
-hw$bmi <- hw$weightKg / (hw$heightCm / 100)^2
+hw <- 
+  hw %>% 
+  mutate(bmi = weightKg / (heightCm / 100)^2)
 ```
 
 With `mutate()`, the columns are added sequentially. That means that we can reference a newly-created column when calculating a new column:
 
 ```{r}
 hw <- heightweight
-hw <- mutate(hw,
+
+hw <- 
+  hw %>% 
+  mutate(
     heightCm = heightIn * 2.54,
     weightKg = weightLb / 2.204,
     bmi = weightKg / (heightCm / 100)^2
-)
+  )
 hw
 ```
 
 ### See Also
 
 See Recipe \@ref(RECIPE-DATAPREP-CALCULATE-GROUP) for how to perform group-wise transformations on data.
-
 
 
 Calculating New Columns by Group {#RECIPE-DATAPREP-CALCULATE-GROUP}
