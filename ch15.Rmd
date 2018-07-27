@@ -77,9 +77,7 @@ lst <- list(group = g, value = x)    # A list of vectors
 dat <- as.data.frame(lst)
 ```
 
-
-The tidyverse way of creating a data frame is to use `data_frame()` or `as_data_frame()` (note the underscores instead of periods). This returns a special kind of data frame -- a *tibble* -- which behaves like a regular data frame in most contexts, but it prints out a little more nicely.
-
+The tidyverse way of creating a data frame is to use `data_frame()` or `as_data_frame()` (note the underscores instead of periods). This returns a special kind of data frame -- a *tibble* -- which behaves like a regular data frame in most contexts, but prints out more nicely and is spcifically designed to play well with the tidyverse functions.
 
 ```{r eval=FALSE}
 data_frame(g, x)
