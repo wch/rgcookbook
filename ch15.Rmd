@@ -19,6 +19,9 @@ suppressPackageStartupMessages({
     library(MASS)
     library(dplyr)
 })
+
+# Print less for the examples in this chapter
+options(knit_print_df_rows = 4)
 ```
 
 Getting Your Data into Shape {#CHAPTER-DATAPREP}
@@ -1360,3 +1363,10 @@ pres_rating2
 ### See Also
 
 The zoo package is also useful for working with time series objects.
+
+
+
+```{r echo=FALSE}
+# Restore to original
+options(knit_print_df_rows = NULL)
+```

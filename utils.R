@@ -21,53 +21,87 @@ knitr::knit_hooks$set(small.mar = function(before, options, envir) {
 })
 
 
-knit_print.data.frame <- function(x, ..., maxrows = 8) {
-  output <- capture.output(
-    base::print.data.frame(head(x, maxrows), ...)
-  )
+# As of R 3.5, we need to register knit_print methods using registerS3method.
+# https://github.com/yihui/knitr/issues/1580
+#
+# This is borrowed from: https://github.com/klutometis/roxygen/issues/623
+register_s3_method <- function(pkg, generic, class, fun = NULL) {
+  stopifnot(is.character(pkg), length(pkg) == 1)
+  envir <- asNamespace(pkg)
 
-  if (nrow(x) > maxrows) {
-    output <- c(
-      output,
-      paste(
-        "# ... with",
-        format(nrow(x) - maxrows, big.mark = ","),
-        "more rows"
-      )
-    )
+  stopifnot(is.character(generic), length(generic) == 1)
+  stopifnot(is.character(class), length(class) == 1)
+  if (is.null(fun)) {
+    fun <- get(paste0(generic, ".", class), envir = parent.frame())
+  }
+  stopifnot(is.function(fun))
+
+
+  if (pkg %in% loadedNamespaces()) {
+    registerS3method(generic, class, fun, envir = envir)
   }
 
-  cat(output, sep = "\n")
-}
-
-
-
-knit_print.character <- function(x, ..., maxrows = 8) {
-  output <- capture.output(
-    base::print.default(x, ...)
+  # Always register hook in case package is later unloaded & reloaded
+  setHook(
+    packageEvent(pkg, "onLoad"),
+    function(...) {
+      registerS3method(generic, class, fun, envir = envir)
+    }
   )
-
-  if (length(output) > maxrows) {
-    # Find out how many items are on each line of text.
-    # Get number on second line:
-    line2_n <- as.integer(sub("^\\s*\\[(\\d+)\\].*", "\\1", output[2]))
-    n_per_row <- line2_n - 1
-    n_printed <- n_per_row * maxrows
-
-    output <- c(
-      output[seq_len(maxrows)],
-      paste(
-        "# ... with",
-        format(length(x) - n_per_row * maxrows, big.mark = ","),
-        "more items"
-      )
-    )
-  }
-
-  cat(output, sep = "\n")
 }
 
+register_s3_method("knitr", "knit_print", "data.frame",
+  function(x, ..., maxrows = getOption("knit_print_df_rows", default = 8)) {
+    output <- capture.output(
+      base::print.data.frame(head(x, maxrows), ...)
+    )
 
-knit_print.sf <- function(x, ...) {
+    if (nrow(x) > maxrows) {
+      output <- c(
+        output,
+        paste(
+          "# ... with",
+          format(nrow(x) - maxrows, big.mark = ","),
+          "more rows"
+        )
+      )
+    }
+
+    cat(output, sep = "\n")
+  }
+)
+
+
+
+register_s3_method("knitr", "knit_print", "character",
+  function(x, ..., maxrows = 8) {
+    output <- capture.output(
+      base::print.default(x, ...)
+    )
+
+    if (length(output) > maxrows) {
+      # Find out how many items are on each line of text.
+      # Get number on second line:
+      line2_n <- as.integer(sub("^\\s*\\[(\\d+)\\].*", "\\1", output[2]))
+      n_per_row <- line2_n - 1
+      n_printed <- n_per_row * maxrows
+
+      output <- c(
+        output[seq_len(maxrows)],
+        paste(
+          "# ... with",
+          format(length(x) - n_per_row * maxrows, big.mark = ","),
+          "more items"
+        )
+      )
+    }
+
+    cat(output, sep = "\n")
+  }
+)
+
+register_s3_method("knitr", "knit_print", "sf",
+  function(x, ...) {
     sf:::print.sf(x, ..., n = 6)
-}
+  }
+)
