@@ -282,56 +282,23 @@ You want to change the order of columns in a data frame.
 
 ### Solution
 
-To reorder columns by their numeric position:
+Use the `select()` function. In the example below, the original order of the columns was first `len`, followed by `supp`, and `dose`. 
 
-```{r eval=FALSE}
-dat <- dat[c(1, 3, 2)]
+```{r}
+ToothGrowth %>% 
+  select(dose, len, supp)
 ```
 
-To reorder by column name:
-
-```{r eval=FALSE}
-dat <- dat[c("col1", "col3", "col2")]
-```
+The new data frame will contain the variables you have specified within `select()`, in the order that you have specified. Note that `select()` returns a new data frame, so if you want to save the output you'll need to save over the original.
 
 ### Discussion
 
-The previous examples use list-style indexing. A data frame is essentially a list of vectors, and indexing into it as a list will return another data frame. You can get the same effect with matrix-style indexing:
-
-```{r echo=FALSE}
-# Get the original data
-data(anthoming)
-```
+If you are only reordering a few variables and want to keep the rest of the variables, you can include `everything()` to indicate that you want the new data frame to still keep all of the remaining variables:
 
 ```{r}
-library(gcookbook) # For the data set
-anthoming
-
-anthoming[c(1,3,2)] # List-style indexing
-
-# Putting nothing before the comma means to select all rows
-anthoming[, c(1,3,2)] # Matrix-style indexing
-```
-
-In this case, both methods return the same result, a data frame. However, when retrieving a single column, list-style indexing will return a data frame, while matrix-style indexing will return a vector:
-
-```{r}
-anthoming[3] # List-style indexing
-anthoming[, 3] # Matrix-style indexing
-```
-
-You can use `drop=FALSE` to ensure that it returns a data frame:
-
-```{r}
-anthoming[, 3, drop=FALSE] # Matrix-style indexing with drop=FALSE
-```
-
-
-The tidyverse way: use the `select()` function.
-
-```{r}
-select(anthoming, angle, ctrl, expt)
-select(anthoming, 1, 3, 2)
+# We can use `everything()` instead of having to type out all of the remaining variable names
+ToothGrowth %>%
+  select(dose, everything())
 ```
 
 The `?select_helpers` documentation also shows other ways to select columns. You can, for example, select columns by matching parts of the name.
