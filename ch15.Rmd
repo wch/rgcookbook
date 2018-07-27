@@ -870,17 +870,18 @@ You want to summarize your data, based on one or more grouping variables.
 
 ### Solution
 
-Use `group_by()` and `summarise()` from the dplyr package, and specify the operations to do:
+Use `group_by()` and `summarise()` from the **dplyr** package, and specify the operations to do:
 
 ```{r}
-library(MASS) # For the data set
+library(MASS)  # Load the MASS package to access the cabbages data set
 library(dplyr)
+
 cabbages %>%
-    group_by(Cult, Date) %>%
-    summarise(
-        Weight = mean(HeadWt),
-        VitC = mean(VitC)
-    )
+  group_by(Cult, Date) %>%
+  summarise(
+    Weight = mean(HeadWt),
+    VitC = mean(VitC)
+  )
 ```
 
 ### Discussion
@@ -933,19 +934,19 @@ Using a temporary variable, as we did earlier, makes it more readable, but a mor
 
 ```{r eval=FALSE}
 cabbages %>%
-    group_by(Cult) %>%
-    summarise(Weight = mean(HeadWt))
+  group_by(Cult) %>%
+  summarise(Weight = mean(HeadWt))
 ```
 
 Back to summarizing data. Summarizing the data frame by grouping using more variables (or columns) is simple: just give it the names of the additional variables. It's also possible to get more than one summary value by specifying more calculated columns. Here we'll summarize each `Cult` and `Date` group, getting the average of `HeadWt` and `VitC`:
 
 ```{r}
 cabbages %>%
-    group_by(Cult, Date) %>%
-    summarise(
-        Weight = mean(HeadWt),
-        Vitc = mean(VitC)
-    )
+  group_by(Cult, Date) %>%
+  summarise(
+    Weight = mean(HeadWt),
+    Vitc = mean(VitC)
+  )
 ```
 
 > **Note**
@@ -956,12 +957,12 @@ It's possible to do more than take the mean. You may, for example, want to compu
 
 ```{r}
 cabbages %>%
-    group_by(Cult, Date) %>%
-    summarise(
-        Weight = mean(HeadWt),
-        sd = sd(HeadWt),
-        n = n()
-    )
+  group_by(Cult, Date) %>%
+  summarise(
+    Weight = mean(HeadWt),
+    sd = sd(HeadWt),
+    n = n()
+  )
 ```
 
 Other useful functions for generating summary statistics include `min()`, `max()`, and `median()`. The `n()` function is a special function that works only inside of the dplyr functions `summarise()`, `mutate()` and `filter()`. See `?summarise` for more useful functions.
@@ -979,26 +980,26 @@ One potential pitfall is that `NA`s in the data will lead to `NA`s in the output
 ```{r}
 c1 <- cabbages # Make a copy
 c1$HeadWt[c(1, 20, 45)] <- NA # Set some values to NA
+
 c1 %>%
-    group_by(Cult) %>%
-    summarise(
-        Weight = mean(HeadWt),
-        sd = sd(HeadWt),
-        n = n()
-    )
+  group_by(Cult) %>%
+  summarise(
+    Weight = mean(HeadWt),
+    sd = sd(HeadWt),
+    n = n()
+  )
 ```
 
 The problem is that `mean()` and `sd()` simply return `NA` if any of the input values are `NA.` Fortunately, these functions have an option to deal with this very issue: setting `na.rm=TRUE` will tell them to ignore the `NA`s.
 
-
 ```{r}
 c1 %>%
-    group_by(Cult) %>%
-    summarise(
-        Weight = mean(HeadWt, na.rm = TRUE),
-        sd = sd(HeadWt, na.rm = TRUE),
-        n = n()
-    )
+  group_by(Cult) %>%
+  summarise(
+    Weight = mean(HeadWt, na.rm = TRUE),
+    sd = sd(HeadWt, na.rm = TRUE),
+    n = n()
+  )
 ```
 
 
@@ -1010,21 +1011,22 @@ If there are any empty combinations of the grouping variables, they will not app
 # Copy cabbages and remove all rows with both c52 and d21
 c2 <- filter(cabbages, !( Cult == "c52" & Date == "d21" ))
 c2a <- c2 %>%
-    group_by(Cult, Date) %>%
-    summarise(Weight = mean(HeadWt))
+  group_by(Cult, Date) %>%
+  summarise(Weight = mean(HeadWt))
 
 ggplot(c2a, aes(x = Date, fill = Cult, y = Weight)) +
-    geom_col(position = "dodge")
+  geom_col(position = "dodge")
 ```
 
 
-To fill in the missing combination (Figure \@ref(fig:FIG-DATAPREP-SUMMARIZE-MISSING-COMBO), right), use the `complete()` function from the tidyr package -- which, unsurprisingly, is also part of the tidyverse. Also, the grouping for `c2a` must be removed, with `ungroup()`; otherwise it will return too many rows.
+To fill in the missing combination (Figure \@ref(fig:FIG-DATAPREP-SUMMARIZE-MISSING-COMBO), right), use the `complete()` function from the **tidyr** package -- which, unsurprisingly, is also part of the tidyverse. Also, the grouping for `c2a` must be removed, with `ungroup()`; otherwise it will return too many rows.
 
 ```{r FIG-DATAPREP-SUMMARIZE-MISSING-COMBO-2, eval=FALSE}
 library(tidyr)
 c2b <- c2a %>% ungroup() %>% complete(Cult, Date)
+
 ggplot(c2b, aes(x = Date, fill = Cult, y = Weight)) +
-    geom_col(position = "dodge")
+  geom_col(position = "dodge")
 ```
 
 ```{r, FIG-DATAPREP-SUMMARIZE-MISSING-COMBO, ref.label=c("FIG-DATAPREP-SUMMARIZE-MISSING-COMBO-1", "FIG-DATAPREP-SUMMARIZE-MISSING-COMBO-2"), fig.show="hold", fig.cap="Bar graph with a missing combination (left); With missing combination filled (right)", fig.width=4, fig.height=3}
@@ -1053,22 +1055,21 @@ You want to summarize your data with the standard error of the mean and/or confi
 
 Getting the standard error of the mean involves two steps: first get the standard deviation and count for each group, then use those values to calculate the standard error. The standard error for each group is just the standard deviation divided by the square root of the sample size:
 
-
 ```{r}
-library(MASS) # For the data set
+library(MASS)  # Load the MASS package to access the cabbages data set
 library(dplyr)
+
 ca <- cabbages %>%
-    group_by(Cult, Date) %>%
-    summarise(
-        Weight = mean(HeadWt),
-        sd = sd(HeadWt),
-        n = n(),
-        se = sd / sqrt(n)
-    )
+  group_by(Cult, Date) %>%
+  summarise(
+    Weight = mean(HeadWt),
+    sd = sd(HeadWt),
+    n = n(),
+    se = sd / sqrt(n)
+  )
 
 ca
 ```
-
 
 ### Discussion
 
@@ -1110,33 +1111,33 @@ This function will perform all the steps of calculating the standard deviation, 
 ```{r}
 summarySE <- function(data = NULL, measurevar, groupvars = NULL, na.rm = FALSE,
                       conf.interval = .95, .drop = TRUE) {
-
-    # New version of length which can handle NA's: if na.rm==T, don't count them
-    length2 <- function (x, na.rm = FALSE) {
-        if (na.rm) sum(!is.na(x))
-        else       length(x)
-    }
-
-    groupvars  <- rlang::syms(groupvars)
-    measurevar <- rlang::sym(measurevar)
-
-    datac <- data %>%
-        dplyr::group_by(!!!groupvars) %>%
-        dplyr::summarise(
-            N             = length2(!!measurevar, na.rm = na.rm),
-            sd            = sd     (!!measurevar, na.rm = na.rm),
-            !!measurevar := mean   (!!measurevar, na.rm = na.rm),
-            se            = sd / sqrt(N),
-            # Confidence interval multiplier for standard error
-            # Calculate t-statistic for confidence interval:
-            # e.g., if conf.interval is .95, use .975 (above/below), and use df=N-1
-            ci            = se * qt(conf.interval/2 + .5, N - 1)
-        ) %>%
-        dplyr::ungroup() %>%
-        # Rearrange the columns so that sd, se, ci are last
-        dplyr::select(seq_len(ncol(.) - 4), ncol(.) - 2, sd, se, ci)
-
-    datac
+  
+  # New version of length which can handle NA's: if na.rm==T, don't count them
+  length2 <- function(x, na.rm = FALSE) {
+    if (na.rm) sum(!is.na(x))
+    else       length(x)
+  }
+  
+  groupvars  <- rlang::syms(groupvars)
+  measurevar <- rlang::sym(measurevar)
+  
+  datac <- data %>%
+    dplyr::group_by(!!!groupvars) %>%
+    dplyr::summarise(
+      N             = length2(!!measurevar, na.rm = na.rm),
+      sd            = sd     (!!measurevar, na.rm = na.rm),
+      !!measurevar := mean   (!!measurevar, na.rm = na.rm),
+      se            = sd / sqrt(N),
+      # Confidence interval multiplier for standard error
+      # Calculate t-statistic for confidence interval:
+      # e.g., if conf.interval is .95, use .975 (above/below), and use df=N-1
+      ci            = se * qt(conf.interval/2 + .5, N - 1)
+    ) %>%
+    dplyr::ungroup() %>%
+    # Rearrange the columns so that sd, se, ci are last
+    dplyr::select(seq_len(ncol(.) - 4), ncol(.) - 2, sd, se, ci)
+  
+  datac
 }
 ```
 
@@ -1150,7 +1151,6 @@ c2$HeadWt[c(1, 20, 45)] <- NA
 summarySE(c2, "HeadWt", c("Cult", "Date"),
           conf.interval = .99, na.rm = TRUE, .drop = FALSE)
 ```
-
 
 ### See Also
 
@@ -1210,16 +1210,17 @@ drunk
 
 # Try gather() with just 0-29 and 30-39
 drunk %>%
-    gather(age, count, "0-29", "30-39")
+  gather(age, count, "0-29", "30-39")
 ```
 
 That doesn't look right! We told `gather()` that `0-29` and `30-39` were the value columns we wanted, and it automatically inferred that we wanted to use all of the other columns as ID columns, when we wanted to just keep `sex` and discard the others. The solution is to use `select()` to remove the unwanted columns first, and then `gather()`.
 
 ```{r}
 library(dplyr)  # For the select() function
+
 drunk %>%
-    select(sex, "0-29", "30-39") %>%
-    gather(age, count, "0-29", "30-39")
+  select(sex, "0-29", "30-39") %>%
+  gather(age, count, "0-29", "30-39")
 ```
 
 
@@ -1249,7 +1250,6 @@ Having numeric values for the ID variable may be problematic for subsequent anal
 See Recipe \@ref(RECIPE-DATAPREP-LONG-TO-WIDE) to do conversions in the other direction, from long to wide.
 
 See the `stack()` function for another way of converting from wide to long.
-
 
 
 Converting Data from Long to Wide {#RECIPE-DATAPREP-LONG-TO-WIDE}
@@ -1286,12 +1286,12 @@ The way to do this is to combine the `length` and `survival` columns together an
 ```{r}
 # Create a new column, length_survival, from length and survival.
 plum %>%
-    unite(length_survival, length, survival)
+  unite(length_survival, length, survival)
 
 # Now pass it to spread() and use length_survival as a key
 plum %>%
-    unite(length_survival, length, survival) %>%
-    spread(length_survival, count)
+  unite(length_survival, length, survival) %>%
+  spread(length_survival, count)
 ```
 
 ### See Also
@@ -1299,7 +1299,6 @@ plum %>%
 See Recipe \@ref(RECIPE-DATAPREP-WIDE-TO-LONG) to do conversions in the other direction, from wide to long.
 
 See the `unstack()` function for another way of converting from long to wide.
-
 
 
 Converting a Time Series Object to Times and Values {#RECIPE-DATAPREP-TIMESERIES}
@@ -1313,7 +1312,6 @@ You have a time series object that you wish to convert to numeric vectors repres
 
 Use the `time()` function to get the time for each observation, then convert the times and values to numeric vectors with `as.numeric()`:
 
-
 ```{r}
 # Look at nhtemp Time Series object
 nhtemp
@@ -1324,7 +1322,7 @@ as.numeric(time(nhtemp))
 # Get value of each observation
 as.numeric(nhtemp)
 # Put them in a data frame
-nht <- data.frame(year=as.numeric(time(nhtemp)), temp=as.numeric(nhtemp))
+nht <- data.frame(year = as.numeric(time(nhtemp)), temp = as.numeric(nhtemp))
 nht
 ```
 
@@ -1342,8 +1340,8 @@ To convert it to a two-column data frame with one column representing the year w
 
 ```{r}
 pres_rating <- data.frame(
-    year = as.numeric(time(presidents)),
-    rating = as.numeric(presidents)
+  year = as.numeric(time(presidents)),
+  rating = as.numeric(presidents)
 )
 pres_rating
 ```
@@ -1352,9 +1350,9 @@ It is also possible to store the year and quarter in separate columns, which may
 
 ```{r}
 pres_rating2 <- data.frame(
-    year = as.numeric(floor(time(presidents))),
-    quarter = as.numeric(cycle(presidents)),
-    rating = as.numeric(presidents)
+  year = as.numeric(floor(time(presidents))),
+  quarter = as.numeric(cycle(presidents)),
+  rating = as.numeric(presidents)
 )
 pres_rating2
 ```
