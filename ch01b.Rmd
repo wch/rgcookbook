@@ -21,8 +21,16 @@ There are a number of other graphing packages that exist that can do some things
 
 This chapter provides a brief introduction to using ggplot2, so that you'll have a better understanding of how ggplot2 plots are constructed, and how the syntax works. This is just the surface though. If you're interested in a deeper understanding of ggplot2, I encourage you to read the materials in \@ref(CHAPTER-GGPLOT2)! 
 
+All of the examples in this book will require that you load ggplot2. You can do this by loading the ggplot2 package directly, or by loading the tidyverse package, which includes ggplot2.
 
-Building a ggplot2
+```{r}
+library(ggplot2)
+
+# or you can load the tidyverse package with the command `library(tidyverse)`
+```
+
+
+Understanding the basic ggplot2 syntax
 --------------------
 
 ### Problem
@@ -31,35 +39,114 @@ You want to build a plot using ggplot2.
 
 ### Solution
 
-Determine the kind of data you want to plot, and use ggplot2 syntax to construct a plot. 
+Determine the variables you want to plot, and use ggplot2 syntax to construct a plot. 
 
-In the example below, we are trying to plot two continuous variables on the *x* and *y* axes. There are different ways that we could plot this data, including with points and a line running through the points:  
+In the example below, we are trying to plot data from the `mpg` dataset, which contains information about the fuel economy of different types of vehicles. In particular, we will be plotting the variable `hwy`, the highway miles per gallon, for different types of vehicles, which is denoted by the variable `class`.
 
-```{r}
-ggplot(pressure, aes(x = temperature, y = pressure)) + 
-  geom_point() +
-  geom_line()
+> **Note**
+>
+> You can find out more about this dataset by typing in `?mpg`.  
+
+There are different ways that we could plot this data. For example, two ways we could represent this data is by using a bar plot (Figure \@ref(fig:FIG-GGPLOT2-BASE), left), or a box plot (Figure \@ref(fig:FIG-GGPLOT2-BASE), right). 
+
+```{r FIG-GGPLOT2-BASE, small.mar=TRUE, fig.show="hold", fig.cap="Representing the data using a bar plot (left); Using boxplots (right)"}
+ggplot(mpg, aes(x = class, y = hwy)) + 
+  geom_col()
+
+ggplot(mpg, aes(x = class, y = hwy)) + 
+  geom_boxplot() 
 ```
 
 ### Discussion
 
 There is a specific logic and syntax to building ggplot2 plots. The first thing that you want to do is to think through the kind of data that you have. 
 
-The `summary()` command will give you... 
+The `summary()` function provides basic descriptive statistics (the minimum, maximum, median, mean, and first & third quartile values) for numeric variables, and tells you the number of values corresponding to each character value or factor level if it is a character or factor variable. Let's look at the basics of the two variables we want to plot, `class` and `hwy`:
 
-```{r, eval=FALSE}
+```{r}
+mpg %>% 
+  select(class, hwy) %>% 
+  summary()
 ```
 
-You can consult the ggplot2 cheatsheet oneline for more kdeas on how to plot your data: LINK.
+From the output above we can see that `class` is a discrete, character variable, whereas `hwy` is a numeric, continous variable.
 
-Secondly, there is a specific syntax to building a ggplot. As you go through this book you'll quickly notice that each ggplot typically starts with a line that looks like this:
+With this knowledge in hand, we can start to build our plot. For any given type of variable there are a number of different plots you could use to visualize the data. One of the advantages of ggplot2 is that it makes it easy to switch between these different plots so that you can quickly experiment with different kinds of visualization, in order to find the visual that will best illustrate the point you want to make with the data. 
+
+There is a specific syntax to building a ggplot. As you go through this book you'll quickly notice that each ggplot typically starts with a line that looks like this:
 
 ```{r, eval=FALSE}
-ggplot(pressure, aes(x = temperature, y = pressure))
+ggplot(mpg, aes(x = class, y = hwy))
 ```
 
-This very first line has several purposes. The first is that it signals that we are starting to build a ggplot - any subsequent addition to this first line is indicated with a `+` sign. 
+This first line has several purposes. The first purpose is to signal to R that we are starting to build a ggplot - any subsequent addition to this first line is indicated with a `+` (plus) sign. 
 
 Secondly, this first line indicates the dataset that the data for the plot comes from. The dataset is always the first input into the line - in this case, our dataset is called `pressure`.
 
-Finally, this line indicates what variables should be used in the plot, and how. This information is contained within `aes()`, which stands for "aesthetic" parameters of the plot.  
+Third, this line indicates what variables should be used in the plot, and how. This information is contained within `aes()`, which stands for the "aesthetic" parameters of the plot. In this case we have specified that we want to map `temperature` on the x axis, and `pressure` on the y axis.
+
+Look at what happens when we run just the first line:
+
+```{r FIG-GGPLOT2-BASE, small.mar=TRUE, fig.show="hold", fig.cap="Base ggplot area generated by the first line"}
+ggplot(mpg, aes(x = class, y = hwy))
+```
+
+What we can see in (Figure \@ref(fig:FIG-GGPLOT2-BASE)) is that running the first line generates the base plot backgruond for our data visualization. This base plot is configured according to the initial parameters we specified: the x-axis is labeled with `class` and lists the different types of vehicles within `class`, while the y-axis is labeled `hwy` and has a numeric axis scale. Note that the scale for the y-axis corresponds to the range of `hwy`:
+
+```{r}
+range(mpg$hwy)
+```
+
+Now that we have the base plot, we can specify how we actually want to plot the data. For example, let's represent our data as points that we will add onto our base plot (\@ref(fig:FIG-GGPLOT2-BASE-BAR)):
+
+```{r FIG-GGPLOT2-BASE-BAR, small.mar=TRUE, fig.show="hold", fig.cap="Adding our data in the form of bars to the base ggplot area"}
+ggplot(mpg, aes(x = class, y = hwy)) +
+  geom_col()
+```
+
+As mentioned above, there are many different ways of representing the same data. Figure \@ref(fig:FIG-GGPLOT2-BASE) shows this data plotted as a bar plot, or as a boxplot. We can also try to represent our data using dots instead (\@ref(fig:FIG-GGPLOT2-BASE-DOT)). For this combination of a discrete x variable and a continous y variable, one option is to use a dotplot. Note that these different plots all share the first same line, and only requre a change to the second line of code:
+
+```{r, eval=FALSE}
+ggplot(mpg, aes(x = class, y = hwy)) +
+  geom_bar()
+
+ggplot(mpg, aes(x = class, y = hwy)) +
+  geom_boxplot()
+
+ggplot(mpg, aes(x = class, y = hwy)) +
+  geom_dotplot()
+```
+
+```{r FIG-GGPLOT2-BASE-DOT, echo=FALSE, small.mar=TRUE, fig.show="hold", fig.cap="Representing our data as a dotplot instead"}
+ggplot(mpg, aes(x = class, y = hwy)) +
+  geom_dotplot()
+```
+
+ggplot works by sequentially adding layers on top of the base plot. For example, the following plots demonstrates how ggplots are created in layers. The plot on the left of Figure \@ref(fig:FIG-GGPLOT2-BASE-COMBINED) shows a violin plot with a dotplot added on top, whereas the plot on the right shows a dotplot with a violin plot added on top:
+
+```{r FIG-GGPLOT2-BASE-COMBINED, small.mar=TRUE, fig.show="hold", fig.cap="A violin plot was drawn first, to which a dotplot was added (left); the reverse (right)"}
+ggplot(mpg, aes(x = class, y = hwy)) +
+  geom_violin() +
+  geom_dotplot()
+
+ggplot(mpg, aes(x = class, y = hwy)) +
+  geom_dotplot() +
+  geom_violin()
+```
+
+Beyond adding the data itself, the `+` ggplot operator can be used to add other layers and modifications to the plot (e.g. Figure \@ref(fig:FIG-GGPLOT2-BASE-THEME)). The rest of this book goes through many of these options. One of the strengths of ggplot2 is that while it is incredibly customizable, the syntax and the process of adding layers to your plot remains consistent across the different types of modifications you can make.
+
+```{r FIG-GGPLOT2-BASE-THEME, small.mar=TRUE, fig.show="hold", fig.cap="Default bar plot (left); Adding a layer of modification that changes the theme of the plot (right)"}
+ggplot(mpg, aes(x = class, y = hwy)) +
+  geom_bar()
+
+ggplot(mpg, aes(x = class, y = hwy)) +
+  geom_bar() +
+  theme_bw()
+```
+
+Finally, keep in mind that there are always better and worse ways to represent your data. The plot types chosen in Figure \@ref(fig:FIG-GGPLOT2-BASE-COMBINED) don't necessarily make a clear point with the data - if anything, they make the data more confusing. Being able to experiment easily with different plot types is great for quickly testing different visualizations, but make sure that you're ultimately picking the visualization that best serves the message that you want your data to get across.
+
+### See Also
+
+You can consult the ggplot2 cheatsheet oneline for more ideas on how to plot your data: <https://github.com/rstudio/cheatsheets/raw/master/data-visualization-2.1.pdf>.
