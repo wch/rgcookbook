@@ -31,7 +31,7 @@ Data sets in R are most often stored in data frames. They're typically used as t
 Here's the `heightweight` data set:
 
 ```{r}
-library(gcookbook) # For the data set
+library(gcookbook) # Load the gcookbook package to access the heightweight data set
 heightweight
 ```
 
