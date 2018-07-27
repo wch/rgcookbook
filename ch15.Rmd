@@ -409,52 +409,33 @@ You want to change the order of levels in a factor based on values in the data.
 
 ### Solution
 
-Use `reorder()` with the factor that has levels to reorder, the values to base the reordering on, and a function that aggregates the values:
+Use `fct_reorder()` from the **forcats** package with the factor that has levels to reorder, the values to base the reordering on, and a function that aggregates the values. This returns a new factor, so if you want to save the output you'll need to save over the original.
 
 ```{r}
-# Make a copy since we'll modify it
+# Make a copy of the InsectSprays data set since we're modifying it
 iss <- InsectSprays
-iss$spray
-iss$spray <- reorder(iss$spray, iss$count, FUN = mean)
-iss$spray
+
+library(forcats)
+fct_reorder(iss$spray, iss$count, .fun = mean)
 ```
 
-Notice that the original levels were `ABCDEF`, while the reordered levels are `CEDABF`. The new order is determined by splitting `iss$count` into pieces according to the values in `iss$spray`, and then taking the mean of each group.
+Notice that the original levels were `ABCDEF`, while the reordered levels are `CEDABF`. What we've done is reorder the levels of `spray` based on the mean value of `count` for each level of `spray`. 
 
 ### Discussion
 
-The usefulness of `reorder()` might not be obvious from just looking at the raw output. Figure \@ref(fig:FIG-DATAPREP-FACTOR-REORDER-VALUE) shows three graphs made with `reorder()`. In these graphs, the order in which the items appear is determined by their values.
+The usefulness of `fct_reorder()` might not be obvious from just looking at the raw output. Figure \@ref(fig:FIG-DATAPREP-FACTOR-REORDER-VALUE) shows two graphs made with `fct_reorder()`. In these graphs, the order in which the items appear is determined by their values:
 
-```{r FIG-DATAPREP-FACTOR-REORDER-VALUE, echo=FALSE, fig.show="hold", fig.cap="Left: original data; middle: reordered by the mean of each group; right: reordered by the median of each group", fig.height=2.5, fig.width=3}
-library(ggplot2)
+```{r FIG-DATAPREP-FACTOR-REORDER-VALUE, echo=FALSE, fig.show="hold", fig.cap="Original data (left); Reordered by the mean of each group (right)", fig.height=2.5, fig.width=3}
 ggplot(InsectSprays, aes(spray, count)) +
-    geom_boxplot()
+  geom_boxplot()
 
-ggplot(InsectSprays, aes(reorder(spray, count), count)) +
-    geom_boxplot()
-
-ggplot(InsectSprays, aes(reorder(spray, count, FUN=median), count)) +
-    geom_boxplot()
-```
-
-In the middle graph in Figure \@ref(fig:FIG-DATAPREP-FACTOR-REORDER-VALUE), the boxes are sorted by the mean. The horizontal line that runs across each box represents the *median* of the data. Notice that these values do not increase strictly from left to right. That's because with this particular data set, sorting by the mean gives a different order than sorting by the median. To make the median lines increase from left to right, as in the graph on the right in Figure \@ref(fig:FIG-DATAPREP-FACTOR-REORDER-VALUE), we used the `median()` function in `reorder()`.
-
-The tidyverse way: Use `fct_reorder()` from the forcats package.
-
-```{r echo=FALSE}
-# Restore iss to original value
-iss <- InsectSprays
-```
-
-```{r}
-library(forcats)
-fct_reorder(iss$spray, iss$count, .fun = mean)
+ggplot(InsectSprays, aes(fct_reorder(spray, count, .fun = mean), count)) +
+  geom_boxplot()
 ```
 
 ### See Also
 
 Reordering factor levels is also useful for controlling the order of axes and legends. See Recipes \@ref(RECIPE-AXIS-ORDER) and \@ref(RECIPE-LEGEND-ORDER) for more information.
-
 
 
 Changing the Names of Factor Levels {#RECIPE-DATAPREP-FACTOR-RENAME}
