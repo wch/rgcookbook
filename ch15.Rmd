@@ -538,29 +538,22 @@ You want to remove unused levels from a factor.
 
 Sometimes, after processing your data you will have a factor that contains levels that are no longer used. Here's an example:
 
-
 ```{r}
 sizes <- factor(c("small", "large", "large", "small", "medium"))
 sizes <- sizes[1:3]
 sizes
 ```
 
-To remove them, use `droplevels()`:
-
-```{r}
-droplevels(sizes)
-```
-
-
-### Discussion
-
-The `droplevels()` function preserves the order of factor levels. You can use the `except` parameter to keep particular levels.
-
-The tidyverse way: Use `fct_drop()` from the forcats package:
+To remove them, use `fct_drop` from the **forcats** package`. This returns a new factor, so if you want to save the output you'll need to save over the original.
 
 ```{r}
 fct_drop(sizes)
+sizes_mod
 ```
+
+### Discussion
+
+The `fct_drop()` function preserves the order of factor levels. You can use the `only` parameter to keep particular levels.
 
 
 
