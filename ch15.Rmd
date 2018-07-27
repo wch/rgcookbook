@@ -684,17 +684,10 @@ You want to recode a continuous variable to another variable.
 
 ### Solution
 
-For the examples here, we'll use a subset of the `PlantGrowth` data set.
+Use the `cut()` function. In this example, we'll use the `PlantGrowth` data set and recode the continuous variable `weight` into a categorical variable, `wtclass`, using the `cut()` function:
 
 ```{r}
-# Work on a subset of the PlantGrowth data set
-pg <- PlantGrowth[c(1,2,11,21,22), ]
-pg
-```
-
-In this example, we'll recode the continuous variable weight into a categorical variable, `wtclass`, using the `cut()` function:
-
-```{r}
+pg <- PlantGrowth
 pg$wtclass <- cut(pg$weight, breaks = c(0, 5, 6, Inf))
 pg
 ```
@@ -722,7 +715,6 @@ cut(pg$weight, breaks = c(0, 5, 6, Inf), right = FALSE)
 ### See Also
 
 To recode a categorical variable to another categorical variable, see Recipe \@ref(RECIPE-DATAPREP-RECODE-CATEGORICAL).
-
 
 
 
