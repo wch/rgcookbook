@@ -625,113 +625,48 @@ sizes
 If, instead of a character vector, you have a factor with levels to rename, see Recipe \@ref(RECIPE-DATAPREP-FACTOR-RENAME).
 
 
-Recoding a Categorical Variable to Another Categorical Variable {#RECIPE-DATAPREP-RECODE-CATEGORICAL}
+Creating a New Variable Based on an Existing Categorical Variable {#RECIPE-DATAPREP-RECODE-CATEGORICAL}
 ---------------------------------------------------------------
 
 ### Problem
 
-You want to recode a categorical variable to another variable.
+You want to create a new variable based on the values of an existing categorical variable.
 
 ### Solution
 
-For the examples here, we'll use a subset of the `PlantGrowth` data set:
+Use the `mutate()` function from the **dplyr** package, combined with the `ifelse()` function.
 
-```{r}
-# Work on a subset of the PlantGrowth data set
-pg <- PlantGrowth[c(1,2,11,21,22), ]
-pg
-```
-
-In this example, we'll recode the categorical variable group into another categorical variable, treatment. If the old value was `"ctrl"`, the new value will be `"No"`, and if the old value was `"trt1"` or `"trt2"`, the new value will be `"Yes"`.
-
-This can be done with the `recode()` function from the dplyr package:
+For the examples here, we'll add a new variable to the `PlantGrowth` data set. We'll call this new variable `treatment`, whose values are based on the `group` variable. If `group` is `"ctrl"`, the new value of `treatment` will be `"no"`; if `group` is `"trt1"` or `"trt2"`, the new value for `treatment` will be `"yes"`.
 
 ```{r}
 library(dplyr)
 
-recode(pg$group, ctrl = "No", trt1 = "Yes", trt2 = "Yes")
+pg_mod <-
+  PlantGrowth %>% 
+  mutate(treatment = ifelse(group == "ctrl", "no", "yes"))
+pg_mod
 ```
 
-You can assign it as a new column in the data frame:
-
-```{r eval=FALSE}
-pg$treatment <- recode(pg$group, ctrl = "No", trt1 = "Yes", trt2 = "Yes")
-```
-
-Note that since the input was a factor, it returns a factor. If you want to get a character vector instead, use `as.character()`:
+Since the input was a factor, it returns a factor. If you want to get a character vector instead, use `as.character()`:
 
 ```{r}
-recode(as.character(pg$group), ctrl = "No", trt1 = "Yes", trt2 = "Yes")
+pg_mod <-
+  PlantGrowth %>% 
+  mutate(trt = as.character(ifelse(group == "ctrl", "no", "yes")))
 ```
-
 
 ### Discussion
 
-You can also use the `fct_recode()` function from the forcats package. It works the same, except the names and values are swapped, which may be a little more intuitive:
-
-```{r}
-library(forcats)
-fct_recode(pg$group, No = "ctrl", Yes = "trt1", Yes = "trt2")
+Note that the `ifelse()` function used in the two code chunks above will assign `"yes"` to `treatment` for any value of `group` that isn't `"ctrl"`, including any value that isn't `"trt1"` or `"trt2"`. To specify that only rows where `group` is `"trt1"` or `"trt2"` should be marked as `"yes"`, we can embed another `ifelse()` function and use the `%in%` operator: 
+```{r, eval=FALSE}
+pg_mod <-
+  PlantGrowth %>% 
+  mutate(treatment = ifelse(group == "ctrl", "no", ifelse(
+    group %in% c("trt1", "trt2"), "yes", NA))
+  )
 ```
 
-Another difference is that `fct_recode()` will always return a factor, whereas `recode()` will return a character vector if it is given a character vector, and will return a factor if it is given a factor.
-
-
-Using base R, recoding can be done with the `match()` function:
-
-```{r}
-oldvals <- c("ctrl", "trt1", "trt2")
-newvals <- factor(c("No", "Yes", "Yes"))
-
-newvals[ match(pg$group, oldvals) ]
-```
-
-It can also be done by indexing in the vectors:
-
-```{r echo=FALSE}
-# Reset the data
-pg <- PlantGrowth[c(1,2,11,21,22), ]
-```
-
-```{r}
-pg$treatment[pg$group == "ctrl"] <- "No"
-pg$treatment[pg$group == "trt1"] <- "Yes"
-pg$treatment[pg$group == "trt2"] <- "Yes"
-
-# Convert to a factor
-pg$treatment <- factor(pg$treatment)
-pg
-```
-
-Here, we combined two of the factor levels and put the result into a new column. If you simply want to rename the levels of a factor, see Recipe \@ref(RECIPE-DATAPREP-FACTOR-RENAME).
-
-The coding criteria can also be based on values in multiple columns, by using the `&` and `|` operators:
-
-```{r echo=FALSE}
-# Reset the data
-pg <- PlantGrowth[c(1,2,11,21,22), ]
-```
-
-```{r}
-pg$newcol[pg$group == "ctrl" & pg$weight < 5]  <- "no_small"
-pg$newcol[pg$group == "ctrl" & pg$weight >= 5] <- "no_large"
-pg$newcol[pg$group == "trt1"] <- "yes"
-pg$newcol[pg$group == "trt2"] <- "yes"
-pg$newcol <- factor(pg$newcol)
-pg
-```
-
-It's also possible to combine two columns into one using the interaction() function, which appends the values with a `.` in between. This combines the `weight` and `group` columns into a new column, `weightgroup`:
-
-```{r echo=FALSE}
-# Reset the data
-pg <- PlantGrowth[c(1,2,11,21,22), ]
-```
-
-```{r}
-pg$weightgroup <- interaction(pg$weight, pg$group)
-pg
-```
+The code above tells us that if `group == "ctrl"`, `"no"` will be assigned to `treatment`. If `group` does not equal `"ctrl"`, we go to the second `ifelse()`, which tells us that if `group` matches any value in `c("trt1", "trt2")`, `"yes"` will be assigned to `treatment`. If the value of `group` fails both of these condition, `NA` will be assigned to `treatment`. 
 
 ### See Also
 
