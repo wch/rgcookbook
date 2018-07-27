@@ -556,7 +556,6 @@ sizes_mod
 The `fct_drop()` function preserves the order of factor levels. You can use the `only` parameter to keep particular levels.
 
 
-
 Changing the Names of Items in a Character Vector {#RECIPE-DATAPREP-CHARACTER-RENAME}
 -------------------------------------------------
 
@@ -566,7 +565,7 @@ You want to change the names of items in a character vector.
 
 ### Solution
 
-Use `recode()` from the dplyr package:
+Use `recode()` from the **dplyr** package:
 
 ```{r}
 library(dplyr)
@@ -604,29 +603,26 @@ Or, more concisely, we can do all of that in one go:
 
 ```{r}
 do.call(
-    recode,
-    c(list(sizes), setNames(c("S", "M", "L"), c("small", "medium", "large")))
+  recode,
+  c(list(sizes), setNames(c("S", "M", "L"), c("small", "medium", "large")))
 )
 ```
 
-
-Note that for `recode()`, the name and value of the arguments is reversed, compared to the `fct_recode()` function from the forcats package. With `recode()`, you would use `small="S"`, whereas for `fct_recode()`, you would use `S="small"`.
-
+Note that for `recode()`, the name and value of the arguments is reversed, compared to the `fct_recode()` function from the **forcats** package. With `recode()`, you would use `small="S"`, whereas for `fct_recode()`, you would use `S="small"`.
 
 A more traditional R method is to use square-bracket indexing to select the items and rename them:
 
 ```{r}
 sizes <- c("small", "large", "large", "small", "medium")
-sizes[sizes=="small"]  <- "S"
-sizes[sizes=="medium"] <- "M"
-sizes[sizes=="large"]  <- "L"
+sizes[sizes == "small"]  <- "S"
+sizes[sizes == "medium"] <- "M"
+sizes[sizes == "large"]  <- "L"
 sizes
 ```
 
 ### See Also
 
 If, instead of a character vector, you have a factor with levels to rename, see Recipe \@ref(RECIPE-DATAPREP-FACTOR-RENAME).
-
 
 
 Recoding a Categorical Variable to Another Categorical Variable {#RECIPE-DATAPREP-RECODE-CATEGORICAL}
