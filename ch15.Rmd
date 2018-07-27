@@ -364,7 +364,9 @@ You want to change the order of levels in a factor.
 
 ### Solution
 
-The level order can be specified explicitly by passing the factor to `factor()` and specifying levels. In this example, we'll create a factor that initially has the wrong ordering:
+Use `fct_relevel()` from the **forcats** package. This returns a new factor, so if you want to save the output you'll need to save over the original, as in the examples below.
+
+In this example, we'll create a factor that initially has the wrong ordering:
 
 ```{r}
 # By default, levels are ordered alphabetically
@@ -372,8 +374,9 @@ sizes <- factor(c("small", "large", "large", "small", "medium"))
 sizes
 
 # Change the order of levels
-sizes <- factor(sizes, levels = c("small", "medium", "large"))
-sizes
+library(forcats)
+sizes_ordered <- fct_relevel(sizes, "small", "medium", "large")
+sizes_ordered
 ```
 
 The order can also be specified with `levels` when the factor is first created.
@@ -387,23 +390,14 @@ The order of factor levels affects graphical output. When a factor variable is m
 To reverse the level order, you can use `rev(levels())`:
 
 ```{r eval=FALSE}
-factor(sizes, levels = rev(levels(sizes)))
+fct_relevel(sizes, levels = rev(levels(sizes)))
 ```
-
-The tidyverse way: Use `fct_relevel()` from the **forcats** package.
-
-```{r}
-library(forcats)
-fct_relevel(sizes, "small", "medium", "large")
-```
-
 
 ### See Also
 
 To reorder a factor based on the value of another variable, see Recipe \@ref(RECIPE-DATAPREP-FACTOR-REORDER-VALUE).
 
 Reordering factor levels is useful for controlling the order of axes and legends. See Recipes Recipe \@ref(RECIPE-AXIS-ORDER) and Recipe \@ref(RECIPE-LEGEND-ORDER) for more information.
-
 
 
 Changing the Order of Factor Levels Based on Data Values {#RECIPE-DATAPREP-FACTOR-REORDER-VALUE}
