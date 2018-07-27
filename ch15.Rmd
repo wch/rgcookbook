@@ -447,13 +447,13 @@ You want to change the names of levels in a factor.
 
 ### Solution
 
-Use `fct_recode()` from the forcats package:
+Use `fct_recode()` from the **forcats** package. This returns a new factor, so if you want to save the output you'll need to save over the original.
 
 ```{r}
 sizes <- factor(c( "small", "large", "large", "small", "medium"))
 sizes
 
-# With revalue(), pass it a named vector with the mappings
+# Pass it a named vector with the mappings
 fct_recode(sizes, S = "small", M = "medium", L = "large")
 ```
 
@@ -464,6 +464,7 @@ If you want to use two vectors, one with the original levels and one with the ne
 ```{r}
 old <- c("small", "medium", "large")
 new <- c("S", "M", "L")
+
 # Create a named vector that has the mappings between old and new
 mappings <- setNames(old, new)
 mappings
@@ -480,16 +481,16 @@ Or, more concisely, we can do all of that in one go:
 
 ```{r}
 do.call(
-    fct_recode,
-    c(list(sizes), setNames(c("small", "medium", "large"), c("S", "M", "L")))
+  fct_recode,
+  c(list(sizes), setNames(c("small", "medium", "large"), c("S", "M", "L")))
 )
 ```
-
 
 For a more traditional (and clunky) R method for renaming factor levels, use the `levels()<-` function:
 
 ```{r}
 sizes <- factor(c( "small", "large", "large", "small", "medium"))
+
 # Index into the levels and rename each one
 levels(sizes)[levels(sizes) == "large"]  <- "L"
 levels(sizes)[levels(sizes) == "medium"] <- "M"
@@ -513,6 +514,7 @@ It's also possible to rename factor levels by position, but this is somewhat ine
 sizes <- factor(c("small", "large", "large", "small", "medium"))
 levels(sizes)[1] <- "L"
 sizes
+
 # Rename all levels at once
 levels(sizes) <- c("L", "M", "S")
 sizes
@@ -523,7 +525,6 @@ It's safer to rename factor levels by name rather than by position, since you wi
 ### See Also
 
 If, instead of a factor, you have a character vector with items to rename, see Recipe \@ref(RECIPE-DATAPREP-CHARACTER-RENAME).
-
 
 
 Removing Unused Levels from a Factor {#RECIPE-DATAPREP-FACTOR-DROPLEVELS}
