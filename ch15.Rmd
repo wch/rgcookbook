@@ -155,25 +155,34 @@ You want to add a column to a data frame.
 
 ### Solution
 
-Just assign some value to the new column.
+Use `mutate()` to add a new column and assign a value to the new column. Note that this returns a new data frame, so if you want to save the output you'll need to save over the original, as in these examples.
 
 If you assign a single value to the new column, the entire column will be filled with that value. This adds a column named newcol, filled with NA:
 
 ```{r eval=FALSE}
-data$newcol <- NA
+library(dplyr)
+
+tg_mod <-
+  ToothGrowth %>% 
+  mutate(newcol = NA)
 ```
 
 You can also assign a vector to the new column:
 
 ```{r eval=FALSE}
-data$newcol <- vec
+# Since ToothGrowth has 60 rows, we must create a new vector that has 60 rows
+vec <- rep(c(1, 2), 30)
+
+tg_mod <-
+  ToothGrowth %>% 
+  mutate(newcol = vec)
 ```
 
-If the length of the vector is less than the number of rows in the data frame, then the vector is repeated to fill all the rows.
+Note that the length of the vector being added to the data frame must be the same number of rows as the data frame. In the example above we created a new vector that had 60 rows by repeating the values c(1, 2) thirty times.
 
 ### Discussion
 
-Each column of a data frame is a vector. R handles them slightly differently from standalone vectors because all the columns in a data frame have the same length.
+Each column of a data frame is a vector. R handles columns within data frames slightly differently from standalone vectors because all the columns in a data frame have the same length.
 
 
 Deleting a Column from a Data Frame {#RECIPE-DATAPREP-DELETE-COL}
