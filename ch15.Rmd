@@ -250,41 +250,27 @@ You want to rename the columns in a data frame.
 
 ### Solution
 
-Use the `names(dat) <-`:
+Use the `rename()` function. This returns a new data frame, so if you want to save the output you'll need to save over the original, as in these examples.
 
 ```{r eval=FALSE}
-names(dat) <- c("name1", "name2", "name3")
+tg_mod <-
+  ToothGrowth %>% 
+  rename(length = len)
 ```
-
 
 ### Discussion
 
-If you want to rename the columns by name:
+You can rename multiple columns within the same `rename()` function:
 
-```{r}
-library(gcookbook) # For the data set
-ah <- anthoming    # Copy the data because we'll modify it
-names(ah)   # Print the names of the columns
-
-names(ah)[names(ah) == "angle"] <- "Angle"
-names(ah)
+```{r eval=FALSE}
+tg_mod <-
+  ToothGrowth %>% 
+  rename(length = len, supplement_type = supp)
 ```
 
-They can also be renamed by numeric position:
+### See Also
 
-```{r}
-names(ah)[2] <- "Experimental"
-names(ah)
-```
-
-The tidyverse way: use the `rename()` function. This returns a new data frame, so it needs to be saved over the original.
-
-```{r}
-library(dplyr)
-ah <- rename(ah, Control = ctrl)
-names(ah)
-```
-
+See `?select` for more ways to rename columns within a data frame. 
 
 
 Reordering Columns in a Data Frame {#RECIPE-DATAPREP-REORDER-COL}
