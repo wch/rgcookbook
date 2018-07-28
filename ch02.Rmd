@@ -48,16 +48,16 @@ With ggplot2, you can get a similar result using the `ggplot()` function (Figure
 ```{r FIG-QUICK-SCATTER-GGPLOT, fig.cap='Scatter plot with ggplot2', out.width="70%"}
 library(ggplot2)
 
-ggplot(mtcars, aes(x = wt, y = mpg)) + 
+ggplot(mtcars, aes(x = wt, y = mpg)) +
   geom_point()
 ```
 
-The first part, `ggplot()`, tell is to create a plot object, and the second part, `geom_point()`, tells it to add a layer of points to the plot.
+The first part, `ggplot()`, tell it to create a plot object, and the second part, `geom_point()`, tells it to add a layer of points to the plot.
 
 The usual way to use `ggplot()` is to pass it a data frame (`mtcars`) and then tell it which columns to use for the x and y values. If you want to pass it two vectors for x and y values, you can use `data = NULL`, and then pass it the vectors. Keep in mind that ggplot2 is designed to work with data frames as the data source, not individual vectors, and that using it this way will only allow you to use a limited part of its capabilities.
 
 ```{r, eval=FALSE}
-ggplot(data = NULL, aes(x = mtcars$wt, y = mtcars$mpg)) + 
+ggplot(data = NULL, aes(x = mtcars$wt, y = mtcars$mpg)) +
   geom_point()
 ```
 
@@ -86,9 +86,9 @@ plot(pressure$temperature, pressure$pressure, type = "l")
 ```{r FIG-QUICK-LINE-BASE, echo=FALSE, small.mar=TRUE, fig.show="hold", fig.cap="Line graph with base graphics (left); With points and another line (right)"}
 plot(pressure$temperature, pressure$pressure, type = "l")
 
-# This code should be the same as the following block, but there's a problem: 
-# knitr won't show the output of the previous plot() if this line is exactly 
-# like the one above So in this case we'll plot points and then lines. The 
+# This code should be the same as the following block, but there's a problem:
+# knitr won't show the output of the previous plot() if this line is exactly
+# like the one above So in this case we'll plot points and then lines. The
 # output looks the same and knitr won't suppress the output.
 plot(pressure$temperature, pressure$pressure, type = "p")
 lines(pressure$temperature, pressure$pressure)
@@ -110,18 +110,18 @@ With ggplot2, you can get a similar result using `geom_line()` (Figure \@ref(fig
 
 ```{r eval=FALSE}
 library(ggplot2)
-ggplot(pressure, aes(x = temperature, y = pressure)) + 
+ggplot(pressure, aes(x = temperature, y = pressure)) +
   geom_line()
 ```
 
 ```{r FIG-QUICK-LINE-GGPLOT, echo=FALSE, fig.show="hold", fig.cap="Line graph with `ggplot()` (left); With points added (right)"}
 
-ggplot(pressure, aes(x = temperature, y = pressure)) + 
+ggplot(pressure, aes(x = temperature, y = pressure)) +
   geom_line()
 
 # Equivalent to:
-ggplot(pressure, aes(x = temperature, y = pressure)) + 
-  geom_line() + 
+ggplot(pressure, aes(x = temperature, y = pressure)) +
+  geom_line() +
   geom_point()
 ```
 
@@ -192,11 +192,11 @@ library(ggplot2)
 
 # Bar graph of values. This uses the BOD data frame, with the
 # "Time" column for x values and the "demand" column for y values.
-ggplot(BOD, aes(x = Time, y = demand)) + 
+ggplot(BOD, aes(x = Time, y = demand)) +
   geom_col()
 
 # Convert the x variable to a factor, so that it is treated as discrete
-ggplot(BOD, aes(x = factor(Time), y = demand)) + 
+ggplot(BOD, aes(x = factor(Time), y = demand)) +
   geom_col()
 ```
 
@@ -208,11 +208,11 @@ ggplot2 can also be used to plot the *count* of the number of data rows in each 
 # Bar graph of counts This uses the mtcars data frame, with the "cyl" column for
 # x position. The y position is calculated by counting the number of rows for
 # each value of cyl.
-ggplot(mtcars, aes(x = cyl)) + 
+ggplot(mtcars, aes(x = cyl)) +
   geom_bar()
 
 # Bar graph of counts
-ggplot(mtcars, aes(x = factor(cyl))) + 
+ggplot(mtcars, aes(x = factor(cyl))) +
   geom_bar()
 ```
 
@@ -247,11 +247,11 @@ With the ggplot2, you can get a similar result using `geom_histogram()` (Figure 
 
 ```{r FIG-QUICK-HIST-GGPLOT, fig.show="hold", fig.cap="ggplot2 histogram with default bin width (left); With wider bins (right)"}
 library(ggplot2)
-ggplot(mtcars, aes(x = mpg)) + 
+ggplot(mtcars, aes(x = mpg)) +
   geom_histogram()
 
 # With wider bins
-ggplot(mtcars, aes(x = mpg)) + 
+ggplot(mtcars, aes(x = mpg)) +
   geom_histogram(binwidth = 4)
 ```
 
@@ -301,23 +301,23 @@ With the ggplot2 package, you can get a similar result (Figure \@ref(fig:FIG-QUI
 
 ```{r eval=FALSE}
 library(ggplot2)
-ggplot(ToothGrowth, aes(x = supp, y = len)) + 
+ggplot(ToothGrowth, aes(x = supp, y = len)) +
   geom_boxplot()
 ```
 
 
 ```{r FIG-QUICK-BOXPLOT-GGPLOT, echo=FALSE, fig.show="hold", fig.cap="Box plot with `ggplot()` (left); With multiple grouping variables (right)"}
-ggplot(ToothGrowth, aes(supp, len)) + 
+ggplot(ToothGrowth, aes(supp, len)) +
   geom_boxplot()
 
-ggplot(ToothGrowth, aes(x = interaction(supp, dose), y = len)) + 
+ggplot(ToothGrowth, aes(x = interaction(supp, dose), y = len)) +
   geom_boxplot()
 ```
 
 It's also possible to make box plots for multiple variables, by combining the variables with `interaction()`, as in Figure \@ref(fig:FIG-QUICK-BOXPLOT-GGPLOT):
 
 ```{r eval=FALSE}
-ggplot(ToothGrowth, aes(x = interaction(supp, dose), y = len)) + 
+ggplot(ToothGrowth, aes(x = interaction(supp, dose), y = len)) +
   geom_boxplot()
 ```
 
