@@ -29,64 +29,17 @@ Getting Your Data into Shape {#CHAPTER-DATAPREP}
 
 When it comes to making data graphics, half the battle occurs before you call any plotting commands. Before you pass your data to the plotting functions, it must first be read in and given the correct structure. The data sets provided with R are ready to use, but when dealing with real-world data, this usually isn't the case: you'll have to clean up and restructure the data before you can visualize it.
 
-The recipes in this chapter will often use packages from the *tidyverse*, which is a collection of packages that share common ideas of how data should be structured and manipulated. ggplot2 is a member of the tidyverse, although ggplot2 itself existed before the idea of the tidyverse was conceived. I will also show how to do many of the same tasks using base R, because in some situations it is important to minimize the number of packages you use, and because it is useful to be able to understand code written for base R.
+The recipes in this chapter will often use packages from the *tidyverse*. For a little background about the tidyverse, see the introduction section of Chapter \@ref(CHAPTER-R-BASICS). I will also show how to do many of the same tasks using base R, because in some situations it is important to minimize the number of packages you use, and because it is useful to be able to understand code written for base R.
 
-The set of tidyverse packages can be installed with a simple:
+> **Note**
+>
+> The `>%>` symbol, also known as the pipe operator, is used extensively in this chapter. If you are not familiar with it, see Recipe \@ref(RECIPE-R-BASICS-PIPE).
 
-```{r eval=FALSE}
-install.packages("tidyverse")
-```
-
-A simple way to load all the tidyverse packages is with this:
-
-```{r eval=FALSE}
-library(tidyverse)
-```
-
-This will load ggplot2, dplyr, tibble, as well as a number of other packages. Most of the tidyverse functions used in this chapter are from the dplyr package, and in this chapter, I'll assume that dplyr is already loaded. You can load it with either `library(tidyverse)` as shown above, or, if you want to keep things more streamlined, you can load dplyr directly:
+Most of the tidyverse functions used in this chapter are from the dplyr package, and in this chapter, I'll assume that dplyr is already loaded. You can load it with either `library(tidyverse)` as shown above, or, if you want to keep things more streamlined, you can load dplyr directly:
 
 ```{r eval=FALSE}
 library(dplyr)
 ```
-
-When the examples in this chapter use other packages, they will load the package with `library()`.
-
-The tidyverse-relared code in this chapter also makes extensive use of the piping operator, `%>%`. This passes the result of one function call to the next function in lexical order. In other words, this nested function call:
-
-```{r eval=FALSE}
-b(a())
-```
-
-is equivalent to this call using the pipe operator:
-
-```{r eval=FALSE}
-a() %>% b()
-```
-
-In both cases, `a()` is called first, and then its result is passed to `b()`. The pipe lets you chain function calls, so you can do things like:
-
-```{r eval=FALSE}
-a() %>% b() %>% c() %>% d()
-```
-
-This will often be split across multiple lines, like so:
-
-```{r eval=FALSE}
-a() %>%
-  b() %>%
-  c() %>%
-  d()
-```
-
-If you want to store the final result, you can use the `<-` operator at the beginning:
-
-```{r eval=FALSE}
-x <- a() %>%
-  b() %>%
-  c() %>%
-  d()
-```
-
 
 Data sets in R are most often stored in data frames. They're typically used as two-dimensional data structures, with each row representing one case and each column representing one variable. Data frames are essentially lists of vectors and factors, all of the same length, where each vector or factor represents one column.
 

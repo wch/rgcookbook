@@ -15,24 +15,38 @@ R Basics {#CHAPTER-R-BASICS}
 
 This chapter covers the basics: installing and using packages and loading data.
 
-If you want to get started quickly, most of the recipes in this book require the ggplot2 and gcookbook packages to be installed on your computer. To do this, run:
+Most of the recipes in this book require the ggplot2, dplyr, and gcookbook packages to be installed on your computer. (The gcookbook package contains data sets used in some of the examples, but is not necessary for doing your real work.) If you want to get started quickly, run:
 
 ```{r, eval=FALSE}
-install.packages(c("ggplot2", "gcookbook"))
+install.packages("tidyverse")
+install.packages("gcookbook")
 ```
 
 Then, in each R session, before running the examples in this book, you can load them with:
 
 ```{r, eval=FALSE}
+library(tidyverse)
+library(gcookbook)
+```
+
+Running `library(tidyverse)` will load ggplot2, dplyr, and a number of other packages. If you want to keep your R session more streamlined and load only the packages that are strictly needed, you can load ggplot2 and dplyr packages individually:
+
+```{r eval=FALSE}
 library(ggplot2)
+library(dplyr)
 library(gcookbook)
 ```
 
 > **Note**
 >
-> Chapter \@ref(CHAPTER-GGPLOT2) provides an introduction to the ggplot2 graphing package, for readers who are not already familiar with its use.
+> If you want a deeper understanding of how ggplot2 works, see Appendix \@ref(CHAPTER-GGPLOT2), which explains the concepts behind ggplot2.
 
-Packages in R are collections of functions and/or data that are bundled up for easy distribution, and installing a package will extend the functionality of R on your computer. If an R user creates a package and thinks that it might be useful for others, that user can distribute it through a package repository. The primary repository for distributing R packages is called CRAN (the Comprehensive R Archive Network), but there are others, such as Bioconductor and Omegahat.
+Packages in R are collections of functions and/or data that are bundled up for easy distribution, and installing a package will extend the functionality of R on your computer. If an R user creates a package and thinks that it might be useful for others, that user can distribute it through a package repository. The primary repository for distributing R packages is called CRAN (the Comprehensive R Archive Network), but there are others, such as Bioconductor, which specializes in packages related to genomic data.
+
+If you have spent much time learning R, you may have heard of the *tidyverse*, which is a collection of R packages that share common ideas of how data should be structured and manipulated. This is in contrast to *base R*, which is the set of packages that are included when you just download and install R. The tidyverse is a set of add-ons for R, which make it easier to do many operations related to data manipulation and visualization. This book mostly uses the tidyverse, as I believe that it provides a quicker and simpler (but not less powerful!) way to work with data.
+
+If you haven't used the tidyverse before, there is one recipe in particular that you should read that will help you understand a foreign-looking bit of syntax: `%>%`, also known as the pipe operator. This is Recipe \@ref(RECIPE-BASICS-PIPE) in this chapter.
+
 
 Installing a Package
 --------------------
@@ -131,7 +145,7 @@ The most common way to read in a file is to use comma-separated values (CSV) dat
 data <- read.csv("datafile.csv")
 ```
 
-Alternatively, you can use the `read_csv()` function (note the underscore instead of period) from the readr package. This function is significantly faster than `read.csv()`, and 
+Alternatively, you can use the `read_csv()` function (note the underscore instead of period) from the readr package. This function is significantly faster than `read.csv()`, and
 
 ### Discussion
 
@@ -272,3 +286,88 @@ The foreign package does support some other formats, including:
 ### See Also
 
 Run `ls("package:foreign")` for a full list of functions in the foreign package.
+
+
+Chaining Functions Together With `%>%`, the Pipe Operator {#RECIPE-R-BASICS-PIPE}
+---------------------------------------------------------
+
+### Problem
+
+You want to call one function, then pass the result to another function, and another, in a way that is easily readable.
+
+### Solution
+
+Use `%>%`, the pipe operator. For example:
+
+```{r}
+library(dplyr) # The pipe is provided by dplyr
+
+morley # Look at the morley data set
+
+morley %>%
+  filter(Expt == 1) %>%
+  summary()
+```
+
+This takes the `morley` data set, passes it to the `filter()` function from dplyr, keeping only the rows of the data where `Expt` is equal to 1. Then that result is passed to the `summary()` function, which calculates some summary statistics on the data.
+
+Without the pipe operator, the code above would be written like this:
+
+```{r results='hide'}
+summary(filter(morley, Expt == 1))
+```
+
+In this code, function calls are processed from the inside outward. From a mathematical viewpoint, this makes perfect sense, but from a readability viewpoint, this can be confusing and hard to read, especially when there are many nested function calls.
+
+
+### Discussion
+
+This pattern, with the `%>%` operator, is widely used with tidyverse packages, because they contain many functions that do relatively small things. The idea is that these functions are building blocks that allow user to compose the function calls together to produce the desired result.
+
+To illustrate what's going on, here's a simpler example of two equivalent pieces of code:
+
+```{r eval=FALSE}
+f(x)
+
+# Equivalent to:
+x %>% f()
+```
+
+The pipe operator in essence takes the thing that's on the left, and places it as the first argument of the function call that's on the right.
+
+It can be used for multiple function calls, in a *chain*:
+
+```{r eval=FALSE}
+h(g(f(x)))
+
+# Equivalent to:
+x %>%
+  f() %>%
+  g() %>%
+  h()
+```
+
+In a function chain, the lexical ordering of the function calls is the same as the order in which they're computed.
+
+If you want to store the final result, you can use the `<-` operator at the beginning. For example, this will replace the original `x` with the result of the function chain:
+
+```{r eval=FALSE}
+x <- x %>%
+  f() %>%
+  g() %>%
+  h()
+```
+
+If there are additional arguments for the function calls, they will be shifted to the right when the pipe operator is used. Going back to code from the first example, these two are equivalent:
+
+```{r eval=FALSE}
+filter(morley, Expt == 1)
+
+morley %>% filter(Expt == 1)
+````
+
+The pipe operator is actually from the magrittr package, but dplyr imports it and makes it available when you call `library(dplyr)`
+
+### See Also
+
+For many more examples of how to use `%>%` in data manipulation, see Chapter \@ref(CHAPTER-DATAPREP).
