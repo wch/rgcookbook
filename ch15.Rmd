@@ -576,7 +576,7 @@ In the middle plot in Figure \@ref(fig:FIG-DATAPREP-FACTOR-REORDER-VALUE), the b
 
 The tidyverse function for reordering factors is `fct_reorder()`, and it is used the same way as `reorder()`. These do the same thing:
 
-```{r echo=FALSE}
+```{r eval=FALSE}
 reorder(iss$spray, iss$count, FUN = mean)
 fct_reorder(iss$spray, iss$count, .fun = mean)
 ```
