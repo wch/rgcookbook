@@ -487,23 +487,14 @@ You want to change the order of levels in a factor.
 
 ### Solution
 
-Use `fct_relevel()` from the forcats package. These functions return a new factor, so if you want to change the original variable, you'll need to save the new result over it.
+Pass the factor to `factor()`, and give it the levels in the order you want. This returns a new factor, so if you want to change the original variable, you'll need to save the new result over it.
 
-In this example, we'll create a factor that initially has the wrong ordering:
 
 ```{r}
 # By default, levels are ordered alphabetically
 sizes <- factor(c("small", "large", "large", "small", "medium"))
 sizes
 
-# Change the order of levels
-library(forcats)
-fct_relevel(sizes, "small", "medium", "large")
-```
-
-To change level order with base R, you can pass the factor to `factor()`, and give it the levels in the order you want.
-
-```{r}
 factor(sizes, levels = c("small", "medium", "large"))
 ```
 
@@ -524,7 +515,15 @@ The order of factor levels affects graphical output. When a factor variable is m
 To reverse the level order, you can use `rev(levels())`:
 
 ```{r eval=FALSE}
-fct_relevel(sizes, levels = rev(levels(sizes)))
+factor(sizes, levels = rev(levels(sizes)))
+```
+
+The tidyverse function for reordering factors is `fct_relevel()` from the forcats package. It has a syntax similar to the `factor()` function from base R.
+
+```{r}
+# Change the order of levels
+library(forcats)
+fct_relevel(sizes, "small", "medium", "large")
 ```
 
 
