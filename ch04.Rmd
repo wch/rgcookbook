@@ -143,7 +143,7 @@ In addition to the variables mapped to the x- and y-axes, map another (discrete)
 library(gcookbook) # Load the gcookbook package to access the tg data set
 
 # Map supp to colour
-ggplot(tg, aes( x = dose, y = length, colour = supp)) +
+ggplot(tg, aes(x = dose, y = length, colour = supp)) +
   geom_line()
 
 # Map supp to linetype
