@@ -29,6 +29,65 @@ Getting Your Data into Shape {#CHAPTER-DATAPREP}
 
 When it comes to making data graphics, half the battle occurs before you call any plotting commands. Before you pass your data to the plotting functions, it must first be read in and given the correct structure. The data sets provided with R are ready to use, but when dealing with real-world data, this usually isn't the case: you'll have to clean up and restructure the data before you can visualize it.
 
+The recipes in this chapter will often use packages from the *tidyverse*, which is a collection of packages that share common ideas of how data should be structured and manipulated. ggplot2 is a member of the tidyverse, although ggplot2 itself existed before the idea of the tidyverse was conceived. I will also show how to do many of the same tasks using base R, because in some situations it is important to minimize the number of packages you use, and because it is useful to be able to understand code written for base R.
+
+The set of tidyverse packages can be installed with a simple:
+
+```{r eval=FALSE}
+install.packages("tidyverse")
+```
+
+A simple way to load all the tidyverse packages is with this:
+
+```{r eval=FALSE}
+library(tidyverse)
+```
+
+This will load ggplot2, dplyr, tibble, as well as a number of other packages. Most of the tidyverse functions used in this chapter are from the dplyr package, and in this chapter, I'll assume that dplyr is already loaded. You can load it with either `library(tidyverse)` as shown above, or, if you want to keep things more streamlined, you can load dplyr directly:
+
+```{r eval=FALSE}
+library(dplyr)
+```
+
+When the examples in this chapter use other packages, they will load the package with `library()`.
+
+The tidyverse-relared code in this chapter also makes extensive use of the piping operator, `%>%`. This passes the result of one function call to the next function in lexical order. In other words, this nested function call:
+
+```{r eval=FALSE}
+b(a())
+```
+
+is equivalent to this call using the pipe operator:
+
+```{r eval=FALSE}
+a() %>% b()
+```
+
+In both cases, `a()` is called first, and then its result is passed to `b()`. The pipe lets you chain function calls, so you can do things like:
+
+```{r eval=FALSE}
+a() %>% b() %>% c() %>% d()
+```
+
+This will often be split across multiple lines, like so:
+
+```{r eval=FALSE}
+a() %>%
+  b() %>%
+  c() %>%
+  d()
+```
+
+If you want to store the final result, you can use the `<-` operator at the beginning:
+
+```{r eval=FALSE}
+x <- a() %>%
+  b() %>%
+  c() %>%
+  d()
+```
+
+
 Data sets in R are most often stored in data frames. They're typically used as two-dimensional data structures, with each row representing one case and each column representing one variable. Data frames are essentially lists of vectors and factors, all of the same length, where each vector or factor represents one column.
 
 Here's the `heightweight` data set:
@@ -47,6 +106,8 @@ str(heightweight)
 The first column, `sex`, is a factor with two levels, `"f"` and `"m"`, and the other four columns are vectors of numbers (one of them, `ageMonth`, is specifically a vector of integers, but for the purposes here, it behaves the same as any other numeric vector).
 
 Factors and character vectors behave similarly in ggplot -- the main difference is that with character vectors, items will be displayed in lexicographical order, but with factors, items will be displayed in the same order as the factor levels, which you can control.
+
+
 
 
 Creating a Data Frame {#RECIPE-DATAPREP-CREATE-DATAFRAME}
@@ -80,14 +141,21 @@ lst <- list(group = g, value = x)    # A list of vectors
 dat <- as.data.frame(lst)
 ```
 
-The tidyverse way of creating a data frame is to use `data_frame()` or `as_data_frame()` (note the underscores instead of periods). This returns a special kind of data frame -- a *tibble* -- which behaves like a regular data frame in most contexts, but prints out more nicely and is spcifically designed to play well with the tidyverse functions.
+The tidyverse way of creating a data frame is to use `data_frame()` or `as_data_frame()` (note the underscores instead of periods). This returns a special kind of data frame -- a *tibble* -- which behaves like a regular data frame in most contexts, but prints out more nicely and is specifically designed to play well with the tidyverse functions.
 
-```{r eval=FALSE}
+```{r}
 data_frame(g, x)
 ```
 
 ```{r eval=FALSE}
+# Convert the list of vectors to a tibble
 as_data_frame(lst)
+```
+
+A regular data frame can be converted to a tibble using `as_tibble()`:
+
+```{r}
+as_tibble(dat)
 ```
 
 
@@ -136,18 +204,6 @@ ToothGrowth$supp
 tg$supp
 ```
 
-Note that you can also use the `class()` function to get information about the data set object itself (rather than about each of the variables contained within the dataframe), or to get information about a specific variable within a dataframe:
-
-```{r}
-# Get information about the overall data frame
-class(ToothGrowth)
-# Get information about a particular variable
-class(ToothGrowth$len)
-```
-
-Whereas `str()` and `summary()` give you information about both the type of object as well as some other descriptive information, `class()` will only give you information about the object type.
-
-
 
 Adding a Column to a Data Frame {#RECIPE-DATAPREP-ADD-COL}
 -------------------------------
@@ -158,15 +214,14 @@ You want to add a column to a data frame.
 
 ### Solution
 
-Use `mutate()` to add a new column and assign a value to the new column. Note that this returns a new data frame, so if you want to save the output you'll need to save over the original, as in these examples.
+Use `mutate()` from dplyr to add a new column and assign values to it. This returns a new data frame, which you'll typically want save over the original.
 
-If you assign a single value to the new column, the entire column will be filled with that value. This adds a column named newcol, filled with NA:
+If you assign a single value to the new column, the entire column will be filled with that value. This adds a column named `newcol`, filled with `NA`:
 
-```{r eval=FALSE}
+```{r}
 library(dplyr)
 
-tg_mod <-
-  ToothGrowth %>% 
+ToothGrowth %>%
   mutate(newcol = NA)
 ```
 
@@ -176,16 +231,30 @@ You can also assign a vector to the new column:
 # Since ToothGrowth has 60 rows, we must create a new vector that has 60 rows
 vec <- rep(c(1, 2), 30)
 
-tg_mod <-
-  ToothGrowth %>% 
+ToothGrowth %>%
   mutate(newcol = vec)
 ```
 
-Note that the length of the vector being added to the data frame must be the same number of rows as the data frame. In the example above we created a new vector that had 60 rows by repeating the values c(1, 2) thirty times.
+Note that the vector being added to the data frame must either have one element, or the same number of elements as the data frame has rows. In the example above we created a new vector that had 60 rows by repeating the values `c(1, 2)` thirty times.
 
 ### Discussion
 
-Each column of a data frame is a vector. R handles columns within data frames slightly differently from standalone vectors because all the columns in a data frame have the same length.
+Each column of a data frame is a vector. R handles columns in data frames slightly differently from standalone vectors because all the columns in a data frame must have the same length.
+
+To add a column using base R, you can simply assign values into the new column like so:
+
+```{r}
+# Make a copy of ToothGrowth for this example
+ToothGrowth2 <- ToothGrowth
+
+# Assign NA's for the whole column
+ToothGrowth2$newcol <- NA
+
+# Assign 1 and 2, automatically repeating to fill
+ToothGrowth2$newcol <- c(1, 2)
+```
+
+With base R, the vector being assigned into the data frame will automatically be repeated to fill the number of rows in the data frame.
 
 
 Deleting a Column from a Data Frame {#RECIPE-DATAPREP-DELETE-COL}
@@ -193,48 +262,39 @@ Deleting a Column from a Data Frame {#RECIPE-DATAPREP-DELETE-COL}
 
 ### Problem
 
-You want to delete a column from a data frame.
+You want to delete a column from a data frame. This returns a new data frame, which you'll typically want save over the original.
 
 ### Solution
 
-Use `select()` and specify the columns you want to drop by using `-` (a minus sign). Note that this returns a new data frame, so if you want to save the output you'll need to save over the original, as in these examples.
+Use `select()` from dplyr and specify the columns you want to drop by using `-` (a minus sign).
 
 ```{r eval=FALSE}
-tg_mod <-
-  ToothGrowth %>% 
+# Remove the len column
+ToothGrowth %>%
   select(-len)
 ```
 
 ### Discussion
 
-You can list multiple columns that you want to drop at the same time, or conversely specify only the columns that you want to keep. The following two pieces of code are thus equivalent: 
+You can list multiple columns that you want to drop at the same time, or conversely specify only the columns that you want to keep. The following two pieces of code are thus equivalent:
 
-```{r eval=FALSE}
+```{r}
 # Remove both len and supp from ToothGrowth
-tg_mod <-
-  ToothGrowth %>% 
+ToothGrowth %>%
   select(-len, -supp)
 
-# is equivalent to the following code, which specifies that we only want to keep dose
-tg_mod <-
-  ToothGrowth %>% 
+# This keeps just dose, which has the same effect for this data set
+ToothGrowth %>%
   select(dose)
 ```
 
-One note is to make sure that you don't use `select()` to both drop and keep columns within the same command. If you do, only the first command will be observed. You can try this out by comparing the results of the code below
+To remove a column using base R, you can simply assign `NULL` to that column.
 
-```{r eval=FALSE}
-# Note that these two pieces of code do not give you the same thing! 
+```{r}
+# Make a copy of ToothGrowth for this example
+ToothGrowth2 <- ToothGrowth
 
-# This code acts as if the last line reads as `select(-len)`
-tg_mod <-
-  ToothGrowth %>% 
-  select(-len, supp)
-
-# This code acts as if the last line reads as `select(supp)`
-tg_mod <-
-  ToothGrowth %>% 
-  select(supp, -len)
+ToothGrowth2$len <- NULL
 ```
 
 ### See Also
@@ -253,27 +313,42 @@ You want to rename the columns in a data frame.
 
 ### Solution
 
-Use the `rename()` function. This returns a new data frame, so if you want to save the output you'll need to save over the original, as in these examples.
+Use `rename()` from dplyr. This returns a new data frame, which you'll typically want save over the original.
 
 ```{r eval=FALSE}
-tg_mod <-
-  ToothGrowth %>% 
+tg_mod <- ToothGrowth %>%
   rename(length = len)
 ```
 
 ### Discussion
 
-You can rename multiple columns within the same `rename()` function:
+You can rename multiple columns within the same call to `rename()`:
 
-```{r eval=FALSE}
-tg_mod <-
-  ToothGrowth %>% 
-  rename(length = len, supplement_type = supp)
+```{r}
+ToothGrowth %>%
+  rename(
+    length = len,
+    supplement_type = supp
+  )
+```
+
+Renaming a column using base R is a bit more verbose. It uses the `names()` function on the left side of the `<-` operator.
+
+
+```{r}
+# Make a copy of ToothGrowth for this example
+ToothGrowth2 <- ToothGrowth
+
+names(ToothGrowth2)  # Print the names of the columns
+# Rename "len" to "length"
+names(ToothGrowth2)[names(ToothGrowth2) == "len"] <- "length"
+
+names(ToothGrowth)
 ```
 
 ### See Also
 
-See `?select` for more ways to rename columns within a data frame. 
+See `?select` for more ways to rename columns within a data frame.
 
 
 Reordering Columns in a Data Frame {#RECIPE-DATAPREP-REORDER-COL}
@@ -285,26 +360,55 @@ You want to change the order of columns in a data frame.
 
 ### Solution
 
-Use the `select()` function. In the example below, the original order of the columns was first `len`, followed by `supp`, and `dose`. 
+Use the `select()` from dplyr.
 
 ```{r}
-ToothGrowth %>% 
+ToothGrowth %>%
   select(dose, len, supp)
 ```
 
-The new data frame will contain the variables you have specified within `select()`, in the order that you have specified. Note that `select()` returns a new data frame, so if you want to save the output you'll need to save over the original.
+The new data frame will contain the columns you specified in `select()`, in the order you specified. Note that `select()` returns a new data frame, so if you want to change the original variable, you'll need to save the new result over it.
 
 ### Discussion
 
-If you are only reordering a few variables and want to keep the rest of the variables, you can include `everything()` to indicate that you want the new data frame to still keep all of the remaining variables:
+If you are only reordering a few variables and want to keep the rest of the variables in order, you can use `everything()` as a placeholder:
 
 ```{r}
-# We can use `everything()` instead of having to type out all of the remaining variable names
 ToothGrowth %>%
   select(dose, everything())
 ```
 
-The `?select_helpers` documentation also shows other ways to select columns. You can, for example, select columns by matching parts of the name.
+See `?select_helpers` for other ways to select columns. You can, for example, select columns by matching parts of the name.
+
+Using base R, you can also reorder columns by their name or numeric position. This returns a new data frame, which can be saved over the original.
+
+```{r eval=FALSE}
+ToothGrowth[c("dose", "len", "supp")]
+
+ToothGrowth[c(3, 1, 2)]
+```
+
+In these examples, I used list-style indexing. A data frame is essentially a list of vectors, and indexing into it as a list will return another data frame. You can get the same effect with matrix-style indexing:
+
+
+```{r eval=FALSE}
+ToothGrowth[c("dose", "len", "supp")]   # List-style indexing
+
+ToothGrowth[, c("dose", "len", "supp")] # Matrix-style indexing
+```
+
+In this case, both methods return the same result, a data frame. However, when retrieving a single column, list-style indexing will return a data frame, while matrix-style indexing will return a vector:
+
+```{r}
+ToothGrowth["dose"]
+ToothGrowth[, "dose"]
+```
+
+You can use `drop=FALSE` to ensure that it returns a data frame:
+
+```{r}
+ToothGrowth[, "dose", drop=FALSE]
+```
 
 
 Getting a Subset of a Data Frame {#RECIPE-DATAPREP-SUBSET}
@@ -316,7 +420,7 @@ You want to get a subset of a data frame.
 
 ### Solution
 
-Use `filter()` to get the rows, and `select()` to get out the columns you want. These operations can be chained together using the `%>%` operator. These functions return new data frame, so if you want to save the output you'll need to save over the original.
+Use `filter()` to get the rows, and `select()` to get the columns you want. These operations can be chained together using the `%>%` operator. These functions return a new data frame, so if you want to change the original variable, you'll need to save the new result over it.
 
 We'll use the `climate` data set for the examples here:
 
@@ -332,14 +436,14 @@ climate %>%
   filter(Source == "Berkeley" & Year >= 1900 & Year <= 2000)
 ```
 
-What if you now only want to keep the two columns named `Year` and `Anomaly10y`? As we saw in \@ref(RECIPE-DATAPREP-DELETE-COL), we can use `select()`:
+If you want only the `Year` and `Anomaly10y` columns, use `select()`, as we did in \@ref(RECIPE-DATAPREP-DELETE-COL):
 
 ```{r}
 climate %>%
   select(Year, Anomaly10y)
 ```
 
-These operations can be chained together using the `%>%` operator, such that the two examples above can be combined as follows:
+These operations can be chained together using the `%>%` operator:
 
 ```{r}
 climate %>%
@@ -357,6 +461,22 @@ slice(climate, 1:100)
 
 I generally recommend indexing using names rather than numbers when possible. It makes the code easier to understand when you're collaborating with others or when you come back to it months or years after writing it, and it makes the code less likely to break when there are changes to the data, such as when columns are added or removed.
 
+With base R, you can get a subset of rows like this:
+
+```{r}
+climate[climate$Source == "Berkeley" & climate$Year >= 1900 & climate$Year <= 2000, ]
+```
+
+Notice that we needed to prefix each column name with `climate$`, and that there's a comma after the selection criteria. This indicates that we're getting rows, not columns.
+
+This row filtering can also be combined with the column selection from \@ref(RECIPE-DATAPREP-DELETE-COL):
+
+```{r}
+climate[climate$Source == "Berkeley" & climate$Year >= 1900 & climate$Year <= 2000,
+        c("Year", "Anomaly10y")]
+```
+
+
 
 Changing the Order of Factor Levels {#RECIPE-DATAPREP-FACTOR-REORDER}
 -----------------------------------
@@ -367,7 +487,7 @@ You want to change the order of levels in a factor.
 
 ### Solution
 
-Use `fct_relevel()` from the forcats package. This returns a new factor, so if you want to save the output you'll need to save over the original, as in the examples below.
+Use `fct_relevel()` from the forcats package. These functions return a new factor, so if you want to change the original variable, you'll need to save the new result over it.
 
 In this example, we'll create a factor that initially has the wrong ordering:
 
@@ -378,11 +498,22 @@ sizes
 
 # Change the order of levels
 library(forcats)
-sizes_ordered <- fct_relevel(sizes, "small", "medium", "large")
-sizes_ordered
+fct_relevel(sizes, "small", "medium", "large")
 ```
 
-The order can also be specified with `levels` when the factor is first created.
+To change level order with base R, you can pass the factor to `factor()`, and give it the levels in the order you want.
+
+```{r}
+factor(sizes, levels = c("small", "medium", "large"))
+```
+
+The order can also be specified with `levels` when the factor is first created:
+
+```{r echo=FALSE}
+factor(c("small", "large", "large", "small", "medium"),
+       levels = c("small", "medium", "large"))
+```
+
 
 ### Discussion
 
@@ -395,6 +526,7 @@ To reverse the level order, you can use `rev(levels())`:
 ```{r eval=FALSE}
 fct_relevel(sizes, levels = rev(levels(sizes)))
 ```
+
 
 ### See Also
 
@@ -412,28 +544,41 @@ You want to change the order of levels in a factor based on values in the data.
 
 ### Solution
 
-Use `fct_reorder()` from the forcats package with the factor that has levels to reorder, the values to base the reordering on, and a function that aggregates the values. This returns a new factor, so if you want to save the output you'll need to save over the original.
+Use `reorder()` with the factor that has levels to reorder, the values to base the reordering on, and a function that aggregates the values:
 
 ```{r}
 # Make a copy of the InsectSprays data set since we're modifying it
 iss <- InsectSprays
+iss$spray
 
-library(forcats)
-fct_reorder(iss$spray, iss$count, .fun = mean)
+iss$spray <- reorder(iss$spray, iss$count, FUN = mean)
+iss$spray
 ```
 
 Notice that the original levels were `ABCDEF`, while the reordered levels are `CEDABF`. What we've done is reorder the levels of `spray` based on the mean value of `count` for each level of `spray`.
 
 ### Discussion
 
-The usefulness of `fct_reorder()` might not be obvious from just looking at the raw output. Figure \@ref(fig:FIG-DATAPREP-FACTOR-REORDER-VALUE) shows two graphs made with `fct_reorder()`. In these graphs, the order in which the items appear is determined by their values:
+The usefulness of `reorder()` might not be obvious from just looking at the raw output. Figure \@ref(fig:FIG-DATAPREP-FACTOR-REORDER-VALUE) shows three plots made with `reorder()`. In these plots, the order in which the items appear is determined by their values.
 
-```{r FIG-DATAPREP-FACTOR-REORDER-VALUE, echo=FALSE, fig.show="hold", fig.cap="Original data (left); Reordered by the mean of each group (right)", fig.height=2.5, fig.width=3}
+```{r FIG-DATAPREP-FACTOR-REORDER-VALUE, echo=FALSE, fig.show="hold", fig.cap="Original data (left); Reordered by the mean of each group (middle); Reordered by the median of each group (right)", fig.height=2.5, fig.width=3}
 ggplot(InsectSprays, aes(spray, count)) +
   geom_boxplot()
 
-ggplot(InsectSprays, aes(fct_reorder(spray, count, .fun = mean), count)) +
+ggplot(InsectSprays, aes(reorder(spray, count, FUN = mean), count)) +
   geom_boxplot()
+
+ggplot(InsectSprays, aes(reorder(spray, count, FUN = median), count)) +
+  geom_boxplot()
+```
+
+In the middle plot in Figure \@ref(fig:FIG-DATAPREP-FACTOR-REORDER-VALUE), the boxes are sorted by the mean. The horizontal line that runs across each box represents the *median* of the data. Notice that these values do not increase strictly from left to right. That's because with this particular data set, sorting by the mean gives a different order than sorting by the median. To make the median lines increase from left to right, as in the plot on the right in Figure \@ref(fig:FIG-DATAPREP-FACTOR-REORDER-VALUE), we used the `median()` function in `reorder()`.
+
+The tidyverse function for reordering factors is `fct_reorder()`, and it is used the same way as `reorder()`. These do the same thing:
+
+```{r echo=FALSE}
+reorder(iss$spray, iss$count, FUN = mean)
+fct_reorder(iss$spray, iss$count, .fun = mean)
 ```
 
 ### See Also
@@ -450,7 +595,7 @@ You want to change the names of levels in a factor.
 
 ### Solution
 
-Use `fct_recode()` from the forcats package. This returns a new factor, so if you want to save the output you'll need to save over the original.
+Use `fct_recode()` from the forcats package
 
 ```{r}
 sizes <- factor(c( "small", "large", "large", "small", "medium"))
@@ -489,7 +634,7 @@ do.call(
 )
 ```
 
-For a more traditional (and clunky) R method for renaming factor levels, use the `levels()<-` function:
+For a more traditional (and clunky) base R method for renaming factor levels, use the `levels()<-` function:
 
 ```{r}
 sizes <- factor(c( "small", "large", "large", "small", "medium"))
@@ -547,16 +692,21 @@ sizes <- sizes[1:3]
 sizes
 ```
 
-To remove them, use `fct_drop` from the forcats package`. This returns a new factor, so if you want to save the output you'll need to save over the original.
+To remove them, use `droplevels()`:
 
 ```{r}
-sizes_mod <- fct_drop(sizes)
-sizes_mod
+droplevels(sizes)
 ```
 
 ### Discussion
 
-The `fct_drop()` function preserves the order of factor levels. You can use the `only` parameter to keep particular levels.
+The `droplevels()` function preserves the order of factor levels. You can use the `except` parameter to keep particular levels.
+
+The tidyverse way: Use `fct_drop()` from the forcats package:
+
+```{r}
+fct_drop(sizes)
+```
 
 
 Changing the Names of Items in a Character Vector {#RECIPE-DATAPREP-CHARACTER-RENAME}
@@ -628,45 +778,113 @@ sizes
 If, instead of a character vector, you have a factor with levels to rename, see Recipe \@ref(RECIPE-DATAPREP-FACTOR-RENAME).
 
 
-Creating a New Variable Based on an Existing Categorical Variable {#RECIPE-DATAPREP-RECODE-CATEGORICAL}
+Recoding a Categorical Variable to Another Categorical Variable {#RECIPE-DATAPREP-RECODE-CATEGORICAL}
 ---------------------------------------------------------------
 
 ### Problem
 
-You want to create a new variable based on the values of an existing categorical variable.
+You want to recode a categorical variable to another variable.
 
 ### Solution
 
-Use the `mutate()` function from the dplyr package, combined with the `ifelse()` function.
+For the examples here, we'll use a subset of the `PlantGrowth` data set:
 
-For the examples here, we'll add a new variable to the `PlantGrowth` data set. We'll call this new variable `treatment`, whose values are based on the `group` variable. If `group` is `"ctrl"`, the new value of `treatment` will be `"no"`; if `group` is `"trt1"` or `"trt2"`, the new value for `treatment` will be `"yes"`.
+```{r}
+# Work on a subset of the PlantGrowth data set
+pg <- PlantGrowth[c(1,2,11,21,22), ]
+pg
+```
+
+In this example, we'll recode the categorical variable group into another categorical variable, treatment. If the old value was `"ctrl"`, the new value will be `"No"`, and if the old value was `"trt1"` or `"trt2"`, the new value will be `"Yes"`.
+
+This can be done with the `recode()` function from the dplyr package:
 
 ```{r}
 library(dplyr)
 
-pg_mod <- PlantGrowth %>%
-  mutate(treatment = ifelse(group == "ctrl", "no", "yes"))
-pg_mod
+recode(pg$group, ctrl = "No", trt1 = "Yes", trt2 = "Yes")
 ```
 
-Since the input was a factor, it returns a factor. If you want to get a character vector instead, use `as.character()`:
+You can assign it as a new column in the data frame:
+
+```{r eval=FALSE}
+pg$treatment <- recode(pg$group, ctrl = "No", trt1 = "Yes", trt2 = "Yes")
+```
+
+Note that since the input was a factor, it returns a factor. If you want to get a character vector instead, use `as.character()`:
 
 ```{r}
-pg_mod <- PlantGrowth %>%
-  mutate(trt = as.character(ifelse(group == "ctrl", "no", "yes")))
+recode(as.character(pg$group), ctrl = "No", trt1 = "Yes", trt2 = "Yes")
 ```
+
 
 ### Discussion
 
-Note that the `ifelse()` function used in the two code chunks above will assign `"yes"` to `treatment` for any value of `group` that isn't `"ctrl"`, including any value that isn't `"trt1"` or `"trt2"`. To specify that only rows where `group` is `"trt1"` or `"trt2"` should be marked as `"yes"`, we can embed another `ifelse()` function and use the `%in%` operator:
-```{r, eval=FALSE}
-pg_mod <- PlantGrowth %>%
-  mutate(treatment = ifelse(group == "ctrl", "no", ifelse(
-    group %in% c("trt1", "trt2"), "yes", NA))
-  )
+You can also use the `fct_recode()` function from the forcats package. It works the same, except the names and values are swapped, which may be a little more intuitive:
+
+```{r}
+library(forcats)
+fct_recode(pg$group, No = "ctrl", Yes = "trt1", Yes = "trt2")
 ```
 
-The code above tells us that if `group == "ctrl"`, `"no"` will be assigned to `treatment`. If `group` does not equal `"ctrl"`, we go to the second `ifelse()`, which tells us that if `group` matches any value in `c("trt1", "trt2")`, `"yes"` will be assigned to `treatment`. If the value of `group` fails both of these condition, `NA` will be assigned to `treatment`.
+Another difference is that `fct_recode()` will always return a factor, whereas `recode()` will return a character vector if it is given a character vector, and will return a factor if it is given a factor.
+
+
+Using base R, recoding can be done with the `match()` function:
+
+```{r}
+oldvals <- c("ctrl", "trt1", "trt2")
+newvals <- factor(c("No", "Yes", "Yes"))
+
+newvals[ match(pg$group, oldvals) ]
+```
+
+It can also be done by indexing in the vectors:
+
+```{r echo=FALSE}
+# Reset the data
+pg <- PlantGrowth[c(1,2,11,21,22), ]
+```
+
+```{r}
+pg$treatment[pg$group == "ctrl"] <- "No"
+pg$treatment[pg$group == "trt1"] <- "Yes"
+pg$treatment[pg$group == "trt2"] <- "Yes"
+
+# Convert to a factor
+pg$treatment <- factor(pg$treatment)
+pg
+```
+
+Here, we combined two of the factor levels and put the result into a new column. If you simply want to rename the levels of a factor, see Recipe \@ref(RECIPE-DATAPREP-FACTOR-RENAME).
+
+The coding criteria can also be based on values in multiple columns, by using the `&` and `|` operators:
+
+```{r echo=FALSE}
+# Reset the data
+pg <- PlantGrowth[c(1,2,11,21,22), ]
+```
+
+```{r}
+pg$newcol[pg$group == "ctrl" & pg$weight < 5]  <- "no_small"
+pg$newcol[pg$group == "ctrl" & pg$weight >= 5] <- "no_large"
+pg$newcol[pg$group == "trt1"] <- "yes"
+pg$newcol[pg$group == "trt2"] <- "yes"
+pg$newcol <- factor(pg$newcol)
+pg
+```
+
+It's also possible to combine two columns into one using the interaction() function, which appends the values with a `.` in between. This combines the `weight` and `group` columns into a new column, `weightgroup`:
+
+```{r echo=FALSE}
+# Reset the data
+pg <- PlantGrowth[c(1,2,11,21,22), ]
+```
+
+```{r}
+pg$weightgroup <- interaction(pg$weight, pg$group)
+pg
+```
 
 ### See Also
 
@@ -717,7 +935,7 @@ cut(pg$weight, breaks = c(0, 5, 6, Inf), right = FALSE)
 To recode a categorical variable to another categorical variable, see Recipe \@ref(RECIPE-DATAPREP-RECODE-CATEGORICAL).
 
 
-Creating New Columns using Calculations Based on Existing Columns  {#RECIPE-DATAPREP-CALCULATE}
+Calculating New Columns From Existing Columns  {#RECIPE-DATAPREP-CALCULATE}
 -----------------------
 
 ### Problem
@@ -726,55 +944,57 @@ You want to calculate a new column of values in a data frame.
 
 ### Solution
 
-Use `mutate()` from the dplyr package. For this example, we'll use a copy of the `heightweight` data set:
+Use `mutate()` from the dplyr package.
 
 ```{r}
 library(gcookbook) # Load the gcookbook package to access the heightweight data set
-hw <- heightweight # Make a copy of the data to work on
-hw
+heightweight
 ```
 
 This will convert `heightIn` to centimeters and store it in a new column, `heightCm`:
 
 ```{r}
 library(dplyr)
-hw <- hw %>%
+heightweight %>%
   mutate(heightCm = heightIn * 2.54)
-hw
 ```
+
+This returns a new data frame, so if you want to replace the original variable, you will need to save the result over it.
 
 ### Discussion
 
 You can use `mutate()` to transform multiple columns at once:
 
 ```{r}
-hw <- hw %>%
+heightweight %>%
   mutate(
     heightCm = heightIn * 2.54,
     weightKg = weightLb / 2.204
   )
-hw
 ```
 
 It is also possible to calculate a new column based on multiple columns:
 
 ```{r eval=FALSE}
-hw <- hw %>%
+heightweight %>%
   mutate(bmi = weightKg / (heightCm / 100)^2)
 ```
 
 With `mutate()`, the columns are added sequentially. That means that we can reference a newly-created column when calculating a new column:
 
 ```{r}
-hw <- heightweight
-
-hw <- hw %>%
+heightweight %>%
   mutate(
     heightCm = heightIn * 2.54,
     weightKg = weightLb / 2.204,
     bmi = weightKg / (heightCm / 100)^2
   )
-hw
+```
+
+With base R, calculating a new colum can be done by referencing the new column with the `$` operator and assigning some values to it:
+
+```{r, eval=FALSE}
+heightweight$heightCm <- heightweight$heightIn * 2.54
 ```
 
 ### See Also
@@ -782,7 +1002,7 @@ hw
 See Recipe \@ref(RECIPE-DATAPREP-CALCULATE-GROUP) for how to perform group-wise transformations on data.
 
 
-Calculating New Columns based on a Grouping Column {#RECIPE-DATAPREP-CALCULATE-GROUP}
+Calculating New Columns by Groups {#RECIPE-DATAPREP-CALCULATE-GROUP}
 -------------------------------
 
 ### Problem
@@ -802,7 +1022,7 @@ cabbages %>%
   mutate(DevWt = HeadWt - mean(HeadWt))
 ```
 
-Note that this returns a new data frame, so if you want to save the output you'll need to save over the original.
+This returns a new data frame, so if you want to replace the original variable, you will need to save the result over it.
 
 ### Discussion
 
@@ -1014,11 +1234,13 @@ ggplot(c2a, aes(x = Date, fill = Cult, y = Weight)) +
 ```
 
 
-To fill in the missing combination (Figure \@ref(fig:FIG-DATAPREP-SUMMARIZE-MISSING-COMBO), right), use the `complete()` function from the **tidyr** package -- which, unsurprisingly, is also part of the tidyverse. Also, the grouping for `c2a` must be removed, with `ungroup()`; otherwise it will return too many rows.
+To fill in the missing combination (Figure \@ref(fig:FIG-DATAPREP-SUMMARIZE-MISSING-COMBO), right), use the `complete()` function from the tidyr package -- which is also part of the tidyverse. Also, the grouping for `c2a` must be removed, with `ungroup()`; otherwise it will return too many rows.
 
 ```{r FIG-DATAPREP-SUMMARIZE-MISSING-COMBO-2, eval=FALSE}
 library(tidyr)
-c2b <- c2a %>% ungroup() %>% complete(Cult, Date)
+c2b <- c2a %>%
+  ungroup() %>%
+  complete(Cult, Date)
 
 ggplot(c2b, aes(x = Date, fill = Cult, y = Weight)) +
   geom_col(position = "dodge")
