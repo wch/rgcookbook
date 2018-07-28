@@ -15,6 +15,9 @@ pdf:
 chapters_md: $(CHAPTER_RMD_FILES)
 	tools/build_chapters.R $(CHAPTER_RMD_FILES)
 
+semiclean:
+	rm -f "R-Graphics-Cookbook-2e.Rmd"
+
 clean:
 	rm -f "R-Graphics-Cookbook-2e.Rmd"
 	Rscript -e "bookdown::clean_book(TRUE)"
