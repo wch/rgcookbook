@@ -71,8 +71,6 @@ register_s3_method("knitr", "knit_print", "data.frame",
   }
 )
 
-
-
 register_s3_method("knitr", "knit_print", "character",
   function(x, ..., maxrows = 8) {
     output <- capture.output(
@@ -92,6 +90,27 @@ register_s3_method("knitr", "knit_print", "character",
           "# ... with",
           format(length(x) - n_per_row * maxrows, big.mark = ","),
           "more items"
+        )
+      )
+    }
+
+    cat(output, sep = "\n")
+  }
+)
+
+register_s3_method("knitr", "knit_print", "ts",
+  function(x, ..., maxrows = getOption("knit_print_ts_rows", default = 6)) {
+    output <- capture.output(
+      stats:::print.ts(x, ...)
+    )
+
+    if (length(output) > maxrows) {
+      output <- c(
+        output[seq_len(maxrows)],
+        paste(
+          "# ... with",
+          format(length(output) - maxrows, big.mark = ","),
+          "more rows"
         )
       )
     }

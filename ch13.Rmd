@@ -966,7 +966,7 @@ ggplot(islicesub, aes(x = x, y = y)) +
 ```
 
 
-```{r FIG-MISCGRAPH-VECTORFIELD-AES, ref.label=c("FIG-MISCGRAPH-VECTORFIELD-AES-1", "FIG-MISCGRAPH-VECTORFIELD-AES-2"), echo=FALSE, fig.show="hold", fig.cap="Vector field with speed mapped to alpha (left); With speed mapped to colour (right)", fig.width=6, fig.height=5}
+```{r FIG-MISCGRAPH-VECTORFIELD-AES, ref.label=c("FIG-MISCGRAPH-VECTORFIELD-AES-1", "FIG-MISCGRAPH-VECTORFIELD-AES-2"), echo=FALSE, message=FALSE, fig.show="hold", fig.cap="Vector field with speed mapped to alpha (left); With speed mapped to colour (right)", fig.width=6, fig.height=5}
 
 ```
 
