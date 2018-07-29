@@ -212,7 +212,7 @@ Now we can call this function to create another function -- one that is effectiv
 
 ```{r}
 # This returns a function
-dlimit <- limitRange(dnorm, 0, 2) 
+dlimit <- limitRange(dnorm, 0, 2)
 # Now we'll try out the new function -- it only returns values for inputs
 # between 0 and 2
 dlimit(-2:4)
@@ -466,10 +466,14 @@ You want to create a three-dimensional scatter plot.
 
 We'll use the rgl package, which provides an interface to the OpenGL graphics library for 3D graphics. To create a 3D scatter plot, as in Figure \@ref(fig:FIG-MISCGRAPH-3D-SCATTER), use `plot3d()` and pass in a data frame where the first three columns represent *x*, *y*, and *z* coordinates, or pass in three vectors representing the *x*, *y*, and *z* coordinates.
 
-```{r FIG-MISCGRAPH-3D-SCATTER, eval=FALSE, fig.cap="A 3D scatter plot"}
+```{r eval=FALSE}
 # You may need to install first, with install.packages("rgl")
 library(rgl)
 plot3d(mtcars$wt, mtcars$disp, mtcars$mpg, type = "s", size = 0.75, lit = FALSE)
+```
+
+```{r FIG-MISCGRAPH-3D-SCATTER, echo=FALSE, fig.cap="A 3D scatter plot"}
+knitr::include_graphics("fig/FIG-MISCGRAPH-3D-SCATTER.png")
 ```
 
 Viewers can rotate the image by clicking and dragging with the mouse, and zoom in and out with the scroll wheel.
@@ -484,7 +488,7 @@ Three-dimensional scatter plots can be difficult to interpret, so it's often bet
 
 In Figure \@ref(fig:FIG-MISCGRAPH-3D-SCATTER2), we'll add vertical segments to help give a sense of the spatial positions of the points:
 
-```{r FIG-MISCGRAPH-3D-SCATTER2, eval=FALSE, fig.cap="A 3D scatter plot with vertical lines for each point"}
+```{r eval=FALSE}
 # Function to interleave the elements of two vectors
 interleave <- function(v1, v2)  as.vector(rbind(v1,v2))
 
@@ -501,9 +505,13 @@ segments3d(interleave(mtcars$wt,   mtcars$wt),
 ```
 
 
+```{r FIG-MISCGRAPH-3D-SCATTER2, echo=FALSE, fig.cap="A 3D scatter plot with vertical lines for each point"}
+knitr::include_graphics("fig/FIG-MISCGRAPH-3D-SCATTER2.png")
+```
+
 It's possible to tweak the appearance of the background and the axes. In Figure \@ref(fig:FIG-MISCGRAPH-3D-SCATTER3), we change the number of tick marks and add tick marks and axis labels to the specified sides:
 
-```{r FIG-MISCGRAPH-3D-SCATTER3, eval=FALSE, fig.show="hold", fig.cap="3D scatter plot with axis ticks and labels repositioned (left); From a different point of view (right)"}
+```{r eval=FALSE}
 # Make plot without axis ticks or labels
 plot3d(mtcars$wt, mtcars$disp, mtcars$mpg,
        xlab = "", ylab = "", zlab = "",
@@ -532,6 +540,10 @@ axes3d(edges = c("x--", "y+-", "z--"),
 mtext3d("Weight",       edge = "x--", line = 2)
 mtext3d("Displacement", edge = "y+-", line = 3)
 mtext3d("MPG",          edge = "z--", line = 3)
+```
+
+```{r FIG-MISCGRAPH-3D-SCATTER3, echo=FALSE, fig.show="hold", fig.cap="3D scatter plot with axis ticks and labels repositioned"}
+knitr::include_graphics("fig/FIG-MISCGRAPH-3D-SCATTER3.png")
 ```
 
 
@@ -591,7 +603,7 @@ interleave <- function(v1, v2)  as.vector(rbind(v1,v2))
 
 With these utility functions defined, we can make a linear model from the data and plot it as a mesh along with the data, using the `surface3d()` function, as shown in Figure \@ref(fig:FIG-MISCGRAPH-3D-SCATTER-MODEL):
 
-```{r FIG-MISCGRAPH-3D-SCATTER-MODEL, eval=FALSE, fig.cap="A 3D scatter plot with a prediction surface"}
+```{r eval=FALSE}
 library(rgl)
 
 # Make a copy of the data set
@@ -624,12 +636,15 @@ surface3d(mpgrid_list$wt, mpgrid_list$disp, mpgrid_list$mpg,
           alpha = 0.4, front = "lines", back = "lines")
 ```
 
+```{r FIG-MISCGRAPH-3D-SCATTER-MODEL, echo=FALSE, fig.cap="A 3D scatter plot with a prediction surface"}
+knitr::include_graphics("fig/FIG-MISCGRAPH-3D-SCATTER-MODEL.png")
+```
 
 ### Discussion
 
 We can tweak the appearance of the graph, as shown in Figure \@ref(fig:FIG-MISCGRAPH-3D-SCATTER-MODEL2). We'll add each of the components of the graph separately:
 
-```{r FIG-MISCGRAPH-3D-SCATTER-MODEL2, eval=FALSE, fig.cap="Three-dimensional scatter plot with customized appearance"}
+```{r eval=FALSE}
 plot3d(mtcars$wt, mtcars$disp, mtcars$mpg,
        xlab = "", ylab = "", zlab = "",
        axes = FALSE,
@@ -667,6 +682,9 @@ mtext3d("Displacement", edge = "y+-", line = 3)
 mtext3d("MPG",          edge = "z--", line = 3)
 ```
 
+```{r FIG-MISCGRAPH-3D-SCATTER-MODEL2, echo=FALSE, fig.cap="Three-dimensional scatter plot with customized appearance"}
+knitr::include_graphics("fig/FIG-MISCGRAPH-3D-SCATTER-MODEL2.png")
+```
 
 ### See Also
 
@@ -695,9 +713,9 @@ rgl.snapshot('3dplot.png', fmt = 'png')
 You can also use `rgl.postscript()` to save a PostScript or PDF file:
 
 ```{r eval=FALSE}
-rgl.postscript('figs/miscgraph/3dplot.pdf', fmt = 'pdf')
+rgl.postscript('3dplot.pdf', fmt = 'pdf')
 
-rgl.postscript('figs/miscgraph/3dplot.ps', fmt = 'ps')
+rgl.postscript('3dplot.ps', fmt = 'ps')
 ```
 
 PostScript and PDF output does not support many features of the OpenGL library on which rgl is based. For example, it does not support transparency, and the sizes of objects such as points and lines may not be the same as what appears on the screen.
@@ -1126,7 +1144,7 @@ make a pie chart.
 Use the `pie()` function. In this example (Figure \@ref(fig:FIG-MISCGRAPH-PIE)), we'll use the survey data set from the MASS library:
 
 ```{r FIG-MISCGRAPH-PIE, fig.cap="A pie chart"}
-library(MASS) # For the data set 
+library(MASS) # For the data set
 # Get a table of how many cases are in each level of fold
 fold <- table(survey$Fold)
 fold
@@ -1394,7 +1412,7 @@ taiwan_shp
 
 The sf object is a special kind of data frame, with 22 rows and 12 columns. Each row corresponds to one feature, and each column has some data about each feature. One of the columns is the geometry for each feature. This is a list-column -- a special type of column where each of the 22 elements contains one or more matrices of numbers representing the shape of the feature.
 
-Columns in the data can be mapped to aesthetics like fill. For example, we can mapp the `ENGTYPE_2` column to fill, as shown in Figure \@ref(fig:FIG-MISCGRAPH-MAP-SHAPEFILE-2): 
+Columns in the data can be mapped to aesthetics like fill. For example, we can mapp the `ENGTYPE_2` column to fill, as shown in Figure \@ref(fig:FIG-MISCGRAPH-MAP-SHAPEFILE-2):
 
 ```{r FIG-MISCGRAPH-MAP-SHAPEFILE-2, fig.cap="With a column mapped to `fill`", fig.width=8, fig.height=6}
 ggplot(taiwan_shp) + geom_sf(aes(fill=ENGTYPE_2))
