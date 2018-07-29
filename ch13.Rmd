@@ -476,6 +476,10 @@ plot3d(mtcars$wt, mtcars$disp, mtcars$mpg, type = "s", size = 0.75, lit = FALSE)
 knitr::include_graphics("fig/FIG-MISCGRAPH-3D-SCATTER.png")
 ```
 
+> **Note**
+>
+> If you are using a Mac, you will need to install XQuartz before you can use rgl. You can download it from <https://www.xquartz.org/>.
+
 Viewers can rotate the image by clicking and dragging with the mouse, and zoom in and out with the scroll wheel.
 
 > **Note**
