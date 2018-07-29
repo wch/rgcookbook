@@ -45,7 +45,7 @@ Packages in R are collections of functions and/or data that are bundled up for e
 
 If you have spent much time learning R, you may have heard of the *tidyverse*, which is a collection of R packages that share common ideas of how data should be structured and manipulated. This is in contrast to *base R*, which is the set of packages that are included when you just download and install R. The tidyverse is a set of add-ons for R, which make it easier to do many operations related to data manipulation and visualization. This book mostly uses the tidyverse, as I believe that it provides a quicker and simpler (but not less powerful!) way to work with data.
 
-If you haven't used the tidyverse before, there is one recipe in particular that you should read that will help you understand a foreign-looking bit of syntax: `%>%`, also known as the pipe operator. This is Recipe \@ref(RECIPE-BASICS-PIPE) in this chapter.
+If you haven't used the tidyverse before, there is one recipe in particular that you should read that will help you understand a foreign-looking bit of syntax: `%>%`, also known as the pipe operator. This is Recipe \@ref(RECIPE-R-BASICS-PIPE) in this chapter.
 
 
 Installing a Package

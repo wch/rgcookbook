@@ -373,7 +373,7 @@ library(extrafont)
 loadfonts("win")
 ```
 
-Finally, you can create each output file or display graphs on screen, as in Figure \@ref(fig:FIG-OUTPUT-FONTS-WIN):
+Finally, you can create each output file or display graphs on screen, as in Figure \@ref(fig:FIG-OUTPUT-FONTS-PNG):
 
 ```{r eval=FALSE}
 library(ggplot2)
