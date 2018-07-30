@@ -680,15 +680,16 @@ You want to make a Wilkinson dot plot, which shows each data point.
 Use `geom_dotplot()`. For this example (Figure \@ref(fig:FIG-DISTRIBUTION-DOTPLOT-BASIC)), we'll use a subset of the `countries` data set:
 
 ```{r FIG-DISTRIBUTION-DOTPLOT-BASIC, fig.cap="A dot plot"}
-library(gcookbook)# Load the gcookbook package to access the countries data set
+library(gcookbook)  # Load the gcookbook package to access the countries data set
+library(dplyr)
 
-# Save a modified data set that only includes 2009 data for countries that spent > 2000 USD per capita
+# Save a modified data set that only includes 2009 data for countries that
+# spent > 2000 USD per capita
 c2009 <- countries %>%
   filter(Year == 2009 & healthexp > 2000)
 
 # Create a base ggplot object using `c2009`, called `c2009_p` (for c2009 plot)
-c2009_p <- c2009 %>%
-  ggplot(aes(x = infmortality))
+c2009_p <- ggplot(c2009, aes(x = infmortality))
 
 c2009_p +
   geom_dotplot()
@@ -797,8 +798,7 @@ Use `stat_density2d()`. This makes a 2D kernel density estimate from the data. F
 
 ```{r FIG-DISTRIBUTION-DENSITY2D-1, eval=FALSE}
 # Save a base plot object called `faithful_p` (for faithful plot)
-faithful_p <- faithful %>%
-  ggplot(aes(x = eruptions, y = waiting))
+faithful_p <- ggplot(faithful, aes(x = eruptions, y = waiting))
 
 faithful_p +
   geom_point() +
@@ -843,7 +843,7 @@ faithful_p +
     aes(fill = ..density..),
     geom = "raster",
     contour = FALSE,
-    h = c(.5,5)
+    h = c(.5, 5)
   )
 ```
 

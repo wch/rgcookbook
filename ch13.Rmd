@@ -811,13 +811,18 @@ You want to make a dendrogram to show how items are clustered.
 Use `hclust()` and plot the output from it. This can require a fair bit of data preprocessing. For this example, we'll first take a subset of the `countries` data set from the year 2009. For simplicity, we'll also drop all rows that contain an `NA`, and then select a random 25 of the remaining rows:
 
 ```{r}
+library(dplyr)
+library(tidyr)     # For drop_na function
 library(gcookbook) # For the data set
-# Get data from year 2009
-c2 <- subset(countries, Year == 2009) # Drop rows that have any NA values
-c2 <- c2[complete.cases(c2), ]        # Pick out a random 25 countries
-# (Set random seed to make this repeatable)
-set.seed(201)
-c2 <- c2[sample(1:nrow(c2), 25), ]
+
+# Set random seed to make random operation below repeatable
+set.seed(231)
+
+c2 <- countries %>%
+  filter(Year == 2009) %>%  # Get data from year 2009
+  drop_na() %>%             # Drop rows that have any NA values
+  sample_n(25)              # Select 25 random rows
+
 c2
 ```
 
@@ -896,7 +901,7 @@ The height (`z`) ranges from 0.035 km to 18.035 km. For this example, we'll just
 To draw the vectors (Figure \@ref(fig:FIG-MISCGRAPH-VECTOR)), we'll use `geom_segment()`. Each segment has a starting point and an ending point. We'll use the `x` and `y` values as the starting points for each segment, then add a fraction of the `vx` and `vy` values to get the end points for each segment. If we didn't scale down these values, the lines would be much too long:
 
 ```{r FIG-MISCGRAPH-VECTOR, fig.cap="First attempt at a vector field-the resolution of the data is too high, but it does hint at some interesting patterns not visible in graphs with a lower data resolution", fig.width=5, fig.height=5}
-islice <- subset(isabel, z == min(z))
+islice <- filter(isabel, z == min(z))
 
 ggplot(islice, aes(x = x, y = y)) +
        geom_segment(aes(xend = x + vx/50, yend = y + vy/50),
@@ -907,7 +912,7 @@ This vector field has two problems: the data is at too high a resolution to read
 
 ```{r}
 # Take a slice where z is equal to the minimum value of z
-islice <- subset(isabel, z == min(z))
+islice <- filter(isabel, z == min(z))
 
 # Keep 1 out of every 'by' values in vector x
 every_n <- function(x, by = 2) {
@@ -920,7 +925,7 @@ keepx <- every_n(unique(isabel$x), by = 4)
 keepy <- every_n(unique(isabel$y), by = 4)
 
 # Keep only those rows where x value is in keepx and y value is in keepy
-islicesub <- subset(islice, x %in% keepx  &  y %in% keepy)
+islicesub <- filter(islice, x %in% keepx  &  y %in% keepy)
 ```
 
 Now that we've taken a subset of the data, we can plot it, with arrowheads, as shown in Figure \@ref(fig:FIG-MISCGRAPH-VECTORFIELD-ARROW):
@@ -978,7 +983,7 @@ keepx <- every_n(unique(isabel$x), by = 5)
 keepy <- every_n(unique(isabel$y), by = 5)
 keepz <- every_n(unique(isabel$z), by = 2)
 
-isub <- subset(isabel, x %in% keepx  &  y %in% keepy  &  z %in% keepz)
+isub <- filter(isabel, x %in% keepx  &  y %in% keepy  &  z %in% keepz)
 
 ggplot(isub, aes(x = x, y = y)) +
     geom_segment(aes(xend = x+vx/50, yend = y+vy/50, colour = speed),
@@ -1238,7 +1243,7 @@ If there is a separate map available for a region, such as `nz` (New Zealand), t
 ```{r FIG-MISCGRAPH-MAP-RESOLUTION, fig.show="hold", fig.cap="New Zealand data taken from `world` map (left); Data from `nz` map (right)"}
 # Get New Zealand data from world map
 nz1 <- map_data("world", region = "New Zealand")
-nz1 <- subset(nz1, long > 0 & lat > -48)        # Trim off islands
+nz1 <- filter(nz1, long > 0 & lat > -48)        # Trim off islands
 ggplot(nz1, aes(x = long, y = lat, group = group)) + geom_path()
 
 # Get New Zealand data from the nz map

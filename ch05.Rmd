@@ -594,8 +594,7 @@ biopsy_mod
 Although there are many attributes we could examine, for this example we'll just look at the relationship of `V1` (clump thickness) and the `class` of the tumor. Because there is a large degree of overplotting, we'll jitter the points and make them semitransparent (`alpha = 0.4`), hollow (`shape = 21`), and slightly smaller (`size = 1.5`). Then we'll add a fitted logistic regression line (Figure \@ref(fig:FIG-SCATTER-FIT-LOGISTIC)) by telling `stat_smooth()` to use the `glm()` function with `family = binomial`:
 
 ```{r FIG-SCATTER-FIT-LOGISTIC, fig.cap="A logistic model"}
-biopsy_mod %>%
-  ggplot(aes(x = V1, y = classn)) +
+  ggplot(biopsy_mod, aes(x = V1, y = classn)) +
   geom_point(
     position = position_jitter(width = 0.3, height = 0.06),
     alpha = 0.4,
@@ -608,8 +607,7 @@ biopsy_mod %>%
 If your scatter plot has points grouped by a factor, and that factor is mapped to an aesthetic such as `colour` or `shape`, one fit line will be drawn for each factor level. First we'll make the base plot object `hw_sp`, then we'll add the LOESS lines to it. We'll also make the points less prominent by making them semitransparent, using `alpha = .4` (Figure \@ref(fig:FIG-SCATTER-FIT-GROUP)):
 
 ```{r, eval=FALSE}
-hw_sp <- heightweight %>%
-  ggplot(aes(x = ageYear, y = heightIn, colour = sex)) +
+hw_sp <- ggplot(heightweight, aes(x = ageYear, y = heightIn, colour = sex)) +
     geom_point() +
     scale_colour_brewer(palette = "Set1")
 
@@ -628,8 +626,7 @@ hw_sp +
 
 ```{r FIG-SCATTER-FIT-GROUP, fig.show="hold", fig.cap="LOESS fit lines for each group (left); Extrapolated linear fit lines (right)", fig.width=3.5, fig.height=3.5}
 
-hw_sp <- heightweight %>%
-  ggplot(aes(x = ageYear, y = heightIn, colour = sex)) +
+hw_sp <- ggplot(heightweight, aes(x = ageYear, y = heightIn, colour = sex)) +
     geom_point() +
     scale_colour_brewer(palette = "Set1")
 
@@ -674,7 +671,7 @@ predicted
 
 We can now plot the data points along with the values predicted from the model (as you'll see in Figure \@ref(fig:FIG-SCATTER-FIT-MODEL)):
 
-```{r eval=FALSE}
+```{r FIG-SCATTER-FIT-MODEL, eval=FALSE}
 # Create a base plot called `hw_sp` (for heightweight scatter plot)
 hw_sp <- ggplot(heightweight, aes(x = ageYear, y = heightIn)) +
     geom_point(colour = "grey40")
@@ -721,7 +718,7 @@ modloess  <- loess(heightIn ~ ageYear, heightweight)
 
 Then we can call `predictvals()` on each model, and pass the resulting data frames to `geom_line()`:
 
-```{r, eval=FALSE}
+```{r FIG-SCATTER-FIT-MODEL-2, eval=FALSE}
 lm_predicted    <- predictvals(modlinear, "ageYear", "heightIn")
 loess_predicted <- predictvals(modloess, "ageYear", "heightIn")
 
@@ -730,22 +727,7 @@ hw_sp +
   geom_line(data = loess_predicted, colour = "blue", size = .8)
 ```
 
-```{r FIG-SCATTER-FIT-MODEL, fig.show="hold", fig.cap="A quadratic prediction line from an lm object (left); Prediction lines from linear (in red) and LOESS (in blue) models (right)", fig.width=3.5, fig.height=3.5}
-
-# From first block above
-hw_sp <- ggplot(heightweight, aes(x = ageYear, y = heightIn)) +
-    geom_point(colour = "grey40")
-
-hw_sp +
-  geom_line(data = predicted, size = 1)
-
-# From second block above
-lm_predicted    <- predictvals(modlinear, "ageYear", "heightIn")
-loess_predicted <- predictvals(modloess, "ageYear", "heightIn")
-
-hw_sp +
-  geom_line(data = lm_predicted, colour = "red", size = .8) +
-  geom_line(data = loess_predicted, colour = "blue", size = .8)
+```{r FIG-SCATTER-FIT-MODEL, ref.label=c("FIG-SCATTER-FIT-MODEL-1", "FIG-SCATTER-FIT-MODEL-2"), fig.show="hold", fig.cap="A quadratic prediction line from an lm object (left); Prediction lines from linear (in red) and LOESS (in blue) models (right)", fig.width=3.5, fig.height=3.5}
 ```
 
 For `glm` models use a nonlinear link function, you need to specify `type = "response"` to the `predictvals()` function. This is because the default behavior of `glm` is to return predicted values in the scale of the linear predictors, instead of in the scale of the response (*y*) variable.
@@ -1026,52 +1008,33 @@ For annotating just one or a few points, you can use `annotate()` or `geom_text(
 
 ```{r}
 library(gcookbook) # Load the gcookbook package to access the countries data set
+library(dplyr)
 
 # Filter the data to only look at 2009 data for countries that spent > 2000 USD per capita
-countries %>%
+countries_sub <- countries %>%
   filter(Year == 2009 & healthexp > 2000)
 ```
 
 We'll save the basic scatter plot object in `countries_sp` (for countries scatter plot) and add then add our annotations to it. To manually add annotations, use `annotate()`, and specify the coordinates and label (Figure \@ref(fig:FIG-SCATTER-LABEL), left). It may require some trial-and-error tweaking to get the labels positioned just right:
 
-```{r, eval=FALSE}
-countries_sp <- countries %>%
-  filter(Year == 2009, healthexp > 2000) %>%
-  ggplot(aes(x = healthexp, y = infmortality)) +
+```{r FIG-SCATTER-LABEL-1, eval=FALSE}
+countries_sp <- ggplot(countries_sub, aes(x = healthexp, y = infmortality)) +
     geom_point()
 
 countries_sp +
   annotate("text", x = 4350, y = 5.4, label = "Canada") +
   annotate("text", x = 7400, y = 6.8, label = "USA")
-
-countries_sp +
-  annotate("text", x = 4350, y = 5.4, label = "Canada") +
-  annotate("text", x = 7400, y = 6.8, label = "USA")
-
 ```
 
 To automatically add the labels from your data (Figure \@ref(fig:FIG-SCATTER-LABEL), right), use `geom_text()` and map a column that is a factor or character vector to the label aesthetic. In this case, we'll use `Name`, and we'll make the font slightly smaller to reduce crowding. The default value for `size` is 5, which doesn't correspond directly to a point size:
 
-```{r, eval=FALSE}
+```{r FIG-SCATTER-LABEL-2, eval=FALSE}
 countries_sp +
   geom_text(aes(label = Name), size = 4)
 ```
 
-```{r FIG-SCATTER-LABEL, echo=FALSE, fig.show="hold", fig.cap="A scatter plot with manually labeled points (left); With automatically labeled points and a smaller font (right)", fig.width=4.5, fig.height=4.5}
 
-# First block
-countries_sp <- countries %>%
-  filter(Year == 2009, healthexp > 2000) %>%
-  ggplot(aes(x = healthexp, y = infmortality)) +
-    geom_point()
-
-countries_sp +
-  annotate("text", x = 4350, y = 5.4, label = "Canada") +
-  annotate("text", x = 7400, y = 6.8, label = "USA")
-
-# Second block
-countries_sp +
-  geom_text(aes(label = Name), size = 3)
+```{r FIG-SCATTER-LABEL, ref.label=c("FIG-SCATTER-LABEL-1", "FIG-SCATTER-LABEL-2"), echo=FALSE, fig.show="hold", fig.cap="A scatter plot with manually labeled points (left); With automatically labeled points and a smaller font (right)", fig.width=4.5, fig.height=4.5}
 ```
 
 As you can see in the center of (Figure \@ref(fig:FIG-SCATTER-LABEL), right), you may find yourself with a plot where labels are overlapping. To automatically adjust point labels so that they don't overlap, we can use `geom_text_repel` (Figure \@ref(fig:FIG-GGREPEL-LABEL), left) or `geom_label_repel` (which adds a box around the label, Figure \@ref(fig:FIG-GGREPEL-LABEL), right) from the ggrepel package by Kamil Slowikowski, which functions similarly to `geom_text`. The documentation for these functions (e.g. ?`geom_text_repel`) specifies a long list of other label features you can modify.

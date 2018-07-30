@@ -246,7 +246,7 @@ Use `annotate("segment")`. In this example, we'll use the climate data set and u
 ```{r FIG-ANNOTATE-SEGMENT, fig.cap="Line segment annotation"}
 library(gcookbook) # Load the gcookbook package to access the climate data set
 
-p <- ggplot(subset(climate, Source == "Berkeley"), aes(x = Year, y = Anomaly10y)) +
+p <- ggplot(filter(climate, Source == "Berkeley"), aes(x = Year, y = Anomaly10y)) +
   geom_line()
 
 p +
@@ -295,7 +295,7 @@ Use `annotate("rect")` (Figure \@ref(fig:FIG-ANNOTATE-RECT)):
 ```{r FIG-ANNOTATE-RECT, fig.cap="A shaded rectangle"}
 library(gcookbook) # Load the gcookbook package to access the climate data set
 
-p <- ggplot(subset(climate, Source == "Berkeley"), aes(x = Year, y = Anomaly10y)) +
+p <- ggplot(filter(climate, Source == "Berkeley"), aes(x = Year, y = Anomaly10y)) +
   geom_line()
 
 p +
