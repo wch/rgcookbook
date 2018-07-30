@@ -736,7 +736,7 @@ c2009_p +
 ### See Also
 
 Leland Wilkinson, "Dot Plots," *The American Statistician* 53 (1999): 276–281,
-<http://www.cs.uic.edu/~wilkinson/Publications/dots.pdf>.
+<https://www.cs.uic.edu/~wilkinson/Publications/dotplots.pdf>.
 
 
 Making Multiple Dot Plots for Grouped Data {#RECIPE-DISTRIBUTION-DOT-PLOT-MULTI}
