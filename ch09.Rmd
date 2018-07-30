@@ -33,7 +33,7 @@ Use `ggtitle()` to add a title, as shown in Figure \@ref(fig:FIG-APPEARANCE-TITL
 (ref:cap-FIG-APPEARANCE-TITLE) Scatter plot with a title added (left); With a `\n` for a newline (right)
 
 ```{r FIG-APPEARANCE-TITLE, fig.show="hold", fig.cap="(ref:cap-FIG-APPEARANCE-TITLE)"}
-library(gcookbook)  # Load the gcookbook package to access the heightweight data set
+library(gcookbook)  # Load gcookbook for the heightweight data set
 
 hw_plot <- ggplot(heightweight, aes(x = ageYear, y = heightIn)) +
   geom_point()
@@ -91,7 +91,7 @@ You want to change the appearance of text in a plot.
 To set the appearance of theme items such as the title, axis labels, and axis tick marks, use theme() and set the item with `element_text()`. For example, `axis.title.x` controls the appearance of the x-axis label and `plot.title` controls the appearance of the title text (Figure \@ref(fig:FIG-APPEARANCE-TEXT-APPEARANCE-THEME)):
 
 ```{r FIG-APPEARANCE-TEXT-APPEARANCE-THEME, fig.show="hold", fig.cap='Left: `axis.title.x`; right: `plot.title`'}
-library(gcookbook)  # Load the gcookbook package to access the heightweight data set
+library(gcookbook)  # Load gcookbook for the heightweight data set
 
 # Base plot
 hw_plot <- ggplot(heightweight, aes(x = ageYear, y = heightIn)) +
@@ -243,7 +243,7 @@ To use a premade theme, add `theme_bw()` or another theme to your plot (Figure \
 (ref:cap-FIG-APPEARANCE-THEME) Scatter plot with `theme_grey()` (the default, top left); with `theme_bw()` (top right); with `theme_minimal()` (bottom left); with `theme_classic()` (bottom right)
 
 ```{r FIG-APPEARANCE-THEME, fig.show="hold", fig.cap="(ref:cap-FIG-APPEARANCE-THEME)"}
-library(gcookbook)  # Load the gcookbook package to access the heightweight data set
+library(gcookbook)  # Load gcookbook for the heightweight data set
 
 # Create the base plot
 hw_plot <- ggplot(heightweight, aes(x = ageYear, y = heightIn)) +
@@ -322,7 +322,7 @@ You want to change the appearance of theme elements.
 To modify a theme, add `theme()` with a corresponding `element_`*xx* object. These include `element_line`, `element_rect`, and `element_text`. The following code shows how to modify many of the commonly used theme properties (Figure \@ref(fig:FIG-APPEARANCE-THEME-MODIFY)):
 
 ```{r FIG-APPEARANCE-THEME-MODIFY, fig.show="hold", fig.cap="Clockwise from top left: modifying theme properties for the plotting area, the legend, the facets, and the text items"}
-library(gcookbook)  # Load the gcookbook package to access the heightweight data set
+library(gcookbook)  # Load gcookbook for the heightweight data set
 
 # Create the base plot
 hw_plot <- ggplot(heightweight, aes(x = ageYear, y = heightIn, colour = sex)) +
@@ -495,7 +495,7 @@ You want to create your own theme.
 You can create your own theme by adding elements to an existing theme (Figure \@ref(fig:FIG-APPEARANCE-THEME-SAVE)):
 
 ```{r FIG-APPEARANCE-THEME-SAVE, fig.cap="A modified default theme"}
-library(gcookbook) # Load the gcookbook package to access the heightweight data set
+library(gcookbook) # Load gcookbook for the heightweight data set
 
 # Start with theme_bw() and modify a few things
 mytheme <- theme_bw() +
@@ -534,7 +534,7 @@ You want to hide the grid lines in a plot.
 The major grid lines (those that align with the tick marks) are controlled with `panel.grid.major`. The minor grid lines (the ones between the major lines) are controlled with `panel.grid.minor`. This will hide them both, as shown in Figure \@ref(fig:FIG-APPEARANCE-HIDE-GRIDLINES) (left):
 
 ```{r FIG-APPEARANCE-HIDE-GRIDLINES-1, eval=FALSE}
-library(gcookbook)  # Load the gcookbook package to access the heightweight data set
+library(gcookbook)  # Load gcookbook for the heightweight data set
 
 hw_plot <- ggplot(heightweight, aes(x = ageYear, y = heightIn)) +
   geom_point()

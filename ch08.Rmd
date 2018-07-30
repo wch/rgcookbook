@@ -228,7 +228,7 @@ You want to set the ratio at which the x- and y-axes are scaled.
 Use `coord_fixed()`. This will result in a 1:1 scaling between the x- and y-axes, as shown in Figure \@ref(fig:FIG-AXES-SCALE-EQUAL):
 
 ```{r FIG-AXES-SCALE-EQUAL-1, eval=FALSE}
-library(gcookbook)  # Load the gcookbook package to access the marathon data set
+library(gcookbook)  # Load gcookbook for the marathon data set
 
 m_plot <- ggplot(marathon, aes(x = Half,y = Full)) +
   geom_point()
@@ -366,7 +366,7 @@ You want to change the text of tick labels.
 Consider the scatter plot in Figure \@ref(fig:FIG-AXES-TICK-LABEL), where height is reported in inches:
 
 ```{r FIG-AXES-TICK-LABEL-1, eval=FALSE}
-library(gcookbook)  # Load the gcookbook package to access the heightweight data set
+library(gcookbook)  # Load gcookbook for the heightweight data set
 
 hw_plot <- ggplot(heightweight, aes(x = ageYear, y = heightIn)) +
   geom_point()
@@ -531,7 +531,7 @@ You want to change the text of axis labels.
 Use `xlab()` or `ylab()` to change the text of the axis labels (Figure \@ref(fig:FIG-AXES-AXIS-LABEL)):
 
 ```{r FIG-AXES-AXIS-LABEL, fig.show="hold", fig.cap="Scatter plot with the default axis labels (left); Manually specified labels for the x- and y-axes (right)", fig.width=3.5, fig.height=3.5}
-library(gcookbook)  # Load the gcookbook package to access the heightweight data set
+library(gcookbook)  # Load gcookbook for the heightweight data set
 
 hw_plot <- ggplot(heightweight, aes(x = ageYear, y = heightIn, colour = sex)) +
   geom_point()
@@ -628,7 +628,7 @@ To change the appearance of the x-axis label (Figure \@ref(fig:FIG-AXES-AXIS-LAB
 
 
 ```{r FIG-AXES-AXIS-LABEL-APPEARANCE, fig.cap="X-axis label with customized appearance"}
-library(gcookbook)  # Load the gcookbook package to access the heightweight data set
+library(gcookbook)  # Load gcookbook for the heightweight data set
 
 hw_plot <- ggplot(heightweight, aes(x = ageYear, y = heightIn)) +
   geom_point()
@@ -680,7 +680,7 @@ You want to display lines along the x- and y-axes, but not on the other sides of
 Using themes, use `axis.line` (Figure \@ref(fig:FIG-AXES-AXIS-LINE)):
 
 ```{r FIG-AXES-AXIS-LINE-1, eval=FALSE}
-library(gcookbook)  # Load the gcookbook package to access the heightweight data set
+library(gcookbook)  # Load gcookbook for the heightweight data set
 
 hw_plot <- ggplot(heightweight, aes(x = ageYear, y = heightIn)) +
   geom_point()
@@ -745,7 +745,7 @@ You want to use a logarithmic axis for a graph.
 Use `scale_x_log10()` and/or `scale_y_log10()` (Figure \@ref(fig:FIG-AXES-LOG)):
 
 ```{r FIG-AXES-LOG, fig.show="hold", fig.cap="Exponentially distributed data with linear-scaled axes (left); With logarithmic axes (right)"}
-library(MASS) # Load the MASS package to access the Animals data set
+library(MASS) # Load MASS for the Animals data set
 
 # Create the base plot
 animals_plot <- ggplot(Animals, aes(x = body, y = brain, label = rownames(Animals))) +
@@ -833,7 +833,7 @@ animals_plot +
 It's possible to use a log axis for just one axis. It is often useful to represent financial data this way, because it better represents proportional change. Figure \@ref(fig:FIG-AXES-LOG-Y) shows Apple's stock price with linear and log y-axes. The default tick marks might not be spaced well for your graph; they can be set with the breaks in the scale:
 
 ```{r FIG-AXES-LOG-Y, fig.show="hold", fig.cap="Top: a stock chart with a linear x-axis and log y-axis; bottom: with manual breaks", fig.width=7, fig.height=2}
-library(gcookbook)  # Load the gcookbook package to access the aapl data set
+library(gcookbook)  # Load gcookbook for the aapl data set
 
 ggplot(aapl, aes(x = date,y = adj_price)) +
   geom_line()
@@ -856,7 +856,7 @@ You want to add tick marks with diminishing spacing for a logarithmic axis.
 Use `annotation_logticks()` (Figure \@ref(fig:FIG-AXES-LOG-TICKS)):
 
 ```{r FIG-AXES-LOG-TICKS, fig.cap="Log axes with diminishing tick marks", fig.width=5, fig.height=5}
-library(MASS)   # Load the MASS package to access the Animals data set
+library(MASS)   # Load MASS for the Animals data set
 library(scales) # For the trans_format function
 
 # Given a vector x, return a vector of powers of 10 that encompasses all values
@@ -941,7 +941,7 @@ You want to make a circular plot.
 Use `coord_polar()`. For this example we'll use the `wind` data set from gcookbook. It contains samples of wind speed and direction for every 5 minutes throughout a day. The direction of the wind is categorized into 15-degree bins, and the speed is categorized into 5 m/s increments:
 
 ```{r}
-library(gcookbook)  # Load the gcookbook package to access the wind data set
+library(gcookbook)  # Load gcookbook for the wind data set
 wind
 ```
 

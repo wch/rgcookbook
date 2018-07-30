@@ -32,7 +32,7 @@ Use `geom_point()`, and map one variable to `x` and one variable to `y`.
 We will use the `heightweight` data set. There are a number of columns in this data set, but we'll only use two in this example (Figure \@ref(fig:FIG-SCATTER-BASIC)):
 
 ```{r FIG-SCATTER-BASIC, fig.cap="A basic scatter plot"}
-library(gcookbook) # Load the gcookbook package to access the heightweight data set
+library(gcookbook) # Load gcookbook for the heightweight data set
 library(dplyr)
 
 # Show the head of the two columns we'll use in the plot
@@ -81,7 +81,7 @@ You want to visually group points by some variable (the grouping variable), usin
 Map the grouping variable to the aesthetic of `shape` or `colour`. We'll use three columns from the `heightweight` data set for this example:
 
 ```{r}
-library(gcookbook) # Load the gcookbook package to access the heightweight data set
+library(gcookbook) # Load gcookbook for the heightweight data set
 
 # Show the head of the three columns we'll use
 heightweight %>%
@@ -148,7 +148,7 @@ You want to change the default scatterplot shapes for the data points.
 You can set the shape of all the data points at once (Figure \@ref(fig:FIG-SCATTER-SHAPES), left) by setting a shape in `geom_point()`:
 
 ```{r, eval=FALSE}
-library(gcookbook) # Load the gcookbook package to access the heightweight data set
+library(gcookbook) # Load gcookbook for the heightweight data set
 
 ggplot(heightweight, aes(x = ageYear, y = heightIn)) +
   geom_point(shape = 3)
@@ -164,7 +164,7 @@ ggplot(heightweight, aes(x = ageYear, y = heightIn, shape = sex)) +
 ```
 
 ```{r FIG-SCATTER-SHAPES, echo=FALSE, fig.show="hold", fig.cap="Scatter plot with the shape aesthetic set to a custom value (left); With a variable mapped to shape, using a custom shape palette (right)", fig.width=8, fig.height=3.5}
-library(gcookbook) # Load the gcookbook package to access the heightweight data set
+library(gcookbook) # Load gcookbook for the heightweight data set
 
 p1 <- ggplot(heightweight, aes(x = ageYear, y = heightIn)) +
   geom_point(shape = 3)
@@ -254,7 +254,7 @@ You want to represent a third continuous variable using color or size.
 Map the continuous variable to `size` or `colour`. We will use the `heightweight` data set for this example. There are many columns in this data set, but we'll only use four of them in this example:
 
 ```{r}
-library(gcookbook) # Load the gcookbook package to access the heightweight data set
+library(gcookbook) # Load gcookbook for the heightweight data set
 
 # Show the head of the four columns we'll use
 heightweight %>%
@@ -497,7 +497,7 @@ You want to add lines from a fitted regression model to a scatter plot.
 To add a linear regression line to a scatter plot, add `stat_smooth()` and tell it to use `method = lm`. This instructs ggplot to fit the data with the `lm()` (linear model) function. First we'll save the base plot object in `sp`, then we'll add different components to it:
 
 ```{r, eval=FALSE}
-library(gcookbook) # Load the gcookbook package to access the heightweight data set
+library(gcookbook) # Load gcookbook for the heightweight data set
 
 # We'll use the heightweight data set and create a base plot called `hw_sp` (for heighweight scatter plot)
 hw_sp <- ggplot(heightweight, aes(x = ageYear, y = heightIn))
@@ -531,7 +531,7 @@ hw_sp +
 
 ```{r FIG-SCATTER-FIT-LM, echo=FALSE, fig.show="hold", fig.cap="An lm fit with the default 95% confidence region (top left); A 99% confidence region (top right); No confidence region (bottom left); In black with grey points (bottom right)", fig.width=3.5, fig.height=3.5}
 
-library(gcookbook) # Load the gcookbook package to access the heightweight data set
+library(gcookbook) # Load gcookbook for the heightweight data set
 
 # We'll use the heightweight data set and create a base plot called `hw_sp` (for heightweight scatter plot)
 hw_sp <- ggplot(heightweight, aes(x = ageYear, y = heightIn))
@@ -579,7 +579,7 @@ It may be useful to specify additional parameters for the modeling function, whi
 Another common type of model fit is a logistic regression. Logistic regression isn't appropriate for `heightweight`, but it's perfect for the `biopsy` data set in the `MASS` package. In the `biopsy` data, there are nine different measured attributes of breast cancer biopsies, as well as the class of the tumor, which is either benign or malignant. To prepare the data for logistic regression, we must convert the factor `class`, with the levels `benign` and `malignant`, to a vector with numeric values of 0 and 1. We'll make a copy of the `biopsy` data frame called `biopsy_mod`, then store the numeric coded `class` in a column called `classn`:
 
 ```{r}
-library(MASS) # Load the MASS package to access the biopsy data set
+library(MASS) # Load MASS for the biopsy data set
 
 # Using the biopsy data set, create a new column that stores the factor `class` as a numeric variable named `classn`. If `class` == "benign", set `classn` to 0. If `class` == "malignant", set `classn` to 1. Save this new dataset as `biopsy_mod`.
 
@@ -654,7 +654,7 @@ Usually the easiest way to overlay a fitted model is to simply ask `stat_smooth(
 In this example, we'll build a quadratic model using `lm()` with `ageYear` as a predictor of `heightIn`. Then we'll use the `predict()` function and find the predicted values of `heightIn` across the range of values for the predictor, `ageYear`:
 
 ```{r}
-library(gcookbook) # Load the gcookbook package to access the heightweight data set
+library(gcookbook) # Load gcookbook for the heightweight data set
 
 model <- lm(heightIn ~ ageYear + I(ageYear^2), heightweight)
 model
@@ -735,7 +735,7 @@ For `glm` models use a nonlinear link function, you need to specify `type = "res
 To illustrate this, we'll use the `biopsy` data set from the `MASS` package. As we did in Recipe \@ref(RECIPE-SCATTER-FITLINES), we'll use `V1` to predict `class`. Since logistic regressions require numeric values from 0 to 1, we need to convert the factor `class` to 0s and 1s:
 
 ```{r}
-library(MASS) # Load the MASS package to access the biopsy data set
+library(MASS) # Load MASS for the biopsy data set
 
 # Using the biopsy data set, create a new column that stores the factor `class` as a numeric variable named `classn`. If `class` == "benign", set `classn` to 0. If `class` == "malignant", set `classn` to 1. Save this new dataset as `biopsy_mod`.
 
@@ -786,7 +786,7 @@ With the `heightweight` data set, we'll make a linear model for each of the leve
 The following code splits the `heightweight` data frame into two data frames, by the grouping variable `sex`. This creates a data frame subset for males and a data frame subset for females. We then apply `lm(heightIn ~ ageYear, .)` to each subset. The `.` in `lm(heightIn ~ ageYear)` represents the data frame we are piping in from the previous line -- in this case, the two data frame subsets we have just created. Finally, this code returns a data frame which contains a column, `model`, which is a list of the model outputs corresponding to each level of the grouping variable `sex`, female and male.
 
 ```{r}
-library(gcookbook) # Load the gcookbook package to access the heightweight data set
+library(gcookbook) # Load gcookbook for the heightweight data set
 library(dplyr)
 
 # Create an lm model object for each value of sex; this returns a data frame
@@ -870,7 +870,7 @@ You want to add numerical information about a model to a plot.
 To add simple text to a plot, simply add an annotation. In this example, we'll create a linear model and use the `predictvals()` function defined in Recipe \@ref(RECIPE-SCATTER-FITLINES-MODEL) to create a prediction line from the model. Then we'll add an annotation:
 
 ```{r}
-library(gcookbook) # Load the gcookbook package to access the heightweight data set
+library(gcookbook) # Load gcookbook for the heightweight data set
 
 model <- lm(heightIn ~ ageYear, heightweight)
 summary(model)
@@ -1007,7 +1007,7 @@ You want to add labels to points in a scatter plot.
 For annotating just one or a few points, you can use `annotate()` or `geom_text()`. For this example, we'll use the countries data set and visualize the relationship between health expenditures and infant mortality rate per 1,000 live births. To keep things manageable, we'll filter the data to only look at data from 2009 for a subset of countries that spent more than $2,000 USD per capita:
 
 ```{r}
-library(gcookbook) # Load the gcookbook package to access the countries data set
+library(gcookbook) # Load gcookbook for the countries data set
 library(dplyr)
 
 # Filter the data to only look at 2009 data for countries that spent > 2000 USD per capita
@@ -1164,7 +1164,7 @@ You want to make a balloon plot, where the area of the dots is proportional to t
 Use `geom_point()` with `scale_size_area()`. For this example, we'll filter the data set `countries` to only include data from the year 2009, for certain countries we have specified in `countrylist`:
 
 ```{r}
-library(gcookbook) # Load the gcookbook package to access the countries data set
+library(gcookbook) # Load gcookbook for the countries data set
 
 countrylist <- c("Canada", "Ireland", "United Kingdom", "United States",
   "New Zealand", "Iceland", "Japan", "Luxembourg", "Netherlands", "Switzerland")
@@ -1250,7 +1250,7 @@ A scatter plot matrix is an excellent way of visualizing the pairwise relationsh
 For this example, we'll use a subset of the `countries` data. We'll pull out the data for the year 2009, and keep only the columns that are relevant:
 
 ```{r}
-library(gcookbook) # Load the gcookbook package to access the countries data set
+library(gcookbook) # Load gcookbook for the countries data set
 
 c2009 <- countries %>%
   filter(Year == 2009) %>%

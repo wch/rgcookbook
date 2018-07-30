@@ -46,7 +46,7 @@ Data sets in R are most often stored in data frames. They're typically used as t
 Here's the `heightweight` data set:
 
 ```{r}
-library(gcookbook) # Load the gcookbook package to access the heightweight data set
+library(gcookbook) # Load gcookbook for the heightweight data set
 heightweight
 ```
 
@@ -378,7 +378,7 @@ Use `filter()` to get the rows, and `select()` to get the columns you want. Thes
 We'll use the `climate` data set for the examples here:
 
 ```{r}
-library(gcookbook) # Load the gcookbook package to access the climate data set
+library(gcookbook) # Load gcookbook for the climate data set
 climate
 ```
 
@@ -899,7 +899,7 @@ You want to calculate a new column of values in a data frame.
 Use `mutate()` from the dplyr package.
 
 ```{r}
-library(gcookbook) # Load the gcookbook package to access the heightweight data set
+library(gcookbook) # Load gcookbook for the heightweight data set
 heightweight
 ```
 
@@ -966,7 +966,7 @@ You want to create new columns that are the result of calculations performed on 
 Use `group_by()` from the dplyr package to specify the grouping variable, and then specify the operations in `mutate()`:
 
 ```{r}
-library(MASS)  # Load the MASS package to access the cabbages data set
+library(MASS)  # Load MASS for the cabbages data set
 library(dplyr)
 
 cabbages %>%
@@ -1040,7 +1040,7 @@ You want to summarize your data, based on one or more grouping variables.
 Use `group_by()` and `summarise()` from the dplyr package, and specify the operations to do:
 
 ```{r}
-library(MASS)  # Load the MASS package to access the cabbages data set
+library(MASS)  # Load MASS for the cabbages data set
 library(dplyr)
 
 cabbages %>%
@@ -1225,7 +1225,7 @@ You want to summarize your data with the standard error of the mean and/or confi
 Getting the standard error of the mean involves two steps: first get the standard deviation and count for each group, then use those values to calculate the standard error. The standard error for each group is just the standard deviation divided by the square root of the sample size:
 
 ```{r}
-library(MASS)  # Load the MASS package to access the cabbages data set
+library(MASS)  # Load MASS for the cabbages data set
 library(dplyr)
 
 ca <- cabbages %>%

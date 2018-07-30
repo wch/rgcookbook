@@ -226,7 +226,7 @@ You want to change the appearance of facet labels and headers.
 With the theming system, set `strip.text` to control the text appearance and `strip.background` to control the background appearance (Figure \@ref(fig:FIG-FACET-LABEL-APPEARANCE)):
 
 ```{r FIG-FACET-LABEL-APPEARANCE, fig.cap="Customized appearance for facet labels", fig.height=3}
-library(gcookbook)  # Load the gcookbook package to access the cabbage_exp data set
+library(gcookbook)  # Load gcookbook for the cabbage_exp data set
 
 ggplot(cabbage_exp, aes(x = Cultivar, y = Weight)) +
   geom_col() +

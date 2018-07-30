@@ -293,9 +293,9 @@ pg_plot + scale_fill_discrete(name = "Condition")
 If there are multiple variables mapped to aesthetics with a legend (those other than x and y), you can set the title of each individually. In the example here we'll use `\n` to add a line break in one of the titles (Figure \@ref(fig:FIG-LEGEND-TITLE-MULTI)):
 
 ```{r FIG-LEGEND-TITLE-MULTI, fig.cap="Two legends with original titles (left); With new titles (right)"}
-library(gcookbook)  # Load the gcookbook package to access the heightweight data set
+library(gcookbook)  # Load gcookbook for the heightweight data set
 
-# Load the gcookbook package to access the heightweight data set
+# Load gcookbook for the heightweight data set
 hw_plot <- ggplot(heightweight, aes(x = ageYear, y = heightIn, colour = sex)) +
   geom_point(aes(size = weightLb)) +
   scale_size_continuous(range = c(1, 4))
@@ -420,7 +420,7 @@ You want to change the text of labels in a legend.
 Set the labels in the scale (Figure \@ref(fig:FIG-LEGEND-LABEL), left):
 
 ```{r FIG-LEGEND-LABEL-1, eval=FALSE}
-library(gcookbook)  # Load the gcookbook package to access the PlantGrowth data set
+library(gcookbook)  # Load gcookbook for the PlantGrowth data set
 
 # The base plot
 pg_plot <- ggplot(PlantGrowth, aes(x = group, y = weight, fill = group)) +

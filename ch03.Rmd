@@ -33,7 +33,7 @@ You have a data frame where one column represents the *x* position of each bar, 
 Use `ggplot()` with `geom_col()` and specify what variables you want on the x- and y-axes (Figure \@ref(fig:FIG-BAR-GRAPH-BASIC-BAR)):
 
 ```{r FIG-BAR-GRAPH-BASIC-BAR, fig.cap='Bar graph of values with a discrete x-axis'}
-library(gcookbook)  # Load the gcookbook package to access the pg_mean data set
+library(gcookbook)  # Load gcookbook for the pg_mean data set
 ggplot(pg_mean, aes(x = group, y = weight)) +
   geom_col()
 ```
@@ -100,7 +100,7 @@ Map a variable to fill, and use `geom_col(position = "dodge")`.
 In this example we'll use the `cabbage_exp` data set, which has two categorical variables, `Cultivar` and `Date`, and one continuous variable, `Weight`:
 
 ```{r}
-library(gcookbook)  # Load the gcookbook package to access the cabbage_exp data set
+library(gcookbook)  # Load gcookbook for the cabbage_exp data set
 cabbage_exp
 ```
 
@@ -214,7 +214,7 @@ We'll use the `uspopchange` data set for this example. It contains the percentag
 First, take the top 10 states:
 
 ```{r}
-library(gcookbook) # Load the gcookbook package to access the uspopchange data set
+library(gcookbook) # Load gcookbook for the uspopchange data set
 library(dplyr)
 
 upc <- uspopchange %>%
@@ -265,7 +265,7 @@ You want to use different colors for negative and positive-valued bars.
 We'll use a subset of the climate data and create a new column called pos, which indicates whether the value is positive or negative:
 
 ```{r}
-library(gcookbook) # Load the gcookbook package to access the climate data set
+library(gcookbook) # Load gcookbook for the climate data set
 library(dplyr)
 
 climate_sub <- climate %>%
@@ -315,7 +315,7 @@ To make the bars narrower or wider, set `width` in `geom_bar()`. The default val
 For example, for standard-width bars:
 
 ```{r eval=FALSE}
-library(gcookbook) # Load the gcookbook package to access the pg_mean data set
+library(gcookbook) # Load gcookbook for the pg_mean data set
 
 ggplot(pg_mean, aes(x = group, y = weight)) +
   geom_col()
@@ -411,7 +411,7 @@ You want to make a stacked bar graph.
 Use `geom_bar()` and map a variable `fill`. This will put `Date` on the x-axis and use `Cultivar` for the fill color, as shown in Figure \@ref(fig:FIG-BAR-GRAPH-STACKED-BAR):
 
 ```{r FIG-BAR-GRAPH-STACKED-BAR, fig.cap="Stacked bar graph"}
-library(gcookbook) # Load the gcookbook package to access the cabbage_exp data set
+library(gcookbook) # Load gcookbook for the cabbage_exp data set
 
 ggplot(cabbage_exp, aes(x = Date, y = Weight, fill = Cultivar)) +
   geom_col()
@@ -470,7 +470,7 @@ You want to make a stacked bar graph that shows proportions (also called a 100% 
 Use `geom_col(position = "fill")` (Figure \@ref(fig:FIG-BAR-GRAPH-PROP-STACKED-BAR)):
 
 ```{r FIG-BAR-GRAPH-PROP-STACKED-BAR, fig.cap="Proportional stacked bar graph"}
-library(gcookbook) # Load the gcookbook package to access the cabbage_exp data set
+library(gcookbook) # Load gcookbook for the cabbage_exp data set
 
 ggplot(cabbage_exp, aes(x = Date, y = Weight, fill = Cultivar)) +
   geom_col(position = "fill")
@@ -548,7 +548,7 @@ You want to add labels to the bars in a bar graph.
 Add `geom_text()` to your graph. It requires a mapping for x, y, and the text itself. By setting `vjust` (the vertical justification), it is possible to move the text above or below the tops of the bars, as shown in Figure \@ref(fig:FIG-BAR-GRAPH-LABEL):
 
 ```{r FIG-BAR-GRAPH-LABEL, fig.show="hold", fig.cap="Labels under the tops of bars (left); Labels above bars (right)", fig.width=3.5, fig.height=3.5}
-library(gcookbook) # Load the gcookbook package to access the cabbage_exp data set
+library(gcookbook) # Load gcookbook for the cabbage_exp data set
 
 # Below the top
 ggplot(cabbage_exp, aes(x = interaction(Date, Cultivar), y = Weight)) +
@@ -679,7 +679,7 @@ Cleveland dot plots are an alternative to bar graphs that reduce visual clutter 
 The simplest way to create a dot plot (as shown in Figure \@ref(fig:FIG-BAR-GRAPH-DOTPLOT)) is to use `geom_point()`:
 
 ```{r FIG-BAR-GRAPH-DOTPLOT, fig.cap="Basic dot plot", fig.width = 4, fig.height=5, out.width="50%"}
-library(gcookbook) # Load the gcookbook package to access the tophitters2001 data set
+library(gcookbook) # Load gcookbook for the tophitters2001 data set
 tophit <- tophitters2001[1:25, ] # Take the top 25 from the tophitters data set
 
 ggplot(tophit, aes(x = avg, y = name)) +

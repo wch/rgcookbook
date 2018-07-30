@@ -101,7 +101,7 @@ You have grouped data and want to simultaneously make histograms for each data g
 Use `geom_histogram()` and use facets for each group, as shown in Figure \@ref(fig:FIG-DISTRIBUTION-MULTI-HISTOGRAM-FACET):
 
 ```{r FIG-DISTRIBUTION-MULTI-HISTOGRAM-FACET, fig.cap="Two histograms with facets (left); With different facet labels (right)"}
-library(MASS) # Load the MASS package to access the birthwt data set
+library(MASS) # Load MASS for the birthwt data set
 
 # Use smoke as the faceting variable
 ggplot(birthwt, aes(x = bwt)) +
@@ -275,7 +275,7 @@ Use `geom_density()`, and map the grouping variable to an aesthetic like `colour
 
 ```{r FIG-DISTRIBUTION-MULTI-DENSITY, fig.show="hold", fig.cap="Different line colors for each group (left); Different semitransparent fill colors for each group (right)", fig.width=3.5, fig.height=3.5}
 
-library(MASS) # Load the MASS package to access the birthwt data set
+library(MASS) # Load MASS for the birthwt data set
 
 birthwt_mod <- birthwt %>%
   mutate(smoke = as.factor(smoke)) # Convert smoke to a factor
@@ -401,7 +401,7 @@ You want to make a box (or box-and-whiskers) plot.
 Use `geom_boxplot()`, mapping a continuous variable to y and a discrete variable to x (Figure \@ref(fig:FIG-DISTRIBUTION-BOXPLOT-BASIC)):
 
 ```{r FIG-DISTRIBUTION-BOXPLOT-BASIC, fig.cap="A box plot"}
-library(MASS) # Load the MASS package to access the birthwt data set
+library(MASS) # Load MASS for the birthwt data set
 
 # Use factor() to convert a numeric variable into a discrete variable
 ggplot(birthwt, aes(x = factor(race), y = bwt)) +
@@ -553,7 +553,7 @@ Use `geom_boxplot()` and set `notch = TRUE` (Figure
 \@ref(fig:FIG-DISTRIBUTION-BOXPLOT-NOTCH)):
 
 ```{r FIG-DISTRIBUTION-BOXPLOT-NOTCH, fig.cap="A notched box plot"}
-library(MASS) # Load the MASS package to access the birthwt data set
+library(MASS) # Load MASS for the birthwt data set
 
 ggplot(birthwt, aes(x = factor(race), y = bwt)) +
   geom_boxplot(notch = TRUE)
@@ -584,7 +584,7 @@ You want to add markers for the mean to a box plot.
 Use `stat_summary()`. The mean is often shown with a diamond, so we'll use shape 23 with a white fill. We'll also make the diamond slightly larger by setting `size = 3` (Figure \@ref(fig:FIG-DISTRIBUTION-BOXPLOT-MEAN)):
 
 ```{r FIG-DISTRIBUTION-BOXPLOT-MEAN, fig.cap="Mean markers on a box plot"}
-library(MASS) # Load the MASS package to access the birthwt data set
+library(MASS) # Load MASS for the birthwt data set
 
 ggplot(birthwt, aes(x = factor(race), y = bwt)) +
   geom_boxplot() +
@@ -608,7 +608,7 @@ You want to make a violin plot to compare density estimates of different groups.
 Use `geom_violin()` (Figure \@ref(fig:FIG-DISTRIBUTION-VIOLIN-BASIC)):
 
 ```{r FIG-DISTRIBUTION-VIOLIN-BASIC, fig.cap="A violin plot"}
-library(gcookbook) # Load the gcookbook package to access the heightweight data set
+library(gcookbook) # Load gcookbook for the heightweight data set
 
 # Create a base plot using the heightweight data set called `hw_p` (for heightweight plot)
 hw_p <- ggplot(heightweight, aes(x = sex, y = heightIn))
@@ -680,7 +680,7 @@ You want to make a Wilkinson dot plot, which shows each data point.
 Use `geom_dotplot()`. For this example (Figure \@ref(fig:FIG-DISTRIBUTION-DOTPLOT-BASIC)), we'll use a subset of the `countries` data set:
 
 ```{r FIG-DISTRIBUTION-DOTPLOT-BASIC, fig.cap="A dot plot"}
-library(gcookbook)  # Load the gcookbook package to access the countries data set
+library(gcookbook)  # Load gcookbook for the countries data set
 library(dplyr)
 
 # Save a modified data set that only includes 2009 data for countries that
@@ -751,7 +751,7 @@ You want to make multiple dot plots from grouped data.
 To compare multiple groups, it's possible to stack the dots along the y-axis, and group them along the x-axis, by setting `binaxis = "y"`. For this example, we'll use the heightweight data set (Figure \@ref(fig:FIG-DISTRIBUTION-DOTPLOT-MULTI)):
 
 ```{r FIG-DISTRIBUTION-DOTPLOT-MULTI, fig.cap="Dot plot of multiple groups, binning along the y-axis"}
-library(gcookbook) # Load the gcookbook package to access the heightweight data set
+library(gcookbook) # Load gcookbook for the heightweight data set
 
 ggplot(heightweight, aes(x = sex, y = heightIn)) +
   geom_dotplot(binaxis = "y", binwidth = .5, stackdir = "center")

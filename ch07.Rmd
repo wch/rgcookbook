@@ -169,7 +169,7 @@ You want to add lines to a plot.
 For horizontal and vertical lines, use `geom_hline()` and `geom_vline()`, and for angled lines, use `geom_abline()` (Figure \@ref(fig:FIG-ANNOTATE-LINES)). For this example, we'll use the `heightweight` data set:
 
 ```{r FIG-ANNOTATE-LINES, fig.show="hold", fig.cap="horizontal and vertical lines (left); angled line (right)", fig.width=3.5, fig.height=3.5}
-library(gcookbook)  # Load the gcookbook package to access the heightweight data set
+library(gcookbook)  # Load gcookbook for the heightweight data set
 
 hw_plot <- ggplot(heightweight, aes(x = ageYear, y = heightIn, colour = sex)) +
   geom_point()
@@ -244,7 +244,7 @@ You want to add line segments or arrows to a plot.
 Use `annotate("segment")`. In this example, we'll use the climate data set and use a subset of data from the Berkeley source (Figure \@ref(fig:FIG-ANNOTATE-SEGMENT)):
 
 ```{r FIG-ANNOTATE-SEGMENT, fig.cap="Line segment annotation"}
-library(gcookbook) # Load the gcookbook package to access the climate data set
+library(gcookbook) # Load gcookbook for the climate data set
 
 p <- ggplot(filter(climate, Source == "Berkeley"), aes(x = Year, y = Anomaly10y)) +
   geom_line()
@@ -293,7 +293,7 @@ You want to add a shaded region.
 Use `annotate("rect")` (Figure \@ref(fig:FIG-ANNOTATE-RECT)):
 
 ```{r FIG-ANNOTATE-RECT, fig.cap="A shaded rectangle"}
-library(gcookbook) # Load the gcookbook package to access the climate data set
+library(gcookbook) # Load gcookbook for the climate data set
 
 p <- ggplot(filter(climate, Source == "Berkeley"), aes(x = Year, y = Anomaly10y)) +
   geom_line()
@@ -368,7 +368,7 @@ You want to add error bars to a graph.
 Use `geom_errorbar()` and map variables to the values for `ymin` and `ymax`. Adding the error bars is done the same way for bar graphs and line graphs, as shown in Figure \@ref(fig:FIG-ANNOTATE-ERRORBAR-BASIC) (notice that default *y* range is different for bars and lines, though):
 
 ```{r FIG-ANNOTATE-ERRORBAR-BASIC, fig.show="hold", fig.cap="error bars on a bar graph (left); on a line graph (right)", fig.width=3.5, fig.height=3.5}
-library(gcookbook) # Load the gcookbook package to access the cabbage_exp data set
+library(gcookbook) # Load gcookbook for the cabbage_exp data set
 library(dplyr)
 
 # Take a subset of the cabbage_exp data for this example

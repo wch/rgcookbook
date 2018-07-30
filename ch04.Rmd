@@ -108,7 +108,7 @@ Sometimes it is useful to indicate each data point on a line graph. This is help
 In the `worldpop` data set, the intervals between each data point are not consistent. In the far past, the estimates were not as frequent as they are in the more recent past. Displaying points on the graph illustrates when each estimate was made (Figure \@ref(fig:FIG-LINE-GRAPH-POINTS-INTERVAL)):
 
 ```{r FIG-LINE-GRAPH-POINTS-INTERVAL, fig.show="hold", fig.cap='Top: points indicate where each data point is; bottom: the same data with a log y-axis', fig.height=2}
-library(gcookbook) # Load the gcookbook package to access the worldpop data set
+library(gcookbook) # Load gcookbook for the worldpop data set
 
 ggplot(worldpop, aes(x = Year, y = Population)) +
   geom_line() +
@@ -140,7 +140,7 @@ You want to make a line graph with more than one line.
 In addition to the variables mapped to the x- and y-axes, map another (discrete) variable to colour or linetype, as shown in Figure \@ref(fig:FIG-LINE-GRAPH-MULTI-LINE-COLOR-TYPE):
 
 ```{r FIG-LINE-GRAPH-MULTI-LINE-COLOR-TYPE, fig.show="hold", fig.cap="A variable mapped to colour (left); A variable mapped to linetype (right)"}
-library(gcookbook) # Load the gcookbook package to access the tg data set
+library(gcookbook) # Load gcookbook for the tg data set
 
 # Map supp to colour
 ggplot(tg, aes(x = dose, y = length, colour = supp)) +
@@ -233,7 +233,7 @@ ggplot(BOD, aes(x = Time, y = demand)) +
 If there is more than one line, setting the aesthetic properties will affect all of the lines. On the other hand, *mapping* variables to the properties, as we saw in Recipe \@ref(RECIPE-LINE-GRAPH-MULTIPLE-LINE), will result in each line looking different. The default colors aren't the most appealing, so you may want to use a different palette, as shown in Figure \@ref(fig:FIG-LINE-GRAPH-MULTI-LINE-PALETTE), by using `scale_colour_brewer()` or `scale_colour_manual()`:
 
 ```{r FIG-LINE-GRAPH-MULTI-LINE-PALETTE, fig.cap="Using a palette from RColorBrewer"}
-library(gcookbook)  # Load the gcookbook package to access the tg data set
+library(gcookbook)  # Load gcookbook for the tg data set
 
 ggplot(tg, aes(x = dose, y = length, colour = supp)) +
   geom_line() +
@@ -293,7 +293,7 @@ If the points and lines have different colors, you should specify the points aft
 For multiple lines, we saw in Recipe \@ref(RECIPE-LINE-GRAPH-MULTIPLE-LINE) how to draw differently colored points for each group by mapping variables to aesthetic properties of points, inside of `aes()`. The default colors are not very appealing, so you may want to use a different palette, using `scale_colour_brewer()` or `scale_colour_manual()`. To set a single constant shape or size for all the points, as in Figure \@ref(fig:FIG-LINE-GRAPH-MULTI-LINE-POINT-PALETTE), specify shape or size outside of `aes()`:
 
 ```{r FIG-LINE-GRAPH-MULTI-LINE-POINT-PALETTE, fig.cap="Line graph with manually specified fills of black and white, and a slight dodge"}
-library(gcookbook)  # Load the gcookbook package to access the tg data set
+library(gcookbook)  # Load gcookbook for the tg data set
 
 # Save the position_dodge specification because we'll use it multiple times
 pd <- position_dodge(0.2)
@@ -368,7 +368,7 @@ You want to make a stacked area graph.
 Use `geom_area()` andmap a factor to fill (Figure \@ref(fig:FIG-LINE-GRAPH-STACKED-AREA)):
 
 ```{r FIG-LINE-GRAPH-STACKED-AREA, fig.cap="Stacked area graph", fig.width=6, out.width="75%"}
-library(gcookbook) # Load the gcookbook package to access the uspopage data set
+library(gcookbook) # Load gcookbook for the uspopage data set
 
 ggplot(uspopage, aes(x = Year, y = Thousands, fill = AgeGroup)) +
   geom_area()
@@ -461,7 +461,7 @@ Use `geom_ribbon()` and map values to `ymin` and `ymax`.
 In the `climate` data set, `Anomaly10y` is a 10-year running average of the deviation (in Celsius) from the average 1950–1980 temperature, and `Unc10y` is the 95% confidence interval. We'll set `ymax` and `ymin` to `Anomaly10y` plus or minus `Unc10y` (Figure \@ref(fig:FIG-LINE-GRAPH-REGION)):
 
 ```{r FIG-LINE-GRAPH-REGION, fig.cap="A line graph with a shaded confidence region", fig.width=8, out.width="100%"}
-library(gcookbook) # Load the gcookbook package to access the climate data set
+library(gcookbook) # Load gcookbook for the climate data set
 library(dplyr)
 
 # Grab a subset of the climate data
