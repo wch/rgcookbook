@@ -60,7 +60,7 @@ register_s3_method("knitr", "knit_print", "data.frame",
       output <- c(
         output,
         paste(
-          "# ... with",
+          "... with",
           format(nrow(x) - maxrows, big.mark = ","),
           "more rows"
         )
@@ -87,7 +87,7 @@ register_s3_method("knitr", "knit_print", "character",
       output <- c(
         output[seq_len(maxrows)],
         paste(
-          "# ... with",
+          "... with",
           format(length(x) - n_per_row * maxrows, big.mark = ","),
           "more items"
         )
@@ -108,7 +108,7 @@ register_s3_method("knitr", "knit_print", "ts",
       output <- c(
         output[seq_len(maxrows)],
         paste(
-          "# ... with",
+          "... with",
           format(length(output) - maxrows, big.mark = ","),
           "more rows"
         )
@@ -118,6 +118,33 @@ register_s3_method("knitr", "knit_print", "ts",
     cat(output, sep = "\n")
   }
 )
+
+
+register_s3_method("knitr", "knit_print", "matrix",
+  function(x, ..., maxrows = getOption("knit_print_matrix_rows", default = 8)) {
+    attrs <- attributes(x)
+    attrs <- attrs[names(attrs) %in% c("dim", "dimnames")]
+    attributes(x) <- attrs
+
+    output <- capture.output(
+      print.default(head(x, maxrows), ...)
+    )
+
+    if (nrow(x) > maxrows) {
+      output <- c(
+        output,
+        paste(
+          "... with",
+          format(nrow(x) - maxrows, big.mark = ","),
+          "more rows"
+        )
+      )
+    }
+
+    cat(output, sep = "\n")
+  }
+)
+
 
 register_s3_method("knitr", "knit_print", "sf",
   function(x, ...) {
