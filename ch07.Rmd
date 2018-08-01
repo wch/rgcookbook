@@ -44,20 +44,10 @@ Other text properties can be specified, as shown in Figure \@ref(fig:FIG-ANNOTAT
 
 ```{r FIG-ANNOTATE-TEXT-PROPERTIES, fig.cap="Modified text properties", fig.width=4, fig.height=4}
 p +
-  annotate(
-    "text",
-    x = 3, y = 48,
-    label = "Group 1",
-    family = "serif", fontface = "italic",
-    colour = "darkred", size = 3
-  ) +
-  annotate(
-    "text",
-    x = 4.5, y = 66,
-    label = "Group 2",
-    family = "serif", fontface = "italic",
-    colour = "darkred", size = 3
-  )
+  annotate("text", x = 3, y = 48, label = "Group 1",
+           family = "serif", fontface = "italic", colour = "darkred", size = 3) +
+  annotate("text", x = 4.5, y = 66, label = "Group 2",
+           family = "serif", fontface = "italic", colour = "darkred", size = 3)
 ```
 
 Be careful not to use `geom_text()` when you want to add individual text objects. While `annotate(geom = "text")` will add a single text object to the plot, `geom_text()` will create many text objects based on the data, as discussed in Recipe \@ref(RECIPE-SCATTER-LABELS).
@@ -67,18 +57,9 @@ If you use `geom_text()`, the text will be heavily overplotted on the same locat
 ```{r FIG-ANNOTATE-TEXT-GEOM-OVERPLOT, fig.cap="Overplotting one of the labels -- both should be 90% transparent", fig.width=4, fig.height=4}
 p +
   # Normal
-  annotate(
-    "text",
-    x = 3, y = 48,
-    label = "Group 1",
-    alpha = .1
-  ) +
+  annotate("text", x = 3, y = 48, label = "Group 1", alpha = .1) +
   # Overplotted
-  geom_text(
-    x = 4.5, y = 66,
-    label = "Group 2",
-    alpha = .1
-  )
+  geom_text(x = 4.5, y = 66, label = "Group 2", alpha = .1)
 ```
 
 In Figure \@ref(fig:FIG-ANNOTATE-TEXT-GEOM-OVERPLOT), each text label is 90% transparent, making it clear which one is overplotted. The overplotting can lead to output with aliased (jagged) edges when outputting to a bitmap.
@@ -87,18 +68,9 @@ If the axes are continuous, you can use the special values `Inf` and `-Inf` to p
 
 ```{r FIG-ANNOTATE-TEXT-EDGE, fig.cap="Text positioned at the edge of the plotting area", fig.width=4, fig.height=4}
 p +
-  annotate(
-    "text",
-    x = -Inf, y = Inf,
-    label = "Upper left",
-    hjust = -.2, vjust = 2
-  ) +
-  annotate(
-    "text",
-    x = mean(range(faithful$eruptions)), y = -Inf,
-    vjust = -0.4,
-    label = "Bottom middle"
-  )
+  annotate("text", x = -Inf, y = Inf, label = "Upper left", hjust = -.2, vjust = 2) +
+  annotate("text", x = mean(range(faithful$eruptions)), y = -Inf, vjust = -0.4,
+           label = "Bottom middle")
 ```
 
 ### See Also
@@ -125,12 +97,8 @@ p <- ggplot(data.frame(x = c(-3,3)), aes(x = x)) +
   stat_function(fun = dnorm)
 
 p +
-  annotate(
-    "text",
-    x = 2, y = 0.3,
-    parse = TRUE,
-    label = "frac(1, sqrt(2 * pi)) * e ^ {-x^2 / 2}"
-  )
+  annotate("text", x = 2, y = 0.3, parse = TRUE,
+           label = "frac(1, sqrt(2 * pi)) * e ^ {-x^2 / 2}")
 ```
 
 ### Discussion
@@ -141,12 +109,8 @@ To mix regular text with expressions, use single quotes within double quotes (or
 
 ```{r FIG-ANNOTATE-TEXT-MATH-MIX, fig.cap="Mathematical expression with regular text"}
 p +
-  annotate(
-    "text",
-    x = 0, y = 0.05,
-    parse = TRUE, size = 4,
-    label = "'Function:  ' * y==frac(1, sqrt(2*pi)) * e^{-x^2/2}"
-  )
+  annotate("text", x = 0, y = 0.05, parse = TRUE, size = 4,
+           label = "'Function:  ' * y==frac(1, sqrt(2*pi)) * e^{-x^2/2}")
 ```
 
 ### See Also
@@ -168,7 +132,7 @@ You want to add lines to a plot.
 
 For horizontal and vertical lines, use `geom_hline()` and `geom_vline()`, and for angled lines, use `geom_abline()` (Figure \@ref(fig:FIG-ANNOTATE-LINES)). For this example, we'll use the `heightweight` data set:
 
-```{r FIG-ANNOTATE-LINES, fig.show="hold", fig.cap="horizontal and vertical lines (left); angled line (right)", fig.width=3.5, fig.height=3.5}
+```{r FIG-ANNOTATE-LINES, fig.show="hold", fig.cap="horizontal and vertical lines (left); angled line (right)"}
 library(gcookbook)  # Load gcookbook for the heightweight data set
 
 hw_plot <- ggplot(heightweight, aes(x = ageYear, y = heightIn, colour = sex)) +
@@ -223,7 +187,7 @@ pg_plot +
 
 > **Note**
 >
-> You may have noticed that adding lines differs from adding other annotations. Instead of using the `annotate()` function, we've used `geom_hline()` and friends. This is because previous versions of ggplot2 didn't have the `annotate()` function. The line geoms had code to handle the special cases where they were used to add a single line, and changing it would break backward compatibility. In a future version of ggplot2, this will change, and `annotate()` will work with line geoms.
+> You may have noticed that adding lines differs from adding other annotations. Instead of using the `annotate()` function, we've used `geom_hline()` and friends. This is because old versions of ggplot2 didn't have the `annotate()` function. The line geoms had code to handle the special cases where they were used to add a single line, and changing it would break backward compatibility.
 
 ### See Also
 
@@ -243,7 +207,7 @@ You want to add line segments or arrows to a plot.
 
 Use `annotate("segment")`. In this example, we'll use the climate data set and use a subset of data from the Berkeley source (Figure \@ref(fig:FIG-ANNOTATE-SEGMENT)):
 
-```{r FIG-ANNOTATE-SEGMENT, fig.cap="Line segment annotation"}
+```{r FIG-ANNOTATE-SEGMENT, fig.cap="Line segment annotation", fig.width=10, fig.height=3}
 library(gcookbook) # Load gcookbook for the climate data set
 
 p <- ggplot(filter(climate, Source == "Berkeley"), aes(x = Year, y = Anomaly10y)) +
@@ -257,19 +221,13 @@ p +
 
 It's possible to add arrowheads or flat ends to the line segments, using `arrow()` from the grid package. In this example, we'll do both (Figure \@ref(fig:FIG-ANNOTATE-SEGMENT-ARROWS)):
 
-```{r FIG-ANNOTATE-SEGMENT-ARROWS, fig.cap="Line segments with arrow heads"}
+```{r FIG-ANNOTATE-SEGMENT-ARROWS, fig.cap="Line segments with arrow heads", fig.width=10, fig.height=3}
 library(grid)
 p +
-  annotate(
-    "segment",
-    x = 1850, xend = 1820, y = -.8, yend = -.95,
-    colour = "blue", size = 2, arrow = arrow()
-  ) +
-  annotate(
-    "segment",
-    x = 1950, xend = 1980, y = -.25, yend = -.25,
-    arrow = arrow(ends = "both", angle = 90, length = unit(.2,"cm"))
-    )
+  annotate("segment", x = 1850, xend = 1820, y = -.8, yend = -.95,
+           colour = "blue", size = 2, arrow = arrow()) +
+  annotate("segment", x = 1950, xend = 1980, y = -.25, yend = -.25,
+           arrow = arrow(ends = "both", angle = 90, length = unit(.2,"cm")))
 ```
 
 The default angle is 30, and the default length of the arrowhead lines is 0.2 inches.
@@ -292,18 +250,15 @@ You want to add a shaded region.
 
 Use `annotate("rect")` (Figure \@ref(fig:FIG-ANNOTATE-RECT)):
 
-```{r FIG-ANNOTATE-RECT, fig.cap="A shaded rectangle"}
+```{r FIG-ANNOTATE-RECT, fig.cap="A shaded rectangle", fig.width=10, fig.height=3}
 library(gcookbook) # Load gcookbook for the climate data set
 
 p <- ggplot(filter(climate, Source == "Berkeley"), aes(x = Year, y = Anomaly10y)) +
   geom_line()
 
 p +
-  annotate(
-    "rect",
-    xmin = 1950, xmax = 1980, ymin = -1, ymax = 1,
-    alpha = .1,fill = "blue"
-  )
+  annotate("rect", xmin = 1950, xmax = 1980, ymin = -1, ymax = 1,
+           alpha = .1,fill = "blue")
 ```
 
 ### Discussion
@@ -322,18 +277,18 @@ You want to change the color of an item to make it stand out.
 
 ### Solution
 
-To highlight one or more items, create a new column in the data and map it to the color. In this example, we'll create a copy of the PlantGrowth data set called `pg_mod` and create a new column, `hl`, which is set to `no` if the case was in treatment group 1, and set to `yes` if the case was in treatment group 2:
+To highlight one or more items, create a new column in the data and map it to the color. In this example, we'll create a copy of the PlantGrowth data set called `pg_mod` and create a new column, `hl`, which is set to `no` if the case was in the control group or treatment 1 group, and set to `yes` if the case was in the treatment 2 group:
 
 ```{r}
 library(dplyr)
 
 pg_mod <- PlantGrowth %>%
-  mutate(hl = ifelse(group == "trt2", "yes", "no"))
+  mutate(hl = recode(group, "ctrl" = "no", "trt1" = "no", "trt2" = "yes"))
 ```
 
 Then we'll plot this data with specified colors, and hiding the legend (Figure \@ref(fig:FIG-ANNOTATE-HIGHLIGHT)):
 
-```{r FIG-ANNOTATE-HIGHLIGHT, fig.cap="Highlighting one item"}
+```{r FIG-ANNOTATE-HIGHLIGHT, fig.cap="Highlighting one item", fig.width=4, fig.height=4}
 ggplot(pg_mod, aes(x = group, y = weight, fill = hl)) +
   geom_boxplot() +
   scale_fill_manual(values = c("grey85", "#FFDDCC"), guide = FALSE)
@@ -367,7 +322,7 @@ You want to add error bars to a graph.
 
 Use `geom_errorbar()` and map variables to the values for `ymin` and `ymax`. Adding the error bars is done the same way for bar graphs and line graphs, as shown in Figure \@ref(fig:FIG-ANNOTATE-ERRORBAR-BASIC) (notice that default *y* range is different for bars and lines, though):
 
-```{r FIG-ANNOTATE-ERRORBAR-BASIC, fig.show="hold", fig.cap="error bars on a bar graph (left); on a line graph (right)", fig.width=3.5, fig.height=3.5}
+```{r FIG-ANNOTATE-ERRORBAR-BASIC, fig.show="hold", fig.cap="error bars on a bar graph (left); on a line graph (right)"}
 library(gcookbook) # Load gcookbook for the cabbage_exp data set
 library(dplyr)
 
@@ -410,24 +365,18 @@ cabbage_exp
 
 The default dodge width for `geom_bar()` is 0.9, and you'll have to tell the error bars to be dodged the same width. If you don't specify the dodge width, it will default to dodging by the width of the error bars, which is usually less than the width of the bars (Figure \@ref(fig:FIG-ANNOTATE-ERRORBAR-GROUP-BAR)):
 
-```{r FIG-ANNOTATE-ERRORBAR-GROUP-BAR, fig.show="hold", fig.cap="error bars on a grouped bar graph without dodging width specified (left); with dodging width specified (right)", fig.width=3.5, fig.height=3.5}
+```{r FIG-ANNOTATE-ERRORBAR-GROUP-BAR, fig.show="hold", fig.cap="error bars on a grouped bar graph without dodging width specified (left); with dodging width specified (right)"}
 # Bad: dodge width not specified
 ggplot(cabbage_exp, aes(x = Date, y = Weight, fill = Cultivar)) +
   geom_col(position = "dodge") +
-  geom_errorbar(
-    aes(ymin = Weight - se, ymax = Weight + se),
-    position = "dodge",
-    width = .2
-  )
+  geom_errorbar(aes(ymin = Weight - se, ymax = Weight + se),
+                position = "dodge", width = .2)
 
 # Good: dodge width set to same as bar width (0.9)
 ggplot(cabbage_exp, aes(x = Date, y = Weight, fill = Cultivar)) +
   geom_col(position = "dodge") +
-  geom_errorbar(
-    aes(ymin = Weight - se, ymax = Weight + se),
-    position = position_dodge(0.9),
-    width = .2
-  )
+  geom_errorbar(aes(ymin = Weight - se, ymax = Weight + se),
+                position = position_dodge(0.9), width = .2)
 ```
 
 > **Note**
@@ -438,7 +387,7 @@ For line graphs, if the error bars are a different color than the lines and poin
 
 Additionally, you should dodge all the geometric elements so that they will align with the error bars, as shown in Figure \@ref(fig:FIG-ANNOTATE-ERRORBAR-GROUP-LINE-DODGE):
 
-```{r FIG-ANNOTATE-ERRORBAR-GROUP-LINE-DODGE, fig.show="hold", fig.cap="Error bars on a line graph, dodged so they don't overlap", fig.width=3.5, fig.height=3.5}
+```{r FIG-ANNOTATE-ERRORBAR-GROUP-LINE-DODGE, fig.show="hold", fig.cap="Error bars on a line graph, dodged so they don't overlap"}
 pd <- position_dodge(.3)  # Save the dodge spec because we use it repeatedly
 
 ggplot(cabbage_exp, aes(x = Date, y = Weight, colour = Cultivar, group = Cultivar)) +
@@ -479,7 +428,7 @@ You want to add annotations to each facet in a plot.
 
 Create a new data frame with the faceting variable(s), and a value to use in each facet. Then use `geom_text()` with the new data frame (Figure \@ref(fig:FIG-ANNOTATE-FACET)):
 
-```{r FIG-ANNOTATE-FACET, fig.show="hold", fig.cap="Top: different annotations in each facet; bottom: the same annotation in each facet", fig.width=7, fig.height=3}
+```{r FIG-ANNOTATE-FACET, fig.show="hold", fig.cap="Top: different annotations in each facet; bottom: the same annotation in each facet", fig.width=8, fig.height=3}
 # Create the base plot
 mpg_plot <- ggplot(mpg, aes(x = displ, y = hwy)) +
   geom_point() +
@@ -500,7 +449,7 @@ mpg_plot +
 
 This method can be used to display information about the data in each facet, as shown in Figure \@ref(fig:FIG-ANNOTATE-FACET-MATH). For example, in each facet we can show linear regression lines, the formula for each line, and the *r^2^* value. To do this, we'll write a function that takes a data frame and returns another data frame containing a string for a regression equation, and a string for the *r^2^* value. Then we'll use dplyr's `do()` function to apply that function to each group of the data:
 
-```{r FIG-ANNOTATE-FACET-MATH, fig.cap="Annotations in each facet with information about the data"}
+```{r FIG-ANNOTATE-FACET-MATH, fig.cap="Annotations in each facet with information about the data", fig.width=8, fig.height=3}
 # This function returns a data frame with strings representing the regression
 # equation, and the r^2 value.
 # These strings will be treated as R math expressions

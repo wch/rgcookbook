@@ -26,7 +26,7 @@ You want to make a histogram.
 
 Use `geom_histogram()` and map a continuous variable to x (Figure \@ref(fig:FIG-DISTRIBUTION-HIST-BASIC)):
 
-```{r FIG-DISTRIBUTION-HIST-BASIC, fig.cap="A basic histogram"}
+```{r FIG-DISTRIBUTION-HIST-BASIC, fig.cap="A basic histogram", message=FALSE}
 ggplot(faithful, aes(x = waiting)) +
   geom_histogram()
 ```
@@ -39,7 +39,7 @@ All `geom_histogram()` requires is one column from a data frame or a single vect
 faithful
 ```
 
-If you just want to get a quick look at some data that isn't in a data frame, you can get the same result by passing in NULL for the data frame and giving `ggplot()` a vector of values. This would have the same result as the previous code:
+If you just want to get a quick look at some data that isn't in a data frame, you can get the same result by passing in `NULL` for the data frame and giving `ggplot()` a vector of values. This would have the same result as the previous code:
 
 ```{r eval=FALSE}
 # Store the values in a simple vector
@@ -53,8 +53,7 @@ By default, the data is grouped into 30 bins. This number of bins is an arbitrar
 
 In addition, the default colors -- a dark fill without an outline -- can make it difficult to see which bar corresponds to which value, so we'll also change the colors, as shown in Figure \@ref(fig:FIG-DISTRIBUTION-HIST-WIDTH).
 
-```{r FIG-DISTRIBUTION-HIST-WIDTH, fig.show="hold", fig.cap="Histogram with binwidth = 5 and with different colors (left); With 15 bins (right)", fig.width=3.5, fig.height=3.5}
-
+```{r FIG-DISTRIBUTION-HIST-WIDTH, fig.show="hold", fig.cap="Histogram with binwidth = 5 and with different colors (left); With 15 bins (right)"}
 # Set the width of each bin to 5 (each bin will span 5 x-axis units)
 ggplot(faithful, aes(x = waiting)) +
   geom_histogram(binwidth = 5, fill = "white", colour = "black")
@@ -68,9 +67,8 @@ ggplot(faithful, aes(x = waiting)) +
 
 Sometimes the appearance of the histogram will be very dependent on the width of the bins and where the boundary points between the bins are. In Figure \@ref(fig:FIG-DISTRIBUTION-HIST-BOUNDARY), we'll use a bin width of 8. In the version on the left, we'll use the origin parameter to put boundaries at 31, 39, 47, etc., while in the version on the right, we'll shift it over by 4, putting boundaries at 35, 43, 51, etc.:
 
-```{r FIG-DISTRIBUTION-HIST-BOUNDARY, fig.show="hold", fig.cap="Different appearance of histograms with the origin at 31 and 35", fig.width=3.5, fig.height=3.5}
-
-# Save a base plot called `faithful_p` (for faithful plot)
+```{r FIG-DISTRIBUTION-HIST-BOUNDARY, fig.show="hold", fig.cap="Different appearance of histograms with the origin at 31 and 35"}
+# Save a base plot
 faithful_p <- ggplot(faithful, aes(x = waiting))
 
 faithful_p +
@@ -100,7 +98,7 @@ You have grouped data and want to simultaneously make histograms for each data g
 
 Use `geom_histogram()` and use facets for each group, as shown in Figure \@ref(fig:FIG-DISTRIBUTION-MULTI-HISTOGRAM-FACET):
 
-```{r FIG-DISTRIBUTION-MULTI-HISTOGRAM-FACET, fig.cap="Two histograms with facets (left); With different facet labels (right)"}
+```{r FIG-DISTRIBUTION-MULTI-HISTOGRAM-FACET, fig.cap="Two histograms with facets (left); With different facet labels (right)", message=FALSE}
 library(MASS) # Load MASS for the birthwt data set
 
 # Use smoke as the faceting variable
@@ -132,7 +130,7 @@ birthwt_mod <- birthwt %>%
 
 Now when we plot our modified data frame, our desired labels appear (Figure \@ref(fig:FIG-DISTRIBUTION-MULTI-HISTOGRAM-FACET-LABELS)).
 
-```{r FIG-DISTRIBUTION-MULTI-HISTOGRAM-FACET-LABELS, fig.cap = "Histograms with new facet labels"}
+```{r FIG-DISTRIBUTION-MULTI-HISTOGRAM-FACET-LABELS, fig.cap = "Histograms with new facet labels", message=FALSE}
 ggplot(birthwt_mod, aes(x = bwt)) +
   geom_histogram(fill = "white", colour = "black") +
   facet_grid(smoke ~ .)
@@ -154,14 +152,13 @@ ggplot(birthwt, aes(x = bwt)) +
   facet_grid(race ~ ., scales = "free")
 ```
 
-```{r FIG-DISTRIBUTION-MULTI-HISTOGRAM-FACET-SCALESFREE, ref.label=c("FIG-DISTRIBUTION-MULTI-HISTOGRAM-FACET-SCALESFREE-1", "FIG-DISTRIBUTION-MULTI-HISTOGRAM-FACET-SCALESFREE-2"), echo=FALSE, fig.show="hold", fig.cap='Histograms with the default fixed scales (left); With scales = "free" (right)', fig.width=3.5, fig.height=3.5}
+```{r FIG-DISTRIBUTION-MULTI-HISTOGRAM-FACET-SCALESFREE, ref.label=c("FIG-DISTRIBUTION-MULTI-HISTOGRAM-FACET-SCALESFREE-1", "FIG-DISTRIBUTION-MULTI-HISTOGRAM-FACET-SCALESFREE-2"), echo=FALSE, fig.show="hold", fig.cap='Histograms with the default fixed scales (left); With scales = "free" (right)', fig.width=4, fig.height=4, message=FALSE}
 ```
 
 Another approach is to map the grouping variable to `fill`, as shown in Figure \@ref(fig:FIG-DISTRIBUTION-MULTI-HISTOGRAM-FILL). The grouping variable must be a factor or a character vector. In the `birthwt` data set, the desired grouping variable, `smoke`, is stored as a number, so we’ll use the `birthwt_mod` data set we created above, in which smoke is a factor:
 
-```{r FIG-DISTRIBUTION-MULTI-HISTOGRAM-FILL, fig.cap="Multiple histograms with different fill colors"}
+```{r FIG-DISTRIBUTION-MULTI-HISTOGRAM-FILL, fig.cap="Multiple histograms with different fill colors", message=FALSE}
 # Map smoke to fill, make the bars NOT stacked, and make them semitransparent
-
 ggplot(birthwt_mod, aes(x = bwt, fill = smoke)) +
   geom_histogram(position = "identity", alpha = 0.4)
 ```
@@ -194,9 +191,7 @@ ggplot(faithful, aes(x = waiting)) +
   expand_limits(y = 0)
 ```
 
-(ref:cap-FIG-DISTRIBUTION-DENSITY-BASIC) A kernel density estimate curve with `geom_density()` (left); With `geom_line()` (right)
-
-```{r FIG-DISTRIBUTION-DENSITY-BASIC, ref.label=c("FIG-DISTRIBUTION-DENSITY-BASIC-1", "FIG-DISTRIBUTION-DENSITY-BASIC-2"), echo=FALSE, fig.show="hold", fig.cap="(ref:cap-FIG-DISTRIBUTION-DENSITY-BASIC)", fig.width=3.5, fig.height=3.5}
+```{r FIG-DISTRIBUTION-DENSITY-BASIC, ref.label=c("FIG-DISTRIBUTION-DENSITY-BASIC-1", "FIG-DISTRIBUTION-DENSITY-BASIC-2"), echo=FALSE, fig.show="hold", fig.cap="A kernel density estimate curve with `geom_density()` (left); With `geom_line()` (right)", fig.width=4, fig.height=4}
 ```
 
 ### Discussion
@@ -221,7 +216,7 @@ ggplot(NULL, aes(x = w)) +
 
 A kernel density curve is an estimate of the population distribution, based on the sample data. The amount of smoothing depends on the *kernel bandwidth*: the larger the bandwidth, the more smoothing there is. The bandwidth can be set with the `adjust` parameter, which has a default value of 1. Figure \@ref(fig:FIG-DISTRIBUTION-DENSITY-ADJUST) shows what happens with a smaller and larger value of `adjust`:
 
-```{r FIG-DISTRIBUTION-DENSITY-ADJUST, fig.cap="Density curves with adjust set to .25 (red), default value of 1 (black), and 2 (blue)", fig.width=3.5, fig.height=3.5}
+```{r FIG-DISTRIBUTION-DENSITY-ADJUST, fig.cap="Density curves with adjust set to .25 (red), default value of 1 (black), and 2 (blue)", fig.width=4, fig.height=4}
 ggplot(faithful, aes(x = waiting)) +
   geom_line(stat = "density") +
   geom_line(stat = "density", adjust = .25, colour = "red") +
@@ -230,11 +225,7 @@ ggplot(faithful, aes(x = waiting)) +
 
 In this example, the *x* range is automatically set so that it contains the data, but this results in the edge of the curve getting clipped. To show more of the curve, set the *x* limits (Figure \@ref(fig:FIG-DISTRIBUTION-DENSITY-WIDTH)). We'll also add an 80% transparent fill, with `alpha = .2`:
 
-(ref:cap-FIG-DISTRIBUTION-DENSITY-WIDTH) Density curve with wider x limits
-and a semitransparent fill (left); In two parts, with `geom_density()` and
-`geom_line()` (right)
-
-```{r FIG-DISTRIBUTION-DENSITY-WIDTH, fig.show="hold", fig.cap="(ref:cap-FIG-DISTRIBUTION-DENSITY-WIDTH)", fig.width=3.5, fig.height=3.5}
+```{r FIG-DISTRIBUTION-DENSITY-WIDTH, fig.show="hold", fig.cap="Density curve with wider x limits and a semitransparent fill (left); In two parts, with `geom_density()` and `geom_line()` (right)", fig.width=4, fig.height=4}
 ggplot(faithful, aes(x = waiting)) +
   geom_density(fill = "blue", alpha = .2) +
   xlim(35, 105)
@@ -250,7 +241,7 @@ If this edge-clipping happens with your data, it might mean that your curve is t
 
 To compare the theoretical and observed distributions of your data, you can overlay the density curve with the histogram. Since the *y* values for the density curve are small (the area under the curve always sums to 1), it would be barely visible if you overlaid it on a histogram without any transformation. To solve this problem, you can scale down the histogram to match the density curve with the mapping `y = ..density..`. Here we'll add `geom_histogram()` first, and then layer `geom_density()` on top (Figure \@ref(fig:FIG-DISTRIBUTION-DENSITY-HIST)):
 
-```{r FIG-DISTRIBUTION-DENSITY-HIST, fig.cap="Density curve overlaid on a histogram"}
+```{r FIG-DISTRIBUTION-DENSITY-HIST, fig.cap="Density curve overlaid on a histogram", message=FALSE, fig.width=4, fig.height=4}
 ggplot(faithful, aes(x = waiting, y = ..density..)) +
   geom_histogram(fill = "cornsilk", colour = "grey60", size = .2) +
   geom_density() +
@@ -271,10 +262,9 @@ You want to make density curves of multiple groups of data.
 
 ### Solution
 
-Use `geom_density()`, and map the grouping variable to an aesthetic like `colour` or `fill`, as shown in Figure \@ref(fig:FIG-DISTRIBUTION-MULTI-DENSITY). The grouping variable must be a factor or a character vector. In the `birthwt` data set, the desired grouping variable, `smoke`, is stored as a number, so we have to convert it to a factor first, which we will store in a modified data set called `birthwt_mod`.
+Use `geom_density()`, and map the grouping variable to an aesthetic like `colour` or `fill`, as shown in Figure \@ref(fig:FIG-DISTRIBUTION-MULTI-DENSITY). The grouping variable must be a factor or a character vector. In the `birthwt` data set, the desired grouping variable, `smoke`, is stored as a number, so we have to convert it to a factor first.
 
-```{r FIG-DISTRIBUTION-MULTI-DENSITY, fig.show="hold", fig.cap="Different line colors for each group (left); Different semitransparent fill colors for each group (right)", fig.width=3.5, fig.height=3.5}
-
+```{r FIG-DISTRIBUTION-MULTI-DENSITY, fig.show="hold", fig.cap="Different line colors for each group (left); Different semitransparent fill colors for each group (right)"}
 library(MASS) # Load MASS for the birthwt data set
 
 birthwt_mod <- birthwt %>%
@@ -313,12 +303,10 @@ One problem with the faceted graph is that the facet labels are just 0 and 1, an
 
 ```{r FIG-DISTRIBUTION-MULTI-DENSITY-FACET-2, eval=FALSE}
 levels(birthwt_mod$smoke)
+#> [1] "0" "1"
 
-library(forcats) # Load the forcats package to help you work with factor variables
-
-birthwt_mod <- birthwt %>%
-  mutate(smoke = as.factor(smoke)) %>% # Convert smoke to a factor
-  mutate(smoke = fct_recode(smoke, 'No Smoke' = "0", 'Smoke' = "1"))
+birthwt_mod <- birthwt_mod %>%
+  mutate(smoke = recode(smoke, '0' = 'No Smoke', '1' = 'Smoke'))
 ```
 
 Now when we plot our modified data frame, our desired labels appear (Figure
@@ -330,12 +318,12 @@ ggplot(birthwt_mod, aes(x = bwt)) +
   facet_grid(smoke ~ .)
 ```
 
-```{r FIG-DISTRIBUTION-MULTI-DENSITY-FACET, ref.label=c("FIG-DISTRIBUTION-MULTI-DENSITY-FACET-1", "FIG-DISTRIBUTION-MULTI-DENSITY-FACET-2", "FIG-DISTRIBUTION-MULTI-DENSITY-FACET-3"), echo=FALSE, fig.show="hold", fig.cap="Density curves with facets (left); With different facet labels (right)", fig.width=3.5, fig.height=3.5}
+```{r FIG-DISTRIBUTION-MULTI-DENSITY-FACET, ref.label=c("FIG-DISTRIBUTION-MULTI-DENSITY-FACET-1", "FIG-DISTRIBUTION-MULTI-DENSITY-FACET-2", "FIG-DISTRIBUTION-MULTI-DENSITY-FACET-3"), echo=FALSE, results = "hide", fig.show="hold", fig.cap="Density curves with facets (left); With different facet labels (right)", fig.width=4, fig.height=4}
 ```
 
 If you want to see the histograms along with the density curves, the best option is to use facets, since other methods of visualizing both histograms in a single graph can be difficult to interpret. To do this, map `y = ..density..`, so that the histogram is scaled down to the height of the density curves. In this example, we'll also make the histogram bars a little less prominent by changing the colors (Figure \@ref(fig:FIG-DISTRIBUTION-MULTI-DENSITY-HIST)):
 
-```{r FIG-DISTRIBUTION-MULTI-DENSITY-HIST, fig.cap="Density curves overlaid on histograms"}
+```{r FIG-DISTRIBUTION-MULTI-DENSITY-HIST, fig.cap="Density curves overlaid on histograms", fig.width=4, fig.height=4}
 ggplot(birthwt_mod, aes(x = bwt, y = ..density..)) +
   geom_histogram(binwidth = 200, fill = "cornsilk", colour = "grey60", size = .2) +
   geom_density() +
@@ -370,7 +358,7 @@ ggplot(faithful, aes(x = waiting)) +
   geom_freqpoly(binwidth = 4)
 ```
 
-```{r FIG-DISTRIBUTION-FREQPOLY, ref.label=c("FIG-DISTRIBUTION-FREQPOLY-1", "FIG-DISTRIBUTION-FREQPOLY-2"), echo=FALSE, fig.show="hold", fig.cap="A frequency polygon (left); With wider bins (right)", fig.width=3.5, fig.height=3.5}
+```{r FIG-DISTRIBUTION-FREQPOLY, ref.label=c("FIG-DISTRIBUTION-FREQPOLY-1", "FIG-DISTRIBUTION-FREQPOLY-2"), echo=FALSE, fig.show="hold", fig.cap="A frequency polygon (left); With wider bins (right)", fig.width=4, fig.height=4, message=FALSE}
 ```
 
 Or, instead of setting the width of each bin directly, you can divide the *x* range into a particular number of bins:
@@ -528,7 +516,7 @@ ggplot(birthwt, aes(x = factor(race), y = bwt)) +
 
 To make a box plot of just a single group, we have to provide some arbitrary value for x; otherwise, ggplot won't know what *x* coordinate to use for the box plot. In this case, we'll set it to 1 and remove the x-axis tick markers and label (Figure \@ref(fig:FIG-DISTRIBUTION-BOXPLOT-SINGLE)):
 
-```{r FIG-DISTRIBUTION-BOXPLOT-SINGLE, fig.cap="Box plot of a single group", fig.width=3.5, fig.height=3.5}
+```{r FIG-DISTRIBUTION-BOXPLOT-SINGLE, fig.cap="Box plot of a single group", fig.width=3, fig.height=3.5}
 ggplot(birthwt, aes(x = 1, y = bwt)) +
   geom_boxplot() +
   scale_x_continuous(breaks = NULL) +
@@ -537,7 +525,7 @@ ggplot(birthwt, aes(x = 1, y = bwt)) +
 
 > **Note**
 >
-> The calculation of quantiles works slightly differently from the boxplot() function in base R. This can sometimes be noticeable for small sample sizes. See ?geom_boxplot for detailed information about how the calculations differ.
+> The calculation of quantiles works slightly differently from the `boxplot()` function in base R. This can sometimes be noticeable for small sample sizes. See `?geom_boxplot` for detailed information about how the calculations differ.
 
 
 Adding Notches to a Box Plot {#RECIPE-DISTRIBUTION-BOXPLOT-NOTCH}
@@ -552,7 +540,7 @@ You want to add notches to a box plot to assess whether the medians are differen
 Use `geom_boxplot()` and set `notch = TRUE` (Figure
 \@ref(fig:FIG-DISTRIBUTION-BOXPLOT-NOTCH)):
 
-```{r FIG-DISTRIBUTION-BOXPLOT-NOTCH, fig.cap="A notched box plot"}
+```{r FIG-DISTRIBUTION-BOXPLOT-NOTCH, fig.cap="A notched box plot", message=FALSE}
 library(MASS) # Load MASS for the birthwt data set
 
 ggplot(birthwt, aes(x = factor(race), y = bwt)) +
@@ -607,10 +595,10 @@ You want to make a violin plot to compare density estimates of different groups.
 
 Use `geom_violin()` (Figure \@ref(fig:FIG-DISTRIBUTION-VIOLIN-BASIC)):
 
-```{r FIG-DISTRIBUTION-VIOLIN-BASIC, fig.cap="A violin plot"}
+```{r FIG-DISTRIBUTION-VIOLIN-BASIC, fig.cap="A violin plot", fig.width=3.5}
 library(gcookbook) # Load gcookbook for the heightweight data set
 
-# Create a base plot using the heightweight data set called `hw_p` (for heightweight plot)
+# Create a base plot using the heightweight data set
 hw_p <- ggplot(heightweight, aes(x = sex, y = heightIn))
 
 hw_p +
@@ -623,7 +611,7 @@ Violin plots are a way of comparing multiple data distributions. With ordinary d
 
 A violin plot is a kernel density estimate, mirrored so that it forms a symmetrical shape. Traditionally, they also have narrow box plots overlaid, with a white dot at the median, as shown in Figure \@ref(fig:FIG-DISTRIBUTION-VIOLIN-BOXPLOT). Additionally, the box plot outliers are not displayed, which we do by setting `outlier.colour = NA`:
 
-```{r FIG-DISTRIBUTION-VIOLIN-BOXPLOT, fig.cap="A violin plot with box plot overlaid on it", fig.height=3.5, fig.width=3.5}
+```{r FIG-DISTRIBUTION-VIOLIN-BOXPLOT, fig.cap="A violin plot with box plot overlaid on it", fig.width=3.5}
 hw_p +
   geom_violin() +
   geom_boxplot(width = .1, fill = "black", outlier.colour = NA) +
@@ -634,15 +622,14 @@ In this example we layered the objects from the bottom up, starting with the vio
 
 The default range goes from the minimum to maximum data values; the flat ends of the violins are at the extremes of the data. It's possible to keep the tails, by setting `trim = FALSE` (Figure \@ref(fig:FIG-DISTRIBUTION-VIOLIN-TAIL)):
 
-```{r FIG-DISTRIBUTION-VIOLIN-TAIL, fig.cap="A violin plot with tails", fig.height=3.5, fig.width=3.5}
+```{r FIG-DISTRIBUTION-VIOLIN-TAIL, fig.cap="A violin plot with tails", fig.width=3.5}
 hw_p +
   geom_violin(trim = FALSE)
 ```
 
-By default, the violins are scaled so that the total area of each one is the same (if `trim = TRUE`, then it scales what the area *would be* including the tails). Instead of equal areas, you can use `scale = "count"` to scale the areas proportionally to the number of observations in each group (Figure \@ref(fig:FIG-DISTRIBUTION-VIOLIN-SCALECOUNT)). In this example, there are slightly fewer females than males, so the female violin is slightly narrower:
+By default, the violins are scaled so that the total area of each one is the same (if `trim = TRUE`, then it scales what the area *would be* including the tails). Instead of equal areas, you can use `scale = "count"` to scale the areas proportionally to the number of observations in each group (Figure \@ref(fig:FIG-DISTRIBUTION-VIOLIN-SCALECOUNT)). In this example, there are slightly fewer females than males, so the female violin becomes slightly narrower than before:
 
-```{r FIG-DISTRIBUTION-VIOLIN-SCALECOUNT, fig.cap="Violin plot with area proportional to number of observations", fig.height=3.5, fig.width=3.5}
-
+```{r FIG-DISTRIBUTION-VIOLIN-SCALECOUNT, fig.cap="Violin plot with area proportional to number of observations", fig.width=3.5}
 # Scaled area proportional to number of observations
 hw_p +
   geom_violin(scale = "count")
@@ -650,8 +637,7 @@ hw_p +
 
 To change the amount of smoothing, use the adjust parameter, as described in Recipe \@ref(RECIPE-DISTRIBUTION-BASIC-DENSITY). The default value is 1; use larger values for more smoothing and smaller values for less smoothing (Figure \@ref(fig:FIG-DISTRIBUTION-VIOLIN-ADJUST)):
 
-```{r FIG-DISTRIBUTION-VIOLIN-ADJUST, fig.show="hold", fig.cap="Violin plot with more smoothing (left); With less smoothing (right)", fig.width=3.5, fig.height=3.5}
-
+```{r FIG-DISTRIBUTION-VIOLIN-ADJUST, fig.show="hold", fig.cap="Violin plot with more smoothing (left); With less smoothing (right)", fig.width=3.5}
 # More smoothing
 hw_p +
   geom_violin(adjust = 2)
@@ -679,7 +665,7 @@ You want to make a Wilkinson dot plot, which shows each data point.
 
 Use `geom_dotplot()`. For this example (Figure \@ref(fig:FIG-DISTRIBUTION-DOTPLOT-BASIC)), we'll use a subset of the `countries` data set:
 
-```{r FIG-DISTRIBUTION-DOTPLOT-BASIC, fig.cap="A dot plot"}
+```{r FIG-DISTRIBUTION-DOTPLOT-BASIC, fig.cap="A dot plot", message=FALSE}
 library(gcookbook)  # Load gcookbook for the countries data set
 library(dplyr)
 
@@ -797,7 +783,7 @@ You want to plot the density of two-dimensional data.
 Use `stat_density2d()`. This makes a 2D kernel density estimate from the data. First we'll plot the density contour along with the data points (Figure \@ref(fig:FIG-DISTRIBUTION-DENSITY2D), left):
 
 ```{r FIG-DISTRIBUTION-DENSITY2D-1, eval=FALSE}
-# Save a base plot object called `faithful_p` (for faithful plot)
+# Save a base plot object
 faithful_p <- ggplot(faithful, aes(x = eruptions, y = waiting))
 
 faithful_p +
@@ -813,14 +799,25 @@ faithful_p +
   stat_density2d(aes(colour = ..level..))
 ```
 
-```{r FIG-DISTRIBUTION-DENSITY2D, ref.label=c("FIG-DISTRIBUTION-DENSITY2D-1", "FIG-DISTRIBUTION-DENSITY2D-2"), echo=FALSE, fig.show="hold", fig.cap="Points and density contour (left); With ..level.. mapped to color (right)", fig.width=3.5, fig.height=3.5}
+```{r FIG-DISTRIBUTION-DENSITY2D, echo=FALSE, fig.show="hold", fig.cap="Points and density contour (left); With ..level.. mapped to color (right)", fig.width=10}
+faithful_p <- ggplot(faithful, aes(x = eruptions, y = waiting))
+
+p1 <- faithful_p +
+  geom_point() +
+  stat_density2d()
+
+p2 <- faithful_p +
+  stat_density2d(aes(colour = ..level..))
+
+library(patchwork)
+p1 + plot_spacer() + p2 + plot_layout(widths = c(5, 1, 5))
 ```
 
 ### Discussion
 
 The two-dimensional kernel density estimate is analogous to the one-dimensional density estimate generated by `stat_density()`, but of course, it needs to be viewed in a different way. The default is to use contour lines, but it's also possible to use tiles and to map the density estimate to the fill color, or to the transparency of the tiles, as shown in Figure \@ref(fig:FIG-DISTRIBUTION-DENSITY2D-TILE):
 
-```{r FIG-DISTRIBUTION-DENSITY2D-TILE, fig.show="hold", fig.cap="With `..density..` mapped to fill (left); With points, and ..density.. mapped to alpha (right)", fig.width=3.5, fig.height=3.5}
+```{r FIG-DISTRIBUTION-DENSITY2D-TILE, fig.show="hold", fig.cap="With `..density..` mapped to fill (left); With points, and ..density.. mapped to alpha (right)", fig.width=5, fig.height=4}
 # Map density estimate to fill color
 faithful_p +
   stat_density2d(aes(fill = ..density..), geom = "raster", contour = FALSE)

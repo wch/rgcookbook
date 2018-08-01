@@ -1,14 +1,18 @@
 # options(warn = -1)
 
 library(ggplot2)
+library(dplyr)
 
 knitr::opts_chunk$set(
     collapse = TRUE,
     comment = "#>",
     cache = TRUE,
     fig.show = "hold",
-    out.width = NULL,
-    fig.align = "center"
+    # out.width = NULL,
+    fig.align = "center",
+    fig.width=5,
+    fig.height=4,
+    out.width=NULL
 )
 
 # Seems to be necessary for captions for multiple images in a single Figure.
@@ -52,6 +56,7 @@ register_s3_method <- function(pkg, generic, class, fun = NULL) {
 
 register_s3_method("knitr", "knit_print", "data.frame",
   function(x, ..., maxrows = getOption("knit_print_df_rows", default = 8)) {
+  # browser()
     output <- capture.output(
       base::print.data.frame(head(x, maxrows), ...)
     )
@@ -149,5 +154,20 @@ register_s3_method("knitr", "knit_print", "matrix",
 register_s3_method("knitr", "knit_print", "sf",
   function(x, ...) {
     sf:::print.sf(x, ..., n = 6)
+  }
+)
+
+register_s3_method("knitr", "knit_print", "tbl_df",
+  function(x, ..., maxrows = 8) {
+  # browser()
+    tibble:::print.tbl_df(x, ..., n = maxrows)
+  }
+)
+
+
+register_s3_method("knitr", "knit_print", "tbl",
+  function(x, ..., maxrows = 8) {
+  # browser()
+    tibble:::print.tbl(x, ..., n = maxrows)
   }
 )
