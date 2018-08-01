@@ -117,15 +117,12 @@ For this example, we used the `birthwt` data set. It contains data about birth w
 birthwt
 ```
 
-One problem with the faceted graph is that the facet labels are just 0 and 1, and there's no label indicating that those values are for whether or not smoking is a risk factor that is present. To change the labels, we need to change the names of the factor levels. First we'll take a look at the factor levels, then we'll assign new factor level names in the same order, and save this new data set as `birthwt_mod`:
+One problem with the faceted graph is that the facet labels are just 0 and 1, and there's no label indicating that those values are for whether or not smoking is a risk factor that is present. To change the labels, we change the names of the factor levels. First we'll take a look at the factor levels, then we'll assign new factor level names in the same order, and save this new data set as `birthwt_mod`:
 
 ```{r}
-library(forcats) # Load the forcats package to help you work with factor variables
-
-birthwt_mod <- birthwt %>%
-  mutate(smoke = as.factor(smoke)) %>% # Convert smoke to a factor
-  mutate(smoke = fct_recode(smoke, 'No Smoke' = "0", 'Smoke' = "1"))
-
+birthwt_mod <- birthwt
+# Convert smoke to a factor and reassign new names
+birthwt_mod$smoke <- recode_factor(birthwt_mod$smoke, '0' = 'No Smoke', '1' = 'Smoke')
 ```
 
 Now when we plot our modified data frame, our desired labels appear (Figure \@ref(fig:FIG-DISTRIBUTION-MULTI-HISTOGRAM-FACET-LABELS)).
@@ -305,8 +302,7 @@ One problem with the faceted graph is that the facet labels are just 0 and 1, an
 levels(birthwt_mod$smoke)
 #> [1] "0" "1"
 
-birthwt_mod <- birthwt_mod %>%
-  mutate(smoke = recode(smoke, '0' = 'No Smoke', '1' = 'Smoke'))
+birthwt_mod$smoke <- recode(birthwt_mod$smoke, '0' = 'No Smoke', '1' = 'Smoke')
 ```
 
 Now when we plot our modified data frame, our desired labels appear (Figure

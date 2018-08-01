@@ -777,7 +777,7 @@ library(forcats)
 fct_recode(pg$group, No = "ctrl", Yes = "trt1", Yes = "trt2")
 ```
 
-Another difference is that `fct_recode()` will always return a factor, whereas `recode()` will return a character vector if it is given a character vector, and will return a factor if it is given a factor.
+Another difference is that `fct_recode()` will always return a factor, whereas `recode()` will return a character vector if it is given a character vector, and will return a factor if it is given a factor. (Although dplyr does have a `recode_factor()` function which also always returns a factor.)
 
 
 Using base R, recoding can be done with the `match()` function:
