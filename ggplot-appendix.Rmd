@@ -17,8 +17,8 @@ source("utils.R", local = TRUE)
 ===================
 
 
-Introduction to ggplot2 {#CHAPTER-GGPLOT2}
-=======================
+Understanding ggplot2 {#CHAPTER-GGPLOT2}
+=====================
 
 Most of the recipes in this book involve the ggplot2 package, which was originally created by Hadley Wickham. It is not a part of "base" R, but it has attracted many users in the R community because of its versatility, clear and consistent interface, and beautiful output.
 
