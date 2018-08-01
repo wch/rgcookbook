@@ -721,9 +721,7 @@ library(MASS) # Load MASS for the biopsy data set
 # Using the biopsy data set, create a new column that stores the factor `class` as a numeric variable named `classn`. If `class` == "benign", set `classn` to 0. If `class` == "malignant", set `classn` to 1. Save this new dataset as `biopsy_mod`.
 
 biopsy_mod <- biopsy %>%
-  mutate(
-    classn = ifelse(class == "benign", 0, ifelse(class == "malignant", 1, NA))
-    )
+  mutate(classn = recode(class, benign = 0, malignant = 1))
 
 biopsy_mod
 ```
