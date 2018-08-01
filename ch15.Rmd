@@ -11,17 +11,12 @@ editor_options:
 # persist across cached builds.
 
 source("utils.R", local = TRUE)
-knitr::opts_chunk$set(fig.width=3.5, fig.height=3.5)
-
-
-# Need to load MASS before dplyr because of conflict with select()
-suppressPackageStartupMessages({
-    library(MASS)
-    library(dplyr)
-})
-
-# Print less for the examples in this chapter
-options(knit_print_df_rows = 4)
+knitr::opts_chunk$set(
+  fig.width = 3.5,
+  fig.height = 3.5,
+  # Print less for the examples in this chapter
+  print_df_rows = c(2, 2)
+)
 ```
 
 Getting Your Data into Shape {#CHAPTER-DATAPREP}
@@ -293,6 +288,7 @@ Renaming a column using base R is a bit more verbose. It uses the `names()` func
 ToothGrowth2 <- ToothGrowth
 
 names(ToothGrowth2)  # Print the names of the columns
+
 # Rename "len" to "length"
 names(ToothGrowth2)[names(ToothGrowth2) == "len"] <- "length"
 
@@ -453,7 +449,7 @@ factor(sizes, levels = c("small", "medium", "large"))
 
 The order can also be specified with `levels` when the factor is first created:
 
-```{r echo=FALSE}
+```{r eval=FALSE}
 factor(c("small", "large", "large", "small", "medium"),
        levels = c("small", "medium", "large"))
 ```
@@ -571,8 +567,10 @@ mappings
 
 # Create a list of the arguments to pass to fct_recode
 args <- c(list(sizes), mappings)
+
 # Look at the structure of the list
 str(args)
+
 # Use do.call to call fct_recode with the arguments
 do.call(fct_recode, args)
 ```
@@ -1198,7 +1196,7 @@ ggplot(c2b, aes(x = Date, fill = Cult, y = Weight)) +
   geom_col(position = "dodge")
 ```
 
-```{r, FIG-DATAPREP-SUMMARIZE-MISSING-COMBO, ref.label=c("FIG-DATAPREP-SUMMARIZE-MISSING-COMBO-1", "FIG-DATAPREP-SUMMARIZE-MISSING-COMBO-2"), fig.show="hold", fig.cap="Bar graph with a missing combination (left); With missing combination filled (right)", fig.width=4, fig.height=3}
+```{r, FIG-DATAPREP-SUMMARIZE-MISSING-COMBO, ref.label=c("FIG-DATAPREP-SUMMARIZE-MISSING-COMBO-1", "FIG-DATAPREP-SUMMARIZE-MISSING-COMBO-2"), fig.show="hold", fig.cap="Bar graph with a missing combination (left); With missing combination filled (right)", fig.width=4, fig.height=3, warning=FALSE}
 ```
 
 When we used `complete()`, it filled in the missing combinations with `NA`. It's possible to fill with a different value, with the `fill` parameter. See `?complete` for more information.

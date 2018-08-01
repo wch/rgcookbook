@@ -415,11 +415,11 @@ As of this writing, the patchwork package is not available on CRAN, so you need 
 ```
 
 Once you have installed patchwork, you can start stiching plots together (Figure \@ref(fig:FIG-OUTPUT-PATCHWORK)).
-```{r FIG-OUTPUT-PATCHWORK, fig.show="hold", fig.cap="Combining two plots together using `patchwork()`", fig.height=4, fig.width=7}
+```{r FIG-OUTPUT-PATCHWORK, fig.show="hold", fig.cap="Combining two plots together using `patchwork()`", fig.height=3.5, fig.width=7}
 library(patchwork)
 
 plot1 <- ggplot(PlantGrowth, aes(x = weight)) +
-  geom_histogram(bins = 20)
+  geom_histogram(bins = 12)
 
 plot2 <- ggplot(PlantGrowth, aes(x = group, y = weight, group = group)) +
   geom_boxplot()
@@ -431,9 +431,9 @@ plot1 + plot2
 
 Patchwork also allows you to determine how you want to lay out the ggplots in relation to each other, by adding a `plot_layout()` call. You can use this call to determine the number of columns you want the pplots to be arranged in (Figure \@ref(fig:FIG-OUTPUT-PATCHWORK-COLS)), and the size of the plots (Figure \@ref(fig:FIG-OUTPUT-PATCHWORK-HEIGHT)):
 
-```{r FIG-OUTPUT-PATCHWORK-COLS, fig.show="hold", fig.cap="Using `plot_layout()` to specify that the plots should be arranged in 2 columns", fig.height=7, fig.width=7}
+```{r FIG-OUTPUT-PATCHWORK-COLS, fig.show="hold", fig.cap="Using `plot_layout()` to specify that the plots should be arranged in 2 columns", fig.height=7, fig.width=8}
 plot3 <- ggplot(PlantGrowth, aes(x = weight, fill = group)) +
-  geom_histogram(bins = 20, position = "dodge")
+  geom_density(alpha = 0.25)
 
 plot1 + plot2 + plot3 +
   plot_layout(ncol = 2)

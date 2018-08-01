@@ -1,21 +1,27 @@
 # options(warn = -1)
 
-library(ggplot2)
-library(dplyr)
+suppressPackageStartupMessages({
+  # Need to load MASS before dplyr because of conflict with select()
+  library(MASS)
+  library(ggplot2)
+  library(dplyr)
+})
+
 
 options(width = 95)
 
 knitr::opts_chunk$set(
-    collapse = TRUE,
-    comment = "#>",
-    cache = TRUE,
-    fig.show = "hold",
-    # out.width = NULL,
-    fig.align = "center",
-    fig.width = 5,
-    fig.height = 4,
-    out.width = NULL,
-    print_df_rows = c(3, 3)
+  collapse = TRUE,
+  comment = "#>",
+  cache = TRUE,
+  fig.show = "hold",
+  # out.width = NULL,
+  fig.align = "center",
+  fig.width = 5,
+  fig.height = 4,
+  out.width = NULL,
+  print_df_rows = c(3, 3),
+  print_tbl_rows = 6
 )
 
 # Seems to be necessary for captions for multiple images in a single Figure.
@@ -72,7 +78,7 @@ knit_print_data.frame <- function(x, ..., rows = knitr::opts_current$get("print_
   # Need to print the head and tail of data frame in one go, so that
   # alignment is correct.
   output <- capture.output(
-    print(x[rownums, ], ...)
+    print(x[rownums, , drop = FALSE], ...)
   )
 
   if (nrow(x) > sum(rows)) {
@@ -131,6 +137,10 @@ knit_print_table <- function(x, ...) {
   invisible()
 }
 
+knit_print_tbl <-   function(x, ..., maxrows = knitr::opts_current$get("print_tbl_rows")) {
+  print(x, ..., n = maxrows)
+}
+
 # Need this explicit registration step because of some change in R 3.5
 register_s3_method("knitr", "knit_print", "data.frame", knit_print_data.frame)
 register_s3_method("knitr", "knit_print", "matrix",     knit_print_data.frame)
@@ -141,6 +151,9 @@ register_s3_method("knitr", "knit_print", "ts",         knit_print_ts)
 
 register_s3_method("knitr", "knit_print", "table",      knit_print_table)
 
+register_s3_method("knitr", "knit_print", "grouped_df", knit_print_tbl)
+register_s3_method("knitr", "knit_print", "tbl_df", knit_print_tbl)
+register_s3_method("knitr", "knit_print", "tbl", knit_print_tbl)
 
 
 register_s3_method("knitr", "knit_print", "sf",
@@ -149,14 +162,3 @@ register_s3_method("knitr", "knit_print", "sf",
   }
 )
 
-register_s3_method("knitr", "knit_print", "tbl_df",
-  function(x, ..., maxrows = 8) {
-    tibble:::print.tbl_df(x, ..., n = maxrows)
-  }
-)
-
-register_s3_method("knitr", "knit_print", "tbl",
-  function(x, ..., maxrows = 8) {
-    tibble:::print.tbl(x, ..., n = maxrows)
-  }
-)
