@@ -186,9 +186,7 @@ ggplot(mpg_mod, aes(x = displ, y = hwy)) +
   facet_grid(drv ~ ., labeller = label_parsed)
 ```
 
-(ref:cap-FIG-FACET-LABEL-TEXT-LABELLER) With `label_both()` (left); With `label_parsed()` for mathematical expressions (right)
-
-```{r FIG-FACET-LABEL-TEXT-LABELLER, ref.label=c("FIG-FACET-LABEL-TEXT-LABELLER-1", "FIG-FACET-LABEL-TEXT-LABELLER-2"), echo=FALSE, fig.cap="(ref:cap-FIG-FACET-LABEL-TEXT-LABELLER)", fig.width=2.5}
+```{r FIG-FACET-LABEL-TEXT-LABELLER, ref.label=c("FIG-FACET-LABEL-TEXT-LABELLER-1", "FIG-FACET-LABEL-TEXT-LABELLER-2"), echo=FALSE, fig.cap="With `label_both()` (left); With `label_parsed()` for mathematical expressions (right)", fig.width=2.5}
 ```
 
 ### See Also

@@ -30,9 +30,7 @@ You want to add a title to your plot.
 
 Use `ggtitle()` to add a title, as shown in Figure \@ref(fig:FIG-APPEARANCE-TITLE):
 
-(ref:cap-FIG-APPEARANCE-TITLE) Scatter plot with a title added (left); With a `\n` for a newline (right)
-
-```{r FIG-APPEARANCE-TITLE, fig.show="hold", fig.cap="(ref:cap-FIG-APPEARANCE-TITLE)"}
+```{r FIG-APPEARANCE-TITLE, fig.show="hold", fig.cap="Scatter plot with a title added (left); With a `\\n` for a newline (right)"}
 library(gcookbook)  # Load gcookbook for the heightweight data set
 
 hw_plot <- ggplot(heightweight, aes(x = ageYear, y = heightIn)) +
@@ -231,9 +229,7 @@ There are many premade themes that are already included in ggplot2. The default 
 
 To use a premade theme, add `theme_bw()` or another theme to your plot (Figure \@ref(fig:FIG-APPEARANCE-THEME)):
 
-(ref:cap-FIG-APPEARANCE-THEME) Scatter plot with `theme_grey()` (the default, top left); with `theme_bw()` (top right); with `theme_minimal()` (bottom left); with `theme_classic()` (bottom right)
-
-```{r FIG-APPEARANCE-THEME, fig.show="hold", fig.cap="(ref:cap-FIG-APPEARANCE-THEME)"}
+```{r FIG-APPEARANCE-THEME, fig.show="hold", fig.cap="Scatter plot with `theme_grey()` (the default, top left); with `theme_bw()` (top right); with `theme_minimal()` (bottom left); with `theme_classic()` (bottom right)"}
 library(gcookbook)  # Load gcookbook for the heightweight data set
 
 # Create the base plot
