@@ -54,8 +54,7 @@ mpg_plot +
 
 With `facet_wrap()`, the subplots are laid out horizontally and wrap around, like words on a page, as in Figure \@ref(fig:FIG-FACET-FACET-WRAP):
 
-(ref:cap-FIG-FACET-FACET-WRAP) A scatter plot with `facet_wrap()` on class
-```{r FIG-FACET-FACET-WRAP, fig.cap="(ref:cap-FIG-FACET-FACET-WRAP)"}
+```{r FIG-FACET-FACET-WRAP, fig.cap="A scatter plot with `facet_wrap()` on class"}
 # Facet on class
 # Note that there is nothing before the tilde
 mpg_plot +

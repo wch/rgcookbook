@@ -697,9 +697,7 @@ hw_plot +
   theme(panel.border = element_blank(), axis.line = element_line(colour = "black"))
 ```
 
-(ref:cap-FIG-AXES-AXIS-LINE) Scatter plot with axis lines (left); With theme_bw(), panel.border must also be made blank (right)
-
-```{r FIG-AXES-AXIS-LINE, ref.label=c("FIG-AXES-AXIS-LINE-1", "FIG-AXES-AXIS-LINE-2"), echo=FALSE, fig.show="hold", fig.cap="(ref:cap-FIG-AXES-AXIS-LINE)"}
+```{r FIG-AXES-AXIS-LINE, ref.label=c("FIG-AXES-AXIS-LINE-1", "FIG-AXES-AXIS-LINE-2"), echo=FALSE, fig.show="hold", fig.cap="Scatter plot with axis lines (left); With theme_bw(), panel.border must also be made blank (right)"}
 ```
 
 

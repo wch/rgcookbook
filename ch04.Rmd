@@ -343,9 +343,7 @@ ggplot(sunspotyear, aes(x = Year, y = Sunspots)) +
 
 Having an outline around the entire area might not be desirable, because it puts a vertical line at the beginning and end of the shaded area, as well as one along the bottom. To avoid this issue, we can draw the area without an outline (by not specifying colour), and then layer a `geom_line()` on top, as shown in Figure \@ref(fig:FIG-LINE-GRAPH-AREA-TOPLINE):
 
-(ref:cap-FIG-LINE-GRAPH-AREA-TOPLINE) Line graph with a line just on top, using `geom_line()`
-
-```{r FIG-LINE-GRAPH-AREA-TOPLINE, fig.cap="(ref:cap-FIG-LINE-GRAPH-AREA-TOPLINE)", fig.width=8, fig.height=1.5, out.width="100%"}
+```{r FIG-LINE-GRAPH-AREA-TOPLINE, fig.cap="Line graph with a line just on top, using `geom_line()`", fig.width=8, fig.height=1.5, out.width="100%"}
 ggplot(sunspotyear, aes(x = Year, y = Sunspots)) +
   geom_area(fill = "blue", alpha = .2) +
   geom_line()

@@ -149,9 +149,7 @@ pg_plot +
   theme(legend.key = element_blank())           # Remove border around each item
 ```
 
-(ref:FIG-LEGEND-POSITION-BACKGROUND) Legend with opaque background and outline (left); With no background or outlines (right)
-
-```{r FIG-LEGEND-POSITION-BACKGROUND, ref.label=c("FIG-LEGEND-POSITION-BACKGROUND-1", "FIG-LEGEND-POSITION-BACKGROUND-2"), echo=FALSE, fig.cap="(ref:cap-FIG-FACET-LABEL-TEXT-LABELLER)", fig.width=3}
+```{r FIG-LEGEND-POSITION-BACKGROUND, ref.label=c("FIG-LEGEND-POSITION-BACKGROUND-1", "FIG-LEGEND-POSITION-BACKGROUND-2"), echo=FALSE, fig.cap="Legend with opaque background and outline (left); With no background or outlines (right)", fig.width=3}
 ```
 
 

@@ -399,8 +399,6 @@ By default, `stat_bin_2d()` divides the space into 30 groups in the *x* and *y* 
 
 The default colors are somewhat difficult to distinguish because they don't vary much in luminosity. In the second version we set the colors by using `scale_fill_gradient()` and by specifying the low and high colors. By default, the legend doesn't show an entry for the lowest values. This is because the range of the color scale starts not from zero, but from the smallest nonzero quantity in a bin -- probably 1, in this case. To make the legend show a zero (as in Figure \@ref(fig:FIG-SCATTER-OVERPLOT-BIN2D), right), we can manually set the range from 0 to the maximum, 6000, using limits (Figure \@ref(fig:FIG-SCATTER-OVERPLOT-BIN2D), left):
 
-(ref:cap-FIG-SCATTER-OVERPLOT-BIN2D) Binning data with `stat_bin2d()` (left); With more bins, manually specified colors, and legend breaks (right)
-
 ```{r, eval=FALSE}
 diamonds_sp +
   stat_bin2d()
@@ -410,7 +408,8 @@ diamonds_sp +
   scale_fill_gradient(low = "lightblue", high = "red", limits = c(0, 6000))
 ```
 
-```{r FIG-SCATTER-OVERPLOT-BIN2D, echo=FALSE, fig.show="hold", fig.cap="(ref:cap-FIG-SCATTER-OVERPLOT-BIN2D)"}
+```{r FIG-SCATTER-OVERPLOT-BIN2D, echo=FALSE, fig.show="hold", fig.cap="Binning data with `stat_bin2d()` (left); With more bins, manually specified colors, and legend breaks (right)
+"}
 diamonds_sp +
   stat_bin2d() +
   theme(
@@ -429,10 +428,7 @@ diamonds_sp +
 
 Another alternative is to bin the data into hexagons instead of rectangles, with `stat_binhex()` (Figure \@ref(fig:FIG-SCATTER-OVERPLOT-BINHEX)). It works just like `stat_bin2d()`. To use `stat_binhex()`, you must first install the hexbin package, with the command `install.packages("hexbin")`:
 
-(ref:cap-FIG-SCATTER-OVERPLOT-BINHEX) Binning data with `stat_binhex()` (left); Cells outside of the range shown in grey (right)
-
-
-```{r FIG-SCATTER-OVERPLOT-BINHEX, fig.show="hold", fig.cap="(ref:cap-FIG-SCATTER-OVERPLOT-BINHEX)"}
+```{r FIG-SCATTER-OVERPLOT-BINHEX, fig.show="hold", fig.cap="Binning data with `stat_binhex()` (left); Cells outside of the range shown in grey (right)"}
 library(hexbin) # Load the hexbin library to access stat_binhex()
 
 diamonds_sp +
