@@ -408,8 +408,7 @@ diamonds_sp +
   scale_fill_gradient(low = "lightblue", high = "red", limits = c(0, 6000))
 ```
 
-```{r FIG-SCATTER-OVERPLOT-BIN2D, echo=FALSE, fig.show="hold", fig.cap="Binning data with `stat_bin2d()` (left); With more bins, manually specified colors, and legend breaks (right)
-"}
+```{r FIG-SCATTER-OVERPLOT-BIN2D, echo=FALSE, fig.show="hold", fig.cap="Binning data with `stat_bin2d()` (left); With more bins, manually specified colors, and legend breaks (right)"}
 diamonds_sp +
   stat_bin2d() +
   theme(
