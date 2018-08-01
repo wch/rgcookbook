@@ -47,7 +47,7 @@ ggplot(pg_mean, aes(x = group, y = weight)) +
 
 When x is a continuous (or numeric) variable, the bars behave a little differently. Instead of having one bar at each actual x value, there is one bar at each possible x value between the minimum and the maximum, as in Figure \@ref(fig:FIG-BAR-GRAPH-BASIC-BAR-CONT). You can convert the continuous variable to a discrete variable by using `factor()`.
 
-```{r FIG-BAR-GRAPH-BASIC-BAR-CONT, fig.show="hold", fig.cap='Left: bar graph of values with a continuous x-axis; right: with x variable converted to a factor (notice that the space for 6 is gone)', fig.width=3.5, fig.height=3.5}
+```{r FIG-BAR-GRAPH-BASIC-BAR-CONT, fig.show="hold", fig.cap='Bar graph of values with a continuous x-axis (left); With x variable converted to a factor (notice that the space for 6 is gone; right)', fig.width=3.5, fig.height=3.5}
 # There's no entry for Time == 6
 BOD
 
@@ -176,7 +176,7 @@ With `geom_bar()`, the default behavior is to use `stat = "bin"`, which counts u
 
 In this example, the variable on the x-axis is discrete. If we use a continuous variable on the x-axis, we'll get a bar at each unique *x* value in the data, as shown in Figure \@ref(fig:FIG-BAR-GRAPH-COUNT-CONTINUOUS), left:
 
-```{r FIG-BAR-GRAPH-COUNT-CONTINUOUS, echo=FALSE, message=FALSE, fig.show="hold", fig.cap='Left: bar graph of counts on a continuous axis; right: a histogram', fig.width=6, fig.height=3}
+```{r FIG-BAR-GRAPH-COUNT-CONTINUOUS, echo=FALSE, message=FALSE, fig.show="hold", fig.cap='Bar graph of counts on a continuous axis (left); A histogram (right)', fig.width=6, fig.height=3}
 # Bar graph of counts
 ggplot(diamonds, aes(x = carat)) +
   geom_bar()

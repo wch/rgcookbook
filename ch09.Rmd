@@ -83,7 +83,7 @@ You want to change the appearance of text in a plot.
 
 To set the appearance of theme items such as the title, axis labels, and axis tick marks, use theme() and set the item with `element_text()`. For example, `axis.title.x` controls the appearance of the x-axis label and `plot.title` controls the appearance of the title text (Figure \@ref(fig:FIG-APPEARANCE-TEXT-APPEARANCE-THEME)):
 
-```{r FIG-APPEARANCE-TEXT-APPEARANCE-THEME, fig.show="hold", fig.cap='Left: `axis.title.x`; right: `plot.title`'}
+```{r FIG-APPEARANCE-TEXT-APPEARANCE-THEME, fig.show="hold", fig.cap='`axis.title.x` (left); `plot.title` (right)'}
 library(gcookbook)  # Load gcookbook for the heightweight data set
 
 # Base plot
