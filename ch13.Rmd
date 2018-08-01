@@ -36,19 +36,21 @@ We'll look at the `mtcars` data set:
 mtcars
 ```
 
-First, generate the numerical correlation matrix using cor. This will generate correlation coefficients for each pair of columns:
+First, generate the numerical correlation matrix using `cor`. This will generate correlation coefficients for each pair of columns:
 
 
 ```{r}
-mcor <- cor(mtcars) # Print mcor and round to 2 digits
+mcor <- cor(mtcars)
+# Print mcor and round to 2 digits
 round(mcor, digits = 2)
 ```
 
 If there are any columns that you don't want used for correlations (for example, a column of names), you should exclude them. If there are any `NA` cells in the original data, the resulting correlation matrix will have `NA` values. To deal with this, you will probably want to use the argument `use="complete.obs"` or `use="pairwise.complete.obs"`.
 
-To plot the correlation matrix (Figure \@ref(fig:FIG-MISCGRAPH-CORRMATRIX-BASIC)), we'll use the corrplot package, which first must be installed with `install.packages("corrplot")`:
+To plot the correlation matrix (Figure \@ref(fig:FIG-MISCGRAPH-CORRMATRIX-BASIC)), we'll use the corrplot package:
 
-```{r FIG-MISCGRAPH-CORRMATRIX-BASIC, fig.cap="A correlation matrix", fig.width=7, fig.height=7}
+```{r FIG-MISCGRAPH-CORRMATRIX-BASIC, fig.cap="A correlation matrix", fig.width=7, fig.height=7, message=FALSE}
+# If needed, first install with install.packages("corrplot")
 library(corrplot)
 
 corrplot(mcor)
@@ -130,7 +132,7 @@ Use `stat_function()`. It's also necessary to give ggplot a dummy data frame so 
 
 ```{r FIG-MISCGRAPH-FUNCTION-1, eval=FALSE}
 # The data frame is only used for setting the range
-p <- ggplot(data.frame(x = c(-3,3)), aes(x = x))
+p <- ggplot(data.frame(x = c(-3, 3)), aes(x = x))
 
 p + stat_function(fun = dnorm)
 ```
@@ -144,16 +146,17 @@ p + stat_function(fun = dt, args = list(df = 2))
 ```
 
 ```{r FIG-MISCGRAPH-FUNCTION, ref.label=c("FIG-MISCGRAPH-FUNCTION-1", "FIG-MISCGRAPH-FUNCTION-2"), echo=FALSE, fig.show="hold", fig.cap="The normal distribution (left); The *t*-distribution with `df=2` (right)"}
-````
+```
 
 It's also possible to define your own functions. It should take an *x* value for its first argument, and it should return a *y* value. In this example, we'll define a sigmoid function (Figure \@ref(fig:FIG-MISCGRAPH-FUNCTION-CUSTOM)):
 
 ```{r FIG-MISCGRAPH-FUNCTION-CUSTOM, fig.cap="A user-defined function"}
 myfun <- function(xvar) {
-    1/(1 + exp(-xvar + 10))
+    1 / (1 + exp(-xvar + 10))
 }
 
-ggplot(data.frame(x = c(0, 20)), aes(x = x)) + stat_function(fun = myfun)
+ggplot(data.frame(x = c(0, 20)), aes(x = x)) +
+  stat_function(fun = myfun)
 ```
 
 By default, the function is calculated at 101 points along the *x* range. If you have a rapidly fluctuating function, you may be able to see the individual segments. To smooth out the curve, pass a larger value of n to `stat_function()`, as in `stat_function(fun=myfun, n=200)`.
@@ -186,8 +189,9 @@ dnorm_limit <- function(x) {
 # ggplot() with dummy data
 p <- ggplot(data.frame(x = c(-3, 3)), aes(x = x))
 
-p + stat_function(fun = dnorm_limit, geom = "area", fill = "blue", alpha = 0.2) +
-    stat_function(fun = dnorm)
+p +
+  stat_function(fun = dnorm_limit, geom = "area", fill = "blue", alpha = 0.2) +
+  stat_function(fun = dnorm)
 ```
 
 Remember that what gets passed to this function is a vector, not individual values. If this function operated on single elements at a time, it might make sense to use an `if`--`else` statement to decide what to return, conditional on the value of `x`. But that won't work here, since `x` is a vector with many values.
@@ -200,11 +204,11 @@ This function will allow you to pass in a function, a minimum value, and a maxim
 
 ```{r}
 limitRange <- function(fun, min, max) {
-    function(x) {
-        y <- fun(x)
-        y[x < min  |  x > max] <- NA
-        return(y)
-    }
+  function(x) {
+    y <- fun(x)
+    y[x < min  |  x > max] <- NA
+    return(y)
+  }
 }
 ```
 
@@ -221,14 +225,15 @@ dlimit(-2:4)
 We can use `limitRange()` to create a function that is passed to `stat_function()`:
 
 ```{r}
-p + stat_function(fun = dnorm) +
-    stat_function(fun = limitRange(dnorm, 0, 2),
-                  geom = "area", fill = "blue", alpha = 0.2)
+p +
+  stat_function(fun = dnorm) +
+  stat_function(fun = limitRange(dnorm, 0, 2), geom = "area", fill = "blue",
+                alpha = 0.2)
 ```
 
 The `limitRange()` function can be used with any function, not just `dnorm()`, to create a range-limited version of that function. The result of all this is that instead of having to write functions with different hard-coded values for each situation that arises, we can write one function and simply pass it different arguments depending on the situation.
 
-If you look very, very closely at the graph in Figure \@ref(fig:FIG-MISCGRAPH-FUNCTION-SHADE), you may see that the shaded region does not align exactly with the range we specified. This is because ggplot2 does a numeric approximation by calculating values at fixed intervals, and these intervals may not fall exactly within the specified range. As in Recipe \@ref(RECIPE-MISCGRAPH-FUNCTION), we can improve the approximation by increasing the number of interpolated values with `stat_function(n=200)`.
+If you look very, very closely at the graph in Figure \@ref(fig:FIG-MISCGRAPH-FUNCTION-SHADE), you may see that the shaded region does not align exactly with the range we specified. This is because ggplot2 does a numeric approximation by calculating values at fixed intervals, and these intervals may not fall exactly within the specified range. As in Recipe \@ref(RECIPE-MISCGRAPH-FUNCTION), we can improve the approximation by increasing the number of interpolated values with `stat_function(n = 200)`.
 
 
 
@@ -283,16 +288,16 @@ madmen2
 # Create a graph object from the data set
 g <- graph.data.frame(madmen2, directed=TRUE)
 # Remove unnecessary margins
-par(mar = c(0,0,0,0))
+par(mar = c(0, 0, 0, 0))
 plot(g, layout = layout.fruchterman.reingold, vertex.size = 8,
-    edge.arrow.size = 0.5, vertex.label = NA)
+     edge.arrow.size = 0.5, vertex.label = NA)
 ```
 
 It's also possible to make a directed graph from a data frame. The `madmen` data set has only one row for each pairing, since direction doesn't matter for an undirected graph. This time we'll use a circle layout (Figure \@ref(fig:FIG-MISCGRAPH-GRAPH-CIRCLE)):
 
 ```{r FIG-MISCGRAPH-GRAPH-CIRCLE, fig.cap="A circular undirected graph from a data frame"}
 g <- graph.data.frame(madmen, directed = FALSE)
-par(mar = c(0,0,0,0))  # Remove unnecessary margins
+par(mar = c(0, 0, 0, 0))  # Remove unnecessary margins
 plot(g, layout = layout.circle, vertex.size = 8, vertex.label = NA)
 ```
 
@@ -407,9 +412,9 @@ We'll first convert it to a format that is usable by ggplot: a data frame with c
 
 ```{r}
 pres_rating <- data.frame(
-    rating = as.numeric(presidents),
-    year = as.numeric(floor(time(presidents))),
-    quarter = as.numeric(cycle(presidents))
+  rating = as.numeric(presidents),
+  year = as.numeric(floor(time(presidents))),
+  quarter = as.numeric(cycle(presidents))
 )
 pres_rating
 ```
@@ -427,11 +432,12 @@ p + geom_tile()
 p + geom_raster()
 ```
 
-```{r FIG-MISCGRAPH-HEATMAP, fig.cap="A heat map-the grey squares represent `NA`s in the data", fig.width=8, fig.height=1.5}
+```{r FIG-MISCGRAPH-HEATMAP, echo=FALSE, fig.cap="A heat map-the grey squares represent `NA`s in the data", fig.width=13, fig.height=2}
 # The above code block is just for display because it would make two plots when
 # we just need one.
 p <- ggplot(pres_rating, aes(x = year, y = quarter, fill = rating))
-p + geom_tile()
+p +
+  geom_tile()
 ```
 
 > **Note**
@@ -442,11 +448,12 @@ p + geom_tile()
 
 To better convey useful information, you may want to customize the appearance of the heat map. With this example, we'll reverse the y-axis so that it progresses from top to bottom, and we'll add tick marks every four years along the x-axis, to correspond with each presidential term. For the x and y scales, we remove the padding by using `expand=c(0, 0)`.  We'll also change the color scale using `scale_fill_gradient2()`, which lets you specify a midpoint color and the two colors at the low and high ends (Figure \@ref(fig:FIG-MISCGRAPH-HEATMAP-CUSTOM)):
 
-```{r FIG-MISCGRAPH-HEATMAP-CUSTOM, fig.cap="A heat map with customized appearance", fig.width=8, fig.height=1.5}
-p + geom_tile() +
-    scale_x_continuous(breaks = seq(1940, 1976, by = 4), expand = c(0, 0)) +
-    scale_y_reverse(expand = c(0, 0)) +
-    scale_fill_gradient2(midpoint = 50, mid = "grey70", limits = c(0,100))
+```{r FIG-MISCGRAPH-HEATMAP-CUSTOM, fig.cap="A heat map with customized appearance", fig.width=13, fig.height=2}
+p + 
+  geom_tile() +
+  scale_x_continuous(breaks = seq(1940, 1976, by = 4), expand = c(0, 0)) +
+  scale_y_reverse(expand = c(0, 0)) +
+  scale_fill_gradient2(midpoint = 50, mid = "grey70", limits = c(0, 100))
 ```
 
 ### See Also
@@ -816,7 +823,7 @@ library(tidyr)     # For drop_na function
 library(gcookbook) # For the data set
 
 # Set random seed to make random operation below repeatable
-set.seed(231)
+set.seed(392)
 
 c2 <- countries %>%
   filter(Year == 2009) %>%  # Get data from year 2009
@@ -830,7 +837,7 @@ Notice that the row names (the first column) are essentially random numbers, sin
 
 ```{r}
 rownames(c2) <- c2$Name
-c2 <- c2[,4:7]
+c2 <- c2[, 4:7]
 c2
 ```
 
@@ -863,8 +870,8 @@ A cluster analysis is simply a way of assigning points to groups in an *n*-dimen
 First, we normalized the data using `scale()` with its default settings. You can scale your data differently, or not at all. (With this data set, *not* scaling the data will lead to GDP overwhelming the other variables, as shown in Figure \@ref(fig:FIG-MISCGRAPH-DENDROGRAM-UNSCALED).)
 
 ```{r FIG-MISCGRAPH-DENDROGRAM-UNSCALED, fig.cap="Dendrogram with unscaled data-notice the much larger Height values, which are largely due to the unscaled GDP values", fig.width=6, fig.height=5}
-hc <- hclust(dist(c2))
-plot(hc)
+hc_unscaled <- hclust(dist(c2))
+plot(hc_unscaled)
 ```
 
 For the distance calculation, we used the default method, "euclidean", which calculates the Euclidean distance between the points. The other possible methods are "maximum", "manhattan", "canberra", "binary", and "minkowski".
@@ -890,7 +897,7 @@ You want to make a vector field.
 Use `geom_segment()`. For this example, we'll use the `isabel` data set:
 
 ```{r}
-library(gcookbook) # For the data set
+library(gcookbook) # For the isabel data set
 isabel
 ```
 
@@ -900,7 +907,7 @@ The height (`z`) ranges from 0.035 km to 18.035 km. For this example, we'll just
 
 To draw the vectors (Figure \@ref(fig:FIG-MISCGRAPH-VECTOR)), we'll use `geom_segment()`. Each segment has a starting point and an ending point. We'll use the `x` and `y` values as the starting points for each segment, then add a fraction of the `vx` and `vy` values to get the end points for each segment. If we didn't scale down these values, the lines would be much too long:
 
-```{r FIG-MISCGRAPH-VECTOR, fig.cap="First attempt at a vector field-the resolution of the data is too high, but it does hint at some interesting patterns not visible in graphs with a lower data resolution", fig.width=5, fig.height=5}
+```{r FIG-MISCGRAPH-VECTOR, fig.cap="First attempt at a vector field. The resolution of the data is too high, but it does hint at some interesting patterns not visible in graphs with a lower data resolution", fig.width=5, fig.height=5, warning=FALSE}
 islice <- filter(isabel, z == min(z))
 
 ggplot(islice, aes(x = x, y = y)) +
@@ -916,8 +923,8 @@ islice <- filter(isabel, z == min(z))
 
 # Keep 1 out of every 'by' values in vector x
 every_n <- function(x, by = 2) {
-    x <- sort(x)
-    x[seq(1, length(x), by = by)]
+  x <- sort(x)
+  x[seq(1, length(x), by = by)]
 }
 
 # Keep 1 of every 4 values in x and y
@@ -930,7 +937,7 @@ islicesub <- filter(islice, x %in% keepx  &  y %in% keepy)
 
 Now that we've taken a subset of the data, we can plot it, with arrowheads, as shown in Figure \@ref(fig:FIG-MISCGRAPH-VECTORFIELD-ARROW):
 
-```{r FIG-MISCGRAPH-VECTORFIELD-ARROW, fig.cap="Vector field with arrowheads", fig.width=5, fig.height=5}
+```{r FIG-MISCGRAPH-VECTORFIELD-ARROW, fig.cap="Vector field with arrowheads", fig.width=5, fig.height=5, warning=FALSE}
 # Need to load grid for arrow() function
 library(grid)
 
@@ -955,7 +962,7 @@ ggplot(islicesub, aes(x = x, y = y)) +
                  arrow = arrow(length = unit(0.1,"cm")), size = 0.6)
 ```
 
-Next, we'll map speed to colour. We'll also add a map of the United States and zoom in on the area of interest, as shown in the graph on the right in Figure \@ref(fig:FIG-MISCGRAPH-VECTORFIELD-AES),using coord_cartesian() (without this, the entire USA will be displayed):
+Next, we'll map speed to colour. We'll also add a map of the United States and zoom in on the area of interest, as shown in the graph on the right in Figure \@ref(fig:FIG-MISCGRAPH-VECTORFIELD-AES),using `coord_cartesian()` (without this, the entire USA will be displayed):
 
 ```{r FIG-MISCGRAPH-VECTORFIELD-AES-2, eval=FALSE}
 # Get USA map data
@@ -971,13 +978,13 @@ ggplot(islicesub, aes(x = x, y = y)) +
 ```
 
 
-```{r FIG-MISCGRAPH-VECTORFIELD-AES, ref.label=c("FIG-MISCGRAPH-VECTORFIELD-AES-1", "FIG-MISCGRAPH-VECTORFIELD-AES-2"), echo=FALSE, message=FALSE, fig.show="hold", fig.cap="Vector field with speed mapped to alpha (left); With speed mapped to colour (right)", fig.width=6, fig.height=5}
+```{r FIG-MISCGRAPH-VECTORFIELD-AES, ref.label=c("FIG-MISCGRAPH-VECTORFIELD-AES-1", "FIG-MISCGRAPH-VECTORFIELD-AES-2"), echo=FALSE, message=FALSE, fig.show="hold", fig.cap="Vector field with speed mapped to alpha (left); With speed mapped to colour (right)", fig.width=6, fig.height=5, warning=FALSE}
 
 ```
 
 The `isabel` data set has three-dimensional data, so we can also make a faceted graph of the data, as shown in Figure \@ref(fig:FIG-MISCGRAPH-VECTORFIELD-FACET). Because each facet is small, we will use a sparser subset than before:
 
-```{r FIG-MISCGRAPH-VECTORFIELD-FACET, fig.cap="Vector field of wind speeds, faceted on `z`", fig.width=9, fig.height=6}
+```{r FIG-MISCGRAPH-VECTORFIELD-FACET, fig.cap="Vector field of wind speeds, faceted on `z`", fig.width=9, fig.height=6, warning=FALSE}
 # Keep 1 out of every 5 values in x and y, and 1 in 2 values in z
 keepx <- every_n(unique(isabel$x), by = 5)
 keepy <- every_n(unique(isabel$y), by = 5)
@@ -1009,18 +1016,18 @@ You want to make a quantile-quantile (QQ) plot to compare an empirical distribut
 
 ### Solution
 
-Use `qqnorm()` to compare to a normal distribution. Give `qqnorm()` a vector of numerical values, and add a theoretical distribution line with `qqline()` (Figure \@ref(fig:FIG-MISCGRAPH-QQ)):
+Use `geom_qq()` and `geom_qq_line()` to compare to a normal distribution (Figure \@ref(fig:FIG-MISCGRAPH-QQ)):
 
 ```{r FIG-MISCGRAPH-QQ, fig.show="hold", fig.cap="QQ plot of height, which is close to normally distributed (left); QQ plot of age, which is not normally distributed (right)"}
 library(gcookbook) # For the data set
 
-# QQ plot of height
-qqnorm(heightweight$heightIn)
-qqline(heightweight$heightIn)
+ggplot(heightweight, aes(sample = heightIn)) +
+  geom_qq() +
+  geom_qq_line()
 
-# QQ plot of age
-qqnorm(heightweight$ageYear)
-qqline(heightweight$ageYear)
+ggplot(heightweight, aes(sample = ageYear)) +
+  geom_qq() +
+  geom_qq_line()
 ```
 
 
@@ -1030,10 +1037,7 @@ The points for `heightIn` are close to the line, which means that the distributi
 
 ### See Also
 
-See `?qqplot` for information on comparing data to theoretical distributions other than the normal distribution.
-
-ggplot has a `stat_qq()` function, but it doesn't provide an easy way to draw the QQ line.
-
+See `?stat_qq` for information on comparing data to theoretical distributions other than the normal distribution.
 
 
 Creating a Graph of an Empirical Cumulative Distribution Function {#RECIPE-MISCGRAPH-ECDF}
@@ -1051,10 +1055,12 @@ Use `stat_ecdf()` (Figure \@ref(fig:FIG-MISCGRAPH-ECDF)):
 library(gcookbook) # For the data set
 
 # ecdf of heightIn
-ggplot(heightweight, aes(x = heightIn)) + stat_ecdf()
+ggplot(heightweight, aes(x = heightIn)) +
+  stat_ecdf()
 
 # ecdf of ageYear
-ggplot(heightweight, aes(x = ageYear)) + stat_ecdf()
+ggplot(heightweight, aes(x = ageYear)) +
+  stat_ecdf()
 ```
 
 ### Discussion
@@ -1065,17 +1071,6 @@ The ECDF shows what proportion of observations are at or below the given *x* val
 
 Creating a Mosaic Plot {#RECIPE-MISCGRAPH-MOSAIC}
 ----------------------
-
-```{r echo=FALSE}
-knit_print.table <- function(x, ...) {
-    txt <- capture.output(base::print.table(x, ...))
-    if (length(txt) > 14) {
-        cat(txt[1:14], sep = "\n")
-        cat("# ... with", length(txt)-1, "more lines of text\n")
-    }
-    invisible()
-}
-```
 
 ### Problem
 
@@ -1109,8 +1104,8 @@ Another way of looking at the data is to split first by department, then gender,
 
 ```{r FIG-MISCGRAPH-MOSAIC2, fig.cap="Mosaic plot with a different variable splitting order: first department, then gender, then admission status", fig.width=14, fig.height=4}
 mosaic( ~ Dept + Gender + Admit, data = UCBAdmissions,
-    highlighting = "Admit", highlighting_fill = c("lightblue", "pink"),
-    direction = c("v","h","v"))
+       highlighting = "Admit", highlighting_fill = c("lightblue", "pink"),
+       direction = c("v","h","v"))
 ```
 
 We also specified a variable to highlight (`Admit`), and which colors to use in the highlighting.
@@ -1124,15 +1119,15 @@ We can also use different splitting directions, as shown in Figure \@ref(fig:FIG
 ```{r FIG-MISCGRAPH-MOSAIC3, fig.cap="Splitting Dept vertically, Gender vertically, and Admit horizontally", fig.width=12, fig.height=3}
 # Another possible set of splitting directions
 mosaic( ~ Dept + Gender + Admit, data = UCBAdmissions,
-    highlighting = "Admit", highlighting_fill = c("lightblue", "pink"),
-    direction = c("v", "v", "h"))
+       highlighting = "Admit", highlighting_fill = c("lightblue", "pink"),
+       direction = c("v", "v", "h"))
 ```
 
 ```{r FIG-MISCGRAPH-MOSAIC4, fig.cap="Splitting Dept vertically, Gender horizontally, and Admit horizontally", fig.width=12, fig.height=5}
 # This order makes it difficult to compare male and female
 mosaic( ~ Dept + Gender + Admit, data = UCBAdmissions,
-    highlighting = "Admit", highlighting_fill = c("lightblue", "pink"),
-    direction = c("v", "h", "h"))
+       highlighting = "Admit", highlighting_fill = c("lightblue", "pink"),
+       direction = c("v", "h", "h"))
 ```
 
 The example here illustrates a classic case of Simpson's paradox, in which a relationship between variables within subgroups can change (or reverse!) when the groups are combined. The `UCBerkeley` table contains admissions data from the University of California-Berkeley in 1973. Overall, men were admitted at a higher rate than women, and because of this, the university was sued for gender bias. But when each department was examined separately, it was found that they each had approximately equal admission rates for men and women. The difference in overall admission rates was because women were more likely to apply to competitive departments with lower admission rates.
@@ -1194,11 +1189,11 @@ library(maps) # For map data
 states_map <- map_data("state") # ggplot2 must be loaded to use map_data()
 
 ggplot(states_map, aes(x = long, y = lat, group = group)) +
-    geom_polygon(fill = "white", colour = "black")
+  geom_polygon(fill = "white", colour = "black")
 
 # geom_path (no fill) and Mercator projection
 ggplot(states_map, aes(x = long, y = lat, group = group)) +
-    geom_path() + coord_map("mercator")
+  geom_path() + coord_map("mercator")
 ```
 
 ### Discussion
@@ -1230,25 +1225,28 @@ sort(unique(world_map$region))
 It's possible to get data for specific regions from a particular map (Figure \@ref(fig:FIG-MISCGRAPH-MAP-REGIONS)):
 
 ```{r FIG-MISCGRAPH-MAP-REGIONS, fig.cap="Specific regions from the world map", fig.width=8, fig.height=5}
-east_asia <- map_data("world", region = c("Japan", "China", "North Korea",
-                                        "South Korea"))
+east_asia <- map_data("world", region = c("Japan", "China", "North Korea", "South Korea"))
+
 # Map region to fill color
 ggplot(east_asia, aes(x = long, y = lat, group = group, fill = region)) +
-    geom_polygon(colour = "black") +
-    scale_fill_brewer(palette = "Set2")
+  geom_polygon(colour = "black") +
+  scale_fill_brewer(palette = "Set2")
 ```
 
 If there is a separate map available for a region, such as `nz` (New Zealand), that map data will be at a higher resolution than if you were to extract it from the world map, as shown in Figure \@ref(fig:FIG-MISCGRAPH-MAP-RESOLUTION):
 
 ```{r FIG-MISCGRAPH-MAP-RESOLUTION, fig.show="hold", fig.cap="New Zealand data taken from `world` map (left); Data from `nz` map (right)"}
 # Get New Zealand data from world map
-nz1 <- map_data("world", region = "New Zealand")
-nz1 <- filter(nz1, long > 0 & lat > -48)        # Trim off islands
-ggplot(nz1, aes(x = long, y = lat, group = group)) + geom_path()
+nz1 <- map_data("world", region = "New Zealand") %>%
+  filter(long > 0 & lat > -48)        # Trim off islands
+
+ggplot(nz1, aes(x = long, y = lat, group = group)) +
+  geom_path()
 
 # Get New Zealand data from the nz map
 nz2 <- map_data("nz")
-ggplot(nz2, aes(x = long, y = lat, group = group)) + geom_path()
+ggplot(nz2, aes(x = long, y = lat, group = group)) +
+  geom_path()
 ```
 
 ### See Also
@@ -1284,33 +1282,40 @@ states_map <- map_data("state")
 crime_map <- merge(states_map, crimes, by.x = "region", by.y = "state")
 # After merging, the order has changed, which would lead to polygons drawn in
 # the incorrect order. So, we'll sort the data.
-head(crime_map)
+crime_map
 
 library(dplyr) # For arrange() function
 # Sort by group, then order
 crime_map <- arrange(crime_map, group, order)
-head(crime_map)
+crime_map
 ```
+
 Once the data is in the correct format, it can be plotted (Figure \@ref(fig:FIG-MISCGRAPH-CHOROPLETH)), mapping one of the columns with data values to fill:
 
 ```{r FIG-MISCGRAPH-CHOROPLETH, fig.cap="A map with a variable mapped to fill", fig.width=7, fig.height=5}
 ggplot(crime_map, aes(x = long, y = lat, group = group, fill = Assault)) +
-    geom_polygon(colour = "black") +
-    coord_map("polyconic")
+  geom_polygon(colour = "black") +
+  coord_map("polyconic")
 ```
 
 
 ### Discussion
 
-The preceding example used the default color scale, which goes from dark to light blue. If you want to show how the values diverge from some middle value, you can use `scale_fill_gradient2()`, as shown in Figure \@ref(fig:FIG-MISCGRAPH-CHOROPLETH-MIDPOINT):
+The preceding example used the default color scale, which goes from dark to light blue. If you want to show how the values diverge from some middle value, you can use `scale_fill_gradient2()`, or `scale_fill_viridis_c()` as shown in Figure \@ref(fig:FIG-MISCGRAPH-CHOROPLETH-MIDPOINT):
 
 ```{r FIG-MISCGRAPH-CHOROPLETH-MIDPOINT, fig.cap="With a diverging color scale", fig.width=7, fig.height=5}
-ggplot(crimes, aes(map_id = state, fill = Assault)) +
-    geom_map(map = states_map, colour = "black") +
-    scale_fill_gradient2(low = "#559999", mid = "grey90", high = "#BB650B",
-                         midpoint = median(crimes$Assault)) +
-    expand_limits(x = states_map$long, y = states_map$lat) +
-    coord_map("polyconic")
+# Create a base plot
+crime_p <- ggplot(crimes, aes(map_id = state, fill = Assault)) +
+  geom_map(map = states_map, colour = "black") +
+  expand_limits(x = states_map$long, y = states_map$lat) +
+  coord_map("polyconic")
+
+crime_p +
+  scale_fill_gradient2(low = "#559999", mid = "grey90", high = "#BB650B",
+                       midpoint = median(crimes$Assault))
+
+crime_p +
+    scale_fill_viridis_c()
 ```
 
 The previous example mapped continuous values to fill, but we could just as well use discrete values. It's sometimes easier to interpret the data if the values are discretized. For example, we can categorize the values into quantiles and show those quantiles, as in Figure \@ref(fig:FIG-MISCGRAPH-CHOROPLETH-DISCRETE):
@@ -1323,19 +1328,19 @@ qa
 
 # Add a column of the quantile category
 crimes$Assault_q <- cut(crimes$Assault, qa,
-    labels = c("0-20%", "20-40%", "40-60%", "60-80%", "80-100%"),
-    include.lowest = TRUE)
+                        labels = c("0-20%", "20-40%", "40-60%", "60-80%", "80-100%"),
+                        include.lowest = TRUE)
 crimes
 # Generate a discrete color palette with 5 values
 pal <- colorRampPalette(c("#559999", "grey80", "#BB650B"))(5)
 pal
 
 ggplot(crimes, aes(map_id = state, fill = Assault_q)) +
-    geom_map(map = states_map, colour = "black") +
-    scale_fill_manual(values = pal) +
-    expand_limits(x = states_map$long, y = states_map$lat) +
-    coord_map("polyconic") +
-    labs(fill = "Assault Rate\\nPercentile")
+  geom_map(map = states_map, colour = "black") +
+  scale_fill_manual(values = pal) +
+  expand_limits(x = states_map$long, y = states_map$lat) +
+  coord_map("polyconic") +
+  labs(fill = "Assault Rate\nPercentile")
 ```
 
 Another way to make a choropleth, but without needing to merge the map data with the value data, is to use `geom_map()`. As of this writing, this will render maps faster than the method just described.
@@ -1346,9 +1351,9 @@ For this method, the map data frame must have columns named `lat`, `long`, and `
 # The 'state' column in the crimes data is to be matched to the 'region' column
 # in the states_map data
 ggplot(crimes, aes(map_id = state, fill = Assault)) +
-    geom_map(map = states_map) +
-    expand_limits(x = states_map$long, y = states_map$lat) +
-    coord_map("polyconic")
+  geom_map(map = states_map) +
+  expand_limits(x = states_map$long, y = states_map$lat) +
+  coord_map("polyconic")
 ```
 
 Notice that we also needed to use `expand_limits()`. This is because unlike most geoms, `geom_map()` doesn't automatically set the x and y limits; the use of `expand_limits()` makes it include those x and y values. (Another way to accomplish the same result is to use `ylim()` and `xlim()`.)
@@ -1374,12 +1379,12 @@ Use `theme_void()` (Figure \@ref(fig:FIG-MISCGRAPH-MAP-BACKGROUND)). In this exa
 
 ```{r FIG-MISCGRAPH-MAP-BACKGROUND, fig.cap="A map with a clean background", fig.width=7, fig.height=5}
 ggplot(crimes, aes(map_id = state, fill = Assault_q)) +
-    geom_map(map = states_map, colour = "black") +
-    scale_fill_manual(values = pal) +
-    expand_limits(x = states_map$long, y = states_map$lat) +
-    coord_map("polyconic") +
-    labs(fill = "Assault Rate\nPercentile") +
-    theme_void()
+  geom_map(map = states_map, colour = "black") +
+  scale_fill_manual(values = pal) +
+  expand_limits(x = states_map$long, y = states_map$lat) +
+  coord_map("polyconic") +
+  labs(fill = "Assault Rate\nPercentile") +
+  theme_void()
 ```
 
 ### Discussion
@@ -1424,7 +1429,8 @@ The sf object is a special kind of data frame, with 22 rows and 12 columns. Each
 Columns in the data can be mapped to aesthetics like fill. For example, we can mapp the `ENGTYPE_2` column to fill, as shown in Figure \@ref(fig:FIG-MISCGRAPH-MAP-SHAPEFILE-2):
 
 ```{r FIG-MISCGRAPH-MAP-SHAPEFILE-2, fig.cap="With a column mapped to `fill`", fig.width=8, fig.height=6}
-ggplot(taiwan_shp) + geom_sf(aes(fill=ENGTYPE_2))
+ggplot(taiwan_shp) +
+  geom_sf(aes(fill=ENGTYPE_2))
 ```
 
 ### See Also
