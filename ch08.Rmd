@@ -110,7 +110,7 @@ pg_plot +
   scale_y_continuous(limits = c(0, 10), breaks = NULL)
 ```
 
-In ggplot, there are two ways of setting the range of the axes. The first way is to modify the *scale*, and the second is to apply a *coordinate transform*. When you modify the limits of the *x* or *y* scale, any data outside of the limits is removed -- that is, the out-of-range data is not only not displayed, it is removed from consideration entirely.
+In ggplot, there are two ways of setting the range of the axes. The first way is to modify the *scale*, and the second is to apply a *coordinate transform*. When you modify the limits of the *x* or *y* scale, any data outside of the limits is removed -- that is, the out-of-range data is not only not displayed, it is removed from consideration entirely. (It will also print a warning when this happens.)
 
 With the box plots in these examples, if you restrict the *y* range so that some of the original data is clipped, the box plot statistics will be computed based on clipped data, and the shape of the box plots will change.
 
@@ -178,30 +178,29 @@ You want to change the order of items on a categorical axis.
 
 ### Solution
 
-For a categorical (or discrete) axis-one with a factor mapped to it-the order of items can be changed by setting limits in `scale_x_discrete()` or `scale_y_discrete()`.
+For a categorical (or discrete) axis -- one with a factor mapped to it -- the order of items can be changed by setting limits in `scale_x_discrete()` or `scale_y_discrete()`.
 
-To manually set the order of items on the axis, specify limits with a vector of the levels in the desired order. You can also omit items with this vector, as shown in Figure \@ref(fig:FIG-AXES-ORDER-MANUAL):
+To manually set the order of items on the axis, specify limits with a vector of the levels in the desired order. You can also omit items with this vector, as shown in Figure \@ref(fig:FIG-AXES-ORDER-MANUAL), left:
 
 ```{r FIG-AXES-ORDER-MANUAL-1, eval=FALSE}
 pg_plot <- ggplot(PlantGrowth, aes(x = group, y = weight)) +
   geom_boxplot()
 
 pg_plot +
-  scale_x_discrete(limits = c("trt1","ctrl","trt2"))
+  scale_x_discrete(limits = c("trt1", "ctrl", "trt2"))
 ```
 
 ### Discussion
 
-You can also use this method to display a subset of the items on the axis. This will show only `ctrl` and `trt1` (Figure \@ref(fig:FIG-AXES-ORDER-MANUAL), right):
-
-TODO: Add note explaining the warning here.
+You can also use this method to display a subset of the items on the axis. This will show only `ctrl` and `trt1` (Figure \@ref(fig:FIG-AXES-ORDER-MANUAL), right). Note that because data is removed, it will emit a warning when you do this.
 
 ```{r FIG-AXES-ORDER-MANUAL-2, eval=FALSE}
 pg_plot +
-  scale_x_discrete(limits = c("ctrl","trt1"))
+  scale_x_discrete(limits = c("ctrl", "trt1"))
+#> Warning: Removed 10 rows containing missing values (stat_boxplot).
 ```
 
-```{r FIG-AXES-ORDER-MANUAL, ref.label=c("FIG-AXES-ORDER-MANUAL-1", "FIG-AXES-ORDER-MANUAL-2"), echo=FALSE, fig.cap="Box plot with manually specified items on the x-axis (left); With only two items (right)"}
+```{r FIG-AXES-ORDER-MANUAL, ref.label=c("FIG-AXES-ORDER-MANUAL-1", "FIG-AXES-ORDER-MANUAL-2"), echo=FALSE, fig.cap="Box plot with manually specified items on the x-axis (left); With only two items (right)", warning=FALSE}
 ```
 
 To reverse the order, set `limits = rev(levels(...))`, and put the factor inside. This will reverse the order of the `PlantGrowth$group` factor, as shown in Figure \@ref(fig:FIG-AXES-ORDER-REV):
@@ -250,12 +249,12 @@ m_plot +
   scale_x_continuous(breaks = seq(0, 420, 30))
 ```
 
-```{r FIG-AXES-SCALE-EQUAL, ref.label=c("FIG-AXES-SCALE-EQUAL-1", "FIG-AXES-SCALE-EQUAL-2"), echo=FALSE, fig.show="hold", fig.cap="Scatter plot with equal scaling of axes (left); With tick marks at specified positions (right)"}
+```{r FIG-AXES-SCALE-EQUAL, ref.label=c("FIG-AXES-SCALE-EQUAL-1", "FIG-AXES-SCALE-EQUAL-2"), echo=FALSE, fig.show="hold", fig.cap="Scatter plot with equal scaling of axes (left); With tick marks at specified positions (right)", fig.width=3, fig.height=4}
 ```
 
 If, instead of an equal ratio, you want some other fixed ratio between the axes, set the ratio parameter. With the marathon data, we might want the axis with half-marathon times stretched out to twice that of the axis with the marathon times (Figure \@ref(fig:FIG-AXES-SCALE-HALF)). We'll also add tick marks twice as often on the x-axis:
 
-```{r FIG-AXES-SCALE-HALF, fig.cap="Scatter plot with a 1/2 scaling ratio for the axes"}
+```{r FIG-AXES-SCALE-HALF, fig.cap="Scatter plot with a 1/2 scaling ratio for the axes", fig.width=4, fig.height=4}
 m_plot +
   coord_fixed(ratio = 1/2) +
   scale_y_continuous(breaks = seq(0, 420, 30)) +
@@ -294,7 +293,7 @@ seq(4, 7, by = .5)
 5:10
 ```
 
-If the axis is discrete instead of continuous, then there is by default a tick mark for each item. For discrete axes, you can change the order of items or remove them by specifying the limits (see Recipe \@ref(RECIPE-AXIS-ORDER)). Setting breaks will change which of the levels are labeled, but will not remove them or change their order. Figure \@ref(fig:FIG-AXES-SET-TICKS-DISCRETE) shows what happens when you set limits and breaks:
+If the axis is discrete instead of continuous, then there is by default a tick mark for each item. For discrete axes, you can change the order of items or remove them by specifying the limits (see Recipe \@ref(RECIPE-AXIS-ORDER)). Setting breaks will change which of the levels are labeled, but will not remove them or change their order. Figure \@ref(fig:FIG-AXES-SET-TICKS-DISCRETE) shows what happens when you set limits and breaks (the warning is because we're using only two of the three levels for `group` and therefore are dropping some rows):
 
 ```{r FIG-AXES-SET-TICKS-DISCRETE, fig.cap="For a discrete axis, setting limits reorders and removes items, and setting breaks controls which items have labels"}
 # Set both breaks and labels for a discrete axis
@@ -317,7 +316,7 @@ You want to remove tick marks and labels.
 
 ### Solution
 
-To remove just the tick labels, as in Figure \@ref(fig:FIG-AXES-SET-TICKS-NONE) (left), use `theme(axis.text.y=element_blank()`) (or do the same for `axis.text.x`). This will work for both continuous and categorical axes:
+To remove just the tick labels, as in Figure \@ref(fig:FIG-AXES-SET-TICKS-NONE) (left), use `theme(axis.text.y = element_blank()`) (or do the same for `axis.text.x`). This will work for both continuous and categorical axes:
 
 ```{r FIG-AXES-SET-TICKS-NONE-1, eval=FALSE}
 pg_plot <- ggplot(PlantGrowth, aes(x = group, y = weight)) +
@@ -498,15 +497,11 @@ The `hjust` and `vjust` settings specify the horizontal alignment (left/center/r
 
 Besides rotation, other text properties, such as size, style (bold/italic/normal), and the font family (such as Times or Helvetica) can be set with `element_text()`, as shown in Figure \@ref(fig:FIG-AXES-TICK-LABEL-FONT):
 
-TODO: Check for fonts
-
 ```{r FIG-AXES-TICK-LABEL-FONT, fig.cap="X-axis tick labels with manually specified appearance"}
 pg_plot +
-  theme(axis.text.x = element_text(
-    family = "Times",
-    face = "italic",
-    colour = "darkred",
-    size = rel(0.9))
+  theme(
+    axis.text.x = element_text(family = "Times", face = "italic",
+                               colour = "darkred", size = rel(0.9))
   )
 ```
 
@@ -530,7 +525,7 @@ You want to change the text of axis labels.
 
 Use `xlab()` or `ylab()` to change the text of the axis labels (Figure \@ref(fig:FIG-AXES-AXIS-LABEL)):
 
-```{r FIG-AXES-AXIS-LABEL, fig.show="hold", fig.cap="Scatter plot with the default axis labels (left); Manually specified labels for the x- and y-axes (right)", fig.width=3.5, fig.height=3.5}
+```{r FIG-AXES-AXIS-LABEL, fig.show="hold", fig.cap="Scatter plot with the default axis labels (left); Manually specified labels for the x- and y-axes (right)", fig.width=4, fig.height=3.5}
 library(gcookbook)  # Load gcookbook for the heightweight data set
 
 hw_plot <- ggplot(heightweight, aes(x = ageYear, y = heightIn, colour = sex)) +
@@ -569,7 +564,7 @@ This also applies, of course, to other axis scales, such as `scale_y_continuous(
 
 You can also add line breaks with `\n`, as shown in Figure \@ref(fig:FIG-AXES-AXIS-LABEL-NEWLINE):
 
-```{r FIG-AXES-AXIS-LABEL-NEWLINE, fig.cap="X-axis label with a line break"}
+```{r FIG-AXES-AXIS-LABEL-NEWLINE, fig.cap="X-axis label with a line break", fig.width=4, fig.height=3.5}
 hw_plot +
   scale_x_continuous(name = "Age\n(years)")
 ```
@@ -584,7 +579,7 @@ You want to remove the label on an axis.
 
 ### Solution
 
-For the x-axis label, use `theme(axis.title.x = element_blank())`. For the y-axis label, do the same with `axis.title.y`.
+For the x-axis label, use `xlab(NULL)`. For the y-axis label, use `ylab(NULL)`.
 
 We'll hide the x-axis in this example (Figure \@ref(fig:FIG-AXES-AXIS-LABEL-REMOVE)):
 
@@ -593,7 +588,7 @@ pg_plot <- ggplot(PlantGrowth, aes(x = group, y = weight)) +
   geom_boxplot()
 
 pg_plot +
-  theme(axis.title.x = element_blank())
+  xlab(NULL)
 ```
 
 ### Discussion
@@ -607,7 +602,7 @@ pg_plot +
   xlab("")
 ```
 
-(ref:cap-FIG-AXES-AXIS-LABEL-REMOVE) X-axis label with `element_blank()` (left); With the label set to `""` (right)
+(ref:cap-FIG-AXES-AXIS-LABEL-REMOVE) X-axis label with `NULL` (left); With the label set to `""` (right)
 
 ```{r FIG-AXES-AXIS-LABEL-REMOVE, ref.label=c("FIG-AXES-AXIS-LABEL-REMOVE-1", "FIG-AXES-AXIS-LABEL-REMOVE-2"), echo=FALSE, fig.show="hold", fig.cap="(ref:cap-FIG-AXES-AXIS-LABEL-REMOVE)", fig.width=3.5, fig.height=3.5}
 ```
@@ -744,7 +739,7 @@ You want to use a logarithmic axis for a graph.
 
 Use `scale_x_log10()` and/or `scale_y_log10()` (Figure \@ref(fig:FIG-AXES-LOG)):
 
-```{r FIG-AXES-LOG, fig.show="hold", fig.cap="Exponentially distributed data with linear-scaled axes (left); With logarithmic axes (right)"}
+```{r FIG-AXES-LOG, fig.show="hold", fig.cap="Exponentially distributed data with linear-scaled axes (left); With logarithmic axes (right)", fig.width=5, fig.height=5}
 library(MASS) # Load MASS for the Animals data set
 
 # Create the base plot
@@ -800,20 +795,20 @@ animals_plot +
   scale_y_log10(breaks = 10^(0:3), labels = trans_format("log10", math_format(10^.x)))
 ```
 
-```{r FIG-AXES-LOG-BREAKS, ref.label=c("FIG-AXES-LOG-BREAKS-1", "FIG-AXES-LOG-BREAKS-2"), echo=FALSE, message=FALSE, fig.show="hold", fig.cap="Scatter plot with log~10~ x- and y-axes, and with manually specified breaks (left); With exponents for the tick labels (right)"}
+```{r FIG-AXES-LOG-BREAKS, ref.label=c("FIG-AXES-LOG-BREAKS-1", "FIG-AXES-LOG-BREAKS-2"), echo=FALSE, message=FALSE, fig.show="hold", fig.cap="Scatter plot with log~10~ x- and y-axes, and with manually specified breaks (left); With exponents for the tick labels (right)", fig.width=5, fig.height=5}
 ```
 
 
 Another way to use log axes is to transform the data before mapping it to the *x* and *y* coordinates (Figure \@ref(fig:FIG-AXES-LOG-BEFORE-MAPPING)). Technically, the axes are still linear -- it's the quantity that is log-transformed:
 
-```{r FIG-AXES-LOG-BEFORE-MAPPING, fig.cap="Plot with log transform before mapping to x- and y-axes"}
+```{r FIG-AXES-LOG-BEFORE-MAPPING, fig.cap="Plot with log transform before mapping to x- and y-axes", fig.width=5, fig.height=5}
 ggplot(Animals, aes(x = log10(body), y = log10(brain), label = rownames(Animals))) +
   geom_text(size = 3)
 ```
 
 The previous examples used a log~10~ transformation, but it is possible to use other transformations, such as log~2~ and natural log, as shown in Figure \@ref(fig:FIG-AXES-LOG-2-E). It's a bit more complicated to use these -- `scale_x_log10()` is shorthand, but for these other log scales, we need to spell them out:
 
-```{r FIG-AXES-LOG-2-E, fig.cap="Plot with exponents in tick labels. Notice that different bases are used for the x and y axes."}
+```{r FIG-AXES-LOG-2-E, fig.cap="Plot with exponents in tick labels. Notice that different bases are used for the x and y axes.", fig.width=5, fig.height=5}
 library(scales)
 
 # Use natural log on x, and log2 on y
@@ -871,14 +866,10 @@ breaks_log10 <- function(x) {
 ggplot(Animals, aes(x = body, y = brain, label = rownames(Animals))) +
   geom_text(size = 3) +
   annotation_logticks() +
-  scale_x_log10(
-    breaks = breaks_log10,
-    labels = trans_format(log10, math_format(10^.x))
-  ) +
-  scale_y_log10(
-    breaks = breaks_log10,
-    labels = trans_format(log10, math_format(10^.x))
-  )
+  scale_x_log10(breaks = breaks_log10,
+                labels = trans_format(log10, math_format(10^.x))) +
+  scale_y_log10(breaks = breaks_log10,
+                labels = trans_format(log10, math_format(10^.x)))
 ```
 
 We also defined a function, `breaks_log10()`, which returns all powers of 10 that encompass the range of values passed to it. This tells `scale_x_log10` where to put the breaks. For example:
@@ -910,20 +901,16 @@ breaks_5log10(c(0.12, 6))
 
 Then we'll use that function for the `minor breaks` (Figure \@ref(fig:FIG-AXES-LOG-TICKS-CUSTOM)):
 
-```{r FIG-AXES-LOG-TICKS-CUSTOM, fig.cap="Log axes with ticks at each 5, and fixed coordinate ratio", fig.width=5, fig.height=3.5}
+```{r FIG-AXES-LOG-TICKS-CUSTOM, fig.cap="Log axes with ticks at each 5, and fixed coordinate ratio", fig.width=6, fig.height=4}
 ggplot(Animals, aes(x = body, y = brain, label = rownames(Animals))) +
   geom_text(size = 3) +
   annotation_logticks() +
-  scale_x_log10(
-    breaks = breaks_log10,
-    labels = trans_format(log10, math_format(10^.x)),
-    minor_breaks = breaks_5log10
-  ) +
-  scale_y_log10(
-    breaks = breaks_log10,
-    labels = trans_format(log10, math_format(10^.x)),
-    minor_breaks = breaks_5log10
-  ) +
+  scale_x_log10(breaks = breaks_log10,
+                minor_breaks = breaks_5log10,
+                labels = trans_format(log10, math_format(10^.x))) +
+  scale_y_log10(breaks = breaks_log10,
+                minor_breaks = breaks_5log10,
+                labels = trans_format(log10, math_format(10^.x))) +
   coord_fixed() +
   theme_bw()
 ```
@@ -965,17 +952,15 @@ ggplot(wind, aes(x = DirCat, fill = SpeedCat)) +
   geom_histogram(binwidth = 15, boundary = -7.5, colour = "black", size = .25) +
   guides(fill = guide_legend(reverse = TRUE)) +
   coord_polar() +
-  scale_x_continuous(
-    limits = c(0,360),
-    breaks = seq(0, 360, by = 45),
-    minor_breaks = seq(0, 360, by = 15)
-  ) +
+  scale_x_continuous(limits = c(0,360),
+                     breaks = seq(0, 360, by = 45),
+                     minor_breaks = seq(0, 360, by = 15)) +
   scale_fill_brewer()
 ```
 
 It may also be useful to set the starting angle with the start argument, especially when using a discrete variable for *theta*. The starting angle is specified in radians, so if you know the adjustment in degrees, you'll have to convert it to radians:
 
-```{r}
+```{r eval=FALSE}
 coord_polar(start = -45 * pi / 180)
 ```
 
@@ -1001,6 +986,18 @@ mdeaths_mod <- mdeaths_mod %>%
   summarise(deaths = mean(deaths))
 
 mdeaths_mod
+#> # A tibble: 12 x 2
+#>   month   deaths
+#>   <dbl>  <dbl>
+#> 1     1 2129.833
+#> 2     2 2081.333
+#> 3     3 1970.500
+#> 4     4 1657.333
+#> 5     5 1314.167
+#> 6     6 1186.833
+#> 7     7 1136.667
+#> 8     8 1037.667
+#> ... with 4 more rows
 
 # Create the base plot
 mdeaths_plot <- ggplot(mdeaths_mod, aes(x = month, y = deaths)) +
@@ -1020,7 +1017,7 @@ mdeaths_plot +
   ylim(0, max(mdeaths_mod$deaths))
 ```
 
-```{r FIG-AXES-POLAR-CONTINUOUS, ref.label=c("FIG-AXES-POLAR-CONTINUOUS-1", "FIG-AXES-POLAR-CONTINUOUS-2"), echo=FALSE, fig.show="hold", fig.cap="Polar plot with line (notice the data range of the radius) (left); With the radius representing a data range starting from zero (right)", fig.width=3.5, fig.height=3.5}
+```{r FIG-AXES-POLAR-CONTINUOUS, ref.label=c("FIG-AXES-POLAR-CONTINUOUS-1", "FIG-AXES-POLAR-CONTINUOUS-2"), echo=FALSE, fig.show="hold", results="hide", fig.cap="Polar plot with line (notice the data range of the radius) (left); With the radius representing a data range starting from zero (right)", fig.width=3.5, fig.height=3.5}
 ```
 
 The next problem is that the lowest and highest month values, 1 and 12, are shown at the same angle. We'll fix this by setting the *x* limits from 0 to 12, creating the graph on the left in Figure \@ref(fig:FIG-AXES-POLAR-CONTINUOUS2) (notice that using `xlim()` overrides the `scale_x_continuous()` in `p`, so it no longer displays breaks for each month; see Recipe \@ref(RECIPE-AXES-RANGE) for more information):
@@ -1047,7 +1044,7 @@ mdeaths_plot %+%
   ylim(0, max(mdeaths_mod$deaths))
 ```
 
-```{r FIG-AXES-POLAR-CONTINUOUS2, ref.label=c("FIG-AXES-POLAR-CONTINUOUS2-1", "FIG-AXES-POLAR-CONTINUOUS2-2"), echo=FALSE, fig.show="hold", fig.cap="Polar plot with theta representing x values from 0 to 12 (left); The gap is filled in by adding a dummy data point for month 0 (right)", fig.width=3.5, fig.height=3.5}
+```{r FIG-AXES-POLAR-CONTINUOUS2, ref.label=c("FIG-AXES-POLAR-CONTINUOUS2-1", "FIG-AXES-POLAR-CONTINUOUS2-2"), echo=FALSE, fig.show="hold", fig.cap="Polar plot with theta representing x values from 0 to 12 (left); The gap is filled in by adding a dummy data point for month 0 (right)", fig.width=3.5, fig.height=3.5, message=FALSE}
 ```
 
 > **Note**
@@ -1073,8 +1070,7 @@ You want to use dates on an axis.
 Map a column of class `Date` to the x- or y-axis. We'll use the `economics` data set for this example:
 
 ```{r}
-# Look at the structure
-str(economics)
+economics
 ```
 
 The column date is an object of class `Date`, and mapping it to x will produce the result shown in Figure \@ref(fig:FIG-AXES-DATE):

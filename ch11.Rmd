@@ -89,7 +89,7 @@ You want subplots with different ranges or items on their axes.
 
 ### Solution
 
-Set the scales to "free_x", "free_y", or "free" (Figure \@ref(fig:FIG-FACET-FACET-FREE)):
+Set the scales to `"free_x"`, `"free_y"`, or `"free"` (Figure \@ref(fig:FIG-FACET-FACET-FREE)):
 
 ```{r FIG-FACET-FACET-FREE, fig.cap="With free y scales (top); With free x and y scales (bottom)", fig.width=6, fig.height=4}
 # Create the base plot
@@ -129,27 +129,20 @@ Change the names of the factor levels (Figure \@ref(fig:FIG-FACET-LABEL-TEXT)):
 
 ```{r, eval=FALSE}
 library(dplyr)
-library(forcats)  # Load the forcats library to help you rename the factor levels
 
-# Make a modified copy of the original data called `mpg_mod1`
-mpg_mod1 <- mpg %>%
+# Make a modified copy of the original data
+mpg_mod <- mpg %>%
   # Rename 4 to 4wd, f to Front, r to Rear
-  mutate(drv = fct_recode(
-    drv,
-    `4wd` = "4",
-    Front = "f",
-    Rear = "r"
-  ))
+  mutate(drv = recode(drv, "4" = "4wd", "f" = "Front", "r" = "Rear"))
 
 # Plot the new data
-ggplot(mpg_mod1, aes(x = displ, y = hwy)) +
+ggplot(mpg_mod, aes(x = displ, y = hwy)) +
   geom_point() +
   facet_grid(drv ~ .)
 ```
 
 ```{r FIG-FACET-LABEL-TEXT, echo=FALSE, fig.show="hold", fig.cap="Default facet labels (left); Modified facet labels (right)", fig.width=2.5}
 library(dplyr)
-library(forcats)  # Load the forcats library to help you rename the factor levels
 
 # Left plot (unmodified labels)
 ggplot(mpg, aes(x = displ, y = hwy)) +
@@ -157,16 +150,11 @@ ggplot(mpg, aes(x = displ, y = hwy)) +
   facet_grid(drv ~ .)
 
 # Right plot (modified labels)
-mpg_mod1 <- mpg %>%
+mpg_mod <- mpg %>%
   # Rename 4 to 4wd, f to Front, r to Rear
-  mutate(drv = fct_recode(
-    drv,
-    `4wd` = "4",
-    Front = "f",
-    Rear = "r"
-  ))
+  mutate(drv = recode(drv, "4" = "4wd", "f" = "Front", "r" = "Rear"))
 
-ggplot(mpg_mod1, aes(x = displ, y = hwy)) +
+ggplot(mpg_mod, aes(x = displ, y = hwy)) +
   geom_point() +
   facet_grid(drv ~ .)
 ```
@@ -178,7 +166,7 @@ Unlike with scales where you can set the labels, to set facet labels you must ch
 With `facet_grid()` but not `facet_wrap()`, at this time), it's possible to use a labeller function to set the labels. The labeller function `label_both()` will print out both the name of the variable and the value of the variable in each facet (Figure \@ref(fig:FIG-FACET-LABEL-TEXT-LABELLER), left):
 
 ```{r FIG-FACET-LABEL-TEXT-LABELLER-1, eval=FALSE}
-ggplot(mpg_mod1, aes(x = displ, y = hwy)) +
+ggplot(mpg_mod, aes(x = displ, y = hwy)) +
   geom_point() +
   facet_grid(drv ~ ., labeller = label_both)
 ```
@@ -186,20 +174,15 @@ ggplot(mpg_mod1, aes(x = displ, y = hwy)) +
 Another useful labeller is label_parsed(), which takes strings and treats them as R math expressions (Figure \@ref(fig:FIG-FACET-LABEL-TEXT-LABELLER), right):
 
 ```{r FIG-FACET-LABEL-TEXT-LABELLER-2, eval=FALSE}
-library(dplyr)
-library(forcats)  # Load the forcats library to help you rename the factor levels
-
-# Make a modified copy of the original data called `mpg_mod`
-mpg_mod2 <- mpg %>%
-  # Rename 4 to 4wd, f to Front, r to Rear
-  mutate(drv = fct_recode(
-    drv,
-    `4^{wd}` = "4",
-    `- Front %.% e^{pi * i}` = "f",
-    `4^{wd} - Front` = "r"
+# Make a modified copy of the original data
+mpg_mod <- mpg %>%
+  mutate(drv = recode(drv,
+    "4" = "4^{wd}",
+    "f" = "- Front %.% e^{pi * i}",
+    "r" = "4^{wd} - Front"
   ))
 
-ggplot(mpg_mod2, aes(x = displ, y = hwy)) +
+ggplot(mpg_mod, aes(x = displ, y = hwy)) +
   geom_point() +
   facet_grid(drv ~ ., labeller = label_parsed)
 ```

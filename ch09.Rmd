@@ -69,13 +69,8 @@ hw_plot +
 
 # Use a text annotation instead
 hw_plot +
-  annotate(
-    "text",
-    x = mean(range(heightweight$ageYear)), y = Inf,
-    label = "Age and Height of Schoolchildren",
-    vjust = 1.5,
-    size = 4.5
-  )
+  annotate("text", x = mean(range(heightweight$ageYear)), y = Inf,
+           label = "Age and Height of Schoolchildren", vjust = 1.5, size = 4.5)
 ```
 
 
@@ -122,12 +117,8 @@ To set the appearance of text geoms (text that's in the plot itself, with `geom_
 
 ```{r FIG-APPEARANCE-TEXT-APPEARANCE-GEOM, fig.show="hold", fig.cap="(ref:cap-FIG-APPEARANCE-TEXT-APPEARANCE-GEOM)"}
 hw_plot +
-  annotate(
-    "text",
-    x = 15, y = 53,
-    label = "Some text",
-    size = 7, family = "Times", fontface = "bold.italic", colour = "red"
-  )
+  annotate("text", x = 15, y = 53, label = "Some text",
+    size = 7, family = "Times", fontface = "bold.italic", colour = "red")
 
 hw_plot +
   geom_text(aes(label = weightLb), size = 4, family = "Times", colour = "red")
@@ -337,6 +328,15 @@ hw_plot +
     panel.border = element_rect(colour = "blue", fill = NA, size = 2)
   )
 
+# Options for the legend
+hw_plot +
+  theme(
+    legend.background = element_rect(fill = "grey85", colour = "red", size = 1),
+    legend.title = element_text(colour = "blue", face = "bold", size = 14),
+    legend.text = element_text(colour = "red"),
+    legend.key = element_rect(colour = "blue", size = 0.25)
+  )
+
 # Options for text items
 hw_plot +
   ggtitle("Plot title here") +
@@ -346,15 +346,6 @@ hw_plot +
     axis.title.y = element_text(colour = "red", size = 14, angle = 90),
     axis.text.y  = element_text(colour = "blue"),
     plot.title = element_text(colour = "red", size = 20, face = "bold")
-  )
-
-# Options for the legend
-hw_plot +
-  theme(
-    legend.background = element_rect(fill = "grey85", colour = "red", size = 1),
-    legend.title = element_text(colour = "blue", face = "bold", size = 14),
-    legend.text = element_text(colour = "red"),
-    legend.key = element_rect(colour = "blue", size = 0.25)
   )
 
 # Options for facets

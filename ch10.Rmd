@@ -99,14 +99,14 @@ pg_plot +
   theme(legend.position = "top")
 ```
 
-The legend can also be placed inside the graphing area by specifying a coordinate position, as in `legend.position = c(.8, .3)` (Figure \@ref(fig:FIG-LEGEND-POSITION), right). The coordinate space starts at (0, 0) in the bottom left and goes to (1, 1) in the top right.
+The legend can also be placed inside the plotting area by specifying a coordinate position, as in `legend.position = c(.8, .3)` (Figure \@ref(fig:FIG-LEGEND-POSITION), right). The coordinate space starts at (0, 0) in the bottom left and goes to (1, 1) in the top right.
 
 ```{r FIG-LEGEND-POSITION-2, eval=FALSE}
 pg_plot +
   theme(legend.position = c(.8, .3))
 ```
 
-```{r FIG-LEGEND-POSITION, ref.label=c("FIG-LEGEND-POSITION-1", "FIG-LEGEND-POSITION-2"), echo=FALSE, fig.cap="Legend on top (left); Legend inside of graphing area (right)"}
+```{r FIG-LEGEND-POSITION, ref.label=c("FIG-LEGEND-POSITION-1", "FIG-LEGEND-POSITION-2"), echo=FALSE, fig.cap="Legend on top (left); Legend inside of plotting area (right)"}
 ```
 
 
@@ -114,16 +114,14 @@ pg_plot +
 
 You can also use `legend.justification` to set which *part* of the legend box is set to the position at `legend.position`. By default, the center of the legend (.5, .5) is placed at the coordinate, but it is often useful to specify a different point.
 
-For example, this will place the bottom-right corner of the legend (1, 0) in the bottom-right corner of the graphing area (1, 0):
+For example, this will place the bottom-right corner of the legend (1, 0) in the bottom-right corner of the plotting area (1, 0) (Figure \@ref(fig:FIG-LEGEND-POSITION-JUSTIFICATION), left):
 
 ```{r FIG-LEGEND-POSITION-JUSTIFICATION-1, eval=FALSE}
 pg_plot +
   theme(legend.position = c(1, 0), legend.justification = c(1, 0))
 ```
 
-And this will place the top-right corner of the legend in the top-right
-corner of the graphing area, as in the graph on the right in
-Figure \@ref(fig:FIG-LEGEND-POSITION-JUSTIFICATION):
+And this will place the top-right corner of the legend in the top-right corner of the graphing area (Figure \@ref(fig:FIG-LEGEND-POSITION-JUSTIFICATION), right):
 
 ```{r FIG-LEGEND-POSITION-JUSTIFICATION-2, eval=FALSE}
 pg_plot +
@@ -485,7 +483,8 @@ Other commonly used scales with legends include:
 * `scale_colour_hue()`
 * `scale_colour_manual()`
 * `scale_colour_grey()`
-* `scale_colour_brewer()`
+* `scale_color_viridis_c()`
+* `scale_color_viridis_d()`
 * `scale_shape_manual()`
 * `scale_linetype()`
 

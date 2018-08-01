@@ -11,7 +11,7 @@ editor_options:
 # persist across cached builds.
 
 source("utils.R", local = TRUE)
-knitr::opts_chunk$set(fig.width=3.5, fig.height=3.5)
+# knitr::opts_chunk$set(fig.width=3.5, fig.height=3.5)
 ```
 
 
@@ -32,7 +32,7 @@ You want to set the color of some geoms in your graph.
 
 In the call to the geom, set the values of `colour` or `fill` (Figure \@ref(fig:FIG-COLORS-SETTING)):
 
-```{r FIG-COLORS-SETTING, fig.show="hold", fig.cap="Setting `fill` and `colour` (left); Setting `colour` for points (right)", message=FALSE}
+```{r FIG-COLORS-SETTING, fig.show="hold", fig.cap="Setting `fill` and `colour` (left); Setting `colour` for points (right)", message=FALSE, fig.width=4, fig.height=3.5}
 library(MASS)  # Load MASS for the birthwt data set
 
 ggplot(birthwt, aes(x = bwt)) +
@@ -86,7 +86,7 @@ ggplot(mtcars, aes(x = wt, y = mpg)) +
   geom_point(aes(colour = cyl))
 ```
 
-```{r FIG-COLORS-MAPPING, echo=FALSE, fig.show="hold", message=FALSE, fig.cap="Mapping a variable to `fill` (left); Mapping a variable to `colour` for points (right)"}
+```{r FIG-COLORS-MAPPING, echo=FALSE, fig.show="hold", message=FALSE, fig.cap="Mapping a variable to `fill` (left); Mapping a variable to `colour` for points (right)", fig.width=4, fig.height=3.5}
 library(gcookbook)  # Load gcookbook for the cabbage_exp data set
 
 ggplot(cabbage_exp, aes(x = Date, y = Weight, fill = Cultivar)) +
@@ -108,7 +108,7 @@ str(cabbage_exp)
 
 In the `mtcars` example, `cyl` is numeric, so it is treated as a continuous variable. Because of this, even though the actual values of `cyl` include only 4, 6, and 8, the legend has entries for the intermediate values 5 and 7. To make ggplot treat `cyl` as a categorical variable, you can convert it to a factor in the call to `ggplot()` (Figure \@ref(fig:FIG-COLORS-MAPPING-FACTOR), left), or you can modify the data so that the column is a character vector or factor (Figure \@ref(fig:FIG-COLORS-MAPPING-FACTOR), right):
 
-```{r FIG-COLORS-MAPPING-FACTOR, fig.show="hold", fig.cap="Converting `cyl` to a factor, within the call to ggplot (left); By modifying the dataframe (right)"}
+```{r FIG-COLORS-MAPPING-FACTOR, fig.show="hold", fig.cap="Converting `cyl` to a factor, within the call to ggplot (left); By modifying the dataframe (right)", fig.width=4, fig.height=3.5}
 # Convert to factor in call to ggplot()
 ggplot(mtcars, aes(x = wt, y = mpg, colour = factor(cyl))) +
   geom_point()
@@ -152,7 +152,7 @@ ggplot(data.frame(x = rnorm(10000), y = rnorm(10000)), aes(x = x, y = y)) +
 
 The viridis color scales can be implemented for data that is both continuous and discrete in nature. You will need to add `scale_fill_viridis_c()` to your plot if your data is continuous. If your data is discrete you will need to use `scale_fill_viridis_d()` instead, as in Figure \@ref(fig:FIG-COLORS-PALETTE-DISCRETE-COLORBLIND-VIRIDIS) below:
 
-```{r FIG-COLORS-PALETTE-DISCRETE-COLORBLIND-VIRIDIS, fig.show="hold", fig.cap="A plot with the colorblind-friendly viridis palette", fig.width=4.5}
+```{r FIG-COLORS-PALETTE-DISCRETE-COLORBLIND-VIRIDIS, fig.show="hold", fig.cap="A plot with the colorblind-friendly viridis palette"}
 library(gcookbook)  # Load gcookbook for the uspopage data set
 
 # Create the base plot
@@ -216,7 +216,7 @@ Table: (\#tab:TABLE-DISCRETE-FILL-AND-COLOR-SCALES) Discrete fill and color scal
 
 In the example here we'll use the default palette (hue), a viridis palette, and a ColorBrewer palette (Figure \@ref(fig:FIG-COLORS-PALETTE-DISCRETE)):
 
-```{r FIG-COLORS-PALETTE-DISCRETE, message=FALSE, fig.show="hold", fig.cap="Default palette (using hue; top left); A viridis palette (top right); A ColorBrewer palette (bottom)", fig.width=4}
+```{r FIG-COLORS-PALETTE-DISCRETE, message=FALSE, fig.show="hold", fig.cap="Default palette (using hue; top); A viridis palette (middle); A ColorBrewer palette (bottom)"}
 library(gcookbook)  # Load gcookbook for the uspopage data set
 library(viridis)  # Load viridis for the viridis palette
 
@@ -245,7 +245,7 @@ Changing a palette is a modification of the color (or fill) scale: it involves a
 
 With `scale_fill_hue()`, the colors are taken from around the color wheel in the HCL (hue-chroma-lightness) color space. The default lightness value is 65 on a scale from 0–100. This is good for filled areas, but it's a bit light for points and lines. To make the colors darker for points and lines, as in Figure \@ref(fig:FIG-COLORS-PALETTE-LIGHTNESS) (right), set the value of `l` (luminance/lightness):
 
-```{r FIG-COLORS-PALETTE-LIGHTNESS, fig.show="hold", fig.cap="Points with default lightness (left); With lightness set to 45 (right)", fig.width=4}
+```{r FIG-COLORS-PALETTE-LIGHTNESS, fig.show="hold", fig.cap="Points with default lightness (left); With lightness set to 45 (right)", fig.width=4, fig.height=3.5}
 # Create the base scatter plot
 hw_splot <- ggplot(heightweight, aes(x = ageYear, y = heightIn, colour = sex)) +
   geom_point()
@@ -264,7 +264,7 @@ The ColorBrewer package provides a number of palettes. You can generate a graphi
 
 ```{r FIG-COLORS-PALETTE-BREWER, echo=FALSE, fig.cap="All the ColorBrewer palettes", fig.height=8, fig.width=8}
 library(RColorBrewer)
-par(mar = c(0, 1, 0, 0))
+par(mar = c(0, 3, 0, 0))
 display.brewer.all()
 ```
 
@@ -274,7 +274,7 @@ display.brewer.all()
 ```
 The ColorBrewer palettes can be selected by name. For example, this will use the "Oranges" palette (Figure \@ref(fig:FIG-COLORS-PALETTE-BREWER-NAME)):
 
-```{r FIG-COLORS-PALETTE-BREWER-NAME, fig.cap="Using a named ColorBrewer palette", fig.width=4}
+```{r FIG-COLORS-PALETTE-BREWER-NAME, fig.cap="Using a named ColorBrewer palette", fig.width=4, fig.height=3.5}
 hw_splot +
   scale_colour_brewer(palette = "Oranges") +
   theme_bw()
@@ -282,7 +282,7 @@ hw_splot +
 
 You can also use a palette of greys. This is useful for print when the output is in black and white. The default is to start at 0.2 and end at 0.8, on a scale from 0 (black) to 1 (white), but you can change the range, as shown in Figure \@ref(fig:FIG-COLORS-PALETTE-GREY).
 
-```{r FIG-COLORS-PALETTE-GREY, fig.show="hold", fig.cap="Using the default grey palette (left); A different grey palette (right)", fig.width=4}
+```{r FIG-COLORS-PALETTE-GREY, fig.show="hold", fig.cap="Using the default grey palette (left); A different grey palette (right)", fig.width=4, fig.height=3.5}
 hw_splot +
   scale_colour_grey()
 
@@ -312,7 +312,7 @@ You want to use different colors for a discrete mapped variable.
 
 In the example here, we'll manually define colors by specifying values with `scale_colour_manual()` (Figure \@ref(fig:FIG-COLORS-PALETTE-DISCRETE-MANUAL)). The colors can be named, or they can be specified with RGB values:
 
-```{r FIG-COLORS-PALETTE-DISCRETE-MANUAL, fig.show="hold", fig.cap="Scatter plot with named colors (top left); With slightly different RGB colors (top right); With colors from the viridis color scale (bottom)", fig.width=4}
+```{r FIG-COLORS-PALETTE-DISCRETE-MANUAL, fig.show="hold", fig.cap="Scatter plot with named colors (top left); With slightly different RGB colors (top right); With colors from the viridis color scale (bottom)", fig.width=4, fig.height=3.5}
 library(gcookbook)  # Load gcookbook for the heightweight data set
 
 # Create the base plot
@@ -373,7 +373,7 @@ inferno(5)  ## Specifying 5 discrete categories with the inferno color scale
 
 ### See Also
 
-A [chart of RGB color codes](http://html-color-codes.com).
+A chart of RGB color codes: <http://html-color-codes.com>.
 
 
 Using a Manually Defined Palette for a Continuous Variable {#RECIPE-COLORS-PALETTE-CONTINUOUS}
@@ -387,9 +387,7 @@ You want to use different colors for a continuous variable.
 
 In the example here, we'll specify the colors for a continuous variable using various gradient scales (Figure \@ref(fig:FIG-COLORS-PALETTE-CONTINUOUS)). The colors can be named, or they can be specified with RGB values:
 
-(ref:cap-FIG-COLORS-PALETTE-CONTINUOUS) Clockwise from top left: default colors, two-color gradient with `scale_colour_gradient()`, three-color gradient with midpoint with `scale_colour_gradient2()`, four-color gradient with `scale_colour_gradientn()`
-
-```{r FIG-COLORS-PALETTE-CONTINUOUS, fig.show="hold", message=FALSE, fig.cap="(ref:cap-FIG-COLORS-PALETTE-CONTINUOUS)", fig.width=4}
+```{r FIG-COLORS-PALETTE-CONTINUOUS, fig.show="hold", message=FALSE, fig.cap=" Clockwise from top left: default colors, two-color gradient (black and white) with `scale_colour_gradient()`, three-color gradient with midpoint with `scale_colour_gradient2()`, four-color gradient with `scale_colour_gradientn()`", fig.width=4, fig.height=3.5}
 library(gcookbook)  # Load gcookbook for the heightweight data set
 
 # Create the base plot
@@ -397,14 +395,6 @@ hw_plot <- ggplot(heightweight, aes(x = ageYear, y = heightIn, colour = weightLb
   geom_point(size = 3)
 
 hw_plot
-
-# With a gradient between two colors
-hw_plot +
-  scale_colour_gradient(low = "black", high = "white")
-
-# A gradient of n colors
-hw_plot +
-  scale_colour_gradientn(colours = c("darkred", "orange", "yellow", "white"))
 
 # A gradient with a white midpoint
 library(scales)
@@ -415,6 +405,15 @@ hw_plot +
     high = muted("blue"),
     midpoint = 110
   )
+
+# With a gradient between two colors (black and white)
+hw_plot +
+  scale_colour_gradient(low = "black", high = "white")
+
+# A gradient of n colors
+hw_plot +
+  scale_colour_gradientn(colours = c("darkred", "orange", "yellow", "white"))
+
 ```
 
 For fill scales, use `scale_fill_xxx()` versions instead, where `xxx` is one of `gradient`, `gradient2`, or `gradientn`.
@@ -466,7 +465,7 @@ library(dplyr)
 
 climate_mod <- climate %>%
   filter(Source == "Berkeley") %>%
-  mutate(valence = ifelse(Anomaly10y >= 0, "pos", "neg"))
+  mutate(valence = if_else(Anomaly10y >= 0, "pos", "neg"))
 
 climate_mod
 ```
@@ -490,7 +489,7 @@ interp <- approx(climate_mod$Year, climate_mod$Anomaly10y, n = 1000)
 
 # Put in a data frame and recalculate valence
 cbi <- data.frame(Year = interp$x, Anomaly10y = interp$y) %>%
-  mutate(valence = ifelse(Anomaly10y >= 0, "pos", "neg"))
+  mutate(valence = if_else(Anomaly10y >= 0, "pos", "neg"))
 ```
 
 It would be more precise (and more complicated) to interpolate exactly where the line crosses zero, but `approx()` works fine for the purposes here.
