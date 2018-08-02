@@ -54,7 +54,7 @@ Be careful not to use `geom_text()` when you want to add individual text objects
 
 If you use `geom_text()`, the text will be heavily overplotted on the same location, with one copy per data point:
 
-```{r FIG-ANNOTATE-TEXT-GEOM-OVERPLOT, fig.cap="Overplotting one of the labels -- both should be 90% transparent", fig.width=4, fig.height=4}
+```{r FIG-ANNOTATE-TEXT-GEOM-OVERPLOT, fig.cap="Overplotting one of the labels -- both should be 90\\% transparent", fig.width=4, fig.height=4}
 p +
   # Normal
   annotate("text", x = 3, y = 48, label = "Group 1", alpha = .1) +

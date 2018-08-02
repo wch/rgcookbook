@@ -30,7 +30,9 @@ You want to add a title to your plot.
 
 Use `ggtitle()` to add a title, as shown in Figure \@ref(fig:FIG-APPEARANCE-TITLE):
 
-```{r FIG-APPEARANCE-TITLE, fig.show="hold", fig.cap="Scatter plot with a title added (left); With a `\\n` for a newline (right)"}
+(ref:cap-FIG-APPEARANCE-TITLE) Scatter plot with a title added (left); With a `\n` for a newline (right)
+
+```{r FIG-APPEARANCE-TITLE, fig.show="hold", fig.cap="(ref:cap-FIG-APPEARANCE-TITLE)"}
 library(gcookbook)  # Load gcookbook for the heightweight data set
 
 hw_plot <- ggplot(heightweight, aes(x = ageYear, y = heightIn)) +
@@ -59,7 +61,9 @@ If you want to move the title inside the plotting area, you can use one of two m
 
 The second method is to instead use a text annotation, setting its *x* position to the middle of the *x* range and its *y* position to `Inf`, which places it at the top of the plotting region. This also requires a positive `vjust` value to bring the text fully inside the plotting region:
 
-```{r FIG-APPEARANCE-TITLE-INSIDE, fig.show="hold", fig.cap="Title with ggtitle and a negative `vjust()` value (note the extra space above the plotting area) (left); With a text annotation at the top of the figure (right)"}
+(ref:cap-FIG-APPEARANCE-TITLE-INSIDE) Title with ggtitle and a negative `vjust` value (note the extra space above the plotting area) (left); With a text annotation at the top of the figure (right)
+
+```{r FIG-APPEARANCE-TITLE-INSIDE, fig.show="hold", fig.cap="(ref:cap-FIG-APPEARANCE-TITLE-INSIDE)"}
 # Move the title inside
 hw_plot +
   ggtitle("Age and Height of Schoolchildren") +
@@ -83,7 +87,10 @@ You want to change the appearance of text in a plot.
 
 To set the appearance of theme items such as the title, axis labels, and axis tick marks, use theme() and set the item with `element_text()`. For example, `axis.title.x` controls the appearance of the x-axis label and `plot.title` controls the appearance of the title text (Figure \@ref(fig:FIG-APPEARANCE-TEXT-APPEARANCE-THEME)):
 
-```{r FIG-APPEARANCE-TEXT-APPEARANCE-THEME, fig.show="hold", fig.cap='`axis.title.x` (left); `plot.title` (right)'}
+
+(ref:cap-FIG-APPEARANCE-TEXT-APPEARANCE-THEME) `axis.title.x` (left); `plot.title` (right)
+
+```{r FIG-APPEARANCE-TEXT-APPEARANCE-THEME, fig.show="hold", fig.cap="(ref:cap-FIG-APPEARANCE-TEXT-APPEARANCE-THEME)"}
 library(gcookbook)  # Load gcookbook for the heightweight data set
 
 # Base plot
@@ -111,7 +118,8 @@ hw_plot +
 To set the appearance of text geoms (text that's in the plot itself, with `geom_text()` or `annotate()`), set the text properties. For example (Figure \@ref(fig:FIG-APPEARANCE-TEXT-APPEARANCE-GEOM)):
 
 
-```{r FIG-APPEARANCE-TEXT-APPEARANCE-GEOM, fig.show="hold", fig.cap='`annotate("text")` (left); `geom_text()` (right)'}
+(ref:cap-FIG-APPEARANCE-TEXT-APPEARANCE-GEOM) `annotate("text")` (left); `geom_text()` (right)
+```{r FIG-APPEARANCE-TEXT-APPEARANCE-GEOM, fig.show="hold", fig.cap="(ref:cap-FIG-APPEARANCE-TEXT-APPEARANCE-GEOM)"}
 hw_plot +
   annotate("text", x = 15, y = 53, label = "Some text",
     size = 7, family = "Times", fontface = "bold.italic", colour = "red")
@@ -197,7 +205,9 @@ Table: (\#tab:TABLE-APPEARANCE-THEME-TEXT-ELEMENTS) Theme items that control tex
 |                                   | labels                            |
 +-----------------------------------+-----------------------------------+
 
-```{r FIG-APPEARANCE-TEXT-APPEARANCE-PROPERTIES, fig.cap="Aligning with `hjust` and `vjust`, and spacing with `lineheight`", echo=FALSE, fig.width=8, fig.height=4}
+(ref:cap-FIG-APPEARANCE-TEXT-APPEARANCE-PROPERTIES) Aligning with `hjust` and `vjust`, and spacing with `lineheight`
+
+```{r FIG-APPEARANCE-TEXT-APPEARANCE-PROPERTIES, fig.cap="(ref:cap-FIG-APPEARANCE-TEXT-APPEARANCE-PROPERTIES)", echo=FALSE, fig.width=8, fig.height=4}
 ggplot(data.frame()) +
   geom_vline(xintercept = 1, linetype = "dashed", colour = "red") +
   annotate("text", x = 1, y = 1,    label = "hjust = 1",   hjust = 1) +
@@ -227,7 +237,10 @@ There are many premade themes that are already included in ggplot2. The default 
 
 To use a premade theme, add `theme_bw()` or another theme to your plot (Figure \@ref(fig:FIG-APPEARANCE-THEME)):
 
-```{r FIG-APPEARANCE-THEME, fig.show="hold", fig.cap="Scatter plot with `theme_grey()` (the default, top left); with `theme_bw()` (top right); with `theme_minimal()` (bottom left); with `theme_classic()` (bottom right)"}
+
+(ref:cap-FIG-APPEARANCE-THEME) Scatter plot with `theme_grey()` (the default, top left); with `theme_bw()` (top right); with `theme_minimal()` (bottom left); with `theme_classic()` (bottom right)
+
+```{r FIG-APPEARANCE-THEME, fig.show="hold", fig.cap="(ref:cap-FIG-APPEARANCE-THEME)"}
 library(gcookbook)  # Load gcookbook for the heightweight data set
 
 # Create the base plot
@@ -253,7 +266,9 @@ hw_plot +
 
 Another theme included in ggplot2 is `theme_void()`, which makes all plot elements blank and only shows your data (Figure \@ref(fig:FIG-APPEARANCE-THEME-VOID). This is especially useful if you don't want any default theme settings, and instead want a blank slate on which to choose your own theme elements.
 
-```{r FIG-APPEARANCE-THEME-VOID, fig.show="hold", fig.cap="Scatter plot with `theme_void()`"}
+(ref:cap-FIG-APPEARANCE-THEME-VOID) Scatter plot with `theme_void()`
+
+```{r FIG-APPEARANCE-THEME-VOID, fig.show="hold", fig.cap="(ref:cap-FIG-APPEARANCE-THEME-VOID)"}
 hw_plot +
   theme_void()
 ```

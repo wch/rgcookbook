@@ -244,7 +244,10 @@ ggplot(tg, aes(x = dose, y = length, colour = supp)) +
 
 To set a single constant color for all the lines, specify colour outside of `aes()`. The same works for size, linetype, and point shape (Figure \@ref(fig:FIG-LINE-GRAPH-MULTI-LINE-CONSTANT-AES)). You may also have to specify the grouping variable:
 
-```{r FIG-LINE-GRAPH-MULTI-LINE-CONSTANT-AES, fig.show="hold", fig.cap="Line graph with constant size and color (left); With `supp` mapped to `colour`, and with points added (right)"}
+
+(ref:cap-FIG-LINE-GRAPH-MULTI-LINE-CONSTANT-AES) Line graph with constant size and color (left); With `supp` mapped to `colour`, and with points added (right)
+
+```{r FIG-LINE-GRAPH-MULTI-LINE-CONSTANT-AES, fig.show="hold", fig.cap="(ref:cap-FIG-LINE-GRAPH-MULTI-LINE-CONSTANT-AES)"}
 # If both lines have the same properties, you need to specify a variable to
 # use for grouping
 ggplot(tg, aes(x = dose, y = length, group = supp)) +
@@ -343,7 +346,9 @@ ggplot(sunspotyear, aes(x = Year, y = Sunspots)) +
 
 Having an outline around the entire area might not be desirable, because it puts a vertical line at the beginning and end of the shaded area, as well as one along the bottom. To avoid this issue, we can draw the area without an outline (by not specifying colour), and then layer a `geom_line()` on top, as shown in Figure \@ref(fig:FIG-LINE-GRAPH-AREA-TOPLINE):
 
-```{r FIG-LINE-GRAPH-AREA-TOPLINE, fig.cap="Line graph with a line just on top, using `geom_line()`", fig.width=8, fig.height=1.5, out.width="100%"}
+(ref:cap-FIG-LINE-GRAPH-AREA-TOPLINE) Line graph with a line just on top, using `geom_line()`
+
+```{r FIG-LINE-GRAPH-AREA-TOPLINE, fig.cap="(ref:cap-FIG-LINE-GRAPH-AREA-TOPLINE)", fig.width=8, fig.height=1.5, out.width="100%"}
 ggplot(sunspotyear, aes(x = Year, y = Sunspots)) +
   geom_area(fill = "blue", alpha = .2) +
   geom_line()

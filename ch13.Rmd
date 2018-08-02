@@ -145,7 +145,9 @@ Some functions take additional arguments. For example, `dt()`, the function for 
 p + stat_function(fun = dt, args = list(df = 2))
 ```
 
-```{r FIG-MISCGRAPH-FUNCTION, ref.label=c("FIG-MISCGRAPH-FUNCTION-1", "FIG-MISCGRAPH-FUNCTION-2"), echo=FALSE, fig.show="hold", fig.cap="The normal distribution (left); The *t*-distribution with `df=2` (right)"}
+(ref:cap-FIG-MISCGRAPH-FUNCTION) The normal distribution (left); The *t*-distribution with `df=2` (right)
+
+```{r FIG-MISCGRAPH-FUNCTION, ref.label=c("FIG-MISCGRAPH-FUNCTION-1", "FIG-MISCGRAPH-FUNCTION-2"), echo=FALSE, fig.show="hold", fig.cap="(ref:cap-FIG-MISCGRAPH-FUNCTION)"}
 ```
 
 It's also possible to define your own functions. It should take an *x* value for its first argument, and it should return a *y* value. In this example, we'll define a sigmoid function (Figure \@ref(fig:FIG-MISCGRAPH-FUNCTION-CUSTOM)):
@@ -432,7 +434,9 @@ p + geom_tile()
 p + geom_raster()
 ```
 
-```{r FIG-MISCGRAPH-HEATMAP, echo=FALSE, fig.cap="A heat map-the grey squares represent `NA`s in the data", fig.width=13, fig.height=2}
+(ref:cap-FIG-MISCGRAPH-HEATMAP) A heat map-the grey squares represent `NA`s in the data
+
+```{r FIG-MISCGRAPH-HEATMAP, echo=FALSE, fig.cap="(ref:cap-FIG-MISCGRAPH-HEATMAP)", fig.width=13, fig.height=2}
 # The above code block is just for display because it would make two plots when
 # we just need one.
 p <- ggplot(pres_rating, aes(x = year, y = quarter, fill = rating))
@@ -449,7 +453,7 @@ p +
 To better convey useful information, you may want to customize the appearance of the heat map. With this example, we'll reverse the y-axis so that it progresses from top to bottom, and we'll add tick marks every four years along the x-axis, to correspond with each presidential term. For the x and y scales, we remove the padding by using `expand=c(0, 0)`.  We'll also change the color scale using `scale_fill_gradient2()`, which lets you specify a midpoint color and the two colors at the low and high ends (Figure \@ref(fig:FIG-MISCGRAPH-HEATMAP-CUSTOM)):
 
 ```{r FIG-MISCGRAPH-HEATMAP-CUSTOM, fig.cap="A heat map with customized appearance", fig.width=13, fig.height=2}
-p + 
+p +
   geom_tile() +
   scale_x_continuous(breaks = seq(1940, 1976, by = 4), expand = c(0, 0)) +
   scale_y_reverse(expand = c(0, 0)) +
@@ -984,7 +988,9 @@ ggplot(islicesub, aes(x = x, y = y)) +
 
 The `isabel` data set has three-dimensional data, so we can also make a faceted graph of the data, as shown in Figure \@ref(fig:FIG-MISCGRAPH-VECTORFIELD-FACET). Because each facet is small, we will use a sparser subset than before:
 
-```{r FIG-MISCGRAPH-VECTORFIELD-FACET, fig.cap="Vector field of wind speeds, faceted on `z`", fig.width=9, fig.height=6, warning=FALSE}
+(ref:cap-FIG-MISCGRAPH-VECTORFIELD-FACET) Vector field of wind speeds, faceted on `z`
+
+```{r FIG-MISCGRAPH-VECTORFIELD-FACET, fig.cap="(ref:cap-FIG-MISCGRAPH-VECTORFIELD-FACET)", fig.width=9, fig.height=6, warning=FALSE}
 # Keep 1 out of every 5 values in x and y, and 1 in 2 values in z
 keepx <- every_n(unique(isabel$x), by = 5)
 keepy <- every_n(unique(isabel$y), by = 5)
@@ -1235,7 +1241,9 @@ ggplot(east_asia, aes(x = long, y = lat, group = group, fill = region)) +
 
 If there is a separate map available for a region, such as `nz` (New Zealand), that map data will be at a higher resolution than if you were to extract it from the world map, as shown in Figure \@ref(fig:FIG-MISCGRAPH-MAP-RESOLUTION):
 
-```{r FIG-MISCGRAPH-MAP-RESOLUTION, fig.show="hold", fig.cap="New Zealand data taken from `world` map (left); Data from `nz` map (right)"}
+(ref:cap-FIG-MISCGRAPH-MAP-RESOLUTION) New Zealand data taken from `world` map (left); Data from `nz` map (right)
+
+```{r FIG-MISCGRAPH-MAP-RESOLUTION, fig.show="hold", fig.cap="(ref:cap-FIG-MISCGRAPH-MAP-RESOLUTION)"}
 # Get New Zealand data from world map
 nz1 <- map_data("world", region = "New Zealand") %>%
   filter(long > 0 & lat > -48)        # Trim off islands
@@ -1429,7 +1437,9 @@ The sf object is a special kind of data frame, with 22 rows and 12 columns. Each
 
 Columns in the data can be mapped to aesthetics like fill. For example, we can mapp the `ENGTYPE_2` column to fill, as shown in Figure \@ref(fig:FIG-MISCGRAPH-MAP-SHAPEFILE-2):
 
-```{r FIG-MISCGRAPH-MAP-SHAPEFILE-2, fig.cap="With a column mapped to `fill`", fig.width=8, fig.height=6}
+(ref:cap-FIG-MISCGRAPH-MAP-SHAPEFILE-2) With a column mapped to `fill`
+
+```{r FIG-MISCGRAPH-MAP-SHAPEFILE-2, fig.cap="(ref:cap-FIG-MISCGRAPH-MAP-SHAPEFILE-2)", fig.width=8, fig.height=6}
 # Remove rows for which ENGTYPE_2 is NA; otherwise NA will show in the legend
 taiwan_shp_mod <- taiwan_shp
 taiwan_shp_mod <- taiwan_shp[!is.na(taiwan_shp$ENGTYPE_2), ]

@@ -341,7 +341,8 @@ pg_plot +
   scale_y_continuous(breaks = NULL)
 ```
 
-```{r FIG-AXES-SET-TICKS-NONE, ref.label=c("FIG-AXES-SET-TICKS-NONE-1", "FIG-AXES-SET-TICKS-NONE-2", "FIG-AXES-SET-TICKS-NONE-3"), echo=FALSE, fig.show="hold", fig.cap="No tick labels on y-axis (left); No tick marks and no tick labels on y-axis (middle); With `breaks=NULL` (right)"}
+(ref:cap-FIG-AXES-SET-TICKS-NONE) No tick labels on y-axis (left); No tick marks and no tick labels on y-axis (middle); With `breaks=NULL` (right)
+```{r FIG-AXES-SET-TICKS-NONE, ref.label=c("FIG-AXES-SET-TICKS-NONE-1", "FIG-AXES-SET-TICKS-NONE-2", "FIG-AXES-SET-TICKS-NONE-3"), echo=FALSE, fig.show="hold", fig.cap="(ref:cap-FIG-AXES-SET-TICKS-NONE)"}
 ```
 
 This will work for continuous axes only; if you remove items from a categorical axis using limits, as in Recipe \@ref(RECIPE-AXIS-ORDER), the data with that value won't be shown at all.
@@ -695,13 +696,15 @@ hw_plot +
   theme(panel.border = element_blank(), axis.line = element_line(colour = "black"))
 ```
 
-```{r FIG-AXES-AXIS-LINE, ref.label=c("FIG-AXES-AXIS-LINE-1", "FIG-AXES-AXIS-LINE-2"), echo=FALSE, fig.show="hold", fig.cap="Scatter plot with axis lines (left); With theme_bw(), panel.border must also be made blank (right)"}
+(ref:cap-FIG-AXES-AXIS-LINE) Scatter plot with axis lines (left); With `theme_bw()`, `panel.border` must also be made blank (right)
+
+```{r FIG-AXES-AXIS-LINE, ref.label=c("FIG-AXES-AXIS-LINE-1", "FIG-AXES-AXIS-LINE-2"), echo=FALSE, fig.show="hold", fig.cap="(ref:cap-FIG-AXES-AXIS-LINE)"}
 ```
 
 
 If the lines are thick, the ends will only partially overlap (Figure \@ref(fig:FIG-AXES-AXIS-LINE-LINEEND), left). To make them fully overlap (Figure \@ref(fig:FIG-AXES-AXIS-LINE-LINEEND), right), set `lineend = "square"`:
 
-```{r FIG-AXES-AXIS-LINE-LINEEND, fig.show="hold", fig.cap="With thick lines, the ends don't fully overlap (left); Full overlap with lineend=\"square\" (right)"}
+```{r FIG-AXES-AXIS-LINE-LINEEND, fig.show="hold", fig.cap='With thick lines, the ends don\'t fully overlap (left); Full overlap with `lineend="square"` (right)'}
 # With thick lines, only half overlaps
 hw_plot +
   theme_bw() +

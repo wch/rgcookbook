@@ -49,7 +49,9 @@ simpledat
 
 The following will make a simple grouped bar plot, with the `A`s going along the x-axis and the bars grouped by the `B`s (Figure \@ref(fig:FIG-GGPLOT-BASE-BAR)):
 
-```{r FIG-GGPLOT-BASE-BAR, fig.cap="A bar plot made with `barplot()`"}
+(ref:cap-FIG-GGPLOT-BASE-BAR) A bar plot made with `barplot()`
+
+```{r FIG-GGPLOT-BASE-BAR, fig.cap="(ref:cap-FIG-GGPLOT-BASE-BAR)"}
 barplot(simpledat, beside = TRUE)
 ```
 
@@ -68,7 +70,9 @@ barplot(t(simpledat), beside=TRUE)
 
 Another thing we might want to do is to represent the data with lines instead of bars, as shown in Figure \@ref(fig:FIG-GGPLOT-BASE-LINE). To do this with base graphics, we need to use a completely different set of commands. First we call `plot()`, which tells R to create a new plot and draw a line for one row of data. Then we tell it to draw a second row with `lines()`:
 
-```{r FIG-GGPLOT-BASE-LINE, fig.cap="A line graph made with `plot()` and `lines()`"}
+(ref:cap-FIG-GGPLOT-BASE-LINE) A line graph made with `plot()` and `lines()`
+
+```{r FIG-GGPLOT-BASE-LINE, fig.cap="(ref:cap-FIG-GGPLOT-BASE-LINE)"}
 plot(simpledat[1,], type="l")
 lines(simpledat[2,], type="l", col="blue")
 ```
@@ -86,7 +90,9 @@ This represents the same information, but with a different structure. Another te
 
 To make the first grouped bar plot (Figure \@ref(fig:FIG-GGPLOT-GGPLOT-BAR)), we first have to load the ggplot2 packag.e Then we tell it to map `Aval` to the *x* position, with `x = Aval`, and `Bval` to the fill color, with `fill = Bval`. This will make the `A`s run along the x-axis and the `B`s determine the grouping. We also tell it to map value to the *y* position, or height, of the bars, with `y = value`. Finally, we tell it to draw bars with `geom_col()` (don't worry about the other details yet; we'll get to those later):
 
-```{r FIG-GGPLOT-GGPLOT-BAR, fig.cap="`A bar graph made with ggplot() and geom_col()`"}
+(ref:cap-FIG-GGPLOT-GGPLOT-BAR) A bar graph made with `ggplot()` and `geom_col()`
+
+```{r FIG-GGPLOT-GGPLOT-BAR, fig.cap="(ref:cap-FIG-GGPLOT-GGPLOT-BAR)"}
 library(ggplot2)
 ggplot(simpledat_long, aes(x = Aval, y = value, fill = Bval)) +
     geom_col(position = "dodge")
@@ -94,7 +100,9 @@ ggplot(simpledat_long, aes(x = Aval, y = value, fill = Bval)) +
 
 To switch things so that the `B`s go along the x-axis and the `A`s determine the grouping (Figure \@ref(fig:FIG-GGPLOT-GGPLOT-BAR-SWAP)), we simply swap the mapping specification, with `x = Bval` and `fill = Aval`. Unlike with base graphics, we don't have to change the data; we just change the commands for making the plot:
 
-```{r FIG-GGPLOT-GGPLOT-BAR-SWAP, fig.cap="Bar plot of the same data, but with `x` and `fill` mappings switched"}
+(ref:cap-FIG-GGPLOT-GGPLOT-BAR-SWAP) Bar plot of the same data, but with `x` and `fill` mappings switched
+
+```{r FIG-GGPLOT-GGPLOT-BAR-SWAP, fig.cap="(ref:cap-FIG-GGPLOT-GGPLOT-BAR-SWAP)"}
 ggplot(simpledat_long, aes(x = Bval, y = value, fill = Aval)) +
     geom_col(position = "dodge")
 ```
@@ -105,7 +113,9 @@ ggplot(simpledat_long, aes(x = Bval, y = value, fill = Aval)) +
 
 To change it to a line plot (Figure \@ref(fig:FIG-GGPLOT-GGPLOT-LINE)), we'll change `geom_col()` to `geom_line()`. We'll also map `Bval` to the *line* color, with `colour`, instead of the *fill* colour (note the British spelling -- the author of ggplot2 is a Kiwi). Again, don't worry about the other details yet:
 
-```{r FIG-GGPLOT-GGPLOT-LINE, fig.cap="A line graph made with `ggplot()` and `geom_line()`"}
+(ref:cap-FIG-GGPLOT-GGPLOT-LINE) A line graph made with `ggplot()` and `geom_line()`
+
+```{r FIG-GGPLOT-GGPLOT-LINE, fig.cap="(ref:cap-FIG-GGPLOT-GGPLOT-LINE)"}
 ggplot(simpledat_long, aes(x = Aval, y = value, colour = Bval, group = Bval)) +
     geom_line()
 ```
@@ -188,7 +198,9 @@ p +
 
 We can also map the variable `group` to the color of the points, by putting `aes()` inside the call to `geom_point()`, and specifying `colour = group` (Figure \@ref(fig:FIG-GGPLOT-SCATTER-COLOR-MAPPED)):
 
-```{r FIG-GGPLOT-SCATTER-COLOR-MAPPED, fig.cap="A scatter plot with a variable mapped to `colour`"}
+(ref:cap-FIG-GGPLOT-SCATTER-COLOR-MAPPED) A scatter plot with a variable mapped to `colour`
+
+```{r FIG-GGPLOT-SCATTER-COLOR-MAPPED, fig.cap="(ref:cap-FIG-GGPLOT-SCATTER-COLOR-MAPPED)"}
 p +
   geom_point(aes(colour = group))
 ```

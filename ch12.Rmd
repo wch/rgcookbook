@@ -32,7 +32,9 @@ You want to set the color of some geoms in your graph.
 
 In the call to the geom, set the values of `colour` or `fill` (Figure \@ref(fig:FIG-COLORS-SETTING)):
 
-```{r FIG-COLORS-SETTING, fig.show="hold", fig.cap="Setting `fill` and `colour` (left); Setting `colour` for points (right)", message=FALSE, fig.width=4, fig.height=3.5}
+(ref:cap-FIG-COLORS-SETTING) Setting `fill` and `colour` (left); Setting `colour` for points (right)
+
+```{r FIG-COLORS-SETTING, fig.show="hold", fig.cap="(ref:cap-FIG-COLORS-SETTING)", message=FALSE, fig.width=4, fig.height=3.5}
 library(MASS)  # Load MASS for the birthwt data set
 
 ggplot(birthwt, aes(x = bwt)) +
@@ -86,7 +88,9 @@ ggplot(mtcars, aes(x = wt, y = mpg)) +
   geom_point(aes(colour = cyl))
 ```
 
-```{r FIG-COLORS-MAPPING, echo=FALSE, fig.show="hold", message=FALSE, fig.cap="Mapping a variable to `fill` (left); Mapping a variable to `colour` for points (right)", fig.width=4, fig.height=3.5}
+(ref:cap-FIG-COLORS-MAPPING) Mapping a variable to `fill` (left); Mapping a variable to `colour` for points (right)
+
+```{r FIG-COLORS-MAPPING, echo=FALSE, fig.show="hold", message=FALSE, fig.cap="(ref:cap-FIG-COLORS-MAPPING)", fig.width=4, fig.height=3.5}
 library(gcookbook)  # Load gcookbook for the cabbage_exp data set
 
 ggplot(cabbage_exp, aes(x = Date, y = Weight, fill = Cultivar)) +
@@ -108,7 +112,9 @@ str(cabbage_exp)
 
 In the `mtcars` example, `cyl` is numeric, so it is treated as a continuous variable. Because of this, even though the actual values of `cyl` include only 4, 6, and 8, the legend has entries for the intermediate values 5 and 7. To make ggplot treat `cyl` as a categorical variable, you can convert it to a factor in the call to `ggplot()` (Figure \@ref(fig:FIG-COLORS-MAPPING-FACTOR), left), or you can modify the data so that the column is a character vector or factor (Figure \@ref(fig:FIG-COLORS-MAPPING-FACTOR), right):
 
-```{r FIG-COLORS-MAPPING-FACTOR, fig.show="hold", fig.cap="Converting `cyl` to a factor, within the call to ggplot (left); By modifying the dataframe (right)", fig.width=4, fig.height=3.5}
+(ref:cap-FIG-COLORS-MAPPING-FACTOR) Converting `cyl` to a factor, within the call to ggplot (left); By modifying the dataframe (right)
+
+```{r FIG-COLORS-MAPPING-FACTOR, fig.show="hold", fig.cap="(ref:cap-FIG-COLORS-MAPPING-FACTOR)", fig.width=4, fig.height=3.5}
 # Convert to factor in call to ggplot()
 ggplot(mtcars, aes(x = wt, y = mpg, colour = factor(cyl))) +
   geom_point()
@@ -387,7 +393,9 @@ You want to use different colors for a continuous variable.
 
 In the example here, we'll specify the colors for a continuous variable using various gradient scales (Figure \@ref(fig:FIG-COLORS-PALETTE-CONTINUOUS)). The colors can be named, or they can be specified with RGB values:
 
-```{r FIG-COLORS-PALETTE-CONTINUOUS, fig.show="hold", message=FALSE, fig.cap=" Clockwise from top left: default colors, two-color gradient (black and white) with `scale_colour_gradient()`, three-color gradient with midpoint with `scale_colour_gradient2()`, four-color gradient with `scale_colour_gradientn()`", fig.width=4, fig.height=3.5}
+(ref:cap-FIG-COLORS-PALETTE-CONTINUOUS) Clockwise from top left: default colors, two-color gradient (black and white) with `scale_colour_gradient()`, three-color gradient with midpoint with `scale_colour_gradient2()`, four-color gradient with `scale_colour_gradientn()`
+
+```{r FIG-COLORS-PALETTE-CONTINUOUS, fig.show="hold", message=FALSE, fig.cap="(ref:cap-FIG-COLORS-PALETTE-CONTINUOUS)", fig.width=4, fig.height=3.5}
 library(gcookbook)  # Load gcookbook for the heightweight data set
 
 # Create the base plot

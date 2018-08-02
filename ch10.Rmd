@@ -453,7 +453,9 @@ pg_plot +
 
 If you have one variable mapped to two separate aesthetics, the default is to have a single legend that combines both. If you want to change the legend labels, you must change them for both scales; otherwise you will end up with two separate legends, as shown in Figure \@ref(fig:FIG-LEGEND-LABEL-MULTI-APPEARANCE):
 
-```{r FIG-LEGEND-LABEL-MULTI-APPEARANCE, fig.cap="A variable mapped to `shape` and `colour` (top left); With new labels for `shape` (top right); With new labels combining both `shape` and colour` (bottom)"}
+(ref:cap-FIG-LEGEND-LABEL-MULTI-APPEARANCE) A variable mapped to `shape` and `colour` (top left); With new labels for `shape` (top right); With new labels combining both `shape` and colour` (bottom)
+
+```{r FIG-LEGEND-LABEL-MULTI-APPEARANCE, fig.cap="(ref:cap-FIG-LEGEND-LABEL-MULTI-APPEARANCE)"}
 # Create the base plot
 hw_plot <- ggplot(heightweight, aes(x = ageYear, y = heightIn, shape = sex, colour = sex)) +
   geom_point()
