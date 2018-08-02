@@ -1412,7 +1412,8 @@ library(sf)
 # Load the shapefile
 taiwan_shp <- st_read("fig/TWN_adm/TWN_adm2.shp")
 
-ggplot(taiwan_shp) + geom_sf()
+ggplot(taiwan_shp) +
+  geom_sf()
 ```
 
 
@@ -1429,8 +1430,12 @@ The sf object is a special kind of data frame, with 22 rows and 12 columns. Each
 Columns in the data can be mapped to aesthetics like fill. For example, we can mapp the `ENGTYPE_2` column to fill, as shown in Figure \@ref(fig:FIG-MISCGRAPH-MAP-SHAPEFILE-2):
 
 ```{r FIG-MISCGRAPH-MAP-SHAPEFILE-2, fig.cap="With a column mapped to `fill`", fig.width=8, fig.height=6}
-ggplot(taiwan_shp) +
-  geom_sf(aes(fill=ENGTYPE_2))
+# Remove rows for which ENGTYPE_2 is NA; otherwise NA will show in the legend
+taiwan_shp_mod <- taiwan_shp
+taiwan_shp_mod <- taiwan_shp[!is.na(taiwan_shp$ENGTYPE_2), ]
+
+ggplot(taiwan_shp_mod) +
+  geom_sf(aes(fill = ENGTYPE_2))
 ```
 
 ### See Also
