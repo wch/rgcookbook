@@ -111,9 +111,7 @@ hw_plot +
 To set the appearance of text geoms (text that's in the plot itself, with `geom_text()` or `annotate()`), set the text properties. For example (Figure \@ref(fig:FIG-APPEARANCE-TEXT-APPEARANCE-GEOM)):
 
 
-(ref:cap-FIG-APPEARANCE-TEXT-APPEARANCE-GEOM) `annotate("text")` (left); `geom_text()` (right)
-
-```{r FIG-APPEARANCE-TEXT-APPEARANCE-GEOM, fig.show="hold", fig.cap="(ref:cap-FIG-APPEARANCE-TEXT-APPEARANCE-GEOM)"}
+```{r FIG-APPEARANCE-TEXT-APPEARANCE-GEOM, fig.show="hold", fig.cap='`annotate("text")` (left); `geom_text()` (right)'}
 hw_plot +
   annotate("text", x = 15, y = 53, label = "Some text",
     size = 7, family = "Times", fontface = "bold.italic", colour = "red")

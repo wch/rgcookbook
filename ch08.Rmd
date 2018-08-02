@@ -602,9 +602,7 @@ pg_plot +
   xlab("")
 ```
 
-(ref:cap-FIG-AXES-AXIS-LABEL-REMOVE) X-axis label with `NULL` (left); With the label set to `""` (right)
-
-```{r FIG-AXES-AXIS-LABEL-REMOVE, ref.label=c("FIG-AXES-AXIS-LABEL-REMOVE-1", "FIG-AXES-AXIS-LABEL-REMOVE-2"), echo=FALSE, fig.show="hold", fig.cap="(ref:cap-FIG-AXES-AXIS-LABEL-REMOVE)", fig.width=3.5, fig.height=3.5}
+```{r FIG-AXES-AXIS-LABEL-REMOVE, ref.label=c("FIG-AXES-AXIS-LABEL-REMOVE-1", "FIG-AXES-AXIS-LABEL-REMOVE-2"), echo=FALSE, fig.show="hold", fig.cap='X-axis label with `NULL` (left); With the label set to `""` (right)', fig.width=3.5, fig.height=3.5}
 ```
 
 When you use `theme()` to set `axis.title.x = element_blank()`, the name of the *x* or *y* scale is unchanged, but the text is not displayed and no space is reserved for it. When you set the label to `""`, the name of the scale is changed and the (empty) text does display.
