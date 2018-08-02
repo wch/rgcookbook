@@ -1185,7 +1185,7 @@ The example here is a scatter plot, but that is not the only way to use balloon 
 # Create a data frame that adds up counts for males and females
 hec <- HairEyeColor %>%
   # Convert to long format
-  as.tibble() %>%
+  as_tibble() %>%
   group_by(Hair, Eye) %>%
   summarize(count = sum(n))
 
