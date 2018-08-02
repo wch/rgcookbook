@@ -11,6 +11,12 @@ html:
 pdf:
 	Rscript --no-init-file -e 'bookdown::render_book("index.Rmd", output_format = "bookdown::pdf_book"); warnings()'
 
+html_artifacts:
+	Rscript --no-init-file -e 'bookdown::render_book("index.Rmd", output_format = "bookdown::gitbook", clean = FALSE); warnings()'
+
+pdf_artifacts:
+	Rscript --no-init-file -e 'bookdown::render_book("index.Rmd", output_format = "bookdown::pdf_book", clean = FALSE); warnings()'
+
 # Knit individual chapters and put resulting .md files in chapters_md/
 chapters_md: $(CHAPTER_RMD_FILES)
 	tools/build_chapters.R $(CHAPTER_RMD_FILES)
