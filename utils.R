@@ -1,11 +1,14 @@
 # options(warn = -1)
 
-suppressPackageStartupMessages({
-  # Need to load MASS before dplyr because of conflict with select()
-  library(MASS)
-  library(ggplot2)
-  library(dplyr)
-})
+library <- function(...) {
+  suppressPackageStartupMessages(base::library(...))
+}
+
+# Need to load some packages before tidyverse because of conflicts
+library(igraph)
+library(MASS)
+library(ggplot2)
+library(dplyr)
 
 
 options(width = 95)
@@ -15,7 +18,6 @@ knitr::opts_chunk$set(
   comment = "#>",
   cache = TRUE,
   fig.show = "hold",
-  # out.width = NULL,
   fig.align = "center",
   fig.width = 5,
   fig.height = 4,
@@ -152,13 +154,13 @@ register_s3_method("knitr", "knit_print", "ts",         knit_print_ts)
 register_s3_method("knitr", "knit_print", "table",      knit_print_table)
 
 register_s3_method("knitr", "knit_print", "grouped_df", knit_print_tbl)
-register_s3_method("knitr", "knit_print", "tbl_df", knit_print_tbl)
-register_s3_method("knitr", "knit_print", "tbl", knit_print_tbl)
+register_s3_method("knitr", "knit_print", "tbl_df",     knit_print_tbl)
+register_s3_method("knitr", "knit_print", "tbl",        knit_print_tbl)
 
 
 register_s3_method("knitr", "knit_print", "sf",
   function(x, ...) {
-    sf:::print.sf(x, ..., n = 6)
+    print(x, ..., n = 6)
   }
 )
 
