@@ -1279,7 +1279,7 @@ You want to create a map with regions that are colored according to variable val
 
 Merge the value data with the map data, then map a variable to `fill`:
 
-```{r}
+```{r, print_df_digits=1}
 # Transform the USArrests data set to the correct format
 crimes <- data.frame(state = tolower(rownames(USArrests)), USArrests)
 crimes

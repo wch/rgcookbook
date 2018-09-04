@@ -1,5 +1,7 @@
 # options(warn = -1)
 
+# TODO: Add checks for code/computer output wider than 80 columns
+
 library <- function(...) {
   suppressPackageStartupMessages(base::library(...))
 }
@@ -11,7 +13,7 @@ library(ggplot2)
 library(dplyr)
 
 
-options(width = 95)
+options(width = 80)
 
 knitr::opts_chunk$set(
   collapse = TRUE,
@@ -23,6 +25,7 @@ knitr::opts_chunk$set(
   fig.height = 4,
   out.width = NULL,
   print_df_rows = c(3, 3),
+  print_df_digits = NULL,
   print_tbl_rows = 6
 )
 
@@ -65,7 +68,18 @@ register_s3_method <- function(pkg, generic, class, fun = NULL) {
   )
 }
 
-knit_print_data.frame <- function(x, ..., rows = knitr::opts_current$get("print_df_rows")) {
+# Round numeric columns in a data frame to some number of digits after decimal.
+round_df <- function(df, digits) {
+  is.num <- vapply(df, is.numeric, TRUE)
+  df[is.num] <- lapply(df[is.num], round, digits = digits)
+  df
+}
+
+
+knit_print_data.frame <- function(x, ...,
+  rows = knitr::opts_current$get("print_df_rows"),
+  digits_ = knitr::opts_current$get("print_df_digits")
+) {
   # If the data frame has up to `rows` plus two extra, just print the data
   # frame.
   if (nrow(x) <= sum(rows) + 2) {
@@ -76,6 +90,13 @@ knit_print_data.frame <- function(x, ..., rows = knitr::opts_current$get("print_
   # By default, print first 3 and last 3 rows.
   rownums <- c(seq(from = 1,       length.out = rows[1]),
                seq(to   = nrow(x), length.out = rows[2]))
+
+  # If digits_ is specified, round to that number of digits. It's called
+  # `digits_` so it doesn't clash with the `digits` parameter for
+  # print.data.frame.
+  if (!is.null(digits_)) {
+    x <- round_df(x, digits = digits_)
+  }
 
   # Need to print the head and tail of data frame in one go, so that
   # alignment is correct.
