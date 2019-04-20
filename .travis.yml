@@ -19,3 +19,8 @@ script:
 after_success:
 - nvm install stable
 - npm install netlify-cli -g
+
+deploy:
+  provider: script
+  script: netlify deploy --prod --dir _book
+  skip_cleanup: true
