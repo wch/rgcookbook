@@ -15,6 +15,7 @@ Imports:
     ggrepel,
     hexbin,
     igraph,
+    mapproj,
     maps,
     patchwork,
     svglite,
