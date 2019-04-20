@@ -13,6 +13,7 @@ Imports:
     extrafont,
     gcookbook,
     ggrepel,
+    hexbin,
     igraph,
     patchwork,
     svglite,
