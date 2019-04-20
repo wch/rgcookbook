@@ -15,9 +15,9 @@ Imports:
     ggrepel,
     igraph,
     patchwork,
-    svglite
+    svglite,
     tidyverse,
     vcd,
-    viridis,
+    viridis
 Remotes:
     thomasp85/patchwork
