@@ -9,8 +9,7 @@ cache:
 pandoc_version: 2.1.1
 
 script:
-- true
-# - Rscript -e 'bookdown::render_book("index.Rmd")'
+- Rscript -e 'bookdown::render_book("index.Rmd")'
 
 after_success:
 - nvm install stable
