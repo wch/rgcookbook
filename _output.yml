@@ -1,5 +1,14 @@
 bookdown::gitbook:
   toc_depth: 2
+  config:
+    toc:
+      collapse: section
+      before: |
+        <li><strong><a href="./">R Graphics Cookbook</a></strong></li>
+    edit:
+      link: https://github.com/wch/rgcookbook/edit/master/%s
+      text: "Edit"
+    sharing: no
 
 bookdown::pdf_book:
   toc_depth: 2

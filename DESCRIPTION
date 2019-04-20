@@ -8,5 +8,16 @@ URL: https://github.com/wch/rgcookbook
 Depends:
     R (>= 3.1.0)
 Imports:
+    bookdown,
+    corrplot,
+    extrafont,
+    gcookbook,
+    ggrepel,
+    igraph,
+    patchwork,
+    svglite
     tidyverse,
-    gcookbook
+    vcd,
+    viridis,
+Remotes:
+    thomasp85/patchwork

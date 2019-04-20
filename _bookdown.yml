@@ -1,4 +1,6 @@
 book_filename: "R-Graphics-Cookbook-2e"
+delete_merged_file: yes
+
 language:
   ui:
     chapter_name: "Chapter "
