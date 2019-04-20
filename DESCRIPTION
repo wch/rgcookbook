@@ -18,6 +18,7 @@ Imports:
     mapproj,
     maps,
     patchwork,
+    sf,
     svglite,
     tidyverse,
     vcd,
