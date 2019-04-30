@@ -31,7 +31,7 @@ Most of the recipes here use the ggplot2 plotting package, and the dplyr package
 >
 > You can use the recipes with just a surface understanding of ggplot2, but if you want a deeper understanding of how it works, see Chapter \@ref(CHAPTER-GGPLOT2).
 
-Once you've installed R, you can install the necessary packages. In addition to the tidverse packages, you'll also want to install othe gcookbook package, which contains data sets for many of the examples in this book. You can install the tidyverse packages and the gcookbook package with:
+Once you've installed R, you can install the necessary packages. In addition to the tidverse packages, you'll also want to install the gcookbook package, which contains data sets for many of the examples in this book. You can install the tidyverse packages and the gcookbook package with:
 
 ```{r eval=FALSE}
 install.packages("tidyverse")
