@@ -186,7 +186,7 @@ ggplot(diamonds, aes(x = carat)) +
   geom_histogram()
 ```
 
-The bar graph with a continuous x-axis is similar to a histogram, but not the same. A histogram is shown on the right of Figure \@ref(fig:FIG-BAR-GRAPH-COUNT-CONTINUOUS). In this kind of bar graph, each bar represents a unique *x* value, whereas in a histogram, each bar represents a *range* of *x* values.
+The bar graph with a continuous x-axis is similar to a histogram, but not the same. A histogram is shown on the bottom of Figure \@ref(fig:FIG-BAR-GRAPH-COUNT-CONTINUOUS). In this kind of bar graph, each bar represents a unique *x* value, whereas in a histogram, each bar represents a *range* of *x* values.
 
 
 ### See Also
