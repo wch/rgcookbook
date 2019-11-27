@@ -174,9 +174,9 @@ diamonds
 
 With `geom_bar()`, the default behavior is to use `stat = "bin"`, which counts up the number of cases for each group (each *x* position, in this example). In the graph we can see that there are about 23,000 cases with an `ideal` cut.
 
-In this example, the variable on the x-axis is discrete. If we use a continuous variable on the x-axis, we'll get a bar at each unique *x* value in the data, as shown in Figure \@ref(fig:FIG-BAR-GRAPH-COUNT-CONTINUOUS), left:
+In this example, the variable on the x-axis is discrete. If we use a continuous variable on the x-axis, we'll get a bar at each unique *x* value in the data, as shown in Figure \@ref(fig:FIG-BAR-GRAPH-COUNT-CONTINUOUS), top:
 
-```{r FIG-BAR-GRAPH-COUNT-CONTINUOUS, echo=FALSE, message=FALSE, fig.show="hold", fig.cap='Bar graph of counts on a continuous axis (left); A histogram (right)', fig.width=6, fig.height=3}
+```{r FIG-BAR-GRAPH-COUNT-CONTINUOUS, echo=FALSE, message=FALSE, fig.show="hold", fig.cap='Bar graph of counts on a continuous axis (top); A histogram (bottom)', fig.width=6, fig.height=3}
 # Bar graph of counts
 ggplot(diamonds, aes(x = carat)) +
   geom_bar()
