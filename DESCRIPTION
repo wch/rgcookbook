@@ -23,5 +23,3 @@ Imports:
     tidyverse,
     vcd,
     viridis
-Remotes:
-    thomasp85/patchwork
