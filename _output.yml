@@ -2,7 +2,7 @@ bookdown::gitbook:
   split_by: section
   config:
     toc:
-      collapse: section
+      collapse: subsection
       before: |
         <li><strong><a href="./">R Graphics Cookbook</a></strong></li>
     edit:
