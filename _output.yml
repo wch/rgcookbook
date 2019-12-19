@@ -1,5 +1,4 @@
 bookdown::gitbook:
-  toc_depth: 2
   config:
     toc:
       collapse: section
@@ -8,7 +7,11 @@ bookdown::gitbook:
     edit:
       link: https://github.com/wch/rgcookbook/edit/master/%s
       text: "Edit"
-    sharing: no
+    sharing:
+      facebook: no
+      twitter: no
+      github: yes
+      all: []
 
 bookdown::pdf_book:
   toc_depth: 2
