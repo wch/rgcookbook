@@ -28,7 +28,7 @@ The recipes in this chapter will often use packages from the *tidyverse*. For a 
 
 > **Note**
 >
-> The `>%>` symbol, also known as the pipe operator, is used extensively in this chapter. If you are not familiar with it, see Recipe \@ref(RECIPE-R-BASICS-PIPE).
+> The `%>%` symbol, also known as the pipe operator, is used extensively in this chapter. If you are not familiar with it, see Recipe \@ref(RECIPE-R-BASICS-PIPE).
 
 Most of the tidyverse functions used in this chapter are from the dplyr package, and in this chapter, I'll assume that dplyr is already loaded. You can load it with either `library(tidyverse)` as shown above, or, if you want to keep things more streamlined, you can load dplyr directly:
 
