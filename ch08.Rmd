@@ -342,6 +342,7 @@ pg_plot +
 ```
 
 (ref:cap-FIG-AXES-SET-TICKS-NONE) No tick labels on y-axis (left); No tick marks and no tick labels on y-axis (middle); With `breaks=NULL` (right)
+
 ```{r FIG-AXES-SET-TICKS-NONE, ref.label=c("FIG-AXES-SET-TICKS-NONE-1", "FIG-AXES-SET-TICKS-NONE-2", "FIG-AXES-SET-TICKS-NONE-3"), echo=FALSE, fig.show="hold", fig.cap="(ref:cap-FIG-AXES-SET-TICKS-NONE)"}
 ```
 
