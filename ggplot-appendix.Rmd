@@ -88,7 +88,7 @@ simpledat_long
 
 This represents the same information, but with a different structure. Another term for it is *tidy data*, where each row represents one observation. There are advantages and disadvantages to this format, but on the whole, it makes things simpler when dealing with complicated data sets. See Recipes Recipe \@ref(RECIPE-DATAPREP-WIDE-TO-LONG) and Recipe \@ref(RECIPE-DATAPREP-LONG-TO-WIDE) for information about converting between wide and long data formats.
 
-To make the first grouped bar plot (Figure \@ref(fig:FIG-GGPLOT-GGPLOT-BAR)), we first have to load the ggplot2 packag.e Then we tell it to map `Aval` to the *x* position, with `x = Aval`, and `Bval` to the fill color, with `fill = Bval`. This will make the `A`s run along the x-axis and the `B`s determine the grouping. We also tell it to map value to the *y* position, or height, of the bars, with `y = value`. Finally, we tell it to draw bars with `geom_col()` (don't worry about the other details yet; we'll get to those later):
+To make the first grouped bar plot (Figure \@ref(fig:FIG-GGPLOT-GGPLOT-BAR)), we first have to load the ggplot2 package. Then we tell it to map `Aval` to the *x* position, with `x = Aval`, and `Bval` to the fill color, with `fill = Bval`. This will make the `A`s run along the x-axis and the `B`s determine the grouping. We also tell it to map value to the *y* position, or height, of the bars, with `y = value`. Finally, we tell it to draw bars with `geom_col()` (don't worry about the other details yet; we'll get to those later):
 
 (ref:cap-FIG-GGPLOT-GGPLOT-BAR) A bar graph made with `ggplot()` and `geom_col()`
 
