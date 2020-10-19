@@ -310,7 +310,7 @@ You want to adjust the width of bars and the spacing between them.
 
 ### Solution
 
-To make the bars narrower or wider, set `width` in `geom_bar()`. The default value is 0.9; larger values make the bars wider, and smaller values make the bars narrower (Figure \@ref(fig:FIG-BAR-WIDTH)).
+To make the bars narrower or wider, set `width` in `geom_col()`. The default value is 0.9; larger values make the bars wider, and smaller values make the bars narrower (Figure \@ref(fig:FIG-BAR-WIDTH)).
 
 For example, for standard-width bars:
 
@@ -388,7 +388,7 @@ geom_bar(width = 0.9, position = position_dodge(width=0.9))
 
 The items on the x-axis have x values of 1, 2, 3, and so on, though you typically don't refer to them by these numerical values. When you use `geom_bar(width = 0.9)`, it makes each group take up a total width of 0.9 on the x-axis. When you use `position_dodge(width = 0.9)`, it spaces the bars so that the *middle* of each bar is right where it would be if the bar width were 0.9 and the bars were touching. This is illustrated in Figure \@ref(fig:FIG-BAR-WIDTH-DODGE-EXPLANATION). The two graphs both have the same dodge width of 0.9, but while the top has a bar width of 0.9, the bottom has a bar width of 0.2. Despite the different bar widths, the middles of the bars stay aligned.
 
-```{r FIG-BAR-WIDTH-DODGE-EXPLANATION, echo=FALSE, fig.show="hold", fig.cap="Same dodge width of 0.9, but different bar widths of 0.9 (top) and 0.2 (bottom)", fig.width=4.5, fig.height=3}
+```{r FIG-BAR-WIDTH-DODGE-EXPLANATION, echo=FALSE, fig.show="hold", fig.cap="Same dodge width of 0.9, but different bar widths of 0.9 (left) and 0.2 (right)", fig.width=4.5, fig.height=3}
 ggplot(cabbage_exp, aes(x = Date, y = Weight, fill = Cultivar)) +
   geom_col(position = "dodge")
 

@@ -260,7 +260,7 @@ The haven package has the function `read_sav()` for reading SPSS files. To load 
 # Only need to install the first time
 install.packages("haven")
 
-library(foreign)
+library(haven)
 data <- read_sav("datafile.sav")
 ```
 
