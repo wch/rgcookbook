@@ -1,7 +1,7 @@
 # rgcookbook
 
 <!-- badges: start -->
-[![Travis build status](https://travis-ci.org/wch/rgcookbook.svg?branch=master)](https://travis-ci.org/wch/rgcookbook)
+[![R build status](https://github.com/wch/rgcookbook/workflows/R-CMD-check/badge.svg)](https://github.com/wch/rgcookbook/actions)
 <!-- badges: end -->
 
 Source code for the R Graphics Cookbook, 2nd edition.
