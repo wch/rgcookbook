@@ -13,7 +13,7 @@ library(ggplot2)
 library(dplyr)
 
 
-options(width = 80)
+options(width = 77)
 
 knitr::opts_chunk$set(
   collapse = TRUE,
@@ -156,6 +156,8 @@ knit_print_table <- function(x, ...) {
   if (length(txt) > 14) {
     cat(txt[1:14], sep = "\n")
     cat(" ... with", length(txt)-1, "more lines of text\n")
+  } else{
+    cat(txt, sep = "\n")
   }
   invisible()
 }

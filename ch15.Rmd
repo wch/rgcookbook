@@ -175,7 +175,7 @@ ToothGrowth %>%
 
 You can also assign a vector to the new column:
 
-```{r eval=FALSE}
+```{r}
 # Since ToothGrowth has 60 rows, we must create a new vector that has 60 rows
 vec <- rep(c(1, 2), 30)
 
@@ -226,7 +226,7 @@ ToothGrowth %>%
 
 You can list multiple columns that you want to drop at the same time, or conversely specify only the columns that you want to keep. The following two pieces of code are thus equivalent:
 
-```{r}
+```{r eval=FALSE}
 # Remove both len and supp from ToothGrowth
 ToothGrowth %>%
   select(-len, -supp)
@@ -238,11 +238,8 @@ ToothGrowth %>%
 
 To remove a column using base R, you can simply assign `NULL` to that column.
 
-```{r}
-# Make a copy of ToothGrowth for this example
-ToothGrowth2 <- ToothGrowth
-
-ToothGrowth2$len <- NULL
+```{r eval=FALSE}
+ToothGrowth$len <- NULL
 ```
 
 ### See Also
@@ -261,10 +258,10 @@ You want to rename the columns in a data frame.
 
 ### Solution
 
-Use `rename()` from dplyr. This returns a new data frame, which you'll typically want save over the original.
+Use `rename()` from dplyr. This returns a new data frame:
 
 ```{r eval=FALSE}
-tg_mod <- ToothGrowth %>%
+ToothGrowth %>%
   rename(length = len)
 ```
 
@@ -1135,10 +1132,7 @@ Other useful functions for generating summary statistics include `min()`, `max()
 The `n()` function gets a count of rows, but if you want to have it *not* count `NA` values from a column, you need to use a different technique. For example, if you want it to ignore any `NA`s in the `HeadWt` column, use `sum(!is.na(Headwt))`.
 
 
-If you want to get a count of rows
-
-
-#### Dealing with NAs {#_dealing_with_literal_na_literal_s}
+#### Dealing with NAs
 
 One potential pitfall is that `NA`s in the data will lead to `NA`s in the output. Let's see what happens if we sprinkle a few `NA`s into `HeadWt`:
 

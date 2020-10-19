@@ -34,22 +34,44 @@ Use `facet_grid()` or `facet_wrap()`, and specify the variables on which to spli
 
 With `facet_grid()`, you can specify a variable to split the data into vertical subpanels, and another variable to split it into horizontal subpanels (Figure \@ref(fig:FIG-FACET-FACET-GRID)):
 
-```{r FIG-FACET-FACET-GRID, fig.cap="Faceting horizontally by drv (top); Faceting vertically by cyl (middle); Faceting in both directions, with both variables (bottom)", fig.width=6, fig.height=4}
+```{r eval=FALSE}
 # Create the base plot
 mpg_plot <- ggplot(mpg, aes(x = displ, y = hwy)) +
   geom_point()
-
-# Faceted by drv, in vertically arranged subpanels
-mpg_plot +
-  facet_grid(drv ~ .)
 
 # Faceted by cyl, in horizontally arranged subpanels
 mpg_plot +
   facet_grid(. ~ cyl)
 
+# Faceted by drv, in vertically arranged subpanels
+mpg_plot +
+  facet_grid(drv ~ .)
+
 # Split by drv (vertical) and cyl (horizontal)
 mpg_plot +
   facet_grid(drv ~ cyl)
+```
+
+```{r FIG-FACET-FACET-GRID, echo=FALSE, fig.cap="Faceting horizontally by cyl (top); faceting vertically by dev (left); faceting in both directions, with both variables (bottom right)", fig.width=8, fig.height=6}
+
+# Put together the above plots with patchwork
+mpg_plot <- ggplot(mpg, aes(x = displ, y = hwy)) +
+  geom_point()
+
+p1 <- mpg_plot +
+  facet_grid(. ~ cyl)
+
+p2 <- mpg_plot +
+  facet_grid(drv ~ .)
+
+p3 <- mpg_plot +
+  facet_grid(drv ~ cyl)
+
+library(patchwork)
+plot_spacer() + plot_spacer() + p1 +
+plot_spacer() + plot_spacer() + plot_spacer() +
+p2            + plot_spacer() + p3 +
+plot_layout(heights = c(12, 1, 40), widths = c(10, 1, 50))
 ```
 
 With `facet_wrap()`, the subplots are laid out horizontally and wrap around, like words on a page, as in Figure \@ref(fig:FIG-FACET-FACET-WRAP):

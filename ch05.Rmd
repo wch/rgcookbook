@@ -440,10 +440,7 @@ diamonds_sp +
 
 diamonds_sp +
   stat_binhex() +
-  scale_fill_gradient(
-    low = "lightblue", high = "red", limits = c(0, 6000),
-    breaks = c(0, 250, 500, 1000, 2000, 4000, 6000)
-  )
+  scale_fill_gradient(low = "lightblue", high = "red", limits = c(0, 5000))
 ```
 
 For both of these methods, if you manually specify the range and there is a bin that falls outside that range because it has too many or too few points, that bin will show up as grey rather than the color at the high or low end of the range, as seen in the graph on the right in Figure \@ref(fig:FIG-SCATTER-OVERPLOT-BINHEX).
@@ -1188,7 +1185,7 @@ cdat_sp +
 
 The example here is a scatter plot, but that is not the only way to use balloon plots. It may also be useful to use balloon plots to represent values on a grid, where the x- and y-axes are categorical, as in Figure \@ref(fig:FIG-SCATTER-BALLOON-CAT):
 
-```{r FIG-SCATTER-BALLOON-CAT, fig.show="hold", fig.cap="Balloon plot with categorical axes and text labels. Qith guide points to help position text (left); Without guide points (right)", fig.width=4.5, fig.height=4.5}
+```{r FIG-SCATTER-BALLOON-CAT, fig.show="hold", fig.cap="Balloon plot with categorical axes and text labels (left); With guide points to help position text (right)", fig.width=4.5, fig.height=4.5}
 # Create a data frame that adds up counts for males and females
 hec <- HairEyeColor %>%
   # Convert to long format
@@ -1253,9 +1250,8 @@ c2009
 To make the scatter plot matrix (Figure \@ref(fig:FIG-SCATTER-SPLOM)), we'll use all of the variables except for `Name`, since making a scatter plot matrix using the names of the countries wouldn't make sense and  would produce strange-looking results:
 
 ```{r FIG-SCATTER-SPLOM, fig.cap="A scatter plot matrix", fig.width=7, fig.height=7}
-c2009 %>%
-  select(-Name) %>%
-  pairs()
+c2009_num <- select(c2009, -Name)
+pairs(c2009_num)
 ```
 
 ### Discussion
@@ -1298,13 +1294,12 @@ Now that we've defined these functions we can use them for our scatter plot matr
 We'll also throw in one more thing: `panel.smooth` for the lower panels, which makes a scatter plot and adds a LOWESS smoothed line, as shown in Figure \@ref(fig:FIG-SCATTER-SPLOM-PANELS). (LOWESS is slightly different from LOESS, which we saw in Recipe \@ref(RECIPE-SCATTER-FITLINES), but the differences aren't important for this sort of rough exploratory visualization):
 
 ```{r FIG-SCATTER-SPLOM-PANELS, fig.cap="Scatter plot with correlations in the upper triangle, smoothing lines in the lower triangle, and histograms on the diagonal", fig.width=7, fig.height=7}
-c2009 %>%
-  select(-Name) %>%
-  pairs(
-    upper.panel = panel.cor,
-    diag.panel  = panel.hist,
-    lower.panel = panel.smooth
-  )
+pairs(
+  c2009_num,
+  upper.panel = panel.cor,
+  diag.panel  = panel.hist,
+  lower.panel = panel.smooth
+)
 ```
 
 It may be more desirable to use linear regression lines instead of LOWESS lines. The `panel.lm()` function will do the trick (unlike the previous panel functions, this one isn't in the pairs help page):
@@ -1322,14 +1317,13 @@ This time the default line color is black instead of red, though you can change 
 We'll also use small points in the visualization, so that we can distinguish them a bit better (Figure \@ref(fig:FIG-SCATTER-SPLOM-PANELS2)). This is done by setting `pch = "."`:
 
 ```{r FIG-SCATTER-SPLOM-PANELS2, fig.cap="Scatter plot matrix with smaller points and linear fit lines", fig.width=7, fig.height=7}
-c2009 %>%
-  select(-Name) %>%
-  pairs(
-    upper.panel = panel.cor,
-    diag.panel  = panel.hist,
-    lower.panel = panel.smooth,
-    pch = "."
-  )
+pairs(
+  c2009_num,
+  upper.panel = panel.cor,
+  diag.panel  = panel.hist,
+  lower.panel = panel.smooth,
+  pch = "."
+)
 ```
 
 The size of the points can also be controlled using the `cex` parameter. The default value for `cex` is 1; make it smaller for smaller points and larger for larger points. Values below .5 might not render properly with PDF output.

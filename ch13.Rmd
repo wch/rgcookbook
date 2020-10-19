@@ -226,7 +226,7 @@ dlimit(-2:4)
 
 We can use `limitRange()` to create a function that is passed to `stat_function()`:
 
-```{r}
+```{r eval=FALSE}
 p +
   stat_function(fun = dnorm) +
   stat_function(fun = limitRange(dnorm, 0, 2), geom = "area", fill = "blue",
@@ -1146,8 +1146,12 @@ See `?mosaicplot` for another function that can create mosaic plots.
 
 P.J. Bickel, E.A. Hammel, and J.W. O'Connell, "Sex Bias in Graduate Admissions: Data from Berkeley," *Science* 187 (1975): 398–404.
 
+Creating a Pie Chart {#RECIPE-MISCGRAPH-PIE}
+--------------------
 
-make a pie chart.
+### Problem
+
+You want to make a pie chart.
 
 ### Solution
 
