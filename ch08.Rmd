@@ -1014,7 +1014,7 @@ The first problem is that the data values (ranging from about 1000 to 2100) are 
 # With coord_polar and y (r) limits going to zero
 mdeaths_plot +
   coord_polar() +
-  ylim(0, max(mdeaths_mod$deaths))
+  ylim(0, NA)
 ```
 
 ```{r FIG-AXES-POLAR-CONTINUOUS, ref.label=c("FIG-AXES-POLAR-CONTINUOUS-1", "FIG-AXES-POLAR-CONTINUOUS-2"), echo=FALSE, fig.show="hold", results="hide", fig.cap="Polar plot with line (notice the data range of the radius) (left); With the radius representing a data range starting from zero (right)", fig.width=3.5, fig.height=3.5}
@@ -1041,7 +1041,7 @@ mdeaths_new <- rbind(mdeaths_x, mdeaths_mod)
 mdeaths_plot %+%
   mdeaths_new +
   coord_polar() +
-  ylim(0, max(mdeaths_mod$deaths))
+  ylim(0, NA)
 ```
 
 ```{r FIG-AXES-POLAR-CONTINUOUS2, ref.label=c("FIG-AXES-POLAR-CONTINUOUS2-1", "FIG-AXES-POLAR-CONTINUOUS2-2"), echo=FALSE, fig.show="hold", fig.cap="Polar plot with theta representing x values from 0 to 12 (left); The gap is filled in by adding a dummy data point for month 0 (right)", fig.width=3.5, fig.height=3.5, message=FALSE}
