@@ -169,7 +169,7 @@ ggsave("myplot.pdf", width = 4, height = 4, useDingbats = FALSE)
 
 > **Note**
 >
-> Inkscape might have some issues with fonts as well. You may have noticed that the fonts in Figure \@ref(fig:FIG-OUTPUT-EDIT-VECTOR-DINGBATS) don't look quite right. This is because Inkscape (version 0.48) couldn't find Helvetica, and substituted the font Bitstream Vera Sans instead. A workaround is to copy the Helvetica font file to your personal font library. For example, on Mac OS X, run `cp System/Library/Fonts/Helvetica.dfont ~/Library/Fonts/` from a Terminal window to do this, then, when it says there is a font conflict, click "Ignore Conflict." After this, Inkscape should properly display the Helvetica font.
+> Older versions of Inkscape might have some issues with fonts as well. You may have noticed that the fonts in Figure \@ref(fig:FIG-OUTPUT-EDIT-VECTOR-DINGBATS) don't look quite right. This is because Inkscape (version 0.48) couldn't find Helvetica, and substituted the font Bitstream Vera Sans instead. A workaround is to copy the Helvetica font file to your personal font library. For example, on Mac OS X, run `cp System/Library/Fonts/Helvetica.dfont ~/Library/Fonts/` from a Terminal window to do this, then, when it says there is a font conflict, click "Ignore Conflict." After this, Inkscape should properly display the Helvetica font.
 
 
 Outputting to Bitmap (PNG/TIFF) Files {#RECIPE-OUTPUT-BITMAP}
