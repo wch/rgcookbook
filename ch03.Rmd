@@ -286,12 +286,12 @@ ggplot(climate_sub, aes(x = Year, y = Anomaly10y, fill = pos)) +
 
 There are a few problems with the first attempt. First, the colors are probably the reverse of what we want: usually, blue means cold and red means hot. Second, the legend is redundant and distracting.
 
-We can change the colors with `scale_fill_manual()` and remove the legend with `guide = FALSE`, as shown in Figure \@ref(fig:FIG-BAR-GRAPH-COLOR-NEG2). We'll also add a thin black outline around each of the bars by setting `colour` and specifying `size`, which is the thickness of the outline (in millimeters):
+We can change the colors with `scale_fill_manual()` and remove the legend with `guide = "none"`, as shown in Figure \@ref(fig:FIG-BAR-GRAPH-COLOR-NEG2). We'll also add a thin black outline around each of the bars by setting `colour` and specifying `size`, which is the thickness of the outline (in millimeters):
 
 ```{r FIG-BAR-GRAPH-COLOR-NEG2, fig.cap="Graph with customized colors and no legend", fig.width=10, fig.height=2.5, out.width="100%"}
 ggplot(climate_sub, aes(x = Year, y = Anomaly10y, fill = pos)) +
   geom_col(position = "identity", colour = "black", size = 0.25) +
-  scale_fill_manual(values = c("#CCEEFF", "#FFDDDD"), guide = FALSE)
+  scale_fill_manual(values = c("#CCEEFF", "#FFDDDD"), guide = "none")
 ```
 
 ### See Also
@@ -756,7 +756,7 @@ Another way to separate the two groups is to use facets, as shown in Figure \@re
 ggplot(tophit, aes(x = avg, y = name)) +
   geom_segment(aes(yend = name), xend = 0, colour = "grey50") +
   geom_point(size = 3, aes(colour = lg)) +
-  scale_colour_brewer(palette = "Set1", limits = c("NL", "AL"), guide = FALSE) +
+  scale_colour_brewer(palette = "Set1", limits = c("NL", "AL"), guide = "none") +
   theme_bw() +
   theme(panel.grid.major.y = element_blank()) +
   facet_grid(lg ~ ., scales = "free_y", space = "free_y")

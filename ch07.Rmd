@@ -291,7 +291,7 @@ Then we'll plot this data with specified colors, and hiding the legend (Figure \
 ```{r FIG-ANNOTATE-HIGHLIGHT, fig.cap="Highlighting one item", fig.width=4, fig.height=4}
 ggplot(pg_mod, aes(x = group, y = weight, fill = hl)) +
   geom_boxplot() +
-  scale_fill_manual(values = c("grey85", "#FFDDCC"), guide = FALSE)
+  scale_fill_manual(values = c("grey85", "#FFDDCC"), guide = "none")
 ```
 
 ### Discussion
@@ -301,7 +301,7 @@ If you have a small number of items, as in this example, instead of creating a n
 ```{r eval=FALSE}
 ggplot(PlantGrowth, aes(x = group, y = weight, fill = group)) +
   geom_boxplot() +
-  scale_fill_manual(values = c("grey85", "grey85", "#FFDDCC"), guide = FALSE)
+  scale_fill_manual(values = c("grey85", "grey85", "#FFDDCC"), guide = "none")
 ```
 
 ### See Also

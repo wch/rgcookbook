@@ -509,6 +509,6 @@ ggplot(cbi, aes(x = Year, y = Anomaly10y)) +
   geom_area(aes(fill = valence), alpha = .4) +
   geom_line() +
   geom_hline(yintercept = 0) +
-  scale_fill_manual(values = c("#CCEEFF", "#FFDDDD"), guide = FALSE) +
+  scale_fill_manual(values = c("#CCEEFF", "#FFDDDD"), guide = "none") +
   scale_x_continuous(expand = c(0, 0))
 ```
