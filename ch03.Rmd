@@ -633,7 +633,7 @@ The result is shown in Figure \@ref(fig:FIG-BAR-LABEL-STACKED).
 
 When using labels, changes to the stacking order are best done by modifying the order of levels in the factor (see Recipe \@ref(RECIPE-DATAPREP-FACTOR-REORDER)) before taking the cumulative sum. The other method of changing stacking order, by specifying breaks in a scale, won't work properly, because the order of the cumulative sum won't be the same as the stacking order.
 
-To put the labels in the middle of each bar (Figure \@ref(fig:FIG-BAR-LABEL-STACKED-MIDDLE)), there must be an adjustment to the cumulative sum, and the *y* offset in `geom_bar()` can be removed:
+To put the labels in the middle of each bar (Figure \@ref(fig:FIG-BAR-LABEL-STACKED-MIDDLE)), there must be an adjustment to the cumulative sum, and the *y* offset in `geom_text()` can be removed:
 
 ```{r FIG-BAR-LABEL-STACKED-MIDDLE, fig.cap="Labels in the middle of stacked bars", fig.height=3.5}
 ce <- cabbage_exp %>%
