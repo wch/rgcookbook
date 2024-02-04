@@ -711,7 +711,7 @@ hw_plot +
   theme_bw() +
   theme(
     panel.border = element_blank(),
-    axis.line = element_line(colour = "black", size = 4)
+    axis.line = element_line(colour = "black", linewidth = 4)
   )
 
 # Full overlap
@@ -719,7 +719,7 @@ hw_plot +
   theme_bw() +
   theme(
     panel.border = element_blank(),
-    axis.line = element_line(colour = "black", size = 4, lineend = "square")
+    axis.line = element_line(colour = "black", linewidth = 4, lineend = "square")
   )
 ```
 
@@ -786,7 +786,7 @@ animals_plot +
   scale_y_log10(breaks = 10^(0:3))
 ```
 
-To instead use exponential notation for the break labels (Figure \@ref(fig:FIG-AXES-LOG-BREAKS), right), use the trans_format() function, from the scales package:
+To instead use exponential notation for the break labels (Figure \@ref(fig:FIG-AXES-LOG-BREAKS), right), use the `trans_format()` function, from the scales package:
 
 ```{r FIG-AXES-LOG-BREAKS-2, eval=FALSE}
 library(scales)

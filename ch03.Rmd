@@ -286,11 +286,11 @@ ggplot(climate_sub, aes(x = Year, y = Anomaly10y, fill = pos)) +
 
 There are a few problems with the first attempt. First, the colors are probably the reverse of what we want: usually, blue means cold and red means hot. Second, the legend is redundant and distracting.
 
-We can change the colors with `scale_fill_manual()` and remove the legend with `guide = FALSE`, as shown in Figure \@ref(fig:FIG-BAR-GRAPH-COLOR-NEG2). We'll also add a thin black outline around each of the bars by setting `colour` and specifying `size`, which is the thickness of the outline (in millimeters):
+We can change the colors with `scale_fill_manual()` and remove the legend with `guide = FALSE`, as shown in Figure \@ref(fig:FIG-BAR-GRAPH-COLOR-NEG2). We'll also add a thin black outline around each of the bars by setting `colour` and specifying `linewidth`, which is the thickness of the outline (in millimeters):
 
 ```{r FIG-BAR-GRAPH-COLOR-NEG2, fig.cap="Graph with customized colors and no legend", fig.width=10, fig.height=2.5, out.width="100%"}
 ggplot(climate_sub, aes(x = Year, y = Anomaly10y, fill = pos)) +
-  geom_col(position = "identity", colour = "black", size = 0.25) +
+  geom_col(position = "identity", colour = "black", linewidth = 0.25) +
   scale_fill_manual(values = c("#CCEEFF", "#FFDDDD"), guide = FALSE)
 ```
 
@@ -569,10 +569,10 @@ Another common scenario is to add labels for a bar graph of *counts* instead of 
 ```{r FIG-BAR-GRAPH-COUNT-LABEL, fig.cap="Bar graph of counts with labels under the tops of bars", fig.width=4, fig.height=3.5}
 ggplot(mtcars, aes(x = factor(cyl))) +
   geom_bar() +
-  geom_text(aes(label = ..count..), stat = "count", vjust = 1.5, colour = "white")
+  geom_text(aes(label = after_stat(count)), stat = "count", vjust = 1.5, colour = "white")
 ```
 
-We needed to tell `geom_text()` to use the `"count"` statistic to compute the number of rows for each x value, and then, to use those computed counts as the labels, we told it to use the aesthetic mapping `aes(label = ..count..)`.
+We needed to tell `geom_text()` to use the `"count"` statistic to compute the number of rows for each x value, and then, to use those computed counts as the labels, we told it to use the aesthetic mapping `aes(after_stat(count))`.
 
 
 ### Discussion

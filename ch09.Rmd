@@ -332,9 +332,9 @@ hw_plot <- ggplot(heightweight, aes(x = ageYear, y = heightIn, colour = sex)) +
 hw_plot +
   theme(
     panel.grid.major = element_line(colour = "red"),
-    panel.grid.minor = element_line(colour = "red", linetype = "dashed", size = 0.2),
+    panel.grid.minor = element_line(colour = "red", linetype = "dashed", linewidth = 0.2),
     panel.background = element_rect(fill = "lightblue"),
-    panel.border = element_rect(colour = "blue", fill = NA, size = 2)
+    panel.border = element_rect(colour = "blue", fill = NA, linewidth = 2)
   )
 
 # Options for the legend
