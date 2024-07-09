@@ -604,14 +604,14 @@ ggplot(cabbage_exp, aes(x = Date, y = Weight, fill = Cultivar)) +
   )
 ```
 
-Putting labels on stacked bar graphs requires finding the cumulative sum for each stack. To do this, first make sure the data is sorted properly -- if it isn't, the cumulative sum might be calculated in the wrong order. We'll use the `arrange()` function from the dplyr package. Note that we have to use the `rev()` function to reverse the order of `Cultivar`:
+Putting labels on stacked bar graphs requires finding the cumulative sum for each stack. To do this, first make sure the data is sorted properly -- if it isn't, the cumulative sum might be calculated in the wrong order. We'll use the `arrange()` function from the dplyr package. Note that we have to use the `desc()` function from the dplyr package to reverse the order of `Cultivar`:
 
 ```{r}
 library(dplyr)
 
 # Sort by the Date and Cultivar columns
 ce <- cabbage_exp %>%
-  arrange(Date, rev(Cultivar))
+  arrange(Date, desc(Cultivar))
 ```
 
 Once we make sure the data is sorted properly, we'll use `group_by()` to chunk it into groups by `Date`, then calculate a cumulative sum of `Weight` within each chunk:
@@ -637,7 +637,7 @@ To put the labels in the middle of each bar (Figure \@ref(fig:FIG-BAR-LABEL-STAC
 
 ```{r FIG-BAR-LABEL-STACKED-MIDDLE, fig.cap="Labels in the middle of stacked bars", fig.height=3.5}
 ce <- cabbage_exp %>%
-  arrange(Date, rev(Cultivar))
+  arrange(Date, desc(Cultivar))
 
 # Calculate y position, placing it in the middle
 ce <- ce %>%
