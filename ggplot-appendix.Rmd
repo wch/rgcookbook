@@ -187,7 +187,7 @@ ggplot(dat, aes(x = xval, y = yval)) +
   geom_point()
 ```
 
-If you're going to reuse some of these components, you canstore them in variables. We can save the ggplot object in p, and then add `geom_point()` to it. This has the same effect as the preceding code:
+If you're going to reuse some of these components, you can store them in variables. We can save the ggplot object in p, and then add `geom_point()` to it. This has the same effect as the preceding code:
 
 ```{r FIG-GGPLOT-SCATTER, fig.cap="A basic scatter plot"}
 p <- ggplot(dat, aes(x = xval, y = yval))
