@@ -173,7 +173,7 @@ barplot(table(mtcars$cyl))
 
 Sometimes "bar graph" refers to a graph where the bars represent the *count* of cases in each category. This is similar to a histogram, but with a discrete instead of continuous x-axis. To generate the count of each unique value in a vector, use the `table()` function:
 
-````{r}
+```{r}
 # There are 11 cases of the value 4, 7 cases of 6, and 14 cases of 8
 table(mtcars$cyl)
 ```

@@ -364,7 +364,7 @@ If there are additional arguments for the function calls, they will be shifted t
 filter(morley, Expt == 1)
 
 morley %>% filter(Expt == 1)
-````
+```
 
 The pipe operator is actually from the magrittr package, but dplyr imports it and makes it available when you call `library(dplyr)`
 
