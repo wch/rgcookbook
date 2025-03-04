@@ -30,7 +30,7 @@ jobs:
       - uses: r-lib/actions/setup-r-dependencies@v2
 
       - name: Cache bookdown results
-        uses: actions/cache@v1
+        uses: actions/cache@v4
         with:
           path: _bookdown_files
           key: bookdown-2-${{ hashFiles('**/*Rmd') }}
